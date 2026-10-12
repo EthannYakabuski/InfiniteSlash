@@ -3,6 +3,7 @@ extends Node2D
 
 const WorldScript = preload("res://scripts/world.gd")
 const UIScript = preload("res://scripts/game_ui.gd")
+const ClassProfiles = preload("res://scripts/class_profiles.gd")
 const MAX_ENEMIES = 100
 const MAX_BULLETS = 240
 const MAX_DROPS = 60
@@ -26,6 +27,7 @@ var shield_fallback: Texture2D = preload("res://Assets/MobileControls/Sprites/Ic
 var arena = Vector2(540, 960)
 var state = "launch"
 var style = "sword"
+var class_stats: Dictionary = ClassProfiles.PROFILES.sword
 var daily = false
 var challenge_date = ""
 var run_seed: int = 0
@@ -35,12 +37,12 @@ var visual_rng = RandomNumberGenerator.new()
 var player_pos = Vector2(270, 720)
 var move_direction = Vector2.ZERO
 var facing = Vector2.UP
-var health = 100.0
-var max_health = 100.0
-var damage = 20.0
-var attack_interval = 0.46
-var attack_range = 84.0
-var move_speed = 265.0
+var health = float(ClassProfiles.PROFILES.sword.health)
+var max_health = float(ClassProfiles.PROFILES.sword.health)
+var damage = float(ClassProfiles.PROFILES.sword.damage)
+var attack_interval = float(ClassProfiles.PROFILES.sword.attack_interval)
+var attack_range = float(ClassProfiles.PROFILES.sword.attack_range)
+var move_speed = float(ClassProfiles.PROFILES.sword.move_speed)
 var elapsed = 0.0
 var visual_time = 0.0
 var score: int = 0
@@ -67,8 +69,8 @@ var hurt_timer = 0.0
 var dash_timer = 0.0
 var dash_cooldown = 0.0
 var dash_direction = Vector2.UP
-var guard_reserve = 100.0
-var guard_capacity = 100.0
+var guard_reserve = float(ClassProfiles.PROFILES.sword.guard_capacity)
+var guard_capacity = float(ClassProfiles.PROFILES.sword.guard_capacity)
 var guarding = false
 var parry_timer = 0.0
 var parry_rearm = 0.0
@@ -183,6 +185,7 @@ func _show_launch() -> void:
 
 func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	style = "shield" if choice == "shield" else "sword"
+	class_stats = ClassProfiles.get_profile(style)
 	daily = daily_challenge
 	challenge_date = Time.get_date_string_from_system(true) if daily else ""
 	run_seed = int(challenge_date.replace("-", "")) * 7919 if daily else int(Time.get_ticks_usec())
@@ -193,13 +196,13 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	bullets.clear()
 	drops.clear()
 	effects.clear()
-	max_health = 125.0 if style == "shield" else 100.0
+	max_health = float(class_stats.health)
 	health = max_health
-	damage = 16.0 if style == "shield" else 22.0
-	attack_interval = 0.51 if style == "shield" else 0.46
-	attack_range = 84.0
-	move_speed = 245.0 if style == "shield" else 265.0
-	guard_capacity = 130.0 if style == "shield" else 100.0
+	damage = float(class_stats.damage)
+	attack_interval = float(class_stats.attack_interval)
+	attack_range = float(class_stats.attack_range)
+	move_speed = float(class_stats.move_speed)
+	guard_capacity = float(class_stats.guard_capacity)
 	guard_reserve = guard_capacity
 	player_pos = Vector2(arena.x * 0.5, arena.y * 0.72)
 	facing = Vector2.UP
@@ -326,15 +329,15 @@ func _update_player(delta: float) -> void:
 		move_direction = (target - player_pos).limit_length(60) / 60.0
 	var moving = move_direction.length_squared() > 0.01
 	if was_moving and not moving and parry_rearm <= 0 and guard_reserve > 4:
-		parry_timer = 0.23 if style == "shield" else 0.16
+		parry_timer = float(class_stats.parry_window)
 		parry_rearm = 0.65
 	was_moving = moving
 	guarding = not moving and dash_timer <= 0 and guard_reserve > 0
 	if guarding:
-		guard_reserve = maxf(0, guard_reserve - 28.0 * delta)
+		guard_reserve = maxf(0, guard_reserve - float(class_stats.guard_drain) * delta)
 		if guard_reserve <= 0: guarding = false
 	elif moving:
-		guard_reserve = minf(guard_capacity, guard_reserve + 20.0 * delta)
+		guard_reserve = minf(guard_capacity, guard_reserve + float(class_stats.guard_regen) * delta)
 	if moving:
 		facing = move_direction.normalized()
 	if dash_timer > 0:
@@ -502,7 +505,8 @@ func _update_bullets(delta: float) -> void:
 		var distance = bullet.pos.distance_to(player_pos)
 		if guarding and guard_reserve > 0 and distance < 34 + bullet.radius:
 			var perfect = parry_timer > 0
-			guard_reserve = clampf(guard_reserve + (4 if perfect else -8), 0, guard_capacity)
+			guard_reserve = clampf(guard_reserve + (4.0 if perfect else -float(class_stats.block_cost)), 0, guard_capacity)
+			if guard_reserve <= 0: guarding = false
 			if perfect: score += 4
 			_burst(bullet.pos, Color("b0edf1") if perfect else Color("ffd382"), 3)
 			AudioManager.play_sound("block")
@@ -524,7 +528,7 @@ func _update_weapon(delta: float) -> void:
 			best_distance = distance
 	var direction = (nearest.pos - player_pos).normalized() if nearest != null else facing
 	perform_slash(direction)
-	swing_timer = (0.83 if guarding else attack_interval) * (0.67 if buffs.has("haste") else 1.0)
+	swing_timer = (maxf(attack_interval, float(class_stats.guard_attack_interval)) if guarding else attack_interval) * (0.67 if buffs.has("haste") else 1.0)
 
 func perform_slash(direction: Vector2) -> void:
 	slash_serial += 1
@@ -610,7 +614,7 @@ func damage_player(amount: float, direction: Vector2 = Vector2.ZERO) -> bool:
 		_burst(player_pos, Color("89e6ff"), 7)
 		AudioManager.play_sound("block")
 		return false
-	var received = amount * (0.35 if style == "shield" else 0.65) if guarding else amount
+	var received = amount * float(class_stats.guard_damage_multiplier) if guarding else amount
 	health = maxf(0, health - received)
 	hurt_timer = 0.7
 	combo = 0
@@ -676,20 +680,20 @@ func level_up() -> void:
 	var upgrade = ""
 	match (level - 2) % 5:
 		0:
-			damage = minf(130, damage * 1.14)
+			damage = minf(float(class_stats.damage_cap), damage * 1.14)
 			upgrade = "SHARPER STEEL"
 		1:
-			attack_interval = maxf(0.27, attack_interval * 0.94)
+			attack_interval = maxf(float(class_stats.attack_floor), attack_interval * 0.94)
 			upgrade = "QUICKER SLICES"
 		2:
-			attack_range = minf(116, attack_range + 5)
+			attack_range = minf(float(class_stats.range_cap), attack_range + 5)
 			upgrade = "LONGER REACH"
 		3:
-			max_health = minf(220, max_health + 8)
+			max_health = minf(float(class_stats.health_cap), max_health + 8)
 			health = minf(max_health, health + 18)
 			upgrade = "HEART OF A KNIGHT"
 		4:
-			guard_capacity = minf(190, guard_capacity + 8)
+			guard_capacity = minf(float(class_stats.guard_cap), guard_capacity + 8)
 			guard_reserve = minf(guard_capacity, guard_reserve + 30)
 			upgrade = "STRONGER GUARD"
 	_burst(player_pos, Color("ffd574"), 12)
@@ -722,7 +726,7 @@ func _boss():
 
 func _update_hud() -> void:
 	var boss = _boss()
-	hud.update_hud({"health": health, "max_health": max_health, "score": score, "best": int(SaveData.profile.get("best_score", 0)), "level": level, "xp": xp, "xp_goal": xp_goal, "combo": combo, "multiplier": multiplier(), "dash_ready": dash_cooldown <= 0, "guard_ratio": guard_reserve / guard_capacity, "boss_name": BOSS_TITLES[(maxi(1, boss_number) - 1) % BOSS_TITLES.size()] if boss != null else "", "boss_hp": float(boss.hp) if boss != null else 0.0, "boss_max": float(boss.max_hp) if boss != null else 1.0, "elapsed": elapsed, "buffs": buffs, "ward_hits": ward_hits, "combo_ratio": combo_timer / 2.8})
+	hud.update_hud({"style": style, "health": health, "max_health": max_health, "score": score, "best": int(SaveData.profile.get("best_score", 0)), "level": level, "xp": xp, "xp_goal": xp_goal, "combo": combo, "multiplier": multiplier(), "dash_ready": dash_cooldown <= 0, "guard_ratio": guard_reserve / guard_capacity, "boss_name": BOSS_TITLES[(maxi(1, boss_number) - 1) % BOSS_TITLES.size()] if boss != null else "", "boss_hp": float(boss.hp) if boss != null else 0.0, "boss_max": float(boss.max_hp) if boss != null else 1.0, "elapsed": elapsed, "buffs": buffs, "ward_hits": ward_hits, "combo_ratio": combo_timer / 2.8})
 
 func pause_run() -> void:
 	if state != "running": return
@@ -915,16 +919,18 @@ func serialize_run() -> Dictionary:
 		if entity.alive: saved_enemies.append(_encode_entity(entity))
 	for entity in bullets: saved_bullets.append(_encode_entity(entity))
 	for entity in drops: saved_drops.append(_encode_entity(entity))
-	return {"schema": 1, "style": style, "daily": daily, "challenge_date": challenge_date, "seed": str(run_seed), "rng_state": str(rng.state), "loot_state": str(loot_rng.state), "player": [player_pos.x, player_pos.y], "elapsed": elapsed, "score": score, "kills": kills, "bosses": bosses, "powerups": powerups, "combo": combo, "best_combo": best_combo, "combo_timer": combo_timer, "level": level, "xp": xp, "xp_goal": xp_goal, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "ward_hits": ward_hits, "buffs": buffs.duplicate(true), "next_boss": next_boss, "boss_number": boss_number, "spawn_timer": spawn_timer, "relief_until": relief_until, "dash_cooldown": dash_cooldown, "enemies": saved_enemies, "bullets": saved_bullets, "drops": saved_drops}
+	return {"schema": 1, "balance_version": ClassProfiles.BALANCE_VERSION, "style": style, "daily": daily, "challenge_date": challenge_date, "seed": str(run_seed), "rng_state": str(rng.state), "loot_state": str(loot_rng.state), "player": [player_pos.x, player_pos.y], "elapsed": elapsed, "score": score, "kills": kills, "bosses": bosses, "powerups": powerups, "combo": combo, "best_combo": best_combo, "combo_timer": combo_timer, "level": level, "xp": xp, "xp_goal": xp_goal, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "ward_hits": ward_hits, "buffs": buffs.duplicate(true), "next_boss": next_boss, "boss_number": boss_number, "spawn_timer": spawn_timer, "relief_until": relief_until, "dash_cooldown": dash_cooldown, "enemies": saved_enemies, "bullets": saved_bullets, "drops": saved_drops}
 
 func restore_run(data: Dictionary) -> bool:
 	if not _finite_number(data.get("schema")) or int(data.schema) != 1 or not data.has_all(["player", "health", "elapsed", "score", "style"]): return false
+	if data.has("balance_version") and (not _finite_number(data.balance_version) or int(data.balance_version) < 1 or int(data.balance_version) > ClassProfiles.BALANCE_VERSION): return false
 	if not _numeric_fields(data, ["health", "elapsed", "score", "kills", "bosses", "powerups", "combo", "best_combo", "combo_timer", "level", "xp", "xp_goal", "max_health", "damage", "attack_interval", "attack_range", "guard_capacity", "guard_reserve", "ward_hits", "next_boss", "boss_number", "spawn_timer", "relief_until", "dash_cooldown"]): return false
 	if not data.style is String or (data.has("daily") and not data.daily is bool): return false
 	if not data.player is Array or data.player.size() != 2 or not _finite_number(data.player[0]) or not _finite_number(data.player[1]) or float(data.health) <= 0: return false
 	var pos = Vector2(float(data.player[0]), float(data.player[1]))
 	if not pos.is_finite(): return false
 	style = "shield" if str(data.style) == "shield" else "sword"
+	class_stats = ClassProfiles.get_profile(style)
 	daily = bool(data.get("daily", false))
 	challenge_date = str(data.get("challenge_date", ""))
 	run_seed = int(str(data.get("seed", "1")))
@@ -944,14 +950,28 @@ func restore_run(data: Dictionary) -> bool:
 	level = clampi(int(data.get("level", 1)), 1, 100)
 	xp_goal = clampi(int(data.get("xp_goal", 8)), 1, 10000)
 	xp = clampi(int(data.get("xp", 0)), 0, xp_goal - 1)
-	max_health = clampf(float(data.get("max_health", 100)), 1, 220)
+	max_health = clampf(float(data.get("max_health", class_stats.health)), 1, float(class_stats.health_cap))
 	health = clampf(float(data.health), 1, max_health)
-	damage = clampf(float(data.get("damage", 22)), 1, 130)
-	attack_interval = clampf(float(data.get("attack_interval", 0.46)), 0.27, 0.83)
-	attack_range = clampf(float(data.get("attack_range", 84)), 60, 116)
-	guard_capacity = clampf(float(data.get("guard_capacity", 100)), 1, 190)
-	guard_reserve = clampf(float(data.get("guard_reserve", 100)), 0, guard_capacity)
-	move_speed = 245.0 if style == "shield" else 265.0
+	damage = clampf(float(data.get("damage", class_stats.damage)), 1, float(class_stats.damage_cap))
+	attack_interval = clampf(float(data.get("attack_interval", class_stats.attack_interval)), float(class_stats.attack_floor), float(class_stats.attack_interval))
+	attack_range = clampf(float(data.get("attack_range", class_stats.attack_range)), 60, float(class_stats.range_cap))
+	guard_capacity = clampf(float(data.get("guard_capacity", class_stats.guard_capacity)), 1, float(class_stats.guard_cap))
+	guard_reserve = clampf(float(data.get("guard_reserve", class_stats.guard_capacity)), 0, guard_capacity)
+	if int(data.get("balance_version", 1)) < 2:
+		var upgraded: Dictionary = ClassProfiles.at_level(style, level)
+		var health_ratio = clampf(float(data.health) / maxf(1.0, float(data.get("max_health", 125.0 if style == "shield" else 100.0))), 0, 1)
+		var guard_ratio = clampf(float(data.get("guard_reserve", 0)) / maxf(1.0, float(data.get("guard_capacity", 130.0 if style == "shield" else 100.0))), 0, 1)
+		max_health = float(upgraded.health)
+		health = maxf(1.0, max_health * health_ratio)
+		damage = float(upgraded.damage)
+		attack_interval = float(upgraded.attack_interval)
+		attack_range = float(upgraded.attack_range)
+		guard_capacity = float(upgraded.guard_capacity)
+		guard_reserve = guard_capacity * guard_ratio
+	elif int(data.get("balance_version", 1)) == 2 and style == "shield":
+		# Carry the damage-only buff into existing runs, preserving every other stat.
+		damage = clampf(float(data.get("damage", 18.0)) * (24.0 / 18.0), 1, float(class_stats.damage_cap))
+	move_speed = float(class_stats.move_speed)
 	ward_hits = clampi(int(data.get("ward_hits", 0)), 0, 3)
 	buffs.clear()
 	if data.get("buffs") is Dictionary:
@@ -1057,16 +1077,18 @@ func _draw_player() -> void:
 		draw_rect(Rect2(pos - Vector2(13, 10), Vector2(26, 7)), Color("26313e"))
 	if alive:
 		var weapon_angle = slash_angle + PI / 2 + (-1.1 + (0.18 - slash_time) / 0.18 * 2.2 if slash_time > 0 else 0)
+		var blade_rect = Rect2(-21, -63, 42, 74) if style == "sword" else Rect2(-16, -47, 32, 55)
+		var shield_rect = Rect2(-22, -26, 44, 51) if style == "shield" else Rect2(-12, -16, 24, 29)
 		draw_set_transform(pos + Vector2(15, 6), weapon_angle)
 		if hero_texture != null:
 			var cell = Vector2(hero_texture.get_width() / 2.0, hero_texture.get_height() / 3.0)
-			draw_texture_rect_region(hero_texture, Rect2(Vector2(-18, -53), Vector2(36, 62)), Rect2(Vector2(0, cell.y * 2), cell))
-		else: draw_texture_rect(weapon_fallback, Rect2(-16, -45, 32, 45), false, Color("ffe1a4"))
+			draw_texture_rect_region(hero_texture, blade_rect, Rect2(Vector2(0, cell.y * 2), cell))
+		else: draw_texture_rect(weapon_fallback, blade_rect, false, Color("ffe1a4"))
 		draw_set_transform(pos + Vector2(-19, 9))
 		if hero_texture != null:
 			var cell = Vector2(hero_texture.get_width() / 2.0, hero_texture.get_height() / 3.0)
-			draw_texture_rect_region(hero_texture, Rect2(-16, -18, 32, 37), Rect2(Vector2(cell.x, cell.y * 2), cell))
-		else: draw_texture_rect(shield_fallback, Rect2(-14, -15, 28, 30), false, Color("9fdae5"))
+			draw_texture_rect_region(hero_texture, shield_rect, Rect2(Vector2(cell.x, cell.y * 2), cell))
+		else: draw_texture_rect(shield_fallback, shield_rect, false, Color("9fdae5"))
 		draw_set_transform(Vector2.ZERO)
 	if slash_time > 0:
 		var alpha = slash_time / 0.18

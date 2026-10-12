@@ -3,6 +3,7 @@ extends SceneTree
 
 const Interface = preload("res://scripts/game_ui.gd")
 const World = preload("res://scripts/world.gd")
+const ClassProfiles = preload("res://scripts/class_profiles.gd")
 var _failures: Array[String] = []
 var _styles: Array[String] = []
 var _resume_count := 0
@@ -38,22 +39,29 @@ func _run() -> void:
 		await process_frame
 		await process_frame
 		_check_buttons(ui, ["SwordButton", "ShieldButton"])
+		_check_style_cards(ui)
 		_check(ui.find_child("LeaderboardButton", true, false) == null, "Launch has no utility menu")
-		ui.find_child("SwordButton", true, false).pressed.emit()
-		ui.find_child("ShieldButton", true, false).pressed.emit()
+		await _click_button(ui, "SwordButton")
+		await _click_button(ui, "ShieldButton")
 		ui.show_launch(true, 15023)
 		await process_frame
 		await process_frame
 		_check_buttons(ui, ["ResumeButton", "SwordButton", "ShieldButton"])
+		_check_style_cards(ui)
 		ui.find_child("ResumeButton", true, false).pressed.emit()
 		ui.hide_overlay()
 		ui.update_hud({"boss_name": "", "boss_max": 1.0, "boss_hp": 0.0})
 		_check(not ui.find_child("BossHealthBar", true, false).visible, "No boss bar outside a boss fight")
-		ui.update_hud({"health": 64.5, "max_health": 125, "score": 15823, "best": 15900,
+		ui.update_hud({"style": "shield", "health": 64.5, "max_health": 170, "score": 15823, "best": 15900,
 			"level": 7, "xp": 4, "xp_goal": 10, "combo": 25, "multiplier": 3,
 			"dash_ready": false, "guard_ratio": 0.4, "boss_name": "The Tinpot King",
 			"boss_hp": 232, "boss_max": 700, "elapsed": 181, "buffs": {"ward": 3, "haste": 5}})
-		_check(ui.find_child("HealthText", true, false).text == "65 / 125", "Health HUD rounds damage readout")
+		_check(ui.find_child("HealthText", true, false).text == "65 / 170", "Health HUD rounds damage readout")
+		_check(ui.find_child("ClassIcon", true, false).texture == ui.get("_icons")["shield"], "Health HUD identifies the selected Shield class")
+		ui.update_hud({"style": "sword"})
+		_check(ui.find_child("ClassIcon", true, false).texture == ui.get("_icons")["sword"], "Health HUD follows a switch to Sword")
+		ui.update_hud({"style": "shield", "health": 64.5, "max_health": 170, "score": 15823,
+			"combo": 25, "boss_name": "The Tinpot King", "boss_hp": 232, "boss_max": 700})
 		_check(ui.find_child("ScoreLabel", true, false).text == "15,823", "Score HUD formats thousands")
 		_check(ui.find_child("ComboLabel", true, false).text.contains("25 COMBO"), "Combo HUD contract")
 		_check(ui.find_child("BossHealthBar", true, false).visible, "Boss bar appears for an active boss")
@@ -81,6 +89,7 @@ func _run() -> void:
 		await process_frame
 		await process_frame
 		_check_buttons(ui, ["SwordButton", "ShieldButton", "ShareButton"])
+		_check_style_cards(ui)
 		ui.show_achievements({"achievements": {"first_blood": 1739200123, "combo_25": 1739200130}})
 		await process_frame
 		await process_frame
@@ -98,7 +107,7 @@ func _run() -> void:
 	world.queue_free()
 	await process_frame
 	if _failures.is_empty():
-		print("UI_LAYOUT_PASS: portrait 540x960 and expanded540x1110; controls, HUD, local overlays and World contract")
+		print("UI_LAYOUT_PASS: portrait 540x960 and expanded540x1110; class comparison cards, actual one-tap input, HUD, local overlays and World contract")
 		quit(0)
 	else:
 		for failure in _failures:
@@ -127,6 +136,24 @@ func _check_buttons(ui: Node, names: Array) -> void:
 func _check(condition: bool, label: String) -> void:
 	if not condition:
 		_failures.append(label)
+
+
+func _check_style_cards(ui: Node) -> void:
+	var viewport := Rect2(Vector2.ZERO, root.get_visible_rect().size)
+	for style in ["sword", "shield"]:
+		var title: String = style.capitalize()
+		var button: Button = ui.find_child(title + "Button", true, false)
+		var profile: Dictionary = ClassProfiles.PROFILES[style]
+		var stats: Label = ui.find_child(title + "Stats", true, false)
+		var strengths: Label = ui.find_child(title + "Strengths", true, false)
+		var tradeoffs: Label = ui.find_child(title + "Tradeoffs", true, false)
+		_check(stats.text == "%d HP  ·  %d DMG" % [int(profile.health), int(profile.damage)], title + " shows the actual shared starting stats")
+		_check(strengths.text == ("↑ DMG  ↑ SPEED" if style == "sword" else "↑ HP  ↑ GUARD"), title + " clearly shows its strengths")
+		_check(tradeoffs.text == ("↓ HP  ↓ GUARD" if style == "sword" else "↓ DMG  ↓ SPEED"), title + " clearly shows its tradeoffs")
+		for content in [stats, strengths, tradeoffs, ui.find_child(title + "Identity", true, false)]:
+			_check(button.get_global_rect().encloses(content.get_global_rect()), title + " comparison text stays inside its touch card")
+			_check(viewport.encloses(content.get_global_rect()), title + " comparison text stays inside the portrait screen")
+			_check(content.size.x >= content.get_minimum_size().x, title + " comparison text fits without clipping")
 
 
 func _click_button(ui: Node, button_name: String) -> void:

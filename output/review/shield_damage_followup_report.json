@@ -1,0 +1,94 @@
+{
+  "result": "PASS",
+  "evidence_kind": "shield_damage_followup_quick_and_v2_resume",
+  "date": "2026-10-12",
+  "apk": "builds/InfiniteSlash-debug.apk",
+  "sha256": "6f32e6ee556c10c739bbcacc4f4c4c92cc12d20bd72c2b8e0b2770e9e3cf3f84",
+  "bytes": 63263069,
+  "serial": "emulator-5580",
+  "api": 30,
+  "display": [
+    1080,
+    2220
+  ],
+  "renderer": "Android Emulator GLES3 Translator / NVIDIA GT1030 host driver560.94",
+  "acceleration": "WHPX",
+  "last_live_pid": "4214",
+  "screenshots_reviewed": 5,
+  "engine_errors": [],
+  "checks": [
+    {
+      "event": "ui_state_verified",
+      "wall_time": 1791836151.65321,
+      "state": "running",
+      "pid": "2877"
+    },
+    {
+      "event": "ui_state_verified",
+      "wall_time": 1791836153.4022896,
+      "state": "pause",
+      "pid": "2877"
+    },
+    {
+      "event": "fresh_class_verified",
+      "wall_time": 1791836154.416293,
+      "style": "shield",
+      "max_health": 170.0,
+      "damage": 24.0,
+      "attack_interval": 0.6,
+      "attack_range": 80.0,
+      "guard_capacity": 165.0,
+      "balance_version": 3
+    },
+    {
+      "event": "shield_saved_damage_updated",
+      "wall_time": 1791836154.4172907,
+      "old_damage": 18.0,
+      "damage": 24.0,
+      "balance_version": 3,
+      "preserved_stats": {
+        "max_health": 170.0,
+        "attack_interval": 0.6,
+        "attack_range": 80.0,
+        "guard_capacity": 165.0,
+        "style": "shield",
+        "seed": "7228326",
+        "level": 1
+      },
+      "old_elapsed": 3.18333333333333,
+      "elapsed": 4.81666666666666
+    },
+    {
+      "event": "ui_state_verified",
+      "wall_time": 1791836168.5169652,
+      "state": "running",
+      "pid": "4214"
+    },
+    {
+      "event": "fresh_class_verified",
+      "wall_time": 1791836169.3529642,
+      "style": "shield",
+      "max_health": 170.0,
+      "damage": 24.0,
+      "attack_interval": 0.6,
+      "attack_range": 80.0,
+      "guard_capacity": 165.0,
+      "balance_version": 3
+    },
+    {
+      "event": "shield_started",
+      "wall_time": 1791836169.353965,
+      "max_health": 170.0
+    },
+    {
+      "event": "ui_state_verified",
+      "wall_time": 1791836170.7619638,
+      "state": "pause",
+      "pid": "4214"
+    }
+  ],
+  "prior_class_full_suite_report": "output/review/classes_android_report.json",
+  "prior_class_full_suite_sha256": "0e511b1922800bd5553eaad142f3159cbf87f32eda1c6052f4ff89856191f378",
+  "source_delta": "Shield starting damage18 to24 only; balance_version3 migrates v2Shield damage4/3 once while retaining other stats/progress.",
+  "scope": "Focused functional emulator follow-up and five manually reviewed screenshots; prior full12-screen suite is separate evidence. No new desktop FPS or physical phone performance measurement."
+}

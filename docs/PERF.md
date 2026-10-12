@@ -19,6 +19,7 @@ The optimized rendered game sustains approximately **60 FPS on the development d
 | Saturated, before projectile/shadow batching | 24.20 | 46.858 ms | 12.075 ms | 7.783 ms | 1,184 |
 | Saturated, before batching, V-Sync disabled control | 24.46 | 45.178 ms | 11.875 ms | 7.603 ms | 1,191 |
 | Saturated, cached projectile/shadow textures and separate render passes | About 60 | 16.726 ms | 3.014 ms | 2.034 ms | 317 |
+| Saturated, pronounced class balance and class-card/HUD revision | About 60 | 16.740 ms | 2.728 ms | 2.166 ms | 289 |
 
 The ordinary run reached 17 enemies and 16 bullets through its natural first-minute spawn curve. The saturated comparisons reached the full 100-enemy/240-bullet limits. All windows stayed focused throughout measurement. The optimized saturated run's 99th percentile frame time was 16.781 ms; its 95th percentile simulation tick was 1.733 ms. Small average-FPS boundary-counting variation around 60 is retained in the raw report rather than rounded into a stronger claim.
 
@@ -40,4 +41,6 @@ Godot's [processor-mode documentation](https://docs.godotengine.org/en/4.5/class
 
 Run the existing Godot console executable against `tests/benchmark_rendered.gd` without `--headless`, with an absolute workspace `--log-file` and a disposable `APPDATA` directory. Add `-- --test --ordinary --default-processor` for the one-minute ordinary run, `-- --test` for saturation, or `-- --test --no-vsync` for the control. Keep imports, Android emulators and other graphical game instances stopped when collecting comparable measurements.
 
-The separate gameplay suite passed 199 checks, including five continuous simulated minutes at the fixed entity limits. See `QA_FINDINGS.md` and `output/review/game_validation.json` for that functional test evidence.
+The class revision was remeasured with the same saturated method, with no Android emulator or export work running. It remained at approximately 60 FPS with a 16.796 ms 99th-percentile frame and 1.699 ms 95th-percentile simulation step. The class-icon/card fonts add a small amount of cached interface texture memory: approximately 19.95 MiB total textures and 26.30 MiB rendering memory in this run. `output/review/class_rendered_benchmark.json` and `class_rendered_benchmark.log` preserve its measurements; `rendered_benchmark.json` is also the latest class revision result. The earlier optimized report remains in `rendered_benchmark_after_optimization.json`.
+
+The subsequent damage-only Shield buff passed 315 gameplay checks, including class-pressure comparisons, modern/legacy snapshot restoration, damage-only migration of existing Shield runs and five continuous simulated minutes at the fixed entity limits. The rendered class-revision benchmark above predates that one-stat buff; no new rendered FPS measurement is claimed for the follow-up. See `QA_FINDINGS.md` and `output/review/game_validation.json` for current functional evidence.

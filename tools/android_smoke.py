@@ -16,6 +16,17 @@ from pathlib import Path
 from PIL import Image
 
 
+# Deliberate test oracle: fresh choices must use the contrasting class health.
+# Keep this explicit rather than reading the implementation under test.
+STARTING_CLASSES = {
+    "sword": {"max_health": 80, "damage": 32, "attack_interval": .36,
+              "attack_range": 92, "guard_capacity": 65},
+    "shield": {"max_health": 170, "damage": 24, "attack_interval": .60,
+               "attack_range": 80, "guard_capacity": 165},
+}
+CURRENT_BALANCE_VERSION = 3
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--adb", required=True, type=Path)
@@ -25,6 +36,8 @@ def main() -> int:
     parser.add_argument("--layout", type=Path, default=Path("output/review/ui_layouts.json"))
     parser.add_argument("--output", type=Path, default=Path("output/android-test/smoke"))
     parser.add_argument("--quick", action="store_true", help="Recheck latest APK launch, shield choice and Android Back only")
+    parser.add_argument("--verify-shield-resume-buff", action="store_true",
+                        help="Resume the retained version-two Shield18 fixture and verify its damage-only migration")
     args = parser.parse_args()
     if not re.fullmatch(r"emulator-\d+", args.serial):
         parser.error("This automated smoke script is restricted to a named emulator.")
@@ -154,16 +167,76 @@ def main() -> int:
             collect_logs()
             raise RuntimeError("Application stayed on a uniform blank startup screen for45seconds.")
 
+        def verify_fresh_style(expected_style: str) -> dict:
+            active = read_active()
+            expected = STARTING_CLASSES[expected_style]
+            if active.get("style") != expected_style:
+                raise RuntimeError(f"{expected_style.title()} choice started {active.get('style')}.")
+            for key, value in expected.items():
+                actual = active.get(key)
+                if not isinstance(actual, (int, float)) or abs(actual - value) > .0001:
+                    raise RuntimeError(f"Fresh {expected_style} {key} should be {value}, received {actual}.")
+            if active.get("balance_version") != CURRENT_BALANCE_VERSION:
+                raise RuntimeError(f"Fresh class snapshot did not record balance version {CURRENT_BALANCE_VERSION}.")
+            event("fresh_class_verified", style=expected_style, max_health=active["max_health"],
+                  damage=active.get("damage"), attack_interval=active.get("attack_interval"),
+                  attack_range=active.get("attack_range"), guard_capacity=active.get("guard_capacity"),
+                  balance_version=active.get("balance_version"))
+            return active
+
         start_app()
         capture("01_launch")
         # A first install has no recoverable run. Existing profiles may show Resume;
         # the Sword button remains in both layouts, but its position differs.
         has_resume = bool(read_active())
+        legacy = read_active()
+        if args.verify_shield_resume_buff:
+            if not legacy or legacy.get("style") != "shield" or legacy.get("balance_version") != 2 or legacy.get("damage") != 18:
+                raise RuntimeError("Damage-only resume check requires the retained version-two Shield18 run.")
+            tap_button("ResumeButton", "launch", True)
+            tap_button("PauseButton", "")
+            migrated = verify_fresh_style("shield")
+            untouched = ["max_health", "attack_interval", "attack_range", "guard_capacity", "style", "seed", "level"]
+            for key in untouched:
+                if migrated.get(key) != legacy.get(key):
+                    raise RuntimeError(f"Shield damage update changed saved {key}.")
+            if migrated.get("score", 0) < legacy.get("score", 0) or migrated.get("elapsed", 0) < legacy.get("elapsed", 0):
+                raise RuntimeError("Shield damage update restarted run progress.")
+            event("shield_saved_damage_updated", old_damage=legacy["damage"], damage=migrated["damage"],
+                  balance_version=migrated["balance_version"], preserved_stats={key: migrated.get(key) for key in untouched},
+                  old_elapsed=legacy["elapsed"], elapsed=migrated["elapsed"])
+            capture("00_saved_shield_buff_pause")
+            collect_logs()
+            adb("shell", "am", "force-stop", args.package)
+            start_app()
+            capture("00_resume_after_damage_buff")
+            persisted = read_active()
+            if persisted.get("damage") != 24 or persisted.get("balance_version") != CURRENT_BALANCE_VERSION:
+                raise RuntimeError("Migrated Shield damage/version did not persist across process restart.")
+            has_resume = bool(persisted)
+        # The retained emulator fixture has a level-one run from the original MVP.
+        # Exercise its real upgrade before replacing it with either fresh choice.
+        if not args.quick and legacy and legacy.get("balance_version", 1) < 2 and legacy.get("level") == 1:
+            tap_button("ResumeButton", "launch", True)
+            tap_button("PauseButton", "")
+            migrated = verify_fresh_style(legacy["style"])
+            for key in ("style", "seed"):
+                if migrated.get(key) != legacy.get(key):
+                    raise RuntimeError(f"Legacy migration reset {key}.")
+            if migrated.get("score", 0) < legacy.get("score", 0) or migrated.get("elapsed", 0) < legacy.get("elapsed", 0):
+                raise RuntimeError("Legacy migration restarted run progress.")
+            event("legacy_run_migrated", style=migrated["style"], old_max_health=legacy["max_health"],
+                  new_max_health=migrated["max_health"], balance_version=migrated["balance_version"],
+                  old_elapsed=legacy["elapsed"], elapsed=migrated["elapsed"], preserved_seed=migrated.get("seed"))
+            capture("00_legacy_migrated_pause")
+            collect_logs()
+            adb("shell", "am", "force-stop", args.package)
+            start_app()
+            capture("00_migrated_resume_launch")
+            has_resume = bool(read_active())
         if args.quick:
             tap_button("ShieldButton", "launch", has_resume)
-            shield = read_active()
-            if shield.get("style") != "shield" or shield.get("max_health") != 125:
-                raise RuntimeError("Quick check did not start the shield style with125health.")
+            shield = verify_fresh_style("shield")
             event("shield_started", max_health=shield["max_health"])
             capture("02_quick_shield")
             adb("shell", "input", "keyevent", "KEYCODE_BACK")
@@ -180,9 +253,7 @@ def main() -> int:
             print(f"ANDROID_QUICK_CAPTURED: {args.output.resolve()}")
             return 0
         tap_button("SwordButton", "launch", has_resume)
-        initial = read_active()
-        if initial.get("style") != "sword" or initial.get("max_health") != 100:
-            raise RuntimeError(f"Sword choice did not start the expected style: {initial.get('style')}")
+        initial = verify_fresh_style("sword")
         event("sword_started", max_health=initial["max_health"], player=initial["player"])
         time.sleep(2)
         capture("02_sword_action")
@@ -233,9 +304,7 @@ def main() -> int:
                 raise RuntimeError(f"Process recovery changed persisted {key}.")
         event("process_recovery_verified", elapsed=restored["elapsed"], style=restored["style"])
         tap_button("ShieldButton", "launch", True)
-        shield = read_active()
-        if shield.get("style") != "shield" or shield.get("max_health") != 125:
-            raise RuntimeError("Shield choice did not start its distinct health/style.")
+        shield = verify_fresh_style("shield")
         time.sleep(1)
         capture("09_shield_action")
         adb("shell", "input", "keyevent", "KEYCODE_BACK")
@@ -246,7 +315,8 @@ def main() -> int:
         event("shield_and_back_verified", max_health=shield["max_health"])
         collect_logs()
         bad_lines = [line for line in "\n".join(all_logs).splitlines()
-                     if "SCRIPT ERROR" in line or "FATAL EXCEPTION" in line or "Fatal signal" in line]
+                     if "SCRIPT ERROR" in line or "FATAL EXCEPTION" in line or "Fatal signal" in line
+                     or ("E godot" in line and "ERROR:" in line)]
         if bad_lines:
             raise RuntimeError("Android runtime errors: " + "\n".join(bad_lines[:8]))
         event("completed", runtime_errors=0,

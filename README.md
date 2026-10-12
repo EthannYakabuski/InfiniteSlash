@@ -9,7 +9,7 @@ Launch directly into a living arena, tap the sword or shield, and play. Drag any
 - Open `project.godot` in the tested Godot 4.5.1 editor and press **F5**.
 - Android development build: `builds/InfiniteSlash-debug.apk`, produced by the `AndroidDebug` export preset for Android 7.0/API24+ ARM64 phones and the x86 test emulator.
 - Desktop controls: mouse drag or WASD/arrows; Space dashes, Escape pauses.
-- Sword starts with stronger attacks; Shield starts with more health and stronger protection.
+- Class cards show the tradeoffs before one-tap play: Sword has 80 HP, 32 damage and fast swings/movement; Shield has 170 HP, 24 damage and slower attacks/movement with much stronger, longer guarding.
 - Guard reserve regenerates while moving. Dashes and damage grace give short, visible protection; neither grants permanent safety.
 
 ## Included
@@ -40,7 +40,7 @@ godot --path . --script tests/capture_game.gd -- --test
 godot --path . --script tests/benchmark_rendered.gd -- --test
 ```
 
-Tests use separate fixture paths under `output/test-data` or `output/review`; they do not overwrite normal progress. The services suite passes 82 assertions, including UTC daily-score routing. Render captures and machine-readable validation results are in `output/review`. See [QA findings](docs/QA_FINDINGS.md) and [verification report](docs/VERIFICATION.md) for measured results and limits. A desktop simulation or Android emulator does not establish real-phone GPU, battery or thermal performance.
+Tests use separate fixture paths under `output/test-data` or `output/review`; they do not overwrite normal progress. The current gameplay suite passes 315 checks, including class comparisons, upgrade limits and existing-run migration. The services suite retains its 82-assertion result, including UTC daily-score routing. The latest Shield-damage APK passed a focused five-screen Android follow-up with fresh Shield24 and an actual saved Shield18 migration; the preceding twelve-screen full class review is retained separately. Render captures and machine-readable validation results are in `output/review`. See [QA findings](docs/QA_FINDINGS.md) and [verification report](docs/VERIFICATION.md) for measured results and limits. A desktop simulation or Android emulator does not establish real-phone GPU, battery or thermal performance.
 
 The optional `tools/build_monster_atlas.gd` rebuilds the native-pixel atlas from the original sheets. The generated atlas is already included; run a Godot import after rebuilding it. `tools/validate_assets.py` validates all source sheets, identities, stats, original pixels and the music loop.
 
@@ -49,6 +49,7 @@ The optional `tools/build_monster_atlas.gd` rebuilds the native-pixel atlas from
 | Path | Purpose |
 | --- | --- |
 | `scenes/main.tscn`, `scripts/game.gd` | Fixed-step combat, controls, spawning, rewards and run state |
+| `scripts/class_profiles.gd` | Shared Sword/Shield starting balance and distinct upgrade limits |
 | `scripts/world.gd`, `scripts/game_ui.gd` | Scrolling environment and portrait interface |
 | `scripts/audio_manager.gd` | Cached sound pool and music |
 | `scripts/services/` | Local persistence and Google Play adapter |

@@ -1,12 +1,12 @@
 # InfiniteSlash implemented game design
 
-This document describes the playable MVP as implemented in `scripts/game.gd`, `scripts/world.gd`, `scripts/game_ui.gd`, `data/monsters.json`, and the persistence/Play Games services. The priorities are portrait Android, one-thumb play, immediate starts, short restarts, readable combat and bounded performance. Numerical values below describe the current build rather than proposed features.
+This document describes the playable MVP as implemented in `scripts/game.gd`, `scripts/class_profiles.gd`, `scripts/world.gd`, `scripts/game_ui.gd`, `data/monsters.json`, and the persistence/Play Games services. The priorities are portrait Android, one-thumb play, immediate starts, short restarts, readable combat and bounded performance. Numerical values below describe the current build rather than proposed features.
 
 ## Core experience and launch flow
 
 A small knight fights along an endlessly scrolling fantasy road while unlikely creatures arrive from above and the sides. Thumb movement handles positioning; automatic sword swings handle attacks. Clean movement, timed guards, a deliberate dash, temporary pickups and a sustained combo form the skill curve. Funny creature silhouettes, crowded escapes, boss crowns and a copyable score challenge support repeatable, shareable runs.
 
-The first screen shows the arena through a translucent dark veil, with a title and two large sword/shield buttons. Either choice starts immediately. A valid saved run adds a prominent resume button. Scores, badges and other secondary actions are reached from pause/end overlays. Death stops the run, shows score, best, kills, bosses, time and best combo, then presents the same sword/shield choices for one-tap restart. The end card also offers a daily run and copies a short challenge message to the clipboard; it does not post to another application.
+The first screen shows the arena through a translucent dark veil, with a title and two large sword/shield buttons. The cards show opposing HP, damage, speed and guard strengths with directional indicators, a short role description and actual starting HP/damage. Sword favors fast aggressive movement and high damage; Shield favors durable slower play and sustained guarding. Either choice starts immediately. A valid saved run adds a prominent resume button. Scores, badges and other secondary actions are reached from pause/end overlays. Death stops the run, shows score, best, kills, bosses, time and best combo, then presents the same comparison cards for one-tap restart. The end card also offers a daily run and copies a short challenge message to the clipboard; it does not post to another application.
 
 ## One-thumb controls and combat
 
@@ -22,14 +22,24 @@ The logical arena is 540 x 960. Joystick displacement has a 9px deadzone and rea
 
 A flick needs at least 60px displacement, a gesture age between 0.015 and 0.22 seconds, and speed above 650 logical px/s. A dash travels at 630px/s for 0.18 seconds, about 113px before arena clamping, and has a 1.45-second cooldown. It grants temporary body/projectile damage immunity. A single gesture cannot repeatedly dash. A small arc/trail and HUD readiness label communicate its state.
 
-Auto slash aims at the nearest living enemy within 210px, otherwise at the last movement direction. Base reach is 84px, with a half-arc of 1.24 radians, about 142 degrees total. Enemy radius contributes to the hit test. Each enemy is hit once per swing; the same arc also clears front-facing bullets within reach. The visible sweep lasts 0.18 seconds. Brief hitstop, a damage flash, knockback, particles and reused slash/impact sounds mark successful hits. Splitter offspring survive the swing that creates them.
+Auto slash aims at the nearest living enemy within 210px, otherwise at the last movement direction. Base reach is 92px for Sword and 80px for Shield, with a half-arc of 1.24 radians, about 142 degrees total. Enemy radius contributes to the hit test. Each enemy is hit once per swing; the same arc also clears front-facing bullets within reach. The visible sweep lasts 0.18 seconds. Brief hitstop, a damage flash, knockback, particles and reused slash/impact sounds mark successful hits. Splitter offspring survive the swing that creates them.
 
-| Starting style | Health | Damage | Swing interval | Movement | Guard reserve | Perfect guard |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Sword | 100 | 22 | 0.46s | 265px/s | 100 | 0.16s |
-| Shield | 125 | 16 | 0.51s | 245px/s | 130 | 0.23s |
+| Starting class | Health | Damage | Swing interval | Movement | Reach | Guard reserve | Perfect guard |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Sword | 80 | 32 | 0.36s | 290px/s | 92px | 65 | 0.12s |
+| Shield | 170 | 24 | 0.60s | 220px/s | 80px | 165 | 0.32s |
 
-Guard reserve drains immediately at 28/s while stationary and guarding; movement restores 20/s. An exhausted stationary knight stays unguarded until movement restores reserve. Perfect guard requires a movement-to-stop transition, more than four reserve points and a 0.65-second rearm interval. Normal guarded contact damage is 65% of the hit for Sword and 35% for Shield. Perfect contact guard cancels damage and refunds ten reserve points. A guarded bullet is removed near the shield: normal blocks cost eight reserve points; perfect blocks refund four and award four score. Guarded sword attacks use a slower 0.83-second interval.
+Sword's unguarded base damage rate is about 89 damage/s, against Shield's 40 damage/s. Shield starts with more than twice the health and sustains an idle guard about 7.5 seconds before impact costs; Sword sustains about 2 seconds. These are intentionally different movement/damage and protection tradeoffs, with both choices retaining the same one-thumb controls. The latest tuning changes only Shield's starting damage from 18 to 24; health, cadence, movement, reach, guarding and upgrade limits stay the same.
+
+| Guard behavior | Sword | Shield |
+| --- | ---: | ---: |
+| Stationary drain | 32 reserve/s | 22 reserve/s |
+| Movement recovery | 22 reserve/s | 28 reserve/s |
+| Ordinary bullet cost | 12 reserve | 5 reserve |
+| Guarded contact damage blocked | 25% | 80% |
+| Swing interval while guarding | 0.65s | 0.68s |
+
+An exhausted stationary knight stays unguarded until movement restores reserve. Perfect guard requires a movement-to-stop transition, more than four reserve points and a 0.65-second rearm interval. Perfect contact guard cancels damage and refunds ten reserve points. A guarded bullet is removed near the shield: perfect blocks refund four and award four score. Class parameters come from one shared profile used by combat and selection cards.
 
 Damage grants 0.70 seconds of grace, resets the combo and briefly tints/blinks the knight. A three-hit ward absorbs damage before health and also grants that grace. Scenery is decorative and cannot damage the player. The knight is clamped to `x = 25..width-25`, `y = 152..height-58`, with a collision radius of 13px.
 
@@ -39,7 +49,7 @@ Godot uses a 540 x 960 logical portrait viewport with canvas-item stretching and
 
 The environment reuses Town grass and a three-tile dirt road, with sparse trees and Farm props along the sides. Scrolling runs at 43px/s independently of the knight's movement. Meadow, autumn and twilight tints repeat every 150 seconds; the last eight seconds blend into the next palette. Palette transitions are time-based and do not alter collision or projectile meaning.
 
-The generated knight atlas contains four character poses plus sword and shield cells. The monster atlas preserves native 24px pixels from all 100 requested Creature Mixer exports and the supplied original. All original 8x PNG sheets remain available. Nearest-neighbor sampling maintains crisp silhouettes. Hostile bullets retain dark rims and bright cores; boss shots are orange/red, normal shots gold, and frost-slowed shots pale blue. Lines/rings warn before charges and ranged attacks.
+The generated knight atlas contains four character poses plus sword and shield cells. Sword draws a larger 42×74px blade and smaller 24×29px shield; Shield draws a 32×55px blade and larger 44×51px shield. This keeps class identity visible during play, alongside the HUD class icon. The monster atlas preserves native 24px pixels from all 100 requested Creature Mixer exports and the supplied original. All original 8x PNG sheets remain available. Nearest-neighbor sampling maintains crisp silhouettes. Hostile bullets retain dark rims and bright cores; boss shots are orange/red, normal shots gold, and frost-slowed shots pale blue. Lines/rings warn before charges and ranged attacks.
 
 Existing Kenney audio supplies combat, guard, arrival, pickup and reward effects. An original 32-second, mono 24kHz fantasy chiptune loops behind them. Twelve cached effect players bound simultaneous sound voices; frequent effects are throttled and major cues can replace lower-priority sounds. Music/effects can be muted without changing gameplay. Android damage vibration respects the saved haptics preference.
 
@@ -82,11 +92,11 @@ Every ordinary kill drops two XP, a split minion drops one, and a boss drops eig
 
 | Upgrade | Increase and cap |
 | --- | --- |
-| Sharper Steel | Damage +14%, capped at 130. |
-| Quicker Slices | Swing interval multiplied by 0.94, floored at 0.27s. |
-| Longer Reach | Reach +5px, capped at 116px. |
-| Heart of a Knight | Maximum health +8, capped at 220; heal 18. |
-| Stronger Guard | Guard capacity +8, capped at 190; restore 30 reserve. |
+| Sharper Steel | Damage +14%; Sword cap 150, Shield cap 95. |
+| Quicker Slices | Swing interval multiplied by 0.94; Sword floor 0.22s, Shield floor 0.40s. |
+| Longer Reach | Reach +5px; Sword cap 124px, Shield cap 108px. |
+| Heart of a Knight | Maximum health +8; Sword cap 160, Shield cap 300; heal 18. |
+| Stronger Guard | Guard capacity +8; Sword cap 110, Shield cap 250; restore 30 reserve. |
 
 | Pickup | Implemented effect |
 | --- | --- |
@@ -108,6 +118,8 @@ Local progression keeps score/time/combo/boss bests, lifetime run/kill/boss/play
 Pause releases gestures and stops hazard simulation. Android backgrounding or focus loss pauses/saves; resume grants at least 0.45 seconds of damage grace. Active runs save at start, every ten running seconds, on pause/backgrounding and on a close request. Restored runs wait behind the resume overlay with no stale movement. Finishing a run records completed-run totals and clears its active snapshot.
 
 The version-one local save uses a flushed temporary file, replacement and previous valid backup. The profile is capped at 1 MiB; an active snapshot is capped at 128 KiB. Version, shape, IDs, numeric ranges, finite values and entity counts are checked. Corrupt primaries recover from backups; future-schema files are preserved. An invalid active run can be discarded without erasing a valid profile.
+
+Active runs carry `balance_version = 3`. Runs predating version two reconstruct their class upgrades at the saved level and preserve the existing health/guard fractions, actors and random-generator states. A version-two Shield run receives the damage increase by multiplying its existing damage by 4/3, up to the unchanged 95-damage cap, while retaining its other stats and progress; version-two Sword runs retain their damage. Version-three runs restore without applying the increase again. Modern runs restore their saved stats within the selected class's limits. These updates do not refill or restart an existing run.
 
 ## Achievements, leaderboards and cloud integration
 

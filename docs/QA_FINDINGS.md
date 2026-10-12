@@ -4,9 +4,26 @@ Verified the actual `scenes/main.tscn` and `scripts/game.gd` under Godot 4.5.1 o
 
 ## Result
 
-`tests/test_game.gd` passed **199 checks with zero failures**. It covers both opening choices, movement speed, touch ownership, thumb release and parry, deliberate flick recognition, slow-drag rejection, one dash per gesture, dash cooldown and invulnerability, player bounds, damage grace, guard depletion and regeneration, ward charges, slash arc and reach, projectile clearing, defeated-enemy idempotence, splitter offspring, all eight monster behavior families, off-screen ranged firing, attack windups, boss availability under a full wave, a radial safe wedge, boss reward/relief, pickup expiry, upgrades and buff caps, pause, resume, death and restart.
+`tests/test_game.gd` passed **315 checks with zero failures** after the Shield damage follow-up. It covers both opening choices, movement speed, touch ownership, thumb release and parry, deliberate flick recognition, slow-drag rejection, one dash per gesture, dash cooldown and invulnerability, player bounds, damage grace, guard depletion and regeneration, ward charges, slash arc and reach, projectile clearing, defeated-enemy idempotence, splitter offspring, all eight monster behavior families, off-screen ranged firing, attack windups, boss availability under a full wave, a radial safe wedge, boss reward/relief, pickup expiry, upgrades and buff caps, pause, resume, death and restart.
 
 The same suite exercises a real JSON snapshot round trip, encounter/loot RNG continuation, paused restoration, stale input clearing, wrong-type and non-finite saved scalar values, malformed enemy/bullet/drop dictionaries, large saved entity lists, and safe restored bullet bounds.
+
+## Class distinction
+
+The comparison scenarios exercise actual automatic attacks and finite guarding, using the same target and incoming pressure for both classes. They demonstrate the intended damage-versus-survival choice rather than only asserting stat assignments.
+
+| Scenario | Sword | Shield |
+| --- | --- | --- |
+| Defeat the same 240 HP target while unguarded | 2.58 seconds | 5.42 seconds |
+| Actual guarded attacks' damage across four seconds | 224 | 144 |
+| Guard until exhausted, no hits | 2.03 seconds | 7.52 seconds |
+| Guard under four bullets per second | 0.77 seconds | 3.87 seconds |
+| Health after eight 20-damage contact hits, spaced 0.8 seconds apart | 0; defeated | 138; survives |
+| Guard reserve restored by two seconds of movement | 44 | 56 |
+
+Both classes retain distinct health, damage, attack-speed, reach and guard limits after repeated automatic upgrades. Version-three snapshots round-trip those values after switching classes. Legacy runs migrate to the chosen-class balance while preserving the injured-health and remaining-guard proportions, score, actors and RNG continuation. The class cards and HUD icon use the same shared profile source as gameplay.
+
+The follow-up changes only Shield's starting damage from 18 to 24. Its target-clear time improves from the retained prior 7.82s result to 5.42s, and four seconds of actual guarded swings increase from 108 to 144 damage. Sword and all health/guard/recharge/cap comparisons remain unchanged. Version-two Shield snapshots receive a single 4/3 damage adjustment up to the unchanged 95 cap; all other saved stats/progress remain intact. Version-two Sword snapshots retain their damage, and version-three restoration does not repeatedly apply the buff. Fresh, upgraded, capped, previously injured and RNG/actor-continuation cases passed.
 
 ## Fixed findings
 
@@ -28,12 +45,12 @@ The stress scenario drives **18,000 actual fixed steps at 60 steps per simulated
 | Peak hostile bullets | 240 |
 | Peak pickups | 60 |
 | Peak effects | 90 |
-| Average simulation/visual-update step | 1.427 ms |
-| 95th percentile step | 4.531 ms |
-| Slowest observed step | 98.716 ms |
-| Wall time for the simulation | 26.375 seconds |
-| Kills / boss appearances | 2,982 / 5 |
-| End level | 33 |
+| Average simulation/visual-update step | 0.876 ms |
+| 95th percentile step | 1.494 ms |
+| Slowest observed step | 10.009 ms |
+| Wall time for the simulation | 16.244 seconds |
+| Kills / boss appearances | 4,057 / 6 |
+| End level | 36 |
 
 These are desktop **headless simulation** measurements, including the game's update/HUD work. They do not measure drawing throughput or Android device frame rate. The maximum includes a desktop outlier; the 95th percentile describes normal loaded steps more usefully. Portrait screenshots, live input behavior, Android export and emulator/device performance are verified separately by the main task.
 
@@ -43,4 +60,4 @@ All 101 creature entries reference one cached monster atlas, with four frame reg
 
 Set `APPDATA` to a disposable directory inside `output/test-data`, then run the existing Godot console executable against the project with `--headless --script res://tests/test_game.gd --log-file <absolute workspace log path> -- --test`. The project disables default file logging to avoid writing outside the chosen test area. `tools/test_audio.gd` is the shorter focused audio check.
 
-Machine-readable results are saved in `output/review/game_validation.json`; the runtime logs are `game_runtime.log` and `audio_runtime_verbose.log` in the same folder. The bundled Windows engine emits a root-certificate-store warning in this restricted environment before using its built-in certificate bundle. The gameplay and audio checks exit successfully.
+Machine-readable results are saved in `output/review/game_validation.json`; the current 315-check log is `game_shield_buff_runtime.log`. `game_validation_before_shield_buff.json` and `game_class_runtime.log` retain the 274-check class revision before the damage adjustment, `game_runtime.log` preserves the earlier 199-check baseline, and `audio_runtime_verbose.log` records the focused audio check. The bundled Windows engine emits a root-certificate-store warning in this restricted environment before using its built-in certificate bundle. The gameplay and audio checks exit successfully.

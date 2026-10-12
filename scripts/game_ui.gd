@@ -14,6 +14,7 @@ const GOLD := Color("ffd77a")
 const CREAM := Color("fff2d3")
 const INK := Color("19252a")
 const MUTED := Color("a8bcbd")
+const ClassProfiles = preload("res://scripts/class_profiles.gd")
 const ACHIEVEMENTS := {
 	"first_blood": ["First Slice", "Defeat your first creature"],
 	"boss_slayer": ["Crown Collector", "Defeat a boss"],
@@ -40,6 +41,7 @@ var _xp: ProgressBar
 var _guard: ProgressBar
 var _boss: ProgressBar
 var _health_text: Label
+var _class_icon: TextureRect
 var _score: Label
 var _best: Label
 var _level: Label
@@ -100,6 +102,13 @@ func _build_hud() -> void:
 	_health_text.name = "HealthText"
 	_health_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.add_child(_health_text)
+	_class_icon = TextureRect.new()
+	_class_icon.name = "ClassIcon"
+	_class_icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_class_icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	_class_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	_class_icon.texture = _icons.get("sword")
+	_hud.add_child(_class_icon)
 	_xp = _bar("ExperienceBar", GOLD, Color("3b493c"))
 	_hud.add_child(_xp)
 	_score = _label("0", 32, CREAM)
@@ -154,7 +163,8 @@ func _resize() -> void:
 			_bottom = maxf(22.0, (screen.y - safe.end.y) * factor + 10.0)
 	var hp_width := minf(205.0, _size.x * 0.39)
 	_place(_health, Vector2(24, _top + 5), Vector2(hp_width, 22))
-	_place(_health_text, Vector2(24, _top + 5), Vector2(hp_width, 22))
+	_place(_health_text, Vector2(49, _top + 5), Vector2(hp_width - 29, 22))
+	_place(_class_icon, Vector2(30, _top + 7), Vector2(18, 18))
 	_place(_xp, Vector2(24, _top + 34), Vector2(hp_width, 5))
 	_place(_level, Vector2(24, _top + 45), Vector2(80, 20))
 	_place(_score, Vector2(_size.x - 225, _top - 6), Vector2(136, 38))
@@ -194,6 +204,9 @@ func update_hud(data: Dictionary) -> void:
 	_health.max_value = maximum
 	_health.value = hp
 	_health_text.text = "%d / %d" % [int(ceil(hp)), int(maximum)]
+	var style := str(data.get("style", "sword"))
+	_class_icon.texture = _icons.get(style, _icons.get("sword"))
+	_class_icon.modulate = GOLD if style == "sword" else Color("b2e5e7")
 	_score.text = _number(int(data.get("score", 0)))
 	_best.text = "BEST " + _number(int(data.get("best", 0)))
 	_level.text = "LV %d" % int(data.get("level", 1))
@@ -431,22 +444,65 @@ func _title() -> void:
 func _add_styles() -> void:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 16)
-	row.custom_minimum_size.y = 125
+	row.custom_minimum_size.y = 184
 	_card.add_child(row)
-	var sword := _button("SWORD", "SwordButton", Color("c88743"), "sword")
-	sword.custom_minimum_size.y = 125
-	sword.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	sword.add_theme_font_size_override("font_size", 23)
-	sword.add_theme_constant_override("icon_max_width", 47)
-	sword.pressed.connect(func(): start_requested.emit("sword"))
-	row.add_child(sword)
-	var shield := _button("SHIELD", "ShieldButton", Color("4a9298"), "shield")
-	shield.custom_minimum_size.y = 125
-	shield.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	shield.add_theme_font_size_override("font_size", 23)
-	shield.add_theme_constant_override("icon_max_width", 43)
-	shield.pressed.connect(func(): start_requested.emit("shield"))
-	row.add_child(shield)
+	for style in ["sword", "shield"]:
+		row.add_child(_style_button(style))
+
+
+func _style_button(style: String) -> Button:
+	var title := style.capitalize()
+	var profile: Dictionary = ClassProfiles.PROFILES[style]
+	var tint := Color("c88743") if style == "sword" else Color("4a9298")
+	var button := _button("", title + "Button", tint)
+	button.custom_minimum_size.y = 184
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.pressed.connect(func(): start_requested.emit(style))
+	var margin := MarginContainer.new()
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for side in ["left", "right"]:
+		margin.add_theme_constant_override("margin_" + side, 12)
+	for side in ["top", "bottom"]:
+		margin.add_theme_constant_override("margin_" + side, 10)
+	button.add_child(margin)
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var details := VBoxContainer.new()
+	details.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	details.alignment = BoxContainer.ALIGNMENT_CENTER
+	details.add_theme_constant_override("separation", 5)
+	margin.add_child(details)
+	var heading := HBoxContainer.new()
+	heading.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	heading.alignment = BoxContainer.ALIGNMENT_CENTER
+	heading.add_theme_constant_override("separation", 10)
+	details.add_child(heading)
+	var icon := TextureRect.new()
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.custom_minimum_size = Vector2(39, 39)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture = _icons.get(style)
+	heading.add_child(icon)
+	var name_label := _label(style.to_upper(), 23, CREAM)
+	name_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	heading.add_child(name_label)
+	var identity := _label("STRIKE FAST" if style == "sword" else "STAND STRONG", 12, CREAM)
+	identity.name = title + "Identity"
+	identity.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	details.add_child(identity)
+	var strengths := _label("↑ DMG  ↑ SPEED" if style == "sword" else "↑ HP  ↑ GUARD", 17, Color("c4ffe3"))
+	strengths.name = title + "Strengths"
+	strengths.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	details.add_child(strengths)
+	var tradeoffs := _label("↓ HP  ↓ GUARD" if style == "sword" else "↓ DMG  ↓ SPEED", 16, Color("ffe0d5"))
+	tradeoffs.name = title + "Tradeoffs"
+	tradeoffs.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	details.add_child(tradeoffs)
+	var stats := _label("%d HP  ·  %d DMG" % [int(profile.health), int(profile.damage)], 17, CREAM)
+	stats.name = title + "Stats"
+	stats.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	details.add_child(stats)
+	return button
 
 
 func _footer(include_daily: bool, include_share: bool) -> void:

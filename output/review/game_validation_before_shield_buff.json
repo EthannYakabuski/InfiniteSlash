@@ -1,0 +1,58 @@
+{
+	"checks": 274,
+	"class_comparison": {
+		"shield": {
+			"capped_attack_interval": 0.4,
+			"capped_damage": 95.0,
+			"capped_guard": 250.0,
+			"capped_health": 300.0,
+			"capped_range": 108.0,
+			"eight_guarded_hits_remaining_health": 138.0,
+			"guard_under_four_bullets_per_second": 3.86666666666667,
+			"guarded_damage_in_four_seconds": 108.0,
+			"health": 170.0,
+			"idle_guard_seconds": 7.51666666666667,
+			"move_speed": 220.0,
+			"moving_target_kill_seconds": 7.81666666666667,
+			"reserve_recharged_in_two_seconds": 56.0,
+			"survives_eight_guarded_hits": true
+		},
+		"sword": {
+			"capped_attack_interval": 0.22,
+			"capped_damage": 150.0,
+			"capped_guard": 110.0,
+			"capped_health": 160.0,
+			"capped_range": 124.0,
+			"eight_guarded_hits_remaining_health": 0.0,
+			"guard_under_four_bullets_per_second": 0.766666666666667,
+			"guarded_damage_in_four_seconds": 224.0,
+			"health": 80.0,
+			"idle_guard_seconds": 2.03333333333333,
+			"move_speed": 290.0,
+			"moving_target_kill_seconds": 2.58333333333333,
+			"reserve_recharged_in_two_seconds": 44.0,
+			"survives_eight_guarded_hits": false
+		}
+	},
+	"failures": [],
+	"pass": true,
+	"stress": {
+		"android_device_measured": false,
+		"average_step_ms": 0.968012222222222,
+		"bosses_seen": 6,
+		"kills": 4057,
+		"level": 36,
+		"max_step_ms": 65.188,
+		"p95_step_ms": 1.614,
+		"peaks": {
+			"bullets": 240,
+			"drops": 60,
+			"effects": 90,
+			"enemies": 100
+		},
+		"rendering_measured": false,
+		"simulated_seconds": 300,
+		"steps": 18000,
+		"wall_time_ms": 17911.301
+	}
+}

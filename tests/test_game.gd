@@ -86,6 +86,7 @@ func _run() -> void:
 	check(game.roster.size() == 101 and game.textures.size() == 101, "All 100 new creatures plus original are cached")
 	_test_controls()
 	_test_damage_guard()
+	_test_class_comparison()
 	_test_slash_splitter()
 	_test_enemy_patterns_boss()
 	_test_powerups_upgrades()
@@ -112,7 +113,7 @@ func _test_controls() -> void:
 	for choice in ["sword", "shield"]:
 		reset(choice)
 		check(game.state == "running" and game.style == choice, "%s choice immediately starts" % choice)
-		near(game.health, 100.0 if choice == "sword" else 125.0, "%s health baseline" % choice)
+		near(game.health, 80.0 if choice == "sword" else 170.0, "%s health baseline" % choice)
 		var initial: Vector2 = game.player_pos
 		touch(0, true, Vector2(270, 740))
 		game.visual_time = 0.30
@@ -160,9 +161,9 @@ func _test_damage_guard() -> void:
 	reset()
 	game.guarding = false
 	check(game.damage_player(20), "An exposed knight takes damage")
-	near(game.health, 80.0, "Damage subtracts the expected amount")
+	near(game.health, 60.0, "Damage subtracts the expected amount")
 	check(not game.damage_player(20), "Damage grace prevents stacked same-frame hits")
-	near(game.health, 80.0, "Damage grace leaves health unchanged")
+	near(game.health, 60.0, "Damage grace leaves health unchanged")
 	game.hurt_timer = 0.0
 	game.try_dash(Vector2.UP)
 	check(not game.damage_player(50), "Dash grants temporary collision invulnerability")
@@ -172,7 +173,7 @@ func _test_damage_guard() -> void:
 		game.parry_timer = 0.0
 		var initial: float = game.health
 		game.damage_player(20)
-		near(initial - game.health, 13.0 if choice == "sword" else 7.0, "%s guard contact reduction" % choice)
+		near(initial - game.health, 15.0 if choice == "sword" else 4.0, "%s guard contact reduction" % choice)
 		game.hurt_timer = 0.0
 		game.parry_timer = 0.15
 		initial = game.health
@@ -201,10 +202,204 @@ func _test_damage_guard() -> void:
 	for charge in 3:
 		game.hurt_timer = 0.0
 		check(not game.damage_player(20), "Ward absorbs charge %d" % (charge + 1))
-	check(game.ward_hits == 0 and game.health == 100, "The ward absorbs exactly three hits")
+	check(game.ward_hits == 0 and game.health == 80, "The ward absorbs exactly three hits")
 	game.hurt_timer = 0.0
 	game.guarding = false
 	check(game.damage_player(20), "A fourth hit passes through an exhausted ward")
+
+
+func _test_class_comparison() -> void:
+	var classes: Dictionary = {}
+	for choice in ["sword", "shield"]:
+		var result: Dictionary = {}
+		reset(choice)
+		result["health"] = game.max_health
+		result["move_speed"] = game.move_speed
+		near(game.damage, 32.0 if choice == "sword" else 24.0, "%s damage baseline after Shield buff" % choice)
+		near(game.attack_interval, 0.36 if choice == "sword" else 0.60, "%s attack cadence remains unchanged" % choice)
+		near(game.guard_capacity, 65.0 if choice == "sword" else 165.0, "%s guard capacity remains unchanged" % choice)
+		var target: Dictionary = game.spawn_enemy(0, false, game.player_pos + Vector2(0, -60))
+		target.hp = 240.0
+		target.max_hp = 240.0
+		game.guarding = false
+		game.swing_timer = 0.0
+		var frames: int = 0
+		while target.alive and frames < 1200:
+			game._update_weapon(1.0 / 60.0)
+			frames += 1
+		result["moving_target_kill_seconds"] = frames / 60.0
+		check(not target.alive and game.kills == 1, "%s defeats the same 240 HP target through automatic attacks" % choice)
+		reset(choice)
+		target = game.spawn_enemy(0, false, game.player_pos + Vector2(0, -60))
+		target.hp = 1000.0
+		target.max_hp = 1000.0
+		game.guarding = true
+		game.swing_timer = 0.0
+		for frame in 240:
+			game._update_weapon(1.0 / 60.0)
+		result["guarded_damage_in_four_seconds"] = 1000.0 - target.hp
+		check(target.hp < 1000, "%s still counterattacks while guarding" % choice)
+		reset(choice)
+		game.parry_timer = 0.0
+		for hit in 8:
+			for frame in 48:
+				game.tick(1.0 / 60.0)
+			game.damage_player(20)
+		result["eight_guarded_hits_remaining_health"] = game.health
+		result["survives_eight_guarded_hits"] = game.state == "running"
+		reset(choice)
+		frames = 0
+		while game.guard_reserve > 0 and frames < 1200:
+			game._update_player(1.0 / 60.0)
+			frames += 1
+		result["idle_guard_seconds"] = frames / 60.0
+		check(game.guard_reserve == 0 and not game.guarding, "%s eventually exhausts guard without recharging at rest" % choice)
+		for frame in 120:
+			game._update_player(1.0 / 60.0)
+		check(game.guard_reserve == 0 and not game.guarding, "%s remains exposed after guard exhaustion" % choice)
+		game._gesture_press(Vector2(270, 740))
+		game.visual_time = 1.0
+		game._gesture_drag(Vector2(335, 740))
+		for frame in 120:
+			game._update_player(1.0 / 60.0)
+		result["reserve_recharged_in_two_seconds"] = game.guard_reserve
+		check(game.guard_reserve > 0 and not game.guarding, "%s recharges reserve only while moving" % choice)
+		reset(choice)
+		game.parry_timer = 0.0
+		frames = 0
+		while game.guard_reserve > 0 and frames < 1200:
+			game._update_player(1.0 / 60.0)
+			if frames % 15 == 0:
+				game._add_bullet(game.player_pos + Vector2(10, 0), Vector2.ZERO, 10)
+			game._update_bullets(1.0 / 60.0)
+			frames += 1
+		result["guard_under_four_bullets_per_second"] = frames / 60.0
+		check(game.guard_reserve == 0, "%s cannot block an identical continuous bullet stream forever" % choice)
+		reset(choice)
+		for upgrade in 300:
+			game.level_up()
+		result["capped_health"] = game.max_health
+		result["capped_damage"] = game.damage
+		result["capped_attack_interval"] = game.attack_interval
+		result["capped_range"] = game.attack_range
+		result["capped_guard"] = game.guard_capacity
+		near(game.max_health, 160.0 if choice == "sword" else 300.0, "%s reaches its own health cap" % choice)
+		near(game.damage, 150.0 if choice == "sword" else 95.0, "%s reaches its own damage cap" % choice)
+		near(game.attack_interval, 0.22 if choice == "sword" else 0.40, "%s reaches its own attack cadence cap" % choice)
+		near(game.attack_range, 124.0 if choice == "sword" else 108.0, "%s reaches its own reach cap" % choice)
+		near(game.guard_capacity, 110.0 if choice == "sword" else 250.0, "%s reaches its own guard cap" % choice)
+		var snapshot: Dictionary = game.serialize_run()
+		check(snapshot.get("balance_version", 0) == 3, "%s snapshot records the new class balance version" % choice)
+		var parser := JSON.new()
+		check(parser.parse(JSON.stringify(snapshot)) == OK, "%s capped run serializes as JSON" % choice)
+		reset("shield" if choice == "sword" else "sword")
+		check(game.restore_run(parser.data), "%s capped run restores after switching classes" % choice)
+		check(game.style == choice and game.state == "paused", "%s restore selects its saved class and waits for resume" % choice)
+		near(game.max_health, result["capped_health"], "%s restore retains class health cap" % choice)
+		near(game.damage, result["capped_damage"], "%s restore retains class damage cap" % choice)
+		near(game.attack_interval, result["capped_attack_interval"], "%s restore retains class attack cadence" % choice)
+		near(game.attack_range, result["capped_range"], "%s restore retains class reach cap" % choice)
+		near(game.guard_capacity, result["capped_guard"], "%s restore retains class guard capacity" % choice)
+		near(game.move_speed, result["move_speed"], "%s restore retains its class movement speed" % choice)
+		classes[choice] = result
+	var sword: Dictionary = classes["sword"]
+	var shield: Dictionary = classes["shield"]
+	check(shield["moving_target_kill_seconds"] > sword["moving_target_kill_seconds"] * 2.0, "Sword still defeats identical targets substantially faster than buffed Shield")
+	check(sword["move_speed"] > shield["move_speed"] * 1.25, "Sword movement is visibly faster than Shield movement")
+	check(shield["health"] > sword["health"] * 2, "Shield begins with more than twice Sword's health")
+	check(not sword["survives_eight_guarded_hits"] and shield["survives_eight_guarded_hits"], "Identical contact pressure defeats Sword while Shield survives")
+	check(shield["eight_guarded_hits_remaining_health"] >= shield["health"] * 0.8, "Shield visibly mitigates repeated guarded contact damage")
+	check(shield["idle_guard_seconds"] > sword["idle_guard_seconds"] * 3.5 and shield["idle_guard_seconds"] < 8, "Shield holds guard far longer but still exhausts it")
+	check(shield["guard_under_four_bullets_per_second"] > sword["guard_under_four_bullets_per_second"] * 3, "Shield sustains the same bullet pressure far longer")
+	check(shield["guard_under_four_bullets_per_second"] < shield["idle_guard_seconds"], "Projectile blocks consume Shield reserve in addition to idle drain")
+	check(shield["reserve_recharged_in_two_seconds"] > sword["reserve_recharged_in_two_seconds"] * 1.2, "Shield replenishes more reserve during the same movement interval")
+	check(sword["capped_damage"] / sword["capped_attack_interval"] > shield["capped_damage"] / shield["capped_attack_interval"] * 2.5, "Sword retains substantially higher damage output at maximum upgrades")
+	check(shield["capped_health"] > sword["capped_health"] * 1.8 and shield["capped_guard"] > sword["capped_guard"] * 2, "Shield retains substantially higher survival reserves at maximum upgrades")
+	report["class_comparison"] = classes
+	_test_legacy_class_migration()
+	_test_v2_shield_damage_migration()
+
+
+func _test_legacy_class_migration() -> void:
+	for choice in ["sword", "shield"]:
+		reset(choice)
+		game.score = 123
+		game.elapsed = 37.5
+		game.spawn_enemy(role_index("fan"), false, Vector2(120, 250))
+		game._add_bullet(Vector2(160, 400), Vector2(80, 40), 12)
+		var snapshot: Dictionary = game.serialize_run()
+		snapshot.erase("balance_version")
+		snapshot["max_health"] = 100.0 if choice == "sword" else 125.0
+		snapshot["health"] = snapshot["max_health"] * 0.5
+		snapshot["damage"] = 22.0 if choice == "sword" else 16.0
+		snapshot["attack_interval"] = 0.46 if choice == "sword" else 0.51
+		snapshot["attack_range"] = 84.0
+		snapshot["guard_capacity"] = 100.0 if choice == "sword" else 130.0
+		snapshot["guard_reserve"] = snapshot["guard_capacity"] * 0.5
+		var expected_rng: int = game.rng.randi()
+		var expected_loot: int = game.loot_rng.randi()
+		reset("shield" if choice == "sword" else "sword")
+		check(game.restore_run(snapshot), "%s legacy run migrates successfully" % choice)
+		check(game.style == choice and game.state == "paused", "%s legacy run resumes as its saved class" % choice)
+		near(game.max_health, 80.0 if choice == "sword" else 170.0, "%s legacy run adopts new health baseline" % choice)
+		near(game.health / game.max_health, 0.5, "%s migration preserves proportional health" % choice)
+		near(game.damage, 32.0 if choice == "sword" else 24.0, "%s migration adopts new damage baseline" % choice)
+		near(game.attack_interval, 0.36 if choice == "sword" else 0.60, "%s migration adopts new attack cadence" % choice)
+		near(game.attack_range, 92.0 if choice == "sword" else 80.0, "%s migration adopts new attack reach" % choice)
+		near(game.guard_capacity, 65.0 if choice == "sword" else 165.0, "%s migration adopts new guard capacity" % choice)
+		near(game.guard_reserve / game.guard_capacity, 0.5, "%s migration preserves proportional guard reserve" % choice)
+		check(game.score == 123 and game.elapsed == 37.5 and game.enemies.size() == 1 and game.bullets.size() == 1, "%s legacy migration preserves progress and active hazards" % choice)
+		check(game.rng.randi() == expected_rng and game.loot_rng.randi() == expected_loot, "%s legacy migration preserves encounter and loot RNG sequence" % choice)
+
+
+func _test_v2_shield_damage_migration() -> void:
+	var cases: Array[Dictionary] = [
+		{"style": "shield", "damage": 18.0, "expected": 24.0, "label": "Shield baseline"},
+		{"style": "shield", "damage": 60.0, "expected": 80.0, "label": "upgraded Shield"},
+		{"style": "shield", "damage": 90.0, "expected": 95.0, "label": "Shield near its damage cap"},
+		{"style": "sword", "damage": 32.0, "expected": 32.0, "label": "Sword baseline"},
+		{"style": "sword", "damage": 140.0, "expected": 140.0, "label": "upgraded Sword"},
+	]
+	for scenario in cases:
+		reset(scenario["style"])
+		game.level = 17
+		game.score = 321
+		game.elapsed = 58.25
+		game.combo = 3
+		game.best_combo = 5
+		game.max_health += 16.0
+		game.health = game.max_health * 0.6
+		game.guard_capacity += 16.0
+		game.guard_reserve = game.guard_capacity * 0.45
+		game.attack_interval *= 0.9
+		game.attack_range += 5.0
+		game.damage = scenario["damage"]
+		game.buffs = {"haste": 4.0}
+		game.spawn_enemy(role_index("fan"), false, Vector2(120, 250))
+		game._add_bullet(Vector2(160, 400), Vector2(80, 40), 12)
+		game._drop(Vector2(230, 430), "gold", 1)
+		var v2_snapshot: Dictionary = game.serialize_run()
+		v2_snapshot["balance_version"] = 2
+		var reference_snapshot: Dictionary = v2_snapshot.duplicate(true)
+		reference_snapshot["balance_version"] = 3
+		reference_snapshot["damage"] = scenario["expected"]
+		check(game.restore_run(reference_snapshot), "%s v3 reference run restores" % scenario["label"])
+		var reference: Dictionary = game.serialize_run()
+		check(game.restore_run(v2_snapshot), "%s v2 saved run migrates" % scenario["label"])
+		near(game.damage, scenario["expected"], "%s migration applies only the intended damage adjustment" % scenario["label"])
+		var actual: Dictionary = game.serialize_run()
+		var changed_fields: Array[String] = []
+		for field in reference:
+			if field in ["damage", "balance_version"]:
+				continue
+			if actual.get(field) != reference[field]:
+				changed_fields.append(str(field))
+		check(changed_fields.is_empty(), "%s v2 migration leaves all other saved stats, progress, hazards and RNG unchanged: %s" % [scenario["label"], changed_fields])
+		check(actual["balance_version"] == 3, "%s migrated run is saved as balance version 3" % scenario["label"])
+		check(game.style == scenario["style"] and game.state == "paused", "%s migration preserves class and requires a safe resume" % scenario["label"])
+		game.resume_run()
+		game.tick(1.0 / 60.0)
+		check(game.state == "running" and game.player_pos.is_finite(), "%s first migrated gameplay frame remains valid" % scenario["label"])
 
 
 func _test_slash_splitter() -> void:
@@ -290,7 +485,7 @@ func _test_enemy_patterns_boss() -> void:
 
 func _test_powerups_upgrades() -> void:
 	reset()
-	game.health = 95.0
+	game.health = game.max_health - 5.0
 	game.collect_drop({"kind": "heart", "value": 25})
 	near(game.health, game.max_health, "Healing caps at maximum health")
 	for kind in ["haste", "hurricane", "ward", "magnet", "frost", "spark"]:
@@ -300,8 +495,8 @@ func _test_powerups_upgrades() -> void:
 	check(game.ward_hits == 3, "Repeated wards replace charges instead of accumulating invulnerability")
 	for upgrade in 110:
 		game.level_up()
-	check(game.damage <= 130 and game.attack_interval >= 0.27 and game.attack_range <= 116, "Offensive upgrades remain within late-run caps")
-	check(game.max_health <= 220 and game.guard_capacity <= 190, "Defensive upgrades remain within late-run caps")
+	check(game.damage <= 150 and game.attack_interval >= 0.22 and game.attack_range <= 124, "Offensive upgrades remain within late-run caps")
+	check(game.max_health <= 160 and game.guard_capacity <= 110, "Defensive upgrades remain within late-run caps")
 	game.buffs = {"haste": 0.01, "ward": 0.01}
 	game.hitstop = 0.0
 	game.tick(0.02)

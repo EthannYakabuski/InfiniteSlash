@@ -1,0 +1,91 @@
+{
+  "result": "PASS",
+  "evidence_kind": "class_revision_full_smoke_and_legacy_resume",
+  "date": "2026-10-12",
+  "apk": "builds/InfiniteSlash-debug.apk",
+  "sha256": "0e511b1922800bd5553eaad142f3159cbf87f32eda1c6052f4ff89856191f378",
+  "bytes": 63263069,
+  "serial": "emulator-5580",
+  "api": 30,
+  "display": [
+    1080,
+    2220
+  ],
+  "renderer": "Android Emulator GLES3 Translator / NVIDIA GT1030 host driver560.94",
+  "acceleration": "WHPX",
+  "last_live_pid": "4985",
+  "screenshots_reviewed": 12,
+  "engine_errors": [],
+  "checks": [
+    {
+      "event": "fresh_class_verified",
+      "wall_time": 1791834315.2061915,
+      "style": "shield",
+      "max_health": 170.0,
+      "damage": 18.0,
+      "attack_interval": 0.6,
+      "attack_range": 80.0,
+      "guard_capacity": 165.0
+    },
+    {
+      "event": "legacy_run_migrated",
+      "wall_time": 1791834315.2071922,
+      "style": "shield",
+      "old_max_health": 125.0,
+      "new_max_health": 170.0,
+      "balance_version": 2,
+      "old_elapsed": 2.81666666666666,
+      "elapsed": 4.49999999999999,
+      "preserved_seed": "10683214"
+    },
+    {
+      "event": "fresh_class_verified",
+      "wall_time": 1791834326.8774254,
+      "style": "sword",
+      "max_health": 80.0,
+      "damage": 32.0,
+      "attack_interval": 0.36,
+      "attack_range": 92.0,
+      "guard_capacity": 65.0
+    },
+    {
+      "event": "touch_movement_verified",
+      "wall_time": 1791834335.2516298,
+      "distance": 314.48380082451945,
+      "player": [
+        488.739471435547,
+        573.250671386719
+      ]
+    },
+    {
+      "event": "pause_verified",
+      "wall_time": 1791834347.4220314,
+      "elapsed": 8.04999999999998,
+      "minimum_wait_seconds": 11.5
+    },
+    {
+      "event": "process_recovery_verified",
+      "wall_time": 1791834369.6836634,
+      "elapsed": 9.7333333333334,
+      "style": "sword"
+    },
+    {
+      "event": "fresh_class_verified",
+      "wall_time": 1791834371.5177157,
+      "style": "shield",
+      "max_health": 170.0,
+      "damage": 18.0,
+      "attack_interval": 0.6,
+      "attack_range": 80.0,
+      "guard_capacity": 165.0
+    },
+    {
+      "event": "shield_and_back_verified",
+      "wall_time": 1791834375.5107813,
+      "max_health": 170.0
+    }
+  ],
+  "prior_full_suite_report": "output/review/android_test_report.json",
+  "prior_final_package_report": "output/review/android_latest_report.json",
+  "scope": "Functional emulator checks and manually reviewed screenshots; no physical phone performance, battery or thermal claim."
+}

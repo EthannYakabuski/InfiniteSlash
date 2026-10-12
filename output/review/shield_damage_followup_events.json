@@ -1,0 +1,173 @@
+[
+  {
+    "event": "installed",
+    "wall_time": 1791836130.1607604,
+    "apk": "C:\\Users\\swimr\\Documents\\InfiniteSlash\\InfiniteSlash\\builds\\InfiniteSlash-debug.apk",
+    "result": "Serving...\r\nPerforming Incremental Install\r\nSuccess\r\nInstall command complete in 2784 ms"
+  },
+  {
+    "event": "device",
+    "wall_time": 1791836130.8068225,
+    "serial": "emulator-5580",
+    "width": 1080,
+    "height": 2220,
+    "api": "30",
+    "abi": "x86,armeabi-v7a,armeabi"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791836136.9974751,
+    "component": "org.infiniteslash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=org.infiniteslash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: org.infiniteslash.game/com.godot.game.GodotApp\r\nTotalTime: 5721\r\nWaitTime: 5724\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791836145.0744767
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791836147.3754754,
+    "name": "01_launch",
+    "path": "output\\android-test\\shield-damage-followup\\01_launch.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791836151.2452097,
+    "button": "ResumeButton",
+    "overlay": "launch",
+    "point": [
+      540,
+      1119
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791836151.65321,
+    "state": "running",
+    "pid": "2877"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791836153.2262928,
+    "button": "PauseButton",
+    "overlay": "",
+    "point": [
+      986,
+      82
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791836153.4022896,
+    "state": "pause",
+    "pid": "2877"
+  },
+  {
+    "event": "fresh_class_verified",
+    "wall_time": 1791836154.416293,
+    "style": "shield",
+    "max_health": 170.0,
+    "damage": 24.0,
+    "attack_interval": 0.6,
+    "attack_range": 80.0,
+    "guard_capacity": 165.0,
+    "balance_version": 3
+  },
+  {
+    "event": "shield_saved_damage_updated",
+    "wall_time": 1791836154.4172907,
+    "old_damage": 18.0,
+    "damage": 24.0,
+    "balance_version": 3,
+    "preserved_stats": {
+      "max_health": 170.0,
+      "attack_interval": 0.6,
+      "attack_range": 80.0,
+      "guard_capacity": 165.0,
+      "style": "shield",
+      "seed": "7228326",
+      "level": 1
+    },
+    "old_elapsed": 3.18333333333333,
+    "elapsed": 4.81666666666666
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791836155.8282914,
+    "name": "00_saved_shield_buff_pause",
+    "path": "output\\android-test\\shield-damage-followup\\00_saved_shield_buff_pause.png"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791836162.1456366,
+    "component": "org.infiniteslash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=org.infiniteslash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: org.infiniteslash.game/com.godot.game.GodotApp\r\nTotalTime: 4651\r\nWaitTime: 4656\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791836166.320963
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791836167.452965,
+    "name": "00_resume_after_damage_buff",
+    "path": "output\\android-test\\shield-damage-followup\\00_resume_after_damage_buff.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791836168.3709626,
+    "button": "ShieldButton",
+    "overlay": "launch",
+    "point": [
+      782,
+      1412
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791836168.5169652,
+    "state": "running",
+    "pid": "4214"
+  },
+  {
+    "event": "fresh_class_verified",
+    "wall_time": 1791836169.3529642,
+    "style": "shield",
+    "max_health": 170.0,
+    "damage": 24.0,
+    "attack_interval": 0.6,
+    "attack_range": 80.0,
+    "guard_capacity": 165.0,
+    "balance_version": 3
+  },
+  {
+    "event": "shield_started",
+    "wall_time": 1791836169.353965,
+    "max_health": 170.0
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791836169.8409636,
+    "name": "02_quick_shield",
+    "path": "output\\android-test\\shield-damage-followup\\02_quick_shield.png"
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791836170.7619638,
+    "state": "pause",
+    "pid": "4214"
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791836172.007474,
+    "name": "03_quick_back_pause",
+    "path": "output\\android-test\\shield-damage-followup\\03_quick_back_pause.png"
+  },
+  {
+    "event": "completed",
+    "wall_time": 1791836172.1644773,
+    "mode": "quick",
+    "runtime_errors": 0,
+    "note": "Latest APK launch/style/Android Back follow-up; preceding full suite remains separate evidence."
+  }
+]

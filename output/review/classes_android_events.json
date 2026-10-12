@@ -1,0 +1,387 @@
+[
+  {
+    "event": "installed",
+    "wall_time": 1791834301.2029364,
+    "apk": "C:\\Users\\swimr\\Documents\\InfiniteSlash\\InfiniteSlash\\builds\\InfiniteSlash-debug.apk",
+    "result": "Serving...\r\nPerforming Incremental Install\r\nSuccess\r\nInstall command complete in 1735 ms"
+  },
+  {
+    "event": "device",
+    "wall_time": 1791834301.8919377,
+    "serial": "emulator-5580",
+    "width": 1080,
+    "height": 2220,
+    "api": "30",
+    "abi": "x86,armeabi-v7a,armeabi"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791834306.3284926,
+    "component": "org.infiniteslash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=org.infiniteslash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: org.infiniteslash.game/com.godot.game.GodotApp\r\nTotalTime: 4099\r\nWaitTime: 4109\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791834310.2105596
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834311.19863,
+    "name": "01_launch",
+    "path": "output\\android-test\\classes-smoke\\01_launch.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834312.555752,
+    "button": "ResumeButton",
+    "overlay": "launch",
+    "point": [
+      540,
+      1119
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834312.7674716,
+    "state": "running",
+    "pid": "4470"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834314.2061944,
+    "button": "PauseButton",
+    "overlay": "",
+    "point": [
+      986,
+      82
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834314.3681917,
+    "state": "pause",
+    "pid": "4470"
+  },
+  {
+    "event": "fresh_class_verified",
+    "wall_time": 1791834315.2061915,
+    "style": "shield",
+    "max_health": 170.0,
+    "damage": 18.0,
+    "attack_interval": 0.6,
+    "attack_range": 80.0,
+    "guard_capacity": 165.0
+  },
+  {
+    "event": "legacy_run_migrated",
+    "wall_time": 1791834315.2071922,
+    "style": "shield",
+    "old_max_health": 125.0,
+    "new_max_health": 170.0,
+    "balance_version": 2,
+    "old_elapsed": 2.81666666666666,
+    "elapsed": 4.49999999999999,
+    "preserved_seed": "10683214"
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834315.7571926,
+    "name": "00_legacy_migrated_pause",
+    "path": "output\\android-test\\classes-smoke\\00_legacy_migrated_pause.png"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791834319.6201923,
+    "component": "org.infiniteslash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=org.infiniteslash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: org.infiniteslash.game/com.godot.game.GodotApp\r\nTotalTime: 3110\r\nWaitTime: 3114\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791834323.916398
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834324.9454026,
+    "name": "00_migrated_resume_launch",
+    "path": "output\\android-test\\classes-smoke\\00_migrated_resume_launch.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834325.8809147,
+    "button": "SwordButton",
+    "overlay": "launch",
+    "point": [
+      298,
+      1412
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834326.0409145,
+    "state": "running",
+    "pid": "4627"
+  },
+  {
+    "event": "fresh_class_verified",
+    "wall_time": 1791834326.8774254,
+    "style": "sword",
+    "max_health": 80.0,
+    "damage": 32.0,
+    "attack_interval": 0.36,
+    "attack_range": 92.0,
+    "guard_capacity": 65.0
+  },
+  {
+    "event": "sword_started",
+    "wall_time": 1791834326.878426,
+    "max_health": 80.0,
+    "player": [
+      270.0,
+      799.200012207031
+    ]
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834329.4844935,
+    "name": "02_sword_action",
+    "path": "output\\android-test\\classes-smoke\\02_sword_action.png"
+  },
+  {
+    "event": "drag",
+    "wall_time": 1791834331.092496,
+    "duration_ms": 850
+  },
+  {
+    "event": "flick",
+    "wall_time": 1791834332.0460413,
+    "duration_ms": 100
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834333.5365527,
+    "name": "03_drag_guard_dash",
+    "path": "output\\android-test\\classes-smoke\\03_drag_guard_dash.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834334.287553,
+    "button": "PauseButton",
+    "overlay": "",
+    "point": [
+      986,
+      82
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834334.4190714,
+    "state": "pause",
+    "pid": "4627"
+  },
+  {
+    "event": "touch_movement_verified",
+    "wall_time": 1791834335.2516298,
+    "distance": 314.48380082451945,
+    "player": [
+      488.739471435547,
+      573.250671386719
+    ]
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834335.7576883,
+    "name": "04_pause",
+    "path": "output\\android-test\\classes-smoke\\04_pause.png"
+  },
+  {
+    "event": "pause_verified",
+    "wall_time": 1791834347.4220314,
+    "elapsed": 8.04999999999998,
+    "minimum_wait_seconds": 11.5
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834348.2100322,
+    "button": "LeaderboardButton",
+    "overlay": "pause",
+    "point": [
+      301,
+      1354
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834348.3840313,
+    "state": "scores",
+    "pid": "4627"
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834349.7070308,
+    "name": "05_local_scores",
+    "path": "output\\android-test\\classes-smoke\\05_local_scores.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834350.4540315,
+    "button": "ScoresBackButton",
+    "overlay": "scores",
+    "point": [
+      540,
+      1366
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834350.5930352,
+    "state": "pause",
+    "pid": "4627"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834352.0610745,
+    "button": "AchievementsButton",
+    "overlay": "pause",
+    "point": [
+      778,
+      1354
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834352.1960802,
+    "state": "achievements",
+    "pid": "4627"
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834353.460623,
+    "name": "06_badges",
+    "path": "output\\android-test\\classes-smoke\\06_badges.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834354.2256262,
+    "button": "AchievementsBackButton",
+    "overlay": "achievements",
+    "point": [
+      540,
+      1664
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834354.3916233,
+    "state": "pause",
+    "pid": "4627"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834355.9266236,
+    "button": "ResumeButton",
+    "overlay": "pause",
+    "point": [
+      540,
+      1172
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834356.0526228,
+    "state": "running",
+    "pid": "4627"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791834359.1686237,
+    "component": "org.infiniteslash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=org.infiniteslash.game/com.godot.game.GodotApp }\r\nWarning: Activity not started, its current task has been brought to the front\r\nStatus: ok\r\nLaunchState: HOT\r\nActivity: org.infiniteslash.game/com.godot.game.GodotApp\r\nTotalTime: 294\r\nWaitTime: 303\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791834360.0621402
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834361.1679797,
+    "name": "07_background_return",
+    "path": "output\\android-test\\classes-smoke\\07_background_return.png"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791834364.9430935,
+    "component": "org.infiniteslash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=org.infiniteslash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: org.infiniteslash.game/com.godot.game.GodotApp\r\nTotalTime: 2922\r\nWaitTime: 2925\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791834368.4796634
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834369.4886656,
+    "name": "08_process_resume",
+    "path": "output\\android-test\\classes-smoke\\08_process_resume.png"
+  },
+  {
+    "event": "process_recovery_verified",
+    "wall_time": 1791834369.6836634,
+    "elapsed": 9.7333333333334,
+    "style": "sword"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791834370.5056658,
+    "button": "ShieldButton",
+    "overlay": "launch",
+    "point": [
+      782,
+      1412
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834370.6471817,
+    "state": "running",
+    "pid": "4985"
+  },
+  {
+    "event": "fresh_class_verified",
+    "wall_time": 1791834371.5177157,
+    "style": "shield",
+    "max_health": 170.0,
+    "damage": 18.0,
+    "attack_interval": 0.6,
+    "attack_range": 80.0,
+    "guard_capacity": 165.0
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834373.030717,
+    "name": "09_shield_action",
+    "path": "output\\android-test\\classes-smoke\\09_shield_action.png"
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791834374.0567145,
+    "state": "pause",
+    "pid": "4985"
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791834375.357778,
+    "name": "10_android_back_pause",
+    "path": "output\\android-test\\classes-smoke\\10_android_back_pause.png"
+  },
+  {
+    "event": "shield_and_back_verified",
+    "wall_time": 1791834375.5107813,
+    "max_health": 170.0
+  },
+  {
+    "event": "completed",
+    "wall_time": 1791834375.675782,
+    "runtime_errors": 0,
+    "note": "Screenshots require visual review; this is functional emulator evidence, not phone performance certification."
+  }
+]

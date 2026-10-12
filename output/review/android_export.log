@@ -11,13 +11,6 @@ ERROR: Failed to read the root certificate store.
 [  83% ] first_scan_filesystem | Starting file scan...
 [ DONE ] first_scan_filesystem
 
-[   0% ] update_scripts_classes | Started Registering global classes... (4 steps)
-[   0% ] update_scripts_classes | 
-[  20% ] update_scripts_classes | 
-[  40% ] update_scripts_classes | 
-[  60% ] update_scripts_classes | 
-[ DONE ] update_scripts_classes
-
 [   0% ] export | Started Exporting for Android (105 steps)
 0 param: --xr_mode_regular
 1 param: --xr-mode
