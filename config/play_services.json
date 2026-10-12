@@ -1,0 +1,28 @@
+{
+  "enabled": false,
+  "game_id": "",
+  "save_name": "infiniteslash_profile_v1",
+  "timeout_seconds": 15,
+  "leaderboards": {
+    "high_score": "",
+    "longest_run": "",
+    "bosses_in_run": "",
+    "daily_score": ""
+  },
+  "achievements": {
+    "first_blood": "",
+    "boss_slayer": "",
+    "century": "",
+    "survivor": "",
+    "legend": "",
+    "collector": "",
+    "hundred_club": "",
+    "survivor_60": "",
+    "survivor_180": "",
+    "combo_25": "",
+    "score_10000": "",
+    "thousand_kills": "",
+    "ten_runs": ""
+  },
+  "incremental_achievements": {}
+}

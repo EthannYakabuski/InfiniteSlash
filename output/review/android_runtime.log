@@ -1,0 +1,126 @@
+--------- beginning of main
+10-12 01:14:18.365  5364  5364 I initeslash.gam: Late-enabling -Xcheck:jni
+10-12 01:14:18.389  5364  5364 I initeslash.gam: Unquickening 12 vdex files!
+10-12 01:14:18.391  5364  5364 W initeslash.gam: Unexpected CPU variant for X86 using defaults: x86
+10-12 01:14:18.737  5364  5364 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 01:14:18.746  5364  5364 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 01:14:18.848  5364  5387 D libEGL  : loaded /vendor/lib/egl/libEGL_emulation.so
+10-12 01:14:18.854  5364  5387 D libEGL  : loaded /vendor/lib/egl/libGLESv1_CM_emulation.so
+10-12 01:14:18.863  5364  5387 D libEGL  : loaded /vendor/lib/egl/libGLESv2_emulation.so
+10-12 01:14:19.006  5364  5364 D GodotActivity: Starting intent Intent { flg=0x10000000 cmp=org.infiniteslash.game/com.godot.game.GodotApp } with parameters null
+10-12 01:14:19.076  5364  5364 V GodotActivity: Creating new Godot fragment instance.
+10-12 01:14:19.190  5364  5364 V Godot   : InitEngine with params: [--xr_mode_regular, --xr-mode, off, --fullscreen, --edge_to_edge, --background_color, #141a1f]
+10-12 01:14:19.190  5364  5364 V Godot   : Initializing Godot plugin registry
+10-12 01:14:19.317  5364  5364 I GodotPluginRegistry: Registering runtime plugin AndroidRuntime
+10-12 01:14:19.363  5364  5364 D Godot   : background color = -15459809
+10-12 01:14:19.407  5364  5364 V Godot   : Godot native layer initialization completed: true
+10-12 01:14:19.656  5364  5364 V Godot   : Godot native layer setup completed
+10-12 01:14:19.662  5364  5364 V Godot   : OnInitRenderView: GodotFragment{c6290b4} (761a9316-99af-4420-be9f-ecc40c543022 id=0x7f070033)
+10-12 01:14:19.688  5364  5364 D Godot   : Render view should be transparent: false
+10-12 01:14:19.688  5364  5364 D Godot   : usesVulkan(): false
+10-12 01:14:19.688  5364  5364 D Godot   : 			renderingDevice: opengl3 (ProjectSettings)
+10-12 01:14:19.688  5364  5364 D Godot   : 			renderer: gl_compatibility (ProjectSettings)
+10-12 01:14:19.861  5364  5364 V Godot   : OnStart: GodotFragment{c6290b4} (761a9316-99af-4420-be9f-ecc40c543022 id=0x7f070033)
+10-12 01:14:19.872  5364  5364 V Godot   : OnResume: GodotFragment{c6290b4} (761a9316-99af-4420-be9f-ecc40c543022 id=0x7f070033)
+10-12 01:14:19.933  5364  5385 D HostConnection: HostConnection::get() New Host Connection established 0xf2d5fb20, tid 5385
+10-12 01:14:19.946  5364  5385 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 01:14:19.948  5364  5385 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+10-12 01:14:19.961  5364  5393 D HostConnection: HostConnection::get() New Host Connection established 0xbdfa2fa0, tid 5393
+10-12 01:14:19.982  5364  5385 D EGL_emulation: eglCreateContext: 0xf2d5f110: maj 3 min 0 rcv 3
+10-12 01:14:20.075  5364  5385 D EGL_emulation: eglMakeCurrent: 0xf2d5f110: ver 3 0 (tinfo 0xf30b7ab0) (first time)
+10-12 01:14:20.100  5364  5393 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 01:14:20.116  5364  5393 W RegularContextFactory: creating OpenGL ES 3.0 context :
+10-12 01:14:20.164  5364  5385 I Gralloc4: mapper 4.x is not supported
+10-12 01:14:20.166  5364  5385 D HostConnection: createUnique: call
+10-12 01:14:20.166  5364  5385 D HostConnection: HostConnection::get() New Host Connection established 0xf2d5ed20, tid 5385
+10-12 01:14:20.167  5364  5385 D goldfish-address-space: allocate: Ask for block of size 0x100
+10-12 01:14:20.179  5364  5385 D goldfish-address-space: allocate: ioctl allocate returned offset 0x3f3ffe000 size 0x2000
+10-12 01:14:20.190  5364  5385 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 01:14:20.193  5364  5393 D EGL_emulation: eglCreateContext: 0xbdfa2520: maj 3 min 0 rcv 3
+10-12 01:14:20.367  5364  5393 D EGL_emulation: eglMakeCurrent: 0xbdfa2520: ver 3 0 (tinfo 0xf30b7b10) (first time)
+10-12 01:14:20.388  5364  5393 I godot   : Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+10-12 01:14:20.595  5364  5376 I initeslash.gam: Background young concurrent copying GC freed 19851(1459KB) AllocSpace objects, 3(60KB) LOS objects, 91% free, 2209KB/26MB, paused 1.565ms total 199.653ms
+10-12 01:14:20.999  5364  5393 E godot   : WARNING: Failed to load cached shader, recompiling.
+10-12 01:14:20.999  5364  5393 E godot   :    at: _load_from_cache (drivers/gles3/shader_gles3.cpp:612)
+10-12 01:14:22.733  5364  5393 I godot   : OpenGL API OpenGL ES 3.0 (4.5.0 NVIDIA 560.94) - Compatibility - Using Device: Google (NVIDIA Corporation) - Android Emulator OpenGL ES Translator (NVIDIA GeForce GT 1030/PCIe/SSE2)
+10-12 01:14:22.741  5364  5393 D initeslash.gam: PlayerBase::PlayerBase()
+10-12 01:14:22.741  5364  5393 D initeslash.gam: TrackPlayerBase::TrackPlayerBase()
+10-12 01:14:22.741  5364  5393 I libOpenSLES: Emulating old channel mask behavior (ignoring positional mask 0x3, using default mask 0x3 based on channel count of 2)
+10-12 01:14:22.748  5364  5393 D AudioTrack: createTrack_l(1931494450): AUDIO_OUTPUT_FLAG_FAST denied by server; frameCount 0 -> 1956
+10-12 01:14:22.759  5364  5393 I godot   : 
+10-12 01:14:24.592  5364  5393 V Godot   : OnGodotSetupCompleted
+10-12 01:14:24.810  5364  5393 I godot   : INFINITESLASH_UI launch
+10-12 01:14:24.811  5364  5393 V Godot   : OnGodotMainLoopStarted
+10-12 01:14:29.756  5364  5393 I godot   : INFINITESLASH_UI running
+10-12 01:14:40.063  5364  5393 I godot   : INFINITESLASH_UI pause
+10-12 01:14:54.784  5364  5393 I godot   : INFINITESLASH_UI scores
+10-12 01:14:57.435  5364  5393 I godot   : INFINITESLASH_UI pause
+10-12 01:15:01.570  5364  5393 I godot   : INFINITESLASH_UI achievements
+10-12 01:15:04.036  5364  5393 I godot   : INFINITESLASH_UI pause
+10-12 01:15:06.000  5364  5393 I godot   : INFINITESLASH_UI running
+10-12 01:15:08.050  5364  5364 V Godot   : OnPause: GodotFragment{c6290b4} (761a9316-99af-4420-be9f-ecc40c543022 id=0x7f070033)
+10-12 01:15:08.159  5364  5393 I godot   : INFINITESLASH_UI pause
+10-12 01:15:08.719  5364  5393 D initeslash.gam: PlayerBase::pause() from IPlayer
+10-12 01:15:09.624  5364  5364 V Godot   : OnStop: GodotFragment{c6290b4} (761a9316-99af-4420-be9f-ecc40c543022 id=0x7f070033)
+10-12 01:15:09.650  5364  5393 E Surface : getSlotFromBufferLocked: unknown buffer: 0x62002d
+10-12 01:15:09.651  5364  5393 E EGL_emulation: tid 5393: swapBuffers(681): error 0x300d (EGL_BAD_SURFACE)
+10-12 01:15:09.653  5364  5393 W GLThread: eglSwapBuffers failed: EGL_BAD_SURFACE
+10-12 01:15:09.663  5364  5393 W libEGL  : EGLNativeWindowType 0xed60e2c8 disconnect failed
+10-12 01:15:09.934  5364  5364 V Godot   : OnStart: GodotFragment{c6290b4} (761a9316-99af-4420-be9f-ecc40c543022 id=0x7f070033)
+10-12 01:15:09.946  5364  5364 V Godot   : OnResume: GodotFragment{c6290b4} (761a9316-99af-4420-be9f-ecc40c543022 id=0x7f070033)
+10-12 01:15:10.926  5364  5376 I initeslash.gam: NativeAlloc concurrent copying GC freed 95467(7102KB) AllocSpace objects, 7(1080KB) LOS objects, 49% free, 2287KB/4575KB, paused 538us total 140.767ms
+--------- beginning of main
+10-12 01:15:15.852  5712  5712 I initeslash.gam: Late-enabling -Xcheck:jni
+10-12 01:15:15.881  5712  5712 I initeslash.gam: Unquickening 12 vdex files!
+10-12 01:15:15.883  5712  5712 W initeslash.gam: Unexpected CPU variant for X86 using defaults: x86
+10-12 01:15:16.236  5712  5712 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 01:15:16.237  5712  5712 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 01:15:16.285  5712  5735 D libEGL  : loaded /vendor/lib/egl/libEGL_emulation.so
+10-12 01:15:16.293  5712  5735 D libEGL  : loaded /vendor/lib/egl/libGLESv1_CM_emulation.so
+10-12 01:15:16.301  5712  5735 D libEGL  : loaded /vendor/lib/egl/libGLESv2_emulation.so
+10-12 01:15:16.430  5712  5712 D GodotActivity: Starting intent Intent { flg=0x10000000 cmp=org.infiniteslash.game/com.godot.game.GodotApp } with parameters null
+10-12 01:15:16.510  5712  5712 V GodotActivity: Creating new Godot fragment instance.
+10-12 01:15:16.613  5712  5712 V Godot   : InitEngine with params: [--xr_mode_regular, --xr-mode, off, --fullscreen, --edge_to_edge, --background_color, #141a1f]
+10-12 01:15:16.613  5712  5712 V Godot   : Initializing Godot plugin registry
+10-12 01:15:16.748  5712  5712 I GodotPluginRegistry: Registering runtime plugin AndroidRuntime
+10-12 01:15:16.778  5712  5712 D Godot   : background color = -15459809
+10-12 01:15:16.796  5712  5712 V Godot   : Godot native layer initialization completed: true
+10-12 01:15:16.902  5712  5712 V Godot   : Godot native layer setup completed
+10-12 01:15:16.903  5712  5712 V Godot   : OnInitRenderView: GodotFragment{c6290b4} (fc97cfcf-cfb2-4fed-a195-893deac43479 id=0x7f070033)
+10-12 01:15:16.919  5712  5712 D Godot   : Render view should be transparent: false
+10-12 01:15:16.919  5712  5712 D Godot   : usesVulkan(): false
+10-12 01:15:16.919  5712  5712 D Godot   : 			renderingDevice: opengl3 (ProjectSettings)
+10-12 01:15:16.919  5712  5712 D Godot   : 			renderer: gl_compatibility (ProjectSettings)
+10-12 01:15:17.042  5712  5712 V Godot   : OnStart: GodotFragment{c6290b4} (fc97cfcf-cfb2-4fed-a195-893deac43479 id=0x7f070033)
+10-12 01:15:17.050  5712  5712 V Godot   : OnResume: GodotFragment{c6290b4} (fc97cfcf-cfb2-4fed-a195-893deac43479 id=0x7f070033)
+10-12 01:15:17.103  5712  5733 D HostConnection: HostConnection::get() New Host Connection established 0xf2d41cf0, tid 5733
+10-12 01:15:17.119  5712  5733 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 01:15:17.153  5712  5733 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+10-12 01:15:17.178  5712  5739 D HostConnection: HostConnection::get() New Host Connection established 0xf2d5f6c0, tid 5739
+10-12 01:15:17.187  5712  5733 D EGL_emulation: eglCreateContext: 0xf2d5f8f0: maj 3 min 0 rcv 3
+10-12 01:15:17.235  5712  5739 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 01:15:17.260  5712  5733 D EGL_emulation: eglMakeCurrent: 0xf2d5f8f0: ver 3 0 (tinfo 0xf30b26d0) (first time)
+10-12 01:15:17.320  5712  5739 W RegularContextFactory: creating OpenGL ES 3.0 context :
+10-12 01:15:17.352  5712  5739 D EGL_emulation: eglCreateContext: 0xf2d5f880: maj 3 min 0 rcv 3
+10-12 01:15:17.385  5712  5733 I Gralloc4: mapper 4.x is not supported
+10-12 01:15:17.385  5712  5733 D HostConnection: createUnique: call
+10-12 01:15:17.386  5712  5733 D HostConnection: HostConnection::get() New Host Connection established 0xf2d5ecb0, tid 5733
+10-12 01:15:17.386  5712  5733 D goldfish-address-space: allocate: Ask for block of size 0x100
+10-12 01:15:17.386  5712  5733 D goldfish-address-space: allocate: ioctl allocate returned offset 0x3f3ffe000 size 0x2000
+10-12 01:15:17.396  5712  5733 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 01:15:17.433  5712  5739 D EGL_emulation: eglMakeCurrent: 0xf2d5f880: ver 3 0 (tinfo 0xf30b2b90) (first time)
+10-12 01:15:17.444  5712  5739 I godot   : Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+10-12 01:15:17.866  5712  5739 E godot   : WARNING: Failed to load cached shader, recompiling.
+10-12 01:15:17.866  5712  5739 E godot   :    at: _load_from_cache (drivers/gles3/shader_gles3.cpp:612)
+10-12 01:15:17.986  5712  5724 I initeslash.gam: Background young concurrent copying GC freed 21240(1468KB) AllocSpace objects, 3(60KB) LOS objects, 91% free, 2184KB/26MB, paused 6.572ms total 99.731ms
+10-12 01:15:19.380  5712  5739 I godot   : OpenGL API OpenGL ES 3.0 (4.5.0 NVIDIA 560.94) - Compatibility - Using Device: Google (NVIDIA Corporation) - Android Emulator OpenGL ES Translator (NVIDIA GeForce GT 1030/PCIe/SSE2)
+10-12 01:15:19.384  5712  5739 D initeslash.gam: PlayerBase::PlayerBase()
+10-12 01:15:19.384  5712  5739 D initeslash.gam: TrackPlayerBase::TrackPlayerBase()
+10-12 01:15:19.384  5712  5739 I libOpenSLES: Emulating old channel mask behavior (ignoring positional mask 0x3, using default mask 0x3 based on channel count of 2)
+10-12 01:15:19.395  5712  5739 D AudioTrack: createTrack_l(1931494450): AUDIO_OUTPUT_FLAG_FAST denied by server; frameCount 0 -> 1956
+10-12 01:15:19.401  5712  5739 I godot   : 
+10-12 01:15:21.186  5712  5739 V Godot   : OnGodotSetupCompleted
+10-12 01:15:21.404  5712  5739 I godot   : INFINITESLASH_UI launch
+10-12 01:15:21.405  5712  5739 V Godot   : OnGodotMainLoopStarted
+10-12 01:15:26.580  5712  5739 I godot   : INFINITESLASH_UI running
+10-12 01:15:30.711  5712  5739 I godot   : INFINITESLASH_UI pause

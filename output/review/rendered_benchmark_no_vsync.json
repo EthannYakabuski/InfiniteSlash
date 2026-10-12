@@ -1,0 +1,245 @@
+{
+  "android_device_performance_verified": false,
+  "average_fps": 24.4608890046838,
+  "focused_frame_fraction": 1.0,
+  "frames": 367,
+  "gpu": "NVIDIA GeForce GT 1030",
+  "max_simulation_ms": 4.367,
+  "method": "15-second rendered saturated test, first 5 seconds warmup excluded; 60 FPS cap; 100 enemies and 240 bullets replenished each frame, one manual 60Hz simulation tick per rendered frame for comparison with initial benchmark",
+  "monitor_summary": {
+    "draw_calls": {
+      "max": 1232.0,
+      "mean": 1190.74114441417,
+      "min": 1145.0,
+      "p95": 1219.0
+    },
+    "frame_setup_cpu_ms": {
+      "max": 0.048,
+      "mean": 0.010125340599455,
+      "min": 0.007,
+      "p95": 0.011
+    },
+    "node_count": {
+      "max": 53.0,
+      "mean": 51.5258855585831,
+      "min": 50.0,
+      "p95": 53.0
+    },
+    "physics_ms": {
+      "max": 0.624,
+      "mean": 0.10107901907357,
+      "min": 0.029,
+      "p95": 0.624
+    },
+    "process_ms": {
+      "max": 48.629,
+      "mean": 46.4031553133517,
+      "min": 43.458,
+      "p95": 48.629
+    },
+    "render_cpu_ms": {
+      "max": 13.3000001907349,
+      "mean": 10.1403896477307,
+      "min": 8.83100032806396,
+      "p95": 11.875
+    },
+    "render_gpu_ms": {
+      "max": 8.75800037384033,
+      "mean": 5.3785313234667,
+      "min": 1.5789999961853,
+      "p95": 7.60300016403198
+    },
+    "render_objects": {
+      "max": 1721.0,
+      "mean": 1561.58855585831,
+      "min": 1384.0,
+      "p95": 1680.0
+    },
+    "render_primitives": {
+      "max": 59737.0,
+      "mean": 58721.6866485014,
+      "min": 56973.0,
+      "p95": 59413.0
+    },
+    "texture_mb": {
+      "max": 19.0677661895752,
+      "mean": 19.0452866255425,
+      "min": 18.8177661895752,
+      "p95": 19.0677661895752
+    },
+    "video_mb": {
+      "max": 26.4412212371826,
+      "mean": 26.3972909963748,
+      "min": 26.1578502655029,
+      "p95": 26.4325389862061
+    }
+  },
+  "monster_atlas_present": true,
+  "p95_frame_ms": 45.178,
+  "p95_simulation_ms": 1.815,
+  "p99_frame_ms": 48.412,
+  "pacing": {
+    "delta_smoothing": true,
+    "engine_max_fps": 60,
+    "original_os_low_processor_usage_mode": false,
+    "original_os_sleep_usec": 6900,
+    "original_vsync_mode": 1,
+    "os_low_processor_usage_mode": false,
+    "os_sleep_usec": 1000,
+    "processor_control_applied": true,
+    "project_frame_delay_msec": 0,
+    "project_low_processor_mode": false,
+    "project_max_fps": 0,
+    "project_sleep_usec": 6900,
+    "screen_refresh_rate": 60.0,
+    "vsync_mode": 0,
+    "window_mode": 0,
+    "window_visible": true
+  },
+  "peak_bullets": 240,
+  "peak_enemies": 100,
+  "platform": "Windows",
+  "processor": "Intel(R) Core(TM) i5-3570 CPU @ 3.40GHz",
+  "rendering_method": "gl_compatibility",
+  "scenario": "saturated",
+  "seconds": 15.003543,
+  "seconds_trace": [
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 23.5051231374638,
+      "wall_second": 1.021054
+    },
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.8499312650901,
+      "wall_second": 2.027093
+    },
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 23.8302334171363,
+      "wall_second": 3.034217
+    },
+    {
+      "bullets": 239,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.5518308791323,
+      "wall_second": 4.052471
+    },
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.052592436518,
+      "wall_second": 5.09186
+    },
+    {
+      "bullets": 239,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.2777844676562,
+      "wall_second": 6.121608
+    },
+    {
+      "bullets": 238,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.1666610277791,
+      "wall_second": 7.156091
+    },
+    {
+      "bullets": 238,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.9058806769219,
+      "wall_second": 8.15987
+    },
+    {
+      "bullets": 238,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.208549878812,
+      "wall_second": 9.192563
+    },
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.1303657487797,
+      "wall_second": 10.228602
+    },
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.2858031023656,
+      "wall_second": 11.25801
+    },
+    {
+      "bullets": 238,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.5063922473538,
+      "wall_second": 12.278152
+    },
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 23.9957287602807,
+      "wall_second": 13.27833
+    },
+    {
+      "bullets": 236,
+      "enemies": 98,
+      "focused": true,
+      "fps": 23.9157924946264,
+      "wall_second": 14.281851
+    },
+    {
+      "bullets": 239,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.5924780462948,
+      "wall_second": 15.298422
+    },
+    {
+      "bullets": 240,
+      "enemies": 100,
+      "focused": true,
+      "fps": 23.9723838138464,
+      "wall_second": 16.299574
+    },
+    {
+      "bullets": 237,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.4437100467559,
+      "wall_second": 17.322332
+    },
+    {
+      "bullets": 239,
+      "enemies": 100,
+      "focused": true,
+      "fps": 24.736873872617,
+      "wall_second": 18.332969
+    },
+    {
+      "bullets": 236,
+      "enemies": 100,
+      "focused": true,
+      "fps": 25.1716756687679,
+      "wall_second": 19.365876
+    }
+  ],
+  "viewport": [
+    432,
+    768
+  ]
+}

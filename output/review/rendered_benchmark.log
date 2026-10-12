@@ -1,0 +1,6 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 560.94 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GT 1030
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+RENDERED_BENCHMARK {"android_device_performance_verified":false,"average_fps":24.4411164755429,"frames":366,"gpu":"NVIDIA GeForce GT 1030","max_simulation_ms":6.564,"method":"17-second rendered saturation test, first 2 seconds warmup excluded; 60 FPS cap; 100 enemies and 240 bullets replenished each frame","p95_frame_ms":46.451,"p95_simulation_ms":3.201,"p99_frame_ms":49.191,"peak_bullets":240,"peak_enemies":100,"platform":"Windows","processor":"Intel(R) Core(TM) i5-3570 CPU @ 3.40GHz","seconds":14.974766,"viewport":[432,768]}

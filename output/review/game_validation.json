@@ -1,0 +1,24 @@
+{
+	"checks": 199,
+	"failures": [],
+	"pass": true,
+	"stress": {
+		"android_device_measured": false,
+		"average_step_ms": 1.42723688888889,
+		"bosses_seen": 5,
+		"kills": 2982,
+		"level": 33,
+		"max_step_ms": 98.716,
+		"p95_step_ms": 4.531,
+		"peaks": {
+			"bullets": 240,
+			"drops": 60,
+			"effects": 90,
+			"enemies": 100
+		},
+		"rendering_measured": false,
+		"simulated_seconds": 300,
+		"steps": 18000,
+		"wall_time_ms": 26375.484
+	}
+}

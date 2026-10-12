@@ -1,0 +1,58 @@
+{
+  "result": "PASS",
+  "date": "2026-10-12",
+  "apk": "builds/InfiniteSlash-debug.apk",
+  "sha256": "0ae39d84dce696e1f766bfd1b659dd14b59e8df8a0bd0e76998cae043c3583b4",
+  "bytes": 63254714,
+  "serial": "emulator-5580",
+  "android": "11",
+  "api": 30,
+  "display": [
+    1080,
+    2220
+  ],
+  "abi": "x86",
+  "renderer": "Android Emulator OpenGL ES3 Translator / NVIDIA GT1030 host driver560.94",
+  "acceleration": "WHPX",
+  "last_live_pid": 5712,
+  "screenshots_reviewed": 10,
+  "engine_errors": [],
+  "checks": [
+    {
+      "event": "sword_started",
+      "wall_time": 1791782071.739108,
+      "max_health": 100.0,
+      "player": [
+        270.0,
+        799.200012207031
+      ]
+    },
+    {
+      "event": "touch_movement_verified",
+      "wall_time": 1791782082.0400343,
+      "distance": 291.3293121123561,
+      "player": [
+        476.083679199219,
+        593.281860351562
+      ]
+    },
+    {
+      "event": "pause_verified",
+      "wall_time": 1791782094.5564413,
+      "elapsed": 9.55000000000005,
+      "minimum_wait_seconds": 11.5
+    },
+    {
+      "event": "process_recovery_verified",
+      "wall_time": 1791782126.526579,
+      "elapsed": 11.5000000000002,
+      "style": "sword"
+    },
+    {
+      "event": "shield_and_back_verified",
+      "wall_time": 1791782133.5087578,
+      "max_health": 125.0
+    }
+  ],
+  "scope": "Functional emulator checks; no physical Android phone performance, battery or thermal claim."
+}

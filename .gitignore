@@ -1,0 +1,10 @@
+.godot/
+builds/
+output/android-test/
+output/test-data/
+android/build/
+android/.gradle/
+*.keystore
+*.tmp
+__pycache__/
+*.pyc

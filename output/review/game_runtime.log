@@ -1,0 +1,43 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI pause
+INFINITESLASH_UI running
+INFINITESLASH_UI end
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+STRESS: {"android_device_measured":false,"average_step_ms":1.42723688888889,"bosses_seen":5,"kills":2982,"level":33,"max_step_ms":98.716,"p95_step_ms":4.531,"peaks":{"bullets":240,"drops":60,"effects":90,"enemies":100},"rendering_measured":false,"simulated_seconds":300,"steps":18000,"wall_time_ms":26375.484}
+GAME TESTS: 199 checks, 0 failures

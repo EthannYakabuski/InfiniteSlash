@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "evidence_kind": "latest_APK_follow_up",
+  "sha256": "a31d118a3978c5db5516f6e7cff4c9f846a29df2cbbdd7773e1c19dfe8492926",
+  "apk": "builds/InfiniteSlash-debug.apk",
+  "date": "2026-10-12",
+  "serial": "emulator-5580",
+  "api": 30,
+  "renderer": "Host GLES3/NVIDIA GT1030 translator",
+  "screenshots_reviewed": 3,
+  "checks": [
+    "launch renders",
+    "shield starts with125maxhealth",
+    "Android Back enters pause",
+    "PID4604 remains alive",
+    "zero engine/script/fatal errors"
+  ],
+  "engine_errors": [],
+  "prior_full_suite_sha256": "0ae39d84dce696e1f766bfd1b659dd14b59e8df8a0bd0e76998cae043c3583b4",
+  "prior_full_suite_report": "output/review/android_test_report.json",
+  "source_delta": "Optional native daily_score lookup uses UTC consistently; cloud remains disabled."
+}

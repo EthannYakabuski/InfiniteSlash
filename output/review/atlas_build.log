@@ -1,0 +1,413 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/cinder_cheek.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/hex_hat.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/moss_muzzle.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/prism_hex.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/mint_munch.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ember_earl.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/moon_mallow.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/tin_tusk.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/amber_imp.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/slate_squid.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/fern_fang.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/bog_boulder.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/cherry_gnash.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/copper_cap.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/butter_gob.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/mulberry_bat.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ruby_jester.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ghost_wisp.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/void_candle.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/bluebell_bandit.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/branch_biter.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/sun_puff.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/iron_muffin.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/cocoa_snout.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/azure_baron.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/honey_lump.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/carrot_cavalier.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/night_pebble.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/pepper_pixie.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/sprout_sprite.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/pumpkin_helm.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/thistle_totem.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/copper_troll.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/soot_gargoyle.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/lavender_gremlin.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/dusk_hare.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/bone_bonnet.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/mint_brute.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/orchid_ooze.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/lemon_lancer.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/river_imp.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/cloud_crown.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/jam_juggernaut.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ivory_imp.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/indigo_fang.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/velvet_visor.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/cream_cap.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/scarlet_whistle.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/moss_moth.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/peach_ogre.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/frost_guard.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/acorn_king.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/honey_yawn.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ash_bonnet.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/mustard_maw.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/gilded_goggle.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ruby_rook.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/brick_beard.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/golden_gnome.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ember_bishop.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/cinder_sailor.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ochre_orb.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/marsh_mask.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/peach_wail.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/pepper_guard.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/coal_imp.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/apricot_elder.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/horned_husk.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/sleepy_squash.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/azure_wraith.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/night_watch.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/corn_husk.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/violet_warden.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/lilac_hound.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/raincoat_rogue.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/grave_moth.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/rose_rampart.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/clay_crawler.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/crimson_duke.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/copper_wizard.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/moss_lantern.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/jade_jester.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/rose_granite.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/amethyst_earl.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ochre_oracle.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/lime_royal.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/emerald_gentleman.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/dust_rabbit.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ember_hood.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/cobble_cub.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/chestnut_chimera.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/sage_specter.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/amber_antlers.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/slate_scholar.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/coal_cask.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/twig_terror.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/moss_minotaur.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/ruby_robin.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/azure_antlers.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/iron_nibbler.png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+WARNING: Loaded resource as image file, this will not work on export: 'res://Assets/Monsters/creature-sheet (2).png'. Instead, import the image file as an Image resource and load it normally as a resource.
+   at: load_from_file (core/io/image.cpp:2541)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://tools/build_monster_atlas.gd:11)
+MONSTER_ATLAS_BUILD 0 · 101 creatures / four frames / 960x264 · original sheets preserved
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2514)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:795)

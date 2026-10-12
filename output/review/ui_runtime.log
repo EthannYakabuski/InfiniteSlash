@@ -1,0 +1,27 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+INFINITESLASH_UI launch
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+INFINITESLASH_UI pause
+INFINITESLASH_UI achievements
+INFINITESLASH_UI pause
+INFINITESLASH_UI scores
+INFINITESLASH_UI pause
+INFINITESLASH_UI end
+INFINITESLASH_UI achievements
+INFINITESLASH_UI end
+INFINITESLASH_UI launch
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+INFINITESLASH_UI pause
+INFINITESLASH_UI achievements
+INFINITESLASH_UI pause
+INFINITESLASH_UI scores
+INFINITESLASH_UI pause
+INFINITESLASH_UI end
+INFINITESLASH_UI achievements
+INFINITESLASH_UI end
+UI_LAYOUT_PASS: portrait 540x960 and expanded540x1110; controls, HUD, local overlays and World contract

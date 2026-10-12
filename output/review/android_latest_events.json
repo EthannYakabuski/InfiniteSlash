@@ -1,0 +1,79 @@
+[
+  {
+    "event": "installed",
+    "wall_time": 1791783029.4623158,
+    "apk": "C:\\Users\\swimr\\Documents\\InfiniteSlash\\InfiniteSlash\\builds\\InfiniteSlash-debug.apk",
+    "result": "Serving...\r\nPerforming Incremental Install\r\nSuccess\r\nInstall command complete in 2262 ms"
+  },
+  {
+    "event": "device",
+    "wall_time": 1791783030.432364,
+    "serial": "emulator-5580",
+    "width": 1080,
+    "height": 2220,
+    "api": "30",
+    "abi": "x86,armeabi-v7a,armeabi"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791783035.596351,
+    "component": "org.infiniteslash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=org.infiniteslash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: org.infiniteslash.game/com.godot.game.GodotApp\r\nTotalTime: 4729\r\nWaitTime: 4778\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791783040.3083868
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791783041.5349407,
+    "name": "01_launch",
+    "path": "output\\android-test\\utc-final-quick\\01_launch.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791783043.2684674,
+    "button": "ShieldButton",
+    "overlay": "launch",
+    "point": [
+      782,
+      1412
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791783043.5085564,
+    "state": "running",
+    "pid": "4604"
+  },
+  {
+    "event": "shield_started",
+    "wall_time": 1791783044.4311156,
+    "max_health": 125.0
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791783045.1818042,
+    "name": "02_quick_shield",
+    "path": "output\\android-test\\utc-final-quick\\02_quick_shield.png"
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791783046.4583354,
+    "state": "pause",
+    "pid": "4604"
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791783047.9264345,
+    "name": "03_quick_back_pause",
+    "path": "output\\android-test\\utc-final-quick\\03_quick_back_pause.png"
+  },
+  {
+    "event": "completed",
+    "wall_time": 1791783048.0939932,
+    "mode": "quick",
+    "runtime_errors": 0,
+    "note": "Latest APK launch/style/Android Back follow-up; preceding full suite remains separate evidence."
+  }
+]
