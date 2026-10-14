@@ -1,6 +1,17 @@
 # Google Play Games Services integration
 
-Verified 2026-10-11 against the bundled `addons/GodotPlayGameServices` scripts and the upstream repository. This project already contains the v3.4.0 editor plugin, debug AAR, release AAR, and MIT license. Upstream's latest release also resolves to [v3.4.0](https://github.com/godot-sdk-integrations/godot-play-game-services/releases/tag/v3.4.0). Retain this plugin rather than installing another copy.
+Initially audited on 2026-10-11 against the bundled `addons/GodotPlayGameServices` scripts and upstream v3.4.0. Updated on 2026-10-12 for the owner-supplied IDs, configured Android builds and the local snapshot extension. The project retains the [v3.4.0 plugin](https://github.com/godot-sdk-integrations/godot-play-game-services/releases/tag/v3.4.0) and MIT license; InfiniteSlash's native fork and GDScript wrapper changes are documented separately in [PLAY_SERVICES_IMPLEMENTATION.md](PLAY_SERVICES_IMPLEMENTATION.md).
+
+## Current configuration and evidence
+
+- Runtime configuration is **enabled** with PGS game ID `832658811620`, Android package **`com.slash.game`**, 12 existing achievement IDs and three existing leaderboard IDs.
+- The four confirmed Incremental goals are `century: 100`, `collector: 100`, `thousand_kills: 1000`, and `ten_runs: 10`. Remote `survivor_180` and `daily_score` are intentionally omitted.
+- The owner supplied the linked Cloud project, published OAuth configuration and a Play App Signing Android credential. Saved Games was reported enabled on 2026-10-12 at “21:20 EST”; the [setup guide](PLAY_SERVICES_SETUP.md) and [handoff](PLAY_SERVICES_HANDOFF.json) distinguish that reported time from the assumed Toronto/EDT UTC conversion.
+- The configured adapter passes **152 deterministic local/fake-client checks**, including 70 new configuration/conflict/read-failure cases. The previous 82-check suite is historical. See `output/review/services_configured_runtime.log`.
+- Native Gradle APK/AAB build evidence belongs in [PLAY_SERVICES_IMPLEMENTATION.md](PLAY_SERVICES_IMPLEMENTATION.md). No fake-client test establishes live Google authentication, score uploads, achievements or two-device recovery.
+- Tester access, a debug credential matching the sideload signer or a matching Play installation, and a release/upload signing workflow remain owner tasks. Store artwork and individual icons are in the [upload kit](../store/README.md).
+
+The package change from `org.infiniteslash.game` creates a different Android app/data sandbox. Prior local progress in the old package is **not automatically migrated** into `com.slash.game`. Cloud profile sync begins only after valid authentication and does not transfer the old package's unfinished run.
 
 ## Integration contract
 
@@ -10,11 +21,11 @@ Initialize the main autoload before client Nodes enter `_ready()`, because each 
 
 The main wrapper calls the native singleton `GodotPlayGameServices`, with `initialize()` returning enum values `OK = 0`, `PLUGIN_NOT_FOUND = 1`. On desktop, web, or unconfigured Android, keep all gameplay and local persistence functional. Gate native setup on Android, an explicit enabled setting, real configuration IDs, and `Engine.has_singleton("GodotPlayGameServices")`.
 
-The plugin editor extension registers its autoload when enabled. This project's default offline build instead keeps the editor extension disabled and registers the vendor wrapper manually in `project.godot`. Enable the editor plugin only for a configured Gradle/services build, retaining exactly one wrapper autoload. See [upstream installation and configuration](https://github.com/godot-sdk-integrations/godot-play-game-services#install-the-plugin).
+The plugin editor extension registers its autoload when enabled. The initial offline build kept it disabled and registered the wrapper manually. The configured project now enables the editor plugin for Gradle/services exports, retaining exactly one `GodotPlayGameServices` wrapper autoload before `SaveData` and `PlayServices`. See [upstream installation and configuration](https://github.com/godot-sdk-integrations/godot-play-game-services#install-the-plugin).
 
-## Exact bundled GDScript API
+## GDScript API and local extension
 
-All operations below are asynchronous and return `void`, except the main initializer. Callback arguments use wrapper data classes, not native Google objects.
+Upstream feature operations below are asynchronous and return `void`; the main initializer and the explicitly listed local capability/resolve helpers have return values. Callback arguments use wrapper data classes, not native Google objects.
 
 ### Authentication
 
@@ -52,7 +63,7 @@ signal achievements_loaded(achievements: Array[PlayGamesAchievement])
 
 Use normal unlocks for milestone achievements and `set_achievement_steps` for cumulative goals. Absolute step setting is safe to replay after an interrupted request; repeatedly incrementing a cached total can inflate progress. Only send positive amounts/steps. A `false` unlock callback can mean the incremental achievement remains locked, so do not interpret it as a generic network error.
 
-Implemented normal milestones include first kill, first boss, 100 kills in a run, 60-second survival, 180-second survival, 25-hit combo, and 10,000 score. Cumulative goals include 100/1,000 lifetime kills, ten runs, and all 100 generated discoveries. Local achievements and notifications work before IDs are configured. The ID map defaults to blank values, which are skipped.
+Implemented normal milestones include first kill, first boss, 100 kills in a run, 60-second survival, 180-second survival, five bosses, 25-kill combo, and 10,000 score. Cumulative goals include 100/1,000 lifetime kills, ten runs, and all 100 generated discoveries. Local achievements and notifications remain usable without authentication. Twelve real IDs are configured; blank optional IDs are skipped. Upload the individual icons to those existing IDs using [icon_manifest.json](../store/icons/icon_manifest.json), rather than importing the initial metadata draft again.
 
 ### Leaderboards
 
@@ -94,40 +105,49 @@ load_snapshots(force_reload: bool)
 show_saved_games(title: String, allow_add_button: bool, allow_delete: bool, max_snapshots: int)
 delete_snapshot(snapshot_id: String)
 
+# InfiniteSlash extension: synchronous capability/start result, asynchronous completion.
+supports_conflict_resolution() -> bool
+resolve_conflict(conflict_id: String, description: String, save_data: PackedByteArray,
+                 played_time_millis: int = 0, progress_value: int = 0) -> bool
+
 signal game_saved(is_saved: bool, save_data_name: String, save_data_description: String)
 signal game_loaded(snapshot: PlayGamesSnapshot)
+# InfiniteSlash extension: failed open/read is distinct from an absent save.
+signal game_load_failed(file_name: String, message: String)
 signal conflict_emitted(conflict: PlayGamesSnapshotConflict)
 signal snapshots_loaded(snapshots: Array[PlayGamesSnapshotMetadata])
 ```
 
-Save UTF-8 JSON as `JSON.stringify(profile).to_utf8_buffer()`. Load with `JSON.parse_string(snapshot.content.get_string_from_utf8())`, then validate type, schema, numeric bounds, and allowed keys. `game_loaded` can emit `null` for an absent save. Use one stable filename such as `infiniteslash_profile_v1` (1–100 characters drawn from letters, digits, `- . _ ~`). `PlayGamesSnapshot.DISPLAY_LIMIT_NONE` is -1.
+Save UTF-8 JSON as `JSON.stringify(profile).to_utf8_buffer()`. Load with `JSON.parse_string(snapshot.content.get_string_from_utf8())`, then validate type, schema, numeric bounds, and allowed keys. `game_loaded` can emit `null` for a genuinely absent save. The local fork emits `game_load_failed` for an open/read failure instead, so the adapter preserves pending/local progress without creating or overwriting a cloud slot. Use one stable filename such as `infiniteslash_profile_v1` (1–100 characters drawn from letters, digits, `- . _ ~`). `PlayGamesSnapshot.DISPLAY_LIMIT_NONE` is -1.
 
 `PlayGamesSnapshot` contains `content: PackedByteArray` and `metadata: PlayGamesSnapshotMetadata`. Metadata includes `unique_name`, `snapshot_id`, `description`, `progress_value`, `played_time`, and `last_modified_timestamp`.
 
 `PlayGamesSnapshotConflict` contains `origin` ("SAVE" or "LOAD"), `conflict_id`, `conflicting_snapshot`, and `server_snapshot`. The GDScript wrapper has no `snapshot_deleted` signal, although v3.4.0's native plugin exposes `snapshotDeleted(success: bool, snapshot_id: String)`; use the native signal directly only if deletion is implemented.
 
-## Snapshot limitations and safe MVP behavior
+## Historical upstream limitations and current snapshot behavior
 
-The upstream native implementation opens saves with highest-progress policy and loads with most-recent policy. Remaining conflicts are emitted without a native resolution entry point. Its save success callback is emitted after starting `commitAndClose`, without awaiting commit completion; some failures produce logs rather than callbacks. These behaviors are verified in [SnapshotsProxy.kt](https://github.com/godot-sdk-integrations/godot-play-game-services/blob/v3.4.0/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt).
+The original upstream v3.4.0 opened saves with highest-progress policy and loads with most-recent policy, emitted remaining conflicts without a resolution entry point, and emitted save success after starting `commitAndClose` without awaiting completion. Some failures produced logs rather than callbacks. These are **historical upstream findings**, verified in [SnapshotsProxy.kt](https://github.com/godot-sdk-integrations/godot-play-game-services/blob/v3.4.0/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt), not a claim that InfiniteSlash's fork still has those behaviors.
 
-Implement a timeout for all cloud requests. Keep a valid, atomic local save and backup. Mark cloud writes as pending until a later read verifies the payload/revision, rather than claiming that `game_saved(true)` proves remote durability. Persist locally at run end, milestone unlock, settings change, and application backgrounding. Never block a start, resume, or replay on a network request.
+The local native fork waits for commit completion before reporting `game_saved`, retains conflicting native snapshots, exposes `resolveConflict` through the wrapper helpers above and reports open/read failures separately. Source/patch provenance, packaged artifact status and native validation are recorded in [PLAY_SERVICES_IMPLEMENTATION.md](PLAY_SERVICES_IMPLEMENTATION.md). `supports_conflict_resolution()` checks the installed native method, so a build accidentally using an unpatched plugin follows the safe fallback instead of calling a missing operation.
 
-If `conflict_emitted` fires, merge and persist the useful progress locally, keep the pending cloud state, and expose a concise cloud-sync status outside the active run. Do not call a nonexistent `resolve_conflict` method or claim the conflict was resolved remotely. A robust native extension can retain conflicting Snapshot handles and add a resolution entry point, then use Google's bounded retry strategy. [Google's conflict-resolution guide](https://developer.android.com/games/pgs/android/saved-games#handle_saved_game_conflicts) documents the necessary native `SnapshotsClient.resolveConflict` operation.
+On `conflict_emitted`, the adapter validates both remote profiles before remote replacement, merges supported useful progression locally and resolves using new merged bytes. It permits at most **ten resolution attempts** per sync chain, with an operation timeout on each. Malformed/newer-schema branches, missing conflict IDs, absent fork support, failed start, exhausted retries or timeouts preserve local progression and suspend automatic cloud snapshots for that session. With an unpatched plugin, valid progression is merged locally and pending cloud state is kept; the adapter does not claim remote resolution. This follows the bounded pattern in [Google's conflict-resolution guide](https://developer.android.com/games/pgs/android/saved-games#handle_saved_game_conflicts).
+
+The adapter retains nonce/revision readback after a successful callback and checks native pending-change metadata before marking the write verified. An awaited SDK commit or matching cached payload alone is not claimed as proof of server durability. Local atomic primary/backup saves and progress remain usable through failures. Start, resume and replay never wait for cloud requests.
 
 The implemented cloud merge keeps record maxima, unions unlocked achievements/discoveries, and merges lifetime counters through per-device component maxima (up to 64 tracked device components). Independent device progress combines without double-counting repeated snapshots. Preferences and active-run resumes stay device-local; cloud loading cannot replace them. Cloud sync preserves persistent progression only.
 
-## Configuration to supply later
+## Supplied configuration and remaining owner work
 
-No backend/cloud resources are configured yet. Keep the adapter disabled and configuration IDs blank by default. Do not insert dummy Google IDs or silently authenticate with missing configuration.
+The initial disabled/blank-ID configuration has been replaced with the supplied real values. Current runtime config and export presets use game ID `832658811620` and package `com.slash.game`. The owner's console confirmations and remaining fields are in [PLAY_SERVICES_HANDOFF.json](PLAY_SERVICES_HANDOFF.json).
 
-1. Create the app's Google Play Games Services project and linked Google Cloud project.
-2. Configure OAuth consent and testing access. Link Android OAuth credentials whose package and SHA-1 match debug signing, release signing, and Play App Signing as applicable. Add the testing Google accounts.
-3. Create the score/survival leaderboards and matching normal/incremental achievements. Enable Saved Games.
-4. Copy the numeric game ID into Android export option `godot_play_game_services/game_id`; copy actual board and achievement IDs into the game's ID map. Set the Android package consistently across export and credentials.
-5. Enable custom Gradle build and install the matching Godot Android build template. Enable the services adapter only after supplying IDs.
-6. Test on signed Android builds with eligible Google accounts, including offline launch, failed sign-in, callback timeouts, absent saves, two-device conflicts, background/resume, and disabled backend configuration. Publish Play Games Services changes when ready for public access.
+1. Upload the supplied achievement/leaderboard icons to the existing IDs. Do not re-import the initial metadata draft and create duplicates.
+2. Authorize test accounts or the selected release track for PGS. OAuth publication is separate from unpublished PGS test access.
+3. For sideloaded debug testing, link an Android OAuth credential for `com.slash.game` plus the `62:EE:…` debug SHA-1. The supplied `A1:CD:…` Play App Signing credential covers matching Play-installed builds instead.
+4. Sign release/upload artifacts locally with the upload key. An unsigned AAB cannot be uploaded as the release; upload and Play app-signing certificates may differ.
+5. Use the final configured Gradle/native artifact reported in the implementation document. Confirm package, numeric game ID, signer and native singleton instead of relying on the JSON switch alone.
+6. Test eligible signed Android builds against real Google services: offline/refused authentication, all achievement types, board uploads, callbacks/timeouts, absent saves, two-device conflicts and background/resume. Publish PGS configuration and the Play app separately when ready.
 
-Google's [console setup](https://developer.android.com/games/pgs/console/setup) and [Saved Games guide](https://developer.android.com/games/pgs/android/saved-games) describe credential linking, testers, and the Saved Games switch. The bundled export plugin injects game ID metadata and writes `android/build/res/values/strings.xml`; the directory must exist before an enabled services export. Blank game IDs are not a complete Android configuration.
+Google's [console setup](https://developer.android.com/games/pgs/console/setup) and [Saved Games guide](https://developer.android.com/games/pgs/android/saved-games) describe credential linking, testers and Saved Games. InfiniteSlash's enabled export plugin injects game ID metadata and writes the dedicated `android/build/res/values/godot_play_services.xml` with `game_services_project_id`, preserving the template's `strings.xml`. An enabled feature flag is not a substitute for native packaging or matching credentials.
 
 ## Local tooling observed
 
@@ -137,11 +157,11 @@ Google's [console setup](https://developer.android.com/games/pgs/console/setup) 
 - Editor Java SDK setting: `C:/Program Files/Java/jdk-17`; `bin/java.exe` exists.
 - Bundled export dependencies: Google `play-services-games-v2:21.0.0` and Gson `2.11.0`. Upstream AAR source builds against Godot `4.5.1.stable`, compileSdk 35, Java 17, minSdk 21. See [build definition](https://github.com/godot-sdk-integrations/godot-play-game-services/blob/v3.4.0/plugin/build.gradle.kts).
 
-The signed debug APK export succeeded with the Godot 4.5.1 template (minimum API 24, target API 35). The plugin's own minimum SDK 21 does not lower the engine's Android floor. See `ANDROID_BUILD.md` for the current package/checksum and `ANDROID_TESTING.md` for actual runtime evidence and limits.
+**Historical initial build:** the offline signed debug APK used the Godot 4.5.1 template, minimum API24, target API35 and package `org.infiniteslash.game`. The plugin's own minimum SDK21 did not lower the engine's floor. Configured `com.slash.game` exports now request API36/Gradle; their successful packaging, checksums and runtime evidence must come from [PLAY_SERVICES_IMPLEMENTATION.md](PLAY_SERVICES_IMPLEMENTATION.md) and the current Android reports, not this old result.
 
 ## MVP service interface and verification plan
 
-Implemented in `scripts/services/save_data.gd`, `scripts/services/play_services.gd`, `config/play_services.json`, and `tests/test_services.gd` after the creature roster preimplementation steps completed. Vendor files are unchanged. The project's services autoload order is `GodotPlayGameServices` (manual vendor wrapper), `SaveData`, then `PlayServices`; the editor plugin stays disabled for the default offline APK preset. Enable it only for configured services builds.
+Implemented in `scripts/services/save_data.gd`, `scripts/services/play_services.gd`, `config/play_services.json`, and `tests/test_services.gd`. The initial implementation left vendor files untouched; the current local fork changes snapshot commit/conflict behavior and adds the GDScript helpers. Autoload order remains `GodotPlayGameServices`, `SaveData`, then `PlayServices`. The editor plugin is enabled for configured Gradle exports. Fork source/patch and build provenance are recorded in the implementation document.
 
 ### SaveData autoload
 
@@ -174,14 +194,14 @@ var status: String
 signal status_changed(status: String)
 
 submit_run(run: Dictionary) -> void
-show_leaderboards() -> void
-show_achievements() -> void
+show_leaderboards() -> bool
+show_achievements() -> bool
 sync_profile() -> void
 ```
 
-Gameplay calls `SaveData.add_run` once before `submit_run`, which attempts configured native submissions. `sync_profile` loads/merges a cloud profile before saving. The adapter verifies its write nonce through readback because the vendor save callback does not await commit. A timeout suspends cloud snapshots until the next launch because native callbacks lack request tokens; late results cannot erase newer data. An account mismatch also preserves local data and declines automatic sync. Score and achievement methods run independently, with replayable idempotent updates.
+Gameplay calls `SaveData.add_run` once before `submit_run`, which attempts configured native submissions. `sync_profile` loads/merges before saving. The local fork awaits commit, and the adapter additionally verifies nonce/revision and pending-change metadata through readback. Valid conflict branches can be resolved with the bounded merge flow above. A timeout suspends snapshots until the next launch because callbacks lack request tokens; late results cannot erase newer data. An account mismatch detected during player loading preserves local data and declines sync. There is no continuous account-change listener or identity check before every write. Score and achievement methods run independently, with replayable idempotent updates.
 
-Disabled defaults keep `status` readable ("Local play"), and score/achievement buttons can surface the offline UI without creating native Nodes. `show_leaderboards` and `show_achievements` return true when routed to native UI/sign-in, or false and emit `local_leaderboards_requested` / `local_achievements_requested` for local UI. `is_available()` and `is_authenticated()` let gameplay choose its surface. Configuration holds `enabled: false`, blank IDs, and stable save filename. Both runtime configuration and Android singleton availability are checked before initialization. Native UI should pause gameplay and leave resume to the visible game surface. Status messages never interrupt combat.
+Desktop, unavailable native plugin, disabled config and failed authentication preserve readable local status and local Scores/Badges. `show_leaderboards` and `show_achievements` return true when routed to native UI/sign-in, or false and emit `local_leaderboards_requested` / `local_achievements_requested` for local UI. `is_available()` and `is_authenticated()` let gameplay choose its surface. Current configuration holds `enabled: true`, real IDs and the stable profile filename. Configuration and Android singleton availability are checked before initialization. Native UI pauses gameplay and leaves resume to the visible game surface. Status messages never interrupt combat.
 
 ### Tests
 
@@ -198,6 +218,6 @@ Use an executable Godot `SceneTree` test script with deterministic assertions:
 9. Offline PlayServices startup creates no native clients, provides local status, and all public operations return without errors.
 10. Configuration IDs blank or plugin absent both preserve immediate local play. Pending score replay uses maxima; achievement replay uses unlock/absolute steps rather than repeated increments.
 
-Cloud credentials and real two-device tests remain postconfiguration requirements. The default offline build can be exported and tested now without claiming server-side verification.
+Real Google account/tester access, matching installed-build credentials and two-device tests remain requirements. Local/offline tests do not establish server verification or release readiness.
 
-Verification completed 2026-10-12: 82 deterministic assertions passed in Godot 4.5.1, including local corruption/future-version recovery, UTC daily-score routing/rollover, and simulated native callback ordering, timeout, pending-upload, and late-reply behavior. See `output/review/services_runtime.log`. These simulated callbacks do not test real Google authentication or servers.
+Historical verification on 2026-10-12: 82 deterministic assertions passed in Godot 4.5.1, including corruption/future-version recovery, UTC routing, callback ordering/timeouts, pending uploads and late replies (`output/review/services_runtime.log`). **Current configured verification: 152 checks, zero failures**, adding 70 cases for real-ID/type routing, supported conflict resolution, branch validation, bounded retry/failure paths, unpatched-plugin fallback and read failures that must not create or overwrite cloud data (`output/review/services_configured_runtime.log`). Both suites use local storage and controlled fake native clients; neither tests real Google authentication or servers.

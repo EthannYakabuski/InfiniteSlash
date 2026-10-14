@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "failures": [],
+  "image_count": 41,
+  "achievements": 12,
+  "leaderboards": 3,
+  "screenshots": 24,
+  "description_lengths": {
+    "short_description": {
+      "characters": 68,
+      "limit": 80
+    },
+    "full_description": {
+      "characters": 1981,
+      "limit": 4000
+    }
+  },
+  "all_image_bytes": 6646238
+}

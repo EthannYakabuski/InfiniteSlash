@@ -25,6 +25,33 @@ class FakeSnapshot extends RefCounted:
 		content = JSON.stringify(payload).to_utf8_buffer()
 		metadata = {"has_change_pending": pending}
 
+class FakeResolvingSnapshots extends FakeSnapshots:
+	var available := true
+	var start_result := true
+	var resolutions: Array[Dictionary] = []
+	func supports_conflict_resolution() -> bool:
+		return available
+	func resolve_conflict(id: String, description: String, bytes: PackedByteArray,
+			played: int, progress: int) -> bool:
+		payload = JSON.parse_string(bytes.get_string_from_utf8())
+		resolutions.append({"id": id, "description": description,
+			"payload": payload.duplicate(true), "played_ms": played, "progress": progress})
+		return start_result
+
+class FakeConflict extends RefCounted:
+	var conflict_id: String
+	var server_snapshot: Variant
+	var conflicting_snapshot: Variant
+	func _init(id: String, server: Variant, conflicting: Variant) -> void:
+		conflict_id = id
+		server_snapshot = server
+		conflicting_snapshot = conflicting
+
+class FakePlayer extends RefCounted:
+	var player_id: String
+	func _init(id: String) -> void:
+		player_id = id
+
 class FakeLeaderboards extends Node:
 	var submissions: Array[Dictionary] = []
 	func submit_score(board_id: String, score: int) -> void:
@@ -67,6 +94,13 @@ func _run_tests() -> void:
 	_test_cloud_merge()
 	_test_disabled_adapter()
 	_test_cloud_adapter_callbacks()
+	_test_resolved_cloud_conflict()
+	_test_conflict_resolution_fallbacks()
+	_test_invalid_conflict_branches()
+	_test_conflict_retry_bound()
+	_test_conflict_timeout_and_late_callbacks()
+	_test_account_mismatch_blocks_cloud()
+	_test_cloud_read_failure_callbacks()
 	_test_daily_score_routing()
 	for store: Node in _stores:
 		store.free()
@@ -253,7 +287,7 @@ func _test_cloud_adapter_callbacks() -> void:
 	store.add_run({"score": 900, "kills": 8})
 	adapter._on_game_saved(true, "test_profile", "test")
 	_check(adapter._operation == "verify_wait" and store.profile.cloud.last_verified_revision == 0,
-		"early vendor success is not treated as durable commit")
+		"commit callback alone is not acknowledged before readback")
 	adapter._verify_after = 0.0
 	adapter._process(0.0)
 	_check(snapshots.loads == 2 and adapter._operation == "verify", "commit callback starts readback")
@@ -277,6 +311,272 @@ func _test_cloud_adapter_callbacks() -> void:
 	adapter._process(0.0)
 	_check(adapter._cloud_suspended and store.profile.cloud.pending_scores.high_score == 900,
 		"native timeout releases operation while retaining progress")
+	adapter.free()
+
+func _cloud_adapter(store: Node, snapshots: Node, slot: String) -> Node:
+	var adapter: Node = PLAY_SCRIPT.new()
+	adapter._store = store
+	adapter.configuration = {"enabled": false, "game_id": "", "save_name": slot,
+		"leaderboards": {}, "achievements": {}}
+	root.add_child(adapter)
+	adapter.set_process(false)
+	adapter.add_child(snapshots)
+	adapter._snapshots = snapshots
+	adapter._authenticated = true
+	adapter._account_ready = true
+	return adapter
+
+func _conflict_pair(name: String) -> Dictionary:
+	var local := _store(name + "_local")
+	var remote := _store(name + "_remote")
+	local.add_run({"score": 100, "kills": 3, "bosses": 1, "duration": 12.5,
+		"collected_powerups": 2})
+	remote.add_run({"score": 11000, "kills": 4, "bosses": 5, "duration": 22.75,
+		"combo": 30, "collected_powerups": 3})
+	return {"local": local, "remote": remote,
+		"server": FakeSnapshot.new(remote.cloud_profile()),
+		"branch": FakeSnapshot.new(local.cloud_profile())}
+
+func _test_resolved_cloud_conflict() -> void:
+	var pair := _conflict_pair("resolve")
+	var store: Node = pair.local
+	var remote: Node = pair.remote
+	store.profile.settings.music = false
+	store.save_active_run({"seed": 814})
+	var species: Array = store._known_monsters.keys()
+	store.discover_monster(species[0])
+	remote.discover_monster(species[1])
+	pair.server = FakeSnapshot.new(remote.cloud_profile())
+	pair.branch = FakeSnapshot.new(store.cloud_profile())
+	var snapshots := FakeResolvingSnapshots.new()
+	var adapter := _cloud_adapter(store, snapshots, "resolved_profile")
+	adapter.sync_profile()
+	_check(snapshots.loads == 1 and snapshots.resolutions.is_empty(), "conflict resolution begins only after a cloud read")
+	adapter._on_conflict(FakeConflict.new("first-conflict", pair.server, pair.branch))
+	_check(snapshots.resolutions.size() == 1 and snapshots.resolutions[0].id == "first-conflict",
+		"validated conflict starts native resolution using the supplied conflict ID")
+	_check(store.profile.total_runs == 2 and store.profile.total_kills == 7 and store.profile.total_bosses == 6,
+		"conflict combines independent completed-run counters")
+	_check(store.profile.collected_powerups == 5 and is_equal_approx(store.profile.total_played_seconds, 35.25),
+		"conflict combines time and powerup counters")
+	_check(store.profile.best_score == 11000 and store.profile.best_duration == 22.75 and
+		store.profile.best_combo == 30 and store.profile.best_bosses == 5,
+		"conflict keeps maximum competitive records")
+	_check(store.profile.discovered.size() == 2 and store.profile.achievements.has("legend") and
+		store.profile.achievements.has("score_10000"), "conflict unions species discoveries and earned badges")
+	_check(not store.profile.settings.music and store.active_run.seed == 814,
+		"conflict preserves device preferences and unfinished battle")
+	var first: Dictionary = snapshots.resolutions[0]
+	_check(first.played_ms == 35250 and first.progress == 7 and first.description.contains("11000"),
+		"native resolution receives milliseconds, completed kills and the merged score description")
+	_check(first.payload.total_kills == 7 and first.payload.best_score == 11000 and
+		not first.payload.has("active_run") and not first.payload.has("cloud") and not first.payload.has("run_history"),
+		"resolution uploads merged persistent progression without device-local simulation or request state")
+	var nonce: String = first.payload.sync_nonce
+	_check(nonce.length() == 32 and store.profile.cloud.last_verified_revision == 0 and adapter._operation == "save",
+		"starting native resolution adds a nonce but does not acknowledge upload")
+	adapter._on_conflict(FakeConflict.new("replacement-conflict", pair.server, pair.branch))
+	_check(snapshots.resolutions.size() == 2 and store.profile.total_runs == 2 and store.profile.total_kills == 7,
+		"repeated conflict branches are idempotent while native conflict IDs change")
+	_check(snapshots.resolutions[1].payload.sync_nonce != nonce,
+		"a replacement conflict write has a fresh nonce rather than reusing the earlier operation")
+	var written_revision: int = adapter._write_revision
+	store.add_run({"score": 22000, "kills": 8, "duration": 4})
+	adapter._on_game_loaded(FakeSnapshot.new(snapshots.payload))
+	_check(store.profile.cloud.last_verified_revision == 0 and adapter._operation == "save",
+		"readback arriving before the native commit callback cannot acknowledge conflict resolution")
+	adapter._on_game_saved(true, "resolved_profile", "native commit complete")
+	_check(adapter._operation == "verify_wait" and store.profile.cloud.last_verified_revision == 0,
+		"native commit success still waits for matching conflict readback")
+	adapter._verify_after = 0.0
+	adapter._process(0.0)
+	_check(snapshots.loads == 2 and adapter._operation == "verify", "resolved commit requests a verification read")
+	adapter._on_game_loaded(FakeSnapshot.new(snapshots.payload))
+	_check(adapter._operation.is_empty() and store.profile.cloud.last_verified_revision == written_revision,
+		"only matching non-pending readback acknowledges the resolved revision")
+	_check(store.profile.best_score == 22000 and store.profile.total_kills == 15 and
+		store.profile.cloud.pending_scores.high_score == 22000,
+		"verified conflict write cannot erase newer local progress or a higher pending score")
+	adapter.free()
+
+func _test_conflict_resolution_fallbacks() -> void:
+	for mode: String in ["legacy_wrapper", "unsupported_native", "empty_id", "native_rejected"]:
+		var pair := _conflict_pair("fallback_" + mode)
+		var store: Node = pair.local
+		var snapshots: Node = FakeSnapshots.new() if mode == "legacy_wrapper" else FakeResolvingSnapshots.new()
+		if mode == "unsupported_native": snapshots.available = false
+		if mode == "native_rejected": snapshots.start_result = false
+		var adapter := _cloud_adapter(store, snapshots, "fallback_profile")
+		adapter.sync_profile()
+		adapter._on_conflict(FakeConflict.new("" if mode == "empty_id" else "fallback-conflict", pair.server, pair.branch))
+		_check(adapter._cloud_suspended and adapter._operation.is_empty(), "%s suspends unresolved cloud operations" % mode)
+		_check(store.profile.best_score == 11000 and store.profile.total_kills == 7 and
+			store.profile.cloud.pending_scores.high_score == 11000,
+			"%s preserves useful merged progress and queued records" % mode)
+		_check(store.reload_profile() and store.profile.total_kills == 7,
+			"%s merged progress is durable on this device" % mode)
+		_check(snapshots.saves == 0 and store.profile.cloud.last_verified_revision == 0,
+			"%s does not substitute an ordinary overwrite or acknowledge a failed resolution" % mode)
+		if mode != "legacy_wrapper":
+			_check(snapshots.resolutions.size() == (1 if mode == "native_rejected" else 0),
+				"%s starts native resolution only when supported with a nonempty ID" % mode)
+		adapter._on_game_saved(true, "fallback_profile", "late result")
+		_check(adapter._cloud_suspended and store.profile.cloud.last_verified_revision == 0,
+			"%s rejects a late native acknowledgment after fallback" % mode)
+		adapter.free()
+
+func _test_invalid_conflict_branches() -> void:
+	for mode: String in ["future_schema", "malformed_json", "missing_branch"]:
+		var pair := _conflict_pair("invalid_" + mode)
+		var store: Node = pair.local
+		var invalid: Variant = FakeSnapshot.new(pair.remote.cloud_profile())
+		if mode == "future_schema":
+			var future: Dictionary = pair.remote.cloud_profile()
+			future.schema_version = 99
+			future.best_score = 999999
+			invalid = FakeSnapshot.new(future)
+		elif mode == "malformed_json":
+			invalid.content = "{malformed".to_utf8_buffer()
+		else:
+			invalid = null
+		var snapshots := FakeResolvingSnapshots.new()
+		var adapter := _cloud_adapter(store, snapshots, "invalid_profile")
+		adapter.sync_profile()
+		adapter._on_conflict(FakeConflict.new("invalid-conflict", invalid, pair.server))
+		_check(adapter._cloud_suspended and snapshots.resolutions.is_empty() and snapshots.saves == 0,
+			"%s branch prevents remote conflict overwrite" % mode)
+		_check(store.profile.best_score == 11000 and store.profile.total_kills == 7 and store.profile.total_runs == 2,
+			"%s rejection still retains the valid branch's merged local progress" % mode)
+		_check(store.reload_profile() and store.profile.best_score == 11000 and
+			store.profile.cloud.last_verified_revision == 0,
+			"%s preserves useful progress on disk without accepting unknown data" % mode)
+		adapter.free()
+
+func _test_conflict_retry_bound() -> void:
+	var pair := _conflict_pair("bounded")
+	var store: Node = pair.local
+	var snapshots := FakeResolvingSnapshots.new()
+	var adapter := _cloud_adapter(store, snapshots, "bounded_profile")
+	adapter.sync_profile()
+	for attempt in 11:
+		adapter._on_conflict(FakeConflict.new("conflict-%d" % attempt, pair.server, pair.branch))
+	_check(snapshots.resolutions.size() == 10 and adapter._cloud_suspended and adapter._operation.is_empty(),
+		"a continually conflicting server is bounded to ten native resolution attempts")
+	var nonces: Dictionary = {}
+	for request: Dictionary in snapshots.resolutions:
+		nonces[request.payload.sync_nonce] = true
+	_check(nonces.size() == 10, "each bounded retry identifies its own merged write")
+	_check(store.profile.total_runs == 2 and store.profile.total_kills == 7 and
+		store.profile.cloud.pending_scores.high_score == 11000,
+		"ten repeated conflicts do not inflate counters or discard replayable records")
+	adapter._on_conflict(FakeConflict.new("eleventh-conflict", pair.server, pair.branch))
+	_check(snapshots.resolutions.size() == 10 and store.profile.cloud.last_verified_revision == 0,
+		"suspended retry exhaustion cannot restart an unbounded resolution loop")
+	adapter.free()
+
+func _test_conflict_timeout_and_late_callbacks() -> void:
+	var pair := _conflict_pair("resolution_timeout")
+	var store: Node = pair.local
+	var snapshots := FakeResolvingSnapshots.new()
+	var adapter := _cloud_adapter(store, snapshots, "timeout_profile")
+	adapter.sync_profile()
+	adapter._on_conflict(FakeConflict.new("slow-conflict", pair.server, pair.branch))
+	adapter._operation_deadline = 0.0
+	adapter._process(0.0)
+	_check(adapter._cloud_suspended and adapter._operation.is_empty(), "timed-out native conflict resolution suspends safely")
+	store.add_run({"score": 22000, "kills": 9})
+	adapter._on_game_saved(true, "timeout_profile", "late commit")
+	adapter._on_game_loaded(FakeSnapshot.new(snapshots.payload))
+	adapter._on_conflict(FakeConflict.new("late-conflict", pair.server, pair.branch))
+	_check(store.profile.cloud.last_verified_revision == 0 and snapshots.resolutions.size() == 1,
+		"late commit, readback and conflict callbacks cannot acknowledge or restart timed-out resolution")
+	_check(store.profile.total_kills == 16 and store.profile.best_score == 22000 and
+		store.profile.cloud.pending_scores.high_score == 22000,
+		"late conflict callbacks preserve newer local counters, records and pending uploads")
+	adapter.sync_profile()
+	_check(snapshots.loads == 1 and adapter._cloud_suspended,
+		"manual sync cannot reuse a session with ambiguous late native replies")
+	adapter.free()
+
+func _test_account_mismatch_blocks_cloud() -> void:
+	var pair := _conflict_pair("account_mismatch")
+	var store: Node = pair.local
+	store.profile.cloud.player_id = "original-account"
+	var snapshots := FakeResolvingSnapshots.new()
+	var adapter := _cloud_adapter(store, snapshots, "account_profile")
+	adapter._auth_pending = true
+	adapter._on_player_loaded(FakePlayer.new("different-account"))
+	adapter.sync_profile()
+	_check(adapter._account_mismatch and not adapter.is_authenticated(), "detected account mismatch prevents authenticated cloud access")
+	_check(snapshots.loads == 0 and snapshots.resolutions.is_empty() and snapshots.saves == 0,
+		"account mismatch cannot start a load, overwrite or resolution for another Google player")
+	_check(store.profile.cloud.player_id == "original-account" and store.profile.total_kills == 3 and
+		store.profile.best_score == 100, "account mismatch keeps the original account binding and local progression")
+	adapter.free()
+
+func _test_cloud_read_failure_callbacks() -> void:
+	var store := _store("initial_read_failure")
+	store.add_run({"score": 1200, "kills": 10})
+	store.save_active_run({"seed": 112})
+	var snapshots := FakeSnapshots.new()
+	var adapter := _cloud_adapter(store, snapshots, "read_profile")
+	adapter.sync_profile()
+	adapter._on_game_load_failed("different_slot", "unrelated failure")
+	_check(not adapter._cloud_suspended and adapter._operation == "load" and snapshots.saves == 0,
+		"a read error for another slot cannot cancel the pending profile read")
+	adapter._on_game_load_failed("read_profile", "could not read snapshot contents")
+	_check(adapter._cloud_suspended and adapter._operation.is_empty() and snapshots.saves == 0,
+		"unreadable existing cloud data suspends sync without overwriting it as a missing save")
+	_check(store.profile.best_score == 1200 and store.profile.total_kills == 10 and
+		store.profile.cloud.pending_scores.high_score == 1200 and store.active_run.seed == 112,
+		"initial read failure retains local progress, queued records and the unfinished battle")
+	_check(store.reload_profile() and store.profile.cloud.pending_scores.high_score == 1200,
+		"initial read failure leaves replayable progress on disk")
+	adapter._on_game_loaded(null)
+	adapter._on_game_load_failed("read_profile", "late read failure")
+	_check(snapshots.saves == 0 and adapter._cloud_suspended and store.profile.cloud.last_verified_revision == 0,
+		"late missing-save or error callbacks after read suspension cannot trigger an overwrite or acknowledgment")
+	adapter.free()
+
+	store = _store("verification_read_failure")
+	store.add_run({"score": 3300, "kills": 5})
+	snapshots = FakeSnapshots.new()
+	adapter = _cloud_adapter(store, snapshots, "verify_profile")
+	adapter.sync_profile()
+	adapter._on_game_loaded(null)
+	adapter._on_game_saved(true, "verify_profile", "committed")
+	adapter._verify_after = 0.0
+	adapter._process(0.0)
+	_check(snapshots.saves == 1 and snapshots.loads == 2 and adapter._operation == "verify",
+		"verification failure fixture has a committed write awaiting its actual readback")
+	store.add_run({"score": 5000, "kills": 9})
+	adapter._on_game_load_failed("different_slot", "unrelated verification failure")
+	_check(adapter._operation == "verify" and not adapter._cloud_suspended,
+		"verification read ignores errors for unrelated save slots")
+	adapter._on_game_load_failed("verify_profile", "verification read failed")
+	_check(adapter._cloud_suspended and snapshots.saves == 1 and store.profile.cloud.last_verified_revision == 0,
+		"verification read failure cannot acknowledge a revision or write another replacement")
+	adapter._on_game_loaded(FakeSnapshot.new(snapshots.payload))
+	_check(store.profile.best_score == 5000 and store.profile.total_kills == 14 and
+		store.profile.cloud.pending_scores.high_score == 5000 and store.profile.cloud.last_verified_revision == 0,
+		"late matching readback after a read error preserves newer progress without falsely verifying the earlier write")
+	adapter.free()
+
+	store = _store("late_idle_read_failure")
+	store.add_run({"score": 700, "kills": 2})
+	snapshots = FakeSnapshots.new()
+	adapter = _cloud_adapter(store, snapshots, "idle_profile")
+	adapter.sync_profile()
+	adapter._on_game_loaded(null)
+	var written_revision: int = adapter._write_revision
+	adapter._on_game_saved(true, "idle_profile", "committed")
+	adapter._verify_after = 0.0
+	adapter._process(0.0)
+	adapter._on_game_loaded(FakeSnapshot.new(snapshots.payload))
+	adapter._on_game_load_failed("idle_profile", "late unrelated failure")
+	_check(adapter._operation.is_empty() and not adapter._cloud_suspended and
+		store.profile.cloud.last_verified_revision == written_revision,
+		"an idle late error cannot revoke an already verified write or suspend a finished operation")
 	adapter.free()
 
 func _test_daily_score_routing() -> void:

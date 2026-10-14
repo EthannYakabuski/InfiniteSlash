@@ -1,0 +1,162 @@
+--------- beginning of main
+10-12 22:40:00.978  2959  2959 I com.slash.game: Late-enabling -Xcheck:jni
+10-12 22:40:01.045  2959  2959 I com.slash.game: Unquickening 12 vdex files!
+10-12 22:40:01.046  2959  2959 W com.slash.game: Unexpected CPU variant for X86 using defaults: x86
+10-12 22:40:01.513  2959  2959 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 22:40:01.516  2959  2959 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 22:40:01.606  2959  2985 D libEGL  : loaded /vendor/lib/egl/libEGL_emulation.so
+10-12 22:40:01.626  2959  2985 D libEGL  : loaded /vendor/lib/egl/libGLESv1_CM_emulation.so
+10-12 22:40:01.630  2959  2985 D libEGL  : loaded /vendor/lib/egl/libGLESv2_emulation.so
+10-12 22:40:01.727  2959  2959 D GodotActivity: Starting intent Intent { flg=0x10000000 cmp=com.slash.game/com.godot.game.GodotApp } with parameters null
+10-12 22:40:01.801  2959  2959 V GodotActivity: Creating new Godot fragment instance.
+10-12 22:40:01.878  2959  2959 V Godot   : InitEngine with params: [--xr_mode_regular, --xr-mode, off, --fullscreen, --edge_to_edge, --background_color, #141a1f]
+10-12 22:40:01.879  2959  2959 V Godot   : Initializing Godot plugin registry
+10-12 22:40:01.977  2959  2959 I GodotPluginRegistry: Registering runtime plugin AndroidRuntime
+10-12 22:40:01.978  2959  2986 W com.slash.game: Verification of boolean androidx.collection.MapCollections$ArrayIterator.hasNext() took 115.006ms (86.95 bytecodes/s) (864B approximate peak alloc)
+10-12 22:40:01.980  2959  2959 I GodotPluginRegistry: Initializing Godot plugin GodotPlayGameServices
+10-12 22:40:02.000  2959  2959 I GodotPluginRegistry: Completed initialization for Godot plugin GodotPlayGameServices
+10-12 22:40:02.023  2959  2959 D Godot   : background color = -15459809
+10-12 22:40:02.050  2959  2986 W GmsClient: unable to connect to service: com.google.android.gms.games.internal.appshortcuts.service.START on com.google.android.gms
+10-12 22:40:02.070  2959  2986 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 213000000 but found 201817022
+10-12 22:40:02.077  2959  2959 V Godot   : Godot native layer initialization completed: true
+10-12 22:40:02.157  2959  2959 V Godot   : Godot native layer setup completed
+10-12 22:40:02.157  2959  2959 V Godot   : OnInitRenderView: GodotFragment{4cc3bf} (a1800ddc-a15e-4813-8877-ffd4a89fb5f0 id=0x7f070037)
+10-12 22:40:02.164  2959  2986 W GoogleApiManager: The service for com.google.android.gms.internal.games_v2.zzp is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:40:02.187  2959  2986 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 213000000 but found 201817022
+10-12 22:40:02.188  2959  2986 W GoogleApiManager: The service for com.google.android.gms.internal.games_v2.zzp is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:40:02.304  2959  2959 D Godot   : Render view should be transparent: false
+10-12 22:40:02.305  2959  2959 D Godot   : usesVulkan(): false
+10-12 22:40:02.305  2959  2959 D Godot   : 			renderingDevice: opengl3 (ProjectSettings)
+10-12 22:40:02.305  2959  2959 D Godot   : 			renderer: gl_compatibility (ProjectSettings)
+10-12 22:40:02.403  2959  2959 V Godot   : OnStart: GodotFragment{4cc3bf} (a1800ddc-a15e-4813-8877-ffd4a89fb5f0 id=0x7f070037)
+10-12 22:40:02.410  2959  2959 V Godot   : OnResume: GodotFragment{4cc3bf} (a1800ddc-a15e-4813-8877-ffd4a89fb5f0 id=0x7f070037)
+10-12 22:40:02.424  2959  2959 I Choreographer: Skipped 51 frames!  The application may be doing too much work on its main thread.
+10-12 22:40:02.444  2959  2983 D HostConnection: HostConnection::get() New Host Connection established 0xb74219c0, tid 2983
+10-12 22:40:02.471  2959  2983 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 22:40:02.498  2959  3012 D HostConnection: HostConnection::get() New Host Connection established 0xb74207d0, tid 3012
+10-12 22:40:02.558  2959  2983 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+10-12 22:40:02.572  2959  2983 D EGL_emulation: eglCreateContext: 0xb7421410: maj 3 min 0 rcv 3
+10-12 22:40:02.631  2959  3012 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 22:40:02.631  2959  2983 D EGL_emulation: eglMakeCurrent: 0xb7421410: ver 3 0 (tinfo 0xecab6c70) (first time)
+10-12 22:40:02.632  2959  3012 W RegularContextFactory: creating OpenGL ES 3.0 context :
+10-12 22:40:02.685  2959  2983 I Gralloc4: mapper 4.x is not supported
+10-12 22:40:02.685  2959  2983 D HostConnection: createUnique: call
+10-12 22:40:02.686  2959  2983 D HostConnection: HostConnection::get() New Host Connection established 0xb7420370, tid 2983
+10-12 22:40:02.686  2959  2983 D goldfish-address-space: allocate: Ask for block of size 0x100
+10-12 22:40:02.687  2959  2983 D goldfish-address-space: allocate: ioctl allocate returned offset 0x3f7ffe000 size 0x2000
+10-12 22:40:02.692  2959  2983 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 22:40:02.708  2959  3012 D EGL_emulation: eglCreateContext: 0xb7420ed0: maj 3 min 0 rcv 3
+10-12 22:40:02.819  2959  2983 I OpenGLRenderer: Davey! duration=1253ms; Flags=1, IntendedVsync=198153514380, Vsync=199003514346, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=199014176100, AnimationStart=199014209400, PerformTraversalsStart=199014568100, DrawStart=199284959700, SyncQueued=199286210400, SyncStart=199288431300, IssueDrawCommandsStart=199288784500, SwapBuffers=199294828800, FrameCompleted=199409452700, DequeueBufferDuration=109473700, QueueBufferDuration=517300, GpuCompleted=-2920196950870201425, 
+10-12 22:40:02.823  2959  2959 W PlayGamesServices[GamesApiManager]: PlayStore is too old or not available and the version of GmsCore would attempt PGA installation on automatic sign-in. Skipping it.
+10-12 22:40:02.980  2959  3012 D EGL_emulation: eglMakeCurrent: 0xb7420ed0: ver 3 0 (tinfo 0xecab20b0) (first time)
+10-12 22:40:02.996  2959  3012 I godot   : Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+10-12 22:40:03.192  2959  2973 I com.slash.game: Background young concurrent copying GC freed 18540(1424KB) AllocSpace objects, 3(60KB) LOS objects, 91% free, 2377KB/26MB, paused 505us total 143.898ms
+10-12 22:40:07.312  2959  2986 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 203400000 but found 201817022
+10-12 22:40:07.313  2959  2986 W GoogleApiManager: The service for com.google.android.gms.common.internal.service.zap is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:40:07.313  2959  2986 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 203400000 but found 201817022
+10-12 22:40:07.313  2959  2986 W GoogleApiManager: The service for com.google.android.gms.common.internal.service.zap is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:40:07.591  2959  3029 D ProfileInstaller: Installing profile for com.slash.game
+10-12 22:40:09.370  2959  3012 I godot   : OpenGL API OpenGL ES 3.0 (4.5.0 NVIDIA 560.94) - Compatibility - Using Device: Google (NVIDIA Corporation) - Android Emulator OpenGL ES Translator (NVIDIA GeForce GT 1030/PCIe/SSE2)
+10-12 22:40:09.376  2959  3012 D com.slash.game: PlayerBase::PlayerBase()
+10-12 22:40:09.377  2959  3012 D com.slash.game: TrackPlayerBase::TrackPlayerBase()
+10-12 22:40:09.377  2959  3012 I libOpenSLES: Emulating old channel mask behavior (ignoring positional mask 0x3, using default mask 0x3 based on channel count of 2)
+10-12 22:40:09.432  2959  3012 D AudioTrack: createTrack_l(1931494450): AUDIO_OUTPUT_FLAG_FAST denied by server; frameCount 0 -> 1956
+10-12 22:40:09.483  2959  3012 I godot   : 
+10-12 22:40:20.537  2959  3012 V Godot   : OnGodotSetupCompleted
+10-12 22:40:20.553  2959  3012 I godot   : GodotPlayGameServices plugin initialized successfully.
+10-12 22:40:20.553  2959  3012 D GodotPlayGameServices: Initializing Google Play Game Services
+10-12 22:40:20.696  2959  3012 D SignInProxy: Checking if user is authenticated
+10-12 22:40:20.698  2959  2959 D SignInProxy: User authenticated: false
+10-12 22:40:23.656  2959  3012 I godot   : INFINITESLASH_UI launch
+10-12 22:40:23.656  2959  3012 V Godot   : OnGodotMainLoopStarted
+10-12 22:40:28.919  2959  3012 I godot   : INFINITESLASH_UI running
+10-12 22:40:40.600  2959  3012 I godot   : INFINITESLASH_UI pause
+10-12 22:40:54.838  2959  3012 I godot   : INFINITESLASH_UI running
+10-12 22:40:57.089  2959  2959 V Godot   : OnPause: GodotFragment{4cc3bf} (a1800ddc-a15e-4813-8877-ffd4a89fb5f0 id=0x7f070037)
+10-12 22:40:57.197  2959  3012 I godot   : INFINITESLASH_UI pause
+10-12 22:40:57.633  2959  3012 D com.slash.game: PlayerBase::pause() from IPlayer
+10-12 22:40:58.566  2959  3012 E Surface : dequeueBuffer: IGraphicBufferProducer::requestBuffer failed: -19
+10-12 22:40:58.566  2959  3012 E EGL_emulation: tid 3012: swapBuffers(681): error 0x300d (EGL_BAD_SURFACE)
+10-12 22:40:58.578  2959  3012 W GLThread: eglSwapBuffers failed: EGL_BAD_SURFACE
+10-12 22:40:58.580  2959  2959 V Godot   : OnStop: GodotFragment{4cc3bf} (a1800ddc-a15e-4813-8877-ffd4a89fb5f0 id=0x7f070037)
+10-12 22:40:58.594  2959  3012 W libEGL  : EGLNativeWindowType 0xe7007e08 disconnect failed
+10-12 22:40:59.419  2959  2959 V Godot   : OnStart: GodotFragment{4cc3bf} (a1800ddc-a15e-4813-8877-ffd4a89fb5f0 id=0x7f070037)
+10-12 22:40:59.423  2959  2959 V Godot   : OnResume: GodotFragment{4cc3bf} (a1800ddc-a15e-4813-8877-ffd4a89fb5f0 id=0x7f070037)
+--------- beginning of main
+10-12 22:41:05.047  4941  4941 I com.slash.game: Late-enabling -Xcheck:jni
+10-12 22:41:05.062  4941  4941 I com.slash.game: Unquickening 12 vdex files!
+10-12 22:41:05.064  4941  4941 W com.slash.game: Unexpected CPU variant for X86 using defaults: x86
+10-12 22:41:05.392  4941  4941 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 22:41:05.393  4941  4941 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+10-12 22:41:05.525  4941  4975 D libEGL  : loaded /vendor/lib/egl/libEGL_emulation.so
+10-12 22:41:05.528  4941  4975 D libEGL  : loaded /vendor/lib/egl/libGLESv1_CM_emulation.so
+10-12 22:41:05.601  4941  4975 D libEGL  : loaded /vendor/lib/egl/libGLESv2_emulation.so
+10-12 22:41:05.607  4941  4941 D GodotActivity: Starting intent Intent { flg=0x10000000 cmp=com.slash.game/com.godot.game.GodotApp } with parameters null
+10-12 22:41:05.780  4941  4941 V GodotActivity: Creating new Godot fragment instance.
+10-12 22:41:05.886  4941  4941 V Godot   : InitEngine with params: [--xr_mode_regular, --xr-mode, off, --fullscreen, --edge_to_edge, --background_color, #141a1f]
+10-12 22:41:05.886  4941  4941 V Godot   : Initializing Godot plugin registry
+10-12 22:41:05.888  4941  4976 W com.slash.game: Verification of void com.google.android.gms.common.api.internal.BackgroundDetector.onActivityStarted(android.app.Activity) took 133.253ms (7.50 bytecodes/s) (736B approximate peak alloc)
+10-12 22:41:06.022  4941  4941 I GodotPluginRegistry: Registering runtime plugin AndroidRuntime
+10-12 22:41:06.024  4941  4941 I GodotPluginRegistry: Initializing Godot plugin GodotPlayGameServices
+10-12 22:41:06.045  4941  4941 I GodotPluginRegistry: Completed initialization for Godot plugin GodotPlayGameServices
+10-12 22:41:06.077  4941  4941 D Godot   : background color = -15459809
+10-12 22:41:06.115  4941  4941 V Godot   : Godot native layer initialization completed: true
+10-12 22:41:06.227  4941  4941 V Godot   : Godot native layer setup completed
+10-12 22:41:06.227  4941  4941 V Godot   : OnInitRenderView: GodotFragment{c197860} (ee011ab8-b301-438f-9249-459da97f0a2e id=0x7f070037)
+10-12 22:41:06.250  4941  4941 D Godot   : Render view should be transparent: false
+10-12 22:41:06.250  4941  4941 D Godot   : usesVulkan(): false
+10-12 22:41:06.250  4941  4941 D Godot   : 			renderingDevice: opengl3 (ProjectSettings)
+10-12 22:41:06.250  4941  4941 D Godot   : 			renderer: gl_compatibility (ProjectSettings)
+10-12 22:41:06.350  4941  4941 V Godot   : OnStart: GodotFragment{c197860} (ee011ab8-b301-438f-9249-459da97f0a2e id=0x7f070037)
+10-12 22:41:06.352  4941  4976 W com.slash.game: Verification of com.google.android.gms.common.internal.ClientSettings$Builder com.google.android.gms.common.internal.ClientSettings$Builder.zab(android.accounts.Account) took 205.131ms (14.62 bytecodes/s) (792B approximate peak alloc)
+10-12 22:41:06.370  4941  4941 V Godot   : OnResume: GodotFragment{c197860} (ee011ab8-b301-438f-9249-459da97f0a2e id=0x7f070037)
+10-12 22:41:06.387  4941  4941 I Choreographer: Skipped 56 frames!  The application may be doing too much work on its main thread.
+10-12 22:41:06.409  4941  4966 D HostConnection: HostConnection::get() New Host Connection established 0xb75a37f0, tid 4966
+10-12 22:41:06.421  4941  4966 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 22:41:06.468  4941  4966 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+10-12 22:41:06.475  4941  5015 D HostConnection: HostConnection::get() New Host Connection established 0xb75a3780, tid 5015
+10-12 22:41:06.483  4941  5015 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 22:41:06.483  4941  5015 W RegularContextFactory: creating OpenGL ES 3.0 context :
+10-12 22:41:06.485  4941  4966 D EGL_emulation: eglCreateContext: 0xb75a40b0: maj 3 min 0 rcv 3
+10-12 22:41:06.501  4941  5015 D EGL_emulation: eglCreateContext: 0xb75a3cc0: maj 3 min 0 rcv 3
+10-12 22:41:06.550  4941  4966 D EGL_emulation: eglMakeCurrent: 0xb75a40b0: ver 3 0 (tinfo 0xecab7fd0) (first time)
+10-12 22:41:06.550  4941  5015 I Gralloc4: mapper 4.x is not supported
+10-12 22:41:06.551  4941  5015 D HostConnection: createUnique: call
+10-12 22:41:06.551  4941  5015 D HostConnection: HostConnection::get() New Host Connection established 0xb75a3f60, tid 5015
+10-12 22:41:06.551  4941  5015 D goldfish-address-space: allocate: Ask for block of size 0x100
+10-12 22:41:06.551  4941  5015 D goldfish-address-space: allocate: ioctl allocate returned offset 0x3f3ffe000 size 0x2000
+10-12 22:41:06.557  4941  5015 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_native_sync_v2 ANDROID_EMU_native_sync_v3 ANDROID_EMU_native_sync_v4 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_ignored_handles ANDROID_EMU_has_shared_slots_host_memory_allocator ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data ANDROID_EMU_vulkan_async_qsri ANDROID_EMU_read_color_buffer_dma GL_OES_EGL_image_external_essl3 GL_OES_vertex_array_object ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_3_0 
+10-12 22:41:06.610  4941  5015 D EGL_emulation: eglMakeCurrent: 0xb75a3cc0: ver 3 0 (tinfo 0xecab8150) (first time)
+10-12 22:41:06.655  4941  5015 I godot   : Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+10-12 22:41:06.688  4941  4966 I OpenGLRenderer: Davey! duration=1240ms; Flags=1, IntendedVsync=262036675539, Vsync=262970008835, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=262977427100, AnimationStart=262977462500, PerformTraversalsStart=262978213600, DrawStart=263232635300, SyncQueued=263233624500, SyncStart=263234964800, IssueDrawCommandsStart=263235268100, SwapBuffers=263243604400, FrameCompleted=263278228800, DequeueBufferDuration=30616100, QueueBufferDuration=807700, GpuCompleted=72904454231491230, 
+10-12 22:41:07.010  4941  4976 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 213000000 but found 201817022
+10-12 22:41:07.024  4941  4976 W GoogleApiManager: The service for com.google.android.gms.internal.games_v2.zzp is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:41:07.028  4941  4976 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 213000000 but found 201817022
+10-12 22:41:07.029  4941  4976 W GoogleApiManager: The service for com.google.android.gms.internal.games_v2.zzp is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:41:07.054  4941  4941 W PlayGamesServices[GamesApiManager]: PlayStore is too old or not available and the version of GmsCore would attempt PGA installation on automatic sign-in. Skipping it.
+10-12 22:41:07.138  4941  4976 W GmsClient: unable to connect to service: com.google.android.gms.games.internal.appshortcuts.service.START on com.google.android.gms
+10-12 22:41:07.146  4941  4954 I com.slash.game: Background young concurrent copying GC freed 23655(1690KB) AllocSpace objects, 3(60KB) LOS objects, 91% free, 2364KB/26MB, paused 7.349ms total 81.421ms
+10-12 22:41:07.204  4941  5015 E godot   : WARNING: Failed to load cached shader, recompiling.
+10-12 22:41:07.204  4941  5015 E godot   :    at: _load_from_cache (drivers/gles3/shader_gles3.cpp:612)
+10-12 22:41:08.758  4941  5015 I godot   : OpenGL API OpenGL ES 3.0 (4.5.0 NVIDIA 560.94) - Compatibility - Using Device: Google (NVIDIA Corporation) - Android Emulator OpenGL ES Translator (NVIDIA GeForce GT 1030/PCIe/SSE2)
+10-12 22:41:08.765  4941  5015 D com.slash.game: PlayerBase::PlayerBase()
+10-12 22:41:08.766  4941  5015 D com.slash.game: TrackPlayerBase::TrackPlayerBase()
+10-12 22:41:08.766  4941  5015 I libOpenSLES: Emulating old channel mask behavior (ignoring positional mask 0x3, using default mask 0x3 based on channel count of 2)
+10-12 22:41:08.774  4941  5015 D AudioTrack: createTrack_l(1931494450): AUDIO_OUTPUT_FLAG_FAST denied by server; frameCount 0 -> 1956
+10-12 22:41:08.780  4941  5015 I godot   : 
+10-12 22:41:10.399  4941  4963 I com.slash.game: Waiting for a blocking GC ProfileSaver
+10-12 22:41:10.442  4941  4963 I com.slash.game: WaitForGcToComplete blocked ProfileSaver on RunEmptyCheckpoint for 42.614ms
+10-12 22:41:10.998  4941  5015 V Godot   : OnGodotSetupCompleted
+10-12 22:41:11.016  4941  5015 I godot   : GodotPlayGameServices plugin initialized successfully.
+10-12 22:41:11.016  4941  5015 D GodotPlayGameServices: Initializing Google Play Game Services
+10-12 22:41:11.116  4941  5015 D SignInProxy: Checking if user is authenticated
+10-12 22:41:11.118  4941  4941 D SignInProxy: User authenticated: false
+10-12 22:41:12.172  4941  5122 D ProfileInstaller: Installing profile for com.slash.game
+10-12 22:41:12.234  4941  4976 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 203400000 but found 201817022
+10-12 22:41:12.235  4941  4976 W GoogleApiManager: The service for com.google.android.gms.common.internal.service.zap is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:41:12.235  4941  4976 W GooglePlayServicesUtil: Google Play services out of date for com.slash.game.  Requires 203400000 but found 201817022
+10-12 22:41:12.235  4941  4976 W GoogleApiManager: The service for com.google.android.gms.common.internal.service.zap is not available: ConnectionResult{statusCode=SERVICE_VERSION_UPDATE_REQUIRED, resolution=null, message=null}
+10-12 22:41:12.912  4941  5015 I godot   : INFINITESLASH_UI launch
+10-12 22:41:12.912  4941  5015 V Godot   : OnGodotMainLoopStarted
+10-12 22:41:19.209  4941  5015 I godot   : INFINITESLASH_UI running
+10-12 22:41:23.490  4941  5015 I godot   : INFINITESLASH_UI pause

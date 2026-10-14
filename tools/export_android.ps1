@@ -2,7 +2,9 @@ param(
     [string]$GodotPath = (Join-Path $env:USERPROFILE 'Downloads\Godot_v4.5.1-stable_win64.exe\Godot_v4.5.1-stable_win64_console.exe'),
     [string]$SourceGodotDirectory = (Join-Path $env:USERPROFILE 'AppData\Roaming\Godot'),
     [string]$Preset = 'AndroidDebug',
-    [string]$OutputPath = ''
+    [string]$OutputPath = '',
+    [switch]$Release,
+    [switch]$Unsigned
 )
 
 $ErrorActionPreference = 'Stop'
@@ -57,15 +59,41 @@ $OutputPath = [IO.Path]::GetFullPath($OutputPath)
 New-Item -ItemType Directory -Path ([IO.Path]::GetDirectoryName($OutputPath)) -Force | Out-Null
 $engineLog = Join-Path $reviewDirectory 'android_export.log'
 $stdoutLog = Join-Path $reviewDirectory 'android_export_stdout.log'
+# Check before launching Godot, so a second overlapping export cannot leave
+# an orphan engine process when the output file is already held open.
+try {
+    $taskLogProbe = [IO.File]::Open($stdoutLog, [IO.FileMode]::OpenOrCreate, [IO.FileAccess]::Write, [IO.FileShare]::None)
+    $taskLogProbe.Dispose()
+} catch {
+    throw 'Another Android export is still holding the output log. Wait for that helper to finish.'
+}
 $previousAppData = $env:APPDATA
 $previousLocalAppData = $env:LOCALAPPDATA
+$previousGradleHome = $env:GRADLE_USER_HOME
+$previousGradleOpts = $env:GRADLE_OPTS
+$presetsPath = Join-Path $projectDirectory 'export_presets.cfg'
+$signaturePattern = '(?s)(\[preset\.1\.options\][^\[]*?package/signed=)(true|false)'
+$originalSigned = ''
+if ($Unsigned) {
+    if (-not $Release -or $Preset -ne 'AndroidPlay') { throw 'Unsigned export is restricted to the AndroidPlay release preparation.' }
+    $presetsText = [IO.File]::ReadAllText($presetsPath)
+    $signatureMatch = [regex]::Match($presetsText, $signaturePattern)
+    if (-not $signatureMatch.Success) { throw 'Could not locate AndroidPlay signing setting.' }
+    $originalSigned = $signatureMatch.Groups[2].Value
+    [IO.File]::WriteAllText($presetsPath, [regex]::Replace($presetsText, $signaturePattern, '${1}false'), [Text.UTF8Encoding]::new($false))
+}
 
 Push-Location -LiteralPath $projectDirectory
 try {
     $env:APPDATA = $runtimeDirectory
     $env:LOCALAPPDATA = $cacheDirectory
+    $env:GRADLE_USER_HOME = Join-Path $projectDirectory 'output\test-data\pgs-gradle-cache'
+    # A persistent Gradle daemon can retain the Windows console output pipe
+    # after Godot exits, preventing this helper from reaching hash/finally.
+    $env:GRADLE_OPTS = "$previousGradleOpts -Dorg.gradle.daemon=false".Trim()
+    $exportMode = if ($Release) { '--export-release' } else { '--export-debug' }
     $arguments = @('--headless', '--editor', '--path', $projectDirectory,
-        '--log-file', $engineLog, '--export-debug', $Preset, $OutputPath)
+        '--log-file', $engineLog, $exportMode, $Preset, $OutputPath)
     & $GodotPath @arguments 2>&1 | Out-File -LiteralPath $stdoutLog -Encoding utf8
     $exportExitCode = $LASTEXITCODE
     if ($exportExitCode -ne 0) {
@@ -83,5 +111,11 @@ try {
 } finally {
     $env:APPDATA = $previousAppData
     $env:LOCALAPPDATA = $previousLocalAppData
+    $env:GRADLE_USER_HOME = $previousGradleHome
+    $env:GRADLE_OPTS = $previousGradleOpts
+    if ($Unsigned) {
+        $presetsText = [IO.File]::ReadAllText($presetsPath)
+        [IO.File]::WriteAllText($presetsPath, [regex]::Replace($presetsText, $signaturePattern, '${1}' + $originalSigned), [Text.UTF8Encoding]::new($false))
+    }
     Pop-Location
 }

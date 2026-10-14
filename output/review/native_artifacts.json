@@ -1,0 +1,323 @@
+{
+  "status": "PASS",
+  "scope": "Packaged bridge, SDK, ARM64 bundle, unsigned release and ELF static inspection",
+  "relro_rule_source": "https://android.googlesource.com/platform/bionic/+/android16-qpr2-release/linker/linker_phdr_16kib_compat.cpp#427",
+  "device_16kb_tested": false,
+  "google_account_backend_tested": false,
+  "artifacts": [
+    {
+      "path": "builds\\InfiniteSlash-debug.apk",
+      "bytes": 182695870,
+      "sha256": "72951b0643fd45378bfa599dd649e9beebc4acf6f1160b85d00260caba9cec93",
+      "bridge_dex": {
+        "plugin_class": true,
+        "resolve_conflict": true,
+        "load_failure_signal": true,
+        "google_games_sdk": true
+      },
+      "native_libraries": [
+        {
+          "name": "lib/arm64-v8a/libc++_shared.so",
+          "compressed": false,
+          "segments": [
+            {
+              "type": "LOAD",
+              "virtual_address": 0,
+              "memory_size": 624800,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 641184,
+              "memory_size": 585720,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 1243288,
+              "memory_size": 42856,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 1299504,
+              "memory_size": 32032,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "GNU_RELRO",
+              "virtual_address": 1243288,
+              "memory_size": 42856,
+              "alignment": 1,
+              "relro_end_modulo_16k": 8192,
+              "covers_whole_load": true,
+              "static_16kb_accepted": true,
+              "assessment": "whole_LOAD_exception"
+            }
+          ],
+          "load_alignment_16k": true,
+          "relro_raw_end_alignment_16k": false,
+          "relro_static_16kb_accepted": true
+        },
+        {
+          "name": "lib/arm64-v8a/libgodot_android.so",
+          "compressed": false,
+          "segments": [
+            {
+              "type": "LOAD",
+              "virtual_address": 0,
+              "memory_size": 18727820,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 18744208,
+              "memory_size": 55623152,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 74383744,
+              "memory_size": 1629824,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 76026592,
+              "memory_size": 1974048,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "GNU_RELRO",
+              "virtual_address": 74383744,
+              "memory_size": 1629824,
+              "alignment": 1,
+              "relro_end_modulo_16k": 8192,
+              "covers_whole_load": true,
+              "static_16kb_accepted": true,
+              "assessment": "whole_LOAD_exception"
+            }
+          ],
+          "load_alignment_16k": true,
+          "relro_raw_end_alignment_16k": false,
+          "relro_static_16kb_accepted": true
+        },
+        {
+          "name": "lib/x86/libc++_shared.so",
+          "compressed": false,
+          "segments": [
+            {
+              "type": "LOAD",
+              "virtual_address": 0,
+              "memory_size": 522792,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 526896,
+              "memory_size": 598176,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 1129168,
+              "memory_size": 21808,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 1153432,
+              "memory_size": 24056,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "GNU_RELRO",
+              "virtual_address": 1129168,
+              "memory_size": 21808,
+              "alignment": 1,
+              "relro_end_modulo_16k": 4096,
+              "covers_whole_load": true,
+              "static_16kb_accepted": true,
+              "assessment": "whole_LOAD_exception"
+            }
+          ],
+          "load_alignment_16k": false,
+          "relro_raw_end_alignment_16k": false,
+          "relro_static_16kb_accepted": true
+        },
+        {
+          "name": "lib/x86/libgodot_android.so",
+          "compressed": false,
+          "segments": [
+            {
+              "type": "LOAD",
+              "virtual_address": 0,
+              "memory_size": 15242724,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 15246832,
+              "memory_size": 75483632,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 90734560,
+              "memory_size": 839712,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 91575256,
+              "memory_size": 1152136,
+              "alignment": 4096,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "GNU_RELRO",
+              "virtual_address": 90734560,
+              "memory_size": 839712,
+              "alignment": 1,
+              "relro_end_modulo_16k": 4096,
+              "covers_whole_load": true,
+              "static_16kb_accepted": true,
+              "assessment": "whole_LOAD_exception"
+            }
+          ],
+          "load_alignment_16k": false,
+          "relro_raw_end_alignment_16k": false,
+          "relro_static_16kb_accepted": true
+        }
+      ],
+      "signing_entries": [],
+      "is_bundle": false,
+      "resource_exclusions": true
+    },
+    {
+      "path": "builds\\InfiniteSlash-play-unsigned.aab",
+      "bytes": 35581852,
+      "sha256": "9c02290ec456b0ff7f101f7a69f4521b183f14d326eb434b14db96d6c2062900",
+      "bridge_dex": {
+        "plugin_class": true,
+        "resolve_conflict": true,
+        "load_failure_signal": true,
+        "google_games_sdk": true
+      },
+      "native_libraries": [
+        {
+          "name": "base/lib/arm64-v8a/libc++_shared.so",
+          "compressed": true,
+          "segments": [
+            {
+              "type": "LOAD",
+              "virtual_address": 0,
+              "memory_size": 624800,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 641184,
+              "memory_size": 585720,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 1243288,
+              "memory_size": 42856,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 1299504,
+              "memory_size": 32032,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "GNU_RELRO",
+              "virtual_address": 1243288,
+              "memory_size": 42856,
+              "alignment": 1,
+              "relro_end_modulo_16k": 8192,
+              "covers_whole_load": true,
+              "static_16kb_accepted": true,
+              "assessment": "whole_LOAD_exception"
+            }
+          ],
+          "load_alignment_16k": true,
+          "relro_raw_end_alignment_16k": false,
+          "relro_static_16kb_accepted": true
+        },
+        {
+          "name": "base/lib/arm64-v8a/libgodot_android.so",
+          "compressed": true,
+          "segments": [
+            {
+              "type": "LOAD",
+              "virtual_address": 0,
+              "memory_size": 17817856,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 17834240,
+              "memory_size": 50705424,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 68556048,
+              "memory_size": 1428208,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "LOAD",
+              "virtual_address": 69998560,
+              "memory_size": 1968384,
+              "alignment": 16384,
+              "relro_end_modulo_16k": null
+            },
+            {
+              "type": "GNU_RELRO",
+              "virtual_address": 68556048,
+              "memory_size": 1428208,
+              "alignment": 1,
+              "relro_end_modulo_16k": 8192,
+              "covers_whole_load": true,
+              "static_16kb_accepted": true,
+              "assessment": "whole_LOAD_exception"
+            }
+          ],
+          "load_alignment_16k": true,
+          "relro_raw_end_alignment_16k": false,
+          "relro_static_16kb_accepted": true
+        }
+      ],
+      "signing_entries": [],
+      "is_bundle": true,
+      "resource_exclusions": true
+    }
+  ]
+}

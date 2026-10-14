@@ -1,0 +1,230 @@
+{
+  "passed": true,
+  "count": 24,
+  "failures": [],
+  "files": [
+    {
+      "file": "store/screenshots/phone/01_sword_action.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 115525,
+      "sha256": "1d350d21ce5073e7cbc1cddc5ae5878a6d307a9e00375fe0dc329729adb80ed7",
+      "pixel_sha256": "be8a5aa3f8ce6c1b0a329a645d97c9680cbe835d1fe1fa6537062aa6007e6e71"
+    },
+    {
+      "file": "store/screenshots/phone/02_shield_parry.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 112478,
+      "sha256": "f488e2dd6f3f2a818d0008de5b7159a718e38311771187f85bda522d3c577edb",
+      "pixel_sha256": "650e2dfaffbe92bfc3cd3f12d0459f38aaa11ecb45ee0d5ffebd68cb8d4ee2ee"
+    },
+    {
+      "file": "store/screenshots/phone/03_boss_bullet_hell.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 125024,
+      "sha256": "45e3ba1a9702d03c9277765630a7ff0ee9af929db78ca37e9d0dd3ac21aa040a",
+      "pixel_sha256": "ee5a60ba74454246523c7feccc9f03b08796dfab93e91171d7d60cf393d4384c"
+    },
+    {
+      "file": "store/screenshots/phone/04_one_thumb_dash.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 112762,
+      "sha256": "963008530551d9f0cafc9bcbe89edff1e22dbc80f42ba6c7fe09ecabac177e65",
+      "pixel_sha256": "07c56bb32f465ff17e9a03f6a38fa271d63355bfaa7d40aada055a0a3f87297e"
+    },
+    {
+      "file": "store/screenshots/phone/05_thunderblade.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 115509,
+      "sha256": "5c2ac54a188126f616b8da1907e6728c19f6c9b6bca465e408be6e0a29f81c4c",
+      "pixel_sha256": "3842cea4366fdcf3bfd815bc9a66863b3cac2e3708b8acecc9b2e2fe50bf8119"
+    },
+    {
+      "file": "store/screenshots/phone/06_hurricane_combo.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 116617,
+      "sha256": "03eaa22c166e66c0f1880d790a27cb48c8e91a460bf308a2880ff47000e9cf66",
+      "pixel_sha256": "61a4c90c7ef8366d29f884398e02d1e3bd5515cf26b9b5e79379a5b65fea85ae"
+    },
+    {
+      "file": "store/screenshots/phone/07_choose_your_knight.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 130401,
+      "sha256": "1c5e50d544d4e0a03a66d76dcb90316eade6c7ddb557512201c8599fb651a32b",
+      "pixel_sha256": "b86d5f1e7a2f42562afcdf03d7ea1b0ccabdb719448979639fde016e75dee58b"
+    },
+    {
+      "file": "store/screenshots/phone/08_one_more_run.png",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 179342,
+      "sha256": "33a1c28bb646310aab30e8c445604de2e32ab61afd20b4c3951f0c93d2968958",
+      "pixel_sha256": "0efe59629dd9f484dc466e9839485cc49219034bddd05c3d75ef04ee0f469824"
+    },
+    {
+      "file": "store/screenshots/tablet_7/01_sword_action.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 160399,
+      "sha256": "ca55e842091e7c07ad2780e05d6d703d682ec7d85b187c7fa0f89bd5b6fe68b4",
+      "pixel_sha256": "99b10d3d9fd20f5ddd43219013f46b5d9715368af9e8a6e67ed532757605d69c"
+    },
+    {
+      "file": "store/screenshots/tablet_7/02_shield_parry.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 155173,
+      "sha256": "308a168fa8f6e99a62d75a3c26fc0e275d6d4e6450840ab1969bdbc5b6795bb2",
+      "pixel_sha256": "e8c38604de7355dae7f486b4b6e4d5fd160b5e34d53c34476af1e7e52e574941"
+    },
+    {
+      "file": "store/screenshots/tablet_7/03_boss_bullet_hell.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 173606,
+      "sha256": "56f1502b568b1140fa31f5f4cd7b325aa8728a42c32f385ed87b02f26d7a7eb4",
+      "pixel_sha256": "d83355fa5e4db5d0ebe82c33d7e2d817ed5579d523f220e31cd10af2a336437b"
+    },
+    {
+      "file": "store/screenshots/tablet_7/04_one_thumb_dash.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 156860,
+      "sha256": "232db3d38eacfebb8c0988d8793164e960fad2166236fe5db1f918f0167487a5",
+      "pixel_sha256": "26ce7a8ccd31306a21e7ee9f9b32e6ac1213db10e031b086872a9840389457e4"
+    },
+    {
+      "file": "store/screenshots/tablet_7/05_thunderblade.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 161396,
+      "sha256": "d121d2b6d8888f3455f28ea85bf4ade53ea798b391219ab6f0d420da40c438d3",
+      "pixel_sha256": "a958ed8860f07b1611d7eb3e8567c6dfdf9a8e84994ac53531576389cf265ed4"
+    },
+    {
+      "file": "store/screenshots/tablet_7/06_hurricane_combo.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 163068,
+      "sha256": "decc943df7c78c2bd1824844ee9260601f478a5a1f72d204d47ffe118e77561e",
+      "pixel_sha256": "85c63a5440a2192bde5a5872d8c468437721c4ea40e8a0e6a223658421f4b020"
+    },
+    {
+      "file": "store/screenshots/tablet_7/07_choose_your_knight.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 176325,
+      "sha256": "439ade4bfadfd9081d0f589c2813588f7a7bd27fa835d512c01cf6b738f633f8",
+      "pixel_sha256": "21b16f136c444de395a1f17323bbb6e263dbbd3403291696d1bec5fa589ead2f"
+    },
+    {
+      "file": "store/screenshots/tablet_7/08_one_more_run.png",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 244563,
+      "sha256": "51ff2dbcd5d564e9627614f6a97e7b3df44589556c643861e55b847188b2e869",
+      "pixel_sha256": "118ca0bbb912a132721dd1fe84ca8da9ede600aef072f906e9ed988d76f2d94f"
+    },
+    {
+      "file": "store/screenshots/tablet_10/01_sword_action.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 263835,
+      "sha256": "838d4df96ff2de3ac718cc00c86dddd5de11dea7a8c3a4c9898ce8d60dae248b",
+      "pixel_sha256": "ee01fa317589dc433214781e98f2177265068220227ad164a62577437015c866"
+    },
+    {
+      "file": "store/screenshots/tablet_10/02_shield_parry.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 253706,
+      "sha256": "feba6ba7197933fabd7656f3752d773cc0544cb9d0b31e208f111120b4dced23",
+      "pixel_sha256": "cd3aba7b3d4a4b0c9a2e34a8929c56633eb43a23e82c6ee13e0413240090fa6e"
+    },
+    {
+      "file": "store/screenshots/tablet_10/03_boss_bullet_hell.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 286128,
+      "sha256": "7b23da4dbff9d4739034704c44791bd77b3144d075731bed45e317ca110735ba",
+      "pixel_sha256": "fc1af7ece0edcae029bbbd4cfae9744a3203b8e9d4365b39f6a185ee981649c3"
+    },
+    {
+      "file": "store/screenshots/tablet_10/04_one_thumb_dash.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 252632,
+      "sha256": "577166b97693d3b96ee434351eac946dfc5d5d1b016d1bd98f732ccdfceaea0c",
+      "pixel_sha256": "06fdbdaab8d2a9d7553590a0cbff34eb40f29c6ab20a98afde0360ff53a447e2"
+    },
+    {
+      "file": "store/screenshots/tablet_10/05_thunderblade.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 264926,
+      "sha256": "28b56e83a5bb740c902a8ae4b8a67e108f3c78d15339e2859287b4bc5677ab68",
+      "pixel_sha256": "eaebbd706088ceca0c697f0ccc9e652473a574d116351f6061d363748063a881"
+    },
+    {
+      "file": "store/screenshots/tablet_10/06_hurricane_combo.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 268452,
+      "sha256": "b3338f1a0f5d07a8b1945f745e2fa3d8164bb7a17084bac984891390a8bd42c1",
+      "pixel_sha256": "aeffd05fcd3554256da63eea46704b279edf17ed08eaac799424b651587b8175"
+    },
+    {
+      "file": "store/screenshots/tablet_10/07_choose_your_knight.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 283583,
+      "sha256": "bd80af798c47a4c9b66c14b004788ef00ee1ad8eba4903b8a9ba85cfe5bfcea3",
+      "pixel_sha256": "f56ffb6cc7e23b77f3aae32efd8cd2b575a8a5f200267830b5eda3ca95422590"
+    },
+    {
+      "file": "store/screenshots/tablet_10/08_one_more_run.png",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 393308,
+      "sha256": "35e2374b44652c5731a096fa6949cfb3bc24c110c3d8ef40e12f0aac0f1623f2",
+      "pixel_sha256": "cfa89bb886fc59ba11bf011cc4459e6bf40fda81c88cf898dad05f09a4fd4b76"
+    }
+  ],
+  "source_sha256": {
+    "scripts/game.gd": "9adf49c9e522de0a47a87d85e040acf68c970e55088e231470fbaf361cbd42f4",
+    "scripts/game_ui.gd": "49c9f77944aa12f5c0d40517d4d56292a6499b7533d8d66f4dbf0dfa799f4867",
+    "scripts/world.gd": "e746e87f57c9e6e986f709a9b827f5270f334349fd3341dc6f3093da31ae378f",
+    "scripts/class_profiles.gd": "732d96d56c23a36f04ad5e537bb5a4de04d5b54afcd7d649197f011ff27fd3fc",
+    "tools/capture_store.gd": "a78723520c1065dd45090c8e633fe35706b8c73822dd38eb2fb0b74e98535e76"
+  }
+}

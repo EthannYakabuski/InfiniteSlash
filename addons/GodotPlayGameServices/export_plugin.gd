@@ -4,6 +4,7 @@ extends EditorPlugin
 const PLUGIN_AUTOLOAD := &"GodotPlayGameServices"
 
 var _export_plugin: AndroidExportPlugin
+var _owns_autoload := false
 
 func _enter_tree() -> void:
 	_add_plugin()
@@ -22,10 +23,16 @@ func _remove_plugin() -> void:
 	_export_plugin = null
 
 func _add_autoloads() -> void:
+	# InfiniteSlash already registers the runtime wrapper in its required order.
+	if ProjectSettings.has_setting("autoload/" + str(PLUGIN_AUTOLOAD)):
+		return
 	add_autoload_singleton(PLUGIN_AUTOLOAD, "res://addons/GodotPlayGameServices/scripts/autoloads/godot_play_game_services.gd")
+	_owns_autoload = true
 
 func _remove_autoloads() -> void:
-	remove_autoload_singleton(PLUGIN_AUTOLOAD)
+	if _owns_autoload:
+		remove_autoload_singleton(PLUGIN_AUTOLOAD)
+		_owns_autoload = false
 
 class AndroidExportPlugin extends EditorExportPlugin:
 	var _plugin_name = &"GodotPlayGameServices"
@@ -43,11 +50,13 @@ class AndroidExportPlugin extends EditorExportPlugin:
 			print("Please add your game-id here: [Project > Export > Android > godot_play_game_services/game_id].")
 			return
 
-		var file := FileAccess.open("android/build/res/values/strings.xml", FileAccess.WRITE)
+		var file := FileAccess.open("res://android/build/res/values/godot_play_services.xml", FileAccess.WRITE)
+		if file == null:
+			printerr("Install the Android Gradle build template before exporting Play Games.")
+			return
 		file.store_string("<?xml version=\"1.0\" encoding=\"utf-8\"?><resources><string translatable=\"false\" name=\"game_services_project_id\">%s</string></resources>" % id)
-		[]
 
-		print("[{plugin_name}] added game-id {id} to [values/strings.xml]".format({"plugin_name": _plugin_name, "id": id}))
+		print("[{plugin_name}] added game-id {id} to [values/godot_play_services.xml]".format({"plugin_name": _plugin_name, "id": id}))
 
 	func _get_android_libraries(platform, debug):
 		if debug:

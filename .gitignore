@@ -1,6 +1,7 @@
 .godot/
 builds/
 output/android-test/
+output/android-pgs-test/
 output/test-data/
 android/build/
 android/.gradle/

@@ -1,0 +1,15 @@
+{
+  "app_name": "InfiniteSlash",
+  "package_name": "com.slash.game",
+  "default_language": "en-US",
+  "application_type": "Game",
+  "main_category": "Action",
+  "recommended_tags": ["Arcade", "Hack & slash", "Single player", "Offline", "Pixelated"],
+  "tag_fallback_if_hack_and_slash_is_unavailable": "Stylized",
+  "tag_note": "Choose the five available Console tags that match these concepts. Public Play listings show these labels; the owner must verify the account's Manage tags options.",
+  "short_description_file": "short_description.txt",
+  "full_description_file": "full_description.txt",
+  "online_features_in_description": false,
+  "copy_note": "The copy describes the playable core and local records. It makes no claim of verified live Google cloud sync, multiplayer, authoritative competition, pricing, ads, awards or guaranteed virality.",
+  "category_guidance": "https://support.google.com/googleplay/android-developer/answer/9859673?hl=en"
+}

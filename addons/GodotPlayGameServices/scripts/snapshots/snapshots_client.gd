@@ -18,6 +18,9 @@ signal game_saved(is_saved: bool, save_data_name: String, save_data_description:
 ## [param snapshot]: The loaded snapshot, or null if the snapshot wasn't found.
 signal game_loaded(snapshot: PlayGamesSnapshot)
 
+## A load/open/read failed; this is distinct from a genuinely missing saved game.
+signal game_load_failed(file_name: String, message: String)
+
 ## Signal emitted after saving or loading a game, if a conflict is found.[br]
 ## [br]
 ## [param conflict]: The conflict containing and id and both conflicting snapshots.
@@ -41,6 +44,10 @@ func _ready() -> void:
 			else:
 				game_loaded.emit(PlayGamesSnapshot.new(safe_dictionary))
 		)
+		if GodotPlayGameServices.android_plugin.has_signal("gameLoadFailed"):
+			GodotPlayGameServices.android_plugin.gameLoadFailed.connect(func(file_name: String, message: String):
+				game_load_failed.emit(file_name, message)
+			)
 		GodotPlayGameServices.android_plugin.conflictEmitted.connect(func(json_data: String):
 			var safe_dictionary := GodotPlayGameServices.json_marshaller.safe_parse_dictionary(json_data)
 			conflict_emitted.emit(PlayGamesSnapshotConflict.new(safe_dictionary))
@@ -115,3 +122,17 @@ func load_snapshots(force_reload: bool) -> void:
 func delete_snapshot(snapshot_id: String) -> void:
 	if GodotPlayGameServices.android_plugin:
 		GodotPlayGameServices.android_plugin.deleteSnapshot(snapshot_id)
+
+## InfiniteSlash fork: checks for the native merged-conflict resolution method.
+func supports_conflict_resolution() -> bool:
+	return GodotPlayGameServices.android_plugin != null and GodotPlayGameServices.android_plugin.has_method("resolveConflict")
+
+## Resolve a retained native conflict with validated merged profile bytes.
+## Success/failure is reported through game_saved after native commit completion.
+## False means the operation could not be started; preserve the local profile.
+func resolve_conflict(conflict_id: String, description: String, save_data: PackedByteArray,
+		played_time_millis: int = 0, progress_value: int = 0) -> bool:
+	if not supports_conflict_resolution():
+		return false
+	return bool(GodotPlayGameServices.android_plugin.resolveConflict(conflict_id, description,
+		save_data, played_time_millis, progress_value))

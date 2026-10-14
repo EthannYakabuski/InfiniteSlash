@@ -1,0 +1,200 @@
+{
+  "handoff_schema_version": 1,
+  "document_type": "owner_supplied_play_games_configuration_and_pending_handoff",
+  "instructions": [
+    "This records the supplied public configuration and pending owner tasks; it is not a replacement for config/play_services.json.",
+    "Runtime Google integration is enabled for native test builds. IDs/types are configured; native packaging and real signed/account testing remain distinct verification steps.",
+    "Public OAuth client IDs and certificate fingerprints are recorded. Keep private signing keys and passwords local.",
+    "The current 12 Google achievements already exist. Upload individual icons to those existing IDs; do not import the earlier metadata draft again.",
+    "Tester access and an upload-keystore path/alias have not yet been supplied. The owner will complete those steps."
+  ],
+  "app": {
+    "name": "InfiniteSlash",
+    "android_package": "com.slash.game",
+    "default_locale": "en-US",
+    "package_identity_confirmed": true,
+    "play_console_app_url": ""
+  },
+  "cloud": {
+    "project_id": "infiniteslash",
+    "project_number": "832658811620",
+    "games_api_enabled": null,
+    "games_api_enabled_confirmation": "Not separately confirmed; verify in the linked Cloud project if authentication reports API errors."
+  },
+  "services": {
+    "numeric_pgs_game_id": "832658811620",
+    "saved_games_enabled": true,
+    "saved_games_enabled_at_utc": "2026-10-13T01:20:00Z",
+    "cloud_project_linked": true,
+    "pgs_console_configuration_url": "",
+    "achievement_definitions_match_setup_table": true,
+    "achievement_confirmation_scope": "The supplied IDs and four Incremental types/targets are confirmed. Console names, points and initial visibility were not independently confirmed; 290 total points and Revealed remain recommendations.",
+    "achievement_points_visibility_confirmed": false,
+    "leaderboard_definitions_match_setup_table": true,
+    "required_console_metadata_and_icons_complete": false,
+    "pgs_configuration_published": false,
+    "saved_games_enabled_reported": "2026-10-12 21:20 Eastern (owner wrote EST)",
+    "saved_games_time_assumption": "Assumes Toronto local time (EDT, UTC-04) on Oct 12. Literal EST would be 2026-10-13T02:20:00Z. Activation can take up to 24 hours."
+  },
+  "oauth": {
+    "audience": "",
+    "publishing_status": "Published (owner confirmed)",
+    "consent_test_user_emails": [],
+    "requested_scopes": [
+      "games",
+      "games_lite",
+      "drive.appdata"
+    ],
+    "android_clients": {
+      "local_debug_apk": {
+        "oauth_client_id": "",
+        "package_name": "com.slash.game",
+        "certificate_sha1": "62:EE:05:F2:CA:C9:95:36:48:BF:3A:D7:C8:22:55:8C:C6:33:CD:24",
+        "certificate_sha256": "83:82:EC:1C:56:49:4E:B3:51:41:E0:ED:29:98:6D:2E:C5:00:9C:52:9B:09:6A:2F:D6:0D:5F:C5:C5:21:3E:4F",
+        "optional": false,
+        "required_when": "Testing a locally sideloaded debug build signed with this certificate",
+        "linked_to_pgs_game": false
+      },
+      "play_app_signing": {
+        "oauth_client_id": "832658811620-hsgkm87bv72d31hba64pi0rjslr94319.apps.googleusercontent.com",
+        "package_name": "com.slash.game",
+        "certificate_sha1": "A1:CD:9D:32:4A:E8:AE:3E:38:38:D3:FB:7D:AF:70:F7:DD:46:64:DB",
+        "certificate_sha256": "",
+        "optional": false,
+        "required_when": "Testing or releasing through a Google Play distribution track",
+        "additional_app_signing_certificates": [],
+        "linked_to_pgs_game": true
+      },
+      "local_release_apk": {
+        "oauth_client_id": "",
+        "package_name": "com.slash.game",
+        "certificate_sha1": "",
+        "certificate_sha256": "",
+        "optional": true,
+        "linked_to_pgs_game": false
+      },
+      "internal_app_sharing": {
+        "oauth_client_id": "",
+        "package_name": "com.slash.game",
+        "certificate_sha1": "",
+        "certificate_sha256": "",
+        "optional": true,
+        "linked_to_pgs_game": false
+      }
+    }
+  },
+  "contacts": {
+    "support_email": "",
+    "developer_contact_email": "",
+    "support_url": "",
+    "privacy_policy_url": "",
+    "optional_terms_of_service_url": "",
+    "website_url": ""
+  },
+  "testing": {
+    "installed_distribution": "",
+    "play_release_track": "",
+    "play_track_opt_in_url": "",
+    "anti_piracy_enabled": false,
+    "google_account_emails": [],
+    "pgs_individual_allowlist_enabled": false,
+    "pgs_release_tracks_enabled": [],
+    "oauth_test_users_added": false,
+    "pgs_test_access_confirmed": false,
+    "play_track_opt_in_confirmed": false,
+    "native_sign_in_verified": false,
+    "native_achievements_verified": false,
+    "native_leaderboards_verified": false,
+    "native_saved_games_verified": false,
+    "owner_commitment": "Owner will authorize testers; account emails, allowlist/track completion and opt-in URL remain pending."
+  },
+  "local_signing": {
+    "release_or_upload_keystore_path": "",
+    "release_or_upload_key_alias": "",
+    "optional_debug_keystore_path": "",
+    "optional_debug_key_alias": "",
+    "owner_commitment": "Owner will arrange upload/release signing. Local path/alias and signing workflow remain pending; no private credentials are stored here."
+  },
+  "publication_decisions": {
+    "include_remote_daily_score": false,
+    "include_remote_survivor_180": false,
+    "survival_board_display": "numeric_whole_seconds",
+    "separate_class_leaderboards_requested": false,
+    "account_switching_requested": false,
+    "production_test_eligibility_complete": false,
+    "cloud_save_scope": "profile_progression_only",
+    "cloud_active_run_sync": false,
+    "publish_play_games_configuration": false,
+    "publish_play_store_app": false,
+    "notes": "Recommended initial release omits the remote daily board and duplicate survivor_180 achievement. Keep active runs and preferences device-local."
+  },
+  "runtime_config": {
+    "enabled": true,
+    "game_id": "832658811620",
+    "save_name": "infiniteslash_profile_v1",
+    "timeout_seconds": 15,
+    "leaderboards": {
+      "high_score": "CgkI5NXU8p0YEAIQAQ",
+      "longest_run": "CgkI5NXU8p0YEAIQAg",
+      "bosses_in_run": "CgkI5NXU8p0YEAIQAw",
+      "daily_score": ""
+    },
+    "achievements": {
+      "first_blood": "CgkI5NXU8p0YEAIQBA",
+      "boss_slayer": "CgkI5NXU8p0YEAIQBQ",
+      "century": "CgkI5NXU8p0YEAIQBg",
+      "hundred_club": "CgkI5NXU8p0YEAIQBw",
+      "survivor_60": "CgkI5NXU8p0YEAIQCA",
+      "survivor": "CgkI5NXU8p0YEAIQCQ",
+      "legend": "CgkI5NXU8p0YEAIQCg",
+      "combo_25": "CgkI5NXU8p0YEAIQCw",
+      "score_10000": "CgkI5NXU8p0YEAIQDA",
+      "collector": "CgkI5NXU8p0YEAIQDQ",
+      "thousand_kills": "CgkI5NXU8p0YEAIQDg",
+      "ten_runs": "CgkI5NXU8p0YEAIQDw",
+      "survivor_180": ""
+    },
+    "incremental_achievements": {
+      "century": 100,
+      "collector": 100,
+      "thousand_kills": 1000,
+      "ten_runs": 10
+    }
+  },
+  "achievement_import_draft": {
+    "locale": "en-US",
+    "metadata_csv": "docs/pgs/AchievementsMetadata.csv",
+    "archive": "docs/pgs/infiniteslash-achievements-draft.zip",
+    "semantic_key_order": [
+      "first_blood",
+      "boss_slayer",
+      "century",
+      "hundred_club",
+      "survivor_60",
+      "survivor",
+      "legend",
+      "combo_25",
+      "score_10000",
+      "collector",
+      "thousand_kills",
+      "ten_runs"
+    ],
+    "achievement_count": 12,
+    "total_points": 290,
+    "icons_included": false,
+    "owner_review_required": false,
+    "columns": [
+      "Name",
+      "Description",
+      "True/False",
+      "StepsNeeded",
+      "Revealed",
+      "Points",
+      "ListOrder"
+    ],
+    "header_included": false,
+    "usage": "Historical creation draft. The owner has already created these achievements; attach store/icons/achievements PNGs to the existing Google IDs instead of re-importing definitions."
+  },
+  "verification_source": "Project IDs and console confirmations were supplied by the owner. Live Google services have not yet been verified.",
+  "store_icon_manifest": "store/icons/icon_manifest.json"
+}

@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "style": "Existing game sprites and code-native pixel medal compositions",
+  "created_from": [
+    "Assets/Generated/knight_sheet.png",
+    "Assets/Monsters/cinder_cheek.png",
+    "Assets/Monsters/hex_hat.png",
+    "Assets/Monsters/moss_muzzle.png",
+    "Assets/Monsters/prism_hex.png",
+    "Assets/Monsters/mint_munch.png",
+    "Assets/Monsters/creature-sheet (2).png"
+  ],
+  "generator": "tools/build_store_icons.py",
+  "icons": [
+    {
+      "category": "achievements",
+      "key": "first_blood",
+      "google_id": "CgkI5NXU8p0YEAIQBA",
+      "title": "First Slice",
+      "criterion": "Defeat your first creature",
+      "type": "Standard",
+      "steps": null,
+      "filename": "first_blood.png",
+      "relative_path": "store/icons/achievements/first_blood.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 10129,
+      "sha256": "709a87fbfec0eeb20f400e663ce1c482bd40be112e1e2b14dbd815e0e995180d",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "boss_slayer",
+      "google_id": "CgkI5NXU8p0YEAIQBQ",
+      "title": "Crown Collector",
+      "criterion": "Defeat your first boss",
+      "type": "Standard",
+      "steps": null,
+      "filename": "boss_slayer.png",
+      "relative_path": "store/icons/achievements/boss_slayer.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 5928,
+      "sha256": "6404b2db80e95e3ac5147e10525946bec4dbc6f53300cb05234098663f4eb916",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "century",
+      "google_id": "CgkI5NXU8p0YEAIQBg",
+      "title": "A Hundred Little Problems",
+      "criterion": "Defeat 100 creatures across completed runs",
+      "type": "Incremental",
+      "steps": 100,
+      "filename": "century.png",
+      "relative_path": "store/icons/achievements/century.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6014,
+      "sha256": "9130eefe5f8cb85e8316e6e5724cf19b02e2ec70141464c7b0207cdf25c2e106",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "hundred_club",
+      "google_id": "CgkI5NXU8p0YEAIQBw",
+      "title": "A Hundred in a Hurry",
+      "criterion": "Defeat 100 creatures in one completed run",
+      "type": "Standard",
+      "steps": null,
+      "filename": "hundred_club.png",
+      "relative_path": "store/icons/achievements/hundred_club.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 10714,
+      "sha256": "538bc4b59abf1473310d7b04ef5576e90a0282fb1293bfba85c36bf74e2543c2",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "survivor_60",
+      "google_id": "CgkI5NXU8p0YEAIQCA",
+      "title": "Minute Knight",
+      "criterion": "Complete a run lasting at least 60 seconds",
+      "type": "Standard",
+      "steps": null,
+      "filename": "survivor_60.png",
+      "relative_path": "store/icons/achievements/survivor_60.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6818,
+      "sha256": "30ef444775148afc3422c5eee42e7b97718316cca4ba8c6b9bc7a880a41951ef",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "survivor",
+      "google_id": "CgkI5NXU8p0YEAIQCQ",
+      "title": "Still Standing",
+      "criterion": "Complete a run lasting at least 180 seconds",
+      "type": "Standard",
+      "steps": null,
+      "filename": "survivor.png",
+      "relative_path": "store/icons/achievements/survivor.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6899,
+      "sha256": "c56e330374f03a82b952d0990b8fb9c8bcfcd577e2fc2d1a5fb975d32b6e9e75",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "legend",
+      "google_id": "CgkI5NXU8p0YEAIQCg",
+      "title": "Knight of Infinite Nonsense",
+      "criterion": "Defeat five bosses in one run",
+      "type": "Standard",
+      "steps": null,
+      "filename": "legend.png",
+      "relative_path": "store/icons/achievements/legend.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 10345,
+      "sha256": "1e7e4bc06ec8f2053466a4f5ece1d0001da2399efb8a96e536f5f4a3754d2b5a",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "combo_25",
+      "google_id": "CgkI5NXU8p0YEAIQCw",
+      "title": "Slice Streak",
+      "criterion": "Reach a 25-kill combo",
+      "type": "Standard",
+      "steps": null,
+      "filename": "combo_25.png",
+      "relative_path": "store/icons/achievements/combo_25.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 10550,
+      "sha256": "50b0fab363840a03175530c5e8e745c23b47daf23d509fb542ac6f631536b439",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "score_10000",
+      "google_id": "CgkI5NXU8p0YEAIQDA",
+      "title": "Five Digits of Slop",
+      "criterion": "Reach 10000 points in one run",
+      "type": "Standard",
+      "steps": null,
+      "filename": "score_10000.png",
+      "relative_path": "store/icons/achievements/score_10000.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 5705,
+      "sha256": "17a2441696b7379263979266946b4742e41a7c34e90ee9fada69ae3eea3330f8",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "collector",
+      "google_id": "CgkI5NXU8p0YEAIQDQ",
+      "title": "Bestiary Complete",
+      "criterion": "Defeat all 100 generated creature species",
+      "type": "Incremental",
+      "steps": 100,
+      "filename": "collector.png",
+      "relative_path": "store/icons/achievements/collector.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6264,
+      "sha256": "060e6ba7be5ca99d6002ec1797c59c2814b5cfce38b7d589e3884005d9e4d043",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "thousand_kills",
+      "google_id": "CgkI5NXU8p0YEAIQDg",
+      "title": "Slop Sweeper",
+      "criterion": "Defeat 1000 creatures across completed runs",
+      "type": "Incremental",
+      "steps": 1000,
+      "filename": "thousand_kills.png",
+      "relative_path": "store/icons/achievements/thousand_kills.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 8010,
+      "sha256": "4dbcbe02bb8da16321b1d30550f05f485b6f0d8d0a33efb175aab0852089ed2b",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "achievements",
+      "key": "ten_runs",
+      "google_id": "CgkI5NXU8p0YEAIQDw",
+      "title": "Back for More",
+      "criterion": "Complete ten runs",
+      "type": "Incremental",
+      "steps": 10,
+      "filename": "ten_runs.png",
+      "relative_path": "store/icons/achievements/ten_runs.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 9627,
+      "sha256": "f3a7ce7b60c3cafaa9ee1cc8d9163456f882959b00f22f604a97a67efd510ac4",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "leaderboards",
+      "key": "high_score",
+      "google_id": "CgkI5NXU8p0YEAIQAQ",
+      "title": "Endless Glory",
+      "criterion": "Best completed-run score",
+      "type": "Numeric",
+      "steps": null,
+      "filename": "high_score.png",
+      "relative_path": "store/icons/leaderboards/high_score.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 5976,
+      "sha256": "2036dea9bbcbf6384045a37712ee2dbf040619aaa0f5cffec7437faa1e2a957c",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "leaderboards",
+      "key": "longest_run",
+      "google_id": "CgkI5NXU8p0YEAIQAg",
+      "title": "Last Knight Standing",
+      "criterion": "Best completed-run duration in whole seconds",
+      "type": "Numeric",
+      "steps": null,
+      "filename": "longest_run.png",
+      "relative_path": "store/icons/leaderboards/longest_run.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 5485,
+      "sha256": "7a5ffd0e5be5fcda81c77d580490c2c0bd0568f375c78c519ce2af20553df13c",
+      "localized_text": false,
+      "subject_circle_safe": true
+    },
+    {
+      "category": "leaderboards",
+      "key": "bosses_in_run",
+      "google_id": "CgkI5NXU8p0YEAIQAw",
+      "title": "Crown Hoarder",
+      "criterion": "Most bosses in one completed run",
+      "type": "Numeric",
+      "steps": null,
+      "filename": "bosses_in_run.png",
+      "relative_path": "store/icons/leaderboards/bosses_in_run.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6063,
+      "sha256": "2fa6ef0f53f4a3632f527ca7b263b5de1a6ab3282f7613fbd51e4f8ab0ee55bb",
+      "localized_text": false,
+      "subject_circle_safe": true
+    }
+  ],
+  "previews": {
+    "at_64_pixels": "store/icons/previews/contact_sheet_64.png",
+    "at_512_pixels": "store/icons/previews/contact_sheet_512.png"
+  }
+}

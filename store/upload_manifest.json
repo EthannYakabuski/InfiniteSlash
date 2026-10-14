@@ -1,0 +1,493 @@
+{
+  "package_name": "com.slash.game",
+  "pgs_game_id": "832658811620",
+  "listing": {
+    "app_name": "InfiniteSlash",
+    "package_name": "com.slash.game",
+    "default_language": "en-US",
+    "application_type": "Game",
+    "main_category": "Action",
+    "recommended_tags": [
+      "Arcade",
+      "Hack & slash",
+      "Single player",
+      "Offline",
+      "Pixelated"
+    ],
+    "tag_fallback_if_hack_and_slash_is_unavailable": "Stylized",
+    "tag_note": "Choose the five available Console tags that match these concepts. Public Play listings show these labels; the owner must verify the account's Manage tags options.",
+    "short_description_file": "short_description.txt",
+    "full_description_file": "full_description.txt",
+    "online_features_in_description": false,
+    "copy_note": "The copy describes the playable core and local records. It makes no claim of verified live Google cloud sync, multiplayer, authoritative competition, pricing, ads, awards or guaranteed virality.",
+    "category_guidance": "https://support.google.com/googleplay/android-developer/answer/9859673?hl=en"
+  },
+  "descriptions": {
+    "short_description": {
+      "characters": 68,
+      "limit": 80
+    },
+    "full_description": {
+      "characters": 1981,
+      "limit": 4000
+    }
+  },
+  "images": [
+    {
+      "file": "branding/app_icon.png",
+      "role": "app_icon",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "bytes": 557206,
+      "sha256": "64b78eff0ef70afa6473e9376a72b6725493ee820d1cd7db0f6b31eeffbf2d2c",
+      "pixel_sha256": "9fd874ee15a33d80fc43247317c219c8818f51b453049c246059acb859ed2964"
+    },
+    {
+      "file": "branding/feature_graphic_v2.png",
+      "role": "feature_graphic",
+      "width": 1024,
+      "height": 500,
+      "mode": "RGB",
+      "bytes": 1308887,
+      "sha256": "fe9abeaf7c56268d3f24dc93661e441f3695bd10c79eed879dc9a43f189dde3d",
+      "pixel_sha256": "6a80a440773df572b06f3512a0029fe963190860dd723b5fe276a3f310be68d0"
+    },
+    {
+      "file": "icons/achievements/first_blood.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 10129,
+      "sha256": "709a87fbfec0eeb20f400e663ce1c482bd40be112e1e2b14dbd815e0e995180d",
+      "pixel_sha256": "9f6730013985804002877e8272a4cba068e18e36f2d6c122202efbcbf439ae50",
+      "key": "first_blood",
+      "google_id": "CgkI5NXU8p0YEAIQBA",
+      "title": "First Slice"
+    },
+    {
+      "file": "icons/achievements/boss_slayer.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 5928,
+      "sha256": "6404b2db80e95e3ac5147e10525946bec4dbc6f53300cb05234098663f4eb916",
+      "pixel_sha256": "66a9a98edb72a4c8c6a7c35d45030df07dc3860846c0d6c78c0af02c4174a1a5",
+      "key": "boss_slayer",
+      "google_id": "CgkI5NXU8p0YEAIQBQ",
+      "title": "Crown Collector"
+    },
+    {
+      "file": "icons/achievements/century.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6014,
+      "sha256": "9130eefe5f8cb85e8316e6e5724cf19b02e2ec70141464c7b0207cdf25c2e106",
+      "pixel_sha256": "0f17e0260068bf400328c5594a54d2f970d1c6e08944cfa78847d4b49fe9940e",
+      "key": "century",
+      "google_id": "CgkI5NXU8p0YEAIQBg",
+      "title": "A Hundred Little Problems"
+    },
+    {
+      "file": "icons/achievements/hundred_club.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 10714,
+      "sha256": "538bc4b59abf1473310d7b04ef5576e90a0282fb1293bfba85c36bf74e2543c2",
+      "pixel_sha256": "c1e67103acc762dc2839592f387fbbdec741317c2ed80c72972a7044c10aff2d",
+      "key": "hundred_club",
+      "google_id": "CgkI5NXU8p0YEAIQBw",
+      "title": "A Hundred in a Hurry"
+    },
+    {
+      "file": "icons/achievements/survivor_60.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6818,
+      "sha256": "30ef444775148afc3422c5eee42e7b97718316cca4ba8c6b9bc7a880a41951ef",
+      "pixel_sha256": "a6ff9aed686c773dcc288da7a6bb9c1177ff17a9536c339aedebd468906c49be",
+      "key": "survivor_60",
+      "google_id": "CgkI5NXU8p0YEAIQCA",
+      "title": "Minute Knight"
+    },
+    {
+      "file": "icons/achievements/survivor.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6899,
+      "sha256": "c56e330374f03a82b952d0990b8fb9c8bcfcd577e2fc2d1a5fb975d32b6e9e75",
+      "pixel_sha256": "ad1b01864e4834726ca9443e37091719be18fe66ff004871e9ab909a3ba715ca",
+      "key": "survivor",
+      "google_id": "CgkI5NXU8p0YEAIQCQ",
+      "title": "Still Standing"
+    },
+    {
+      "file": "icons/achievements/legend.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 10345,
+      "sha256": "1e7e4bc06ec8f2053466a4f5ece1d0001da2399efb8a96e536f5f4a3754d2b5a",
+      "pixel_sha256": "b14f50a00dfc87ecc99dfff26452edc4367f3d84c458809354c63075f424ee3c",
+      "key": "legend",
+      "google_id": "CgkI5NXU8p0YEAIQCg",
+      "title": "Knight of Infinite Nonsense"
+    },
+    {
+      "file": "icons/achievements/combo_25.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 10550,
+      "sha256": "50b0fab363840a03175530c5e8e745c23b47daf23d509fb542ac6f631536b439",
+      "pixel_sha256": "3ae8b33865e2c3c465ee1672f3f81696cfaae1c1d67c466680c28e0f04c3f66f",
+      "key": "combo_25",
+      "google_id": "CgkI5NXU8p0YEAIQCw",
+      "title": "Slice Streak"
+    },
+    {
+      "file": "icons/achievements/score_10000.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 5705,
+      "sha256": "17a2441696b7379263979266946b4742e41a7c34e90ee9fada69ae3eea3330f8",
+      "pixel_sha256": "ef83b38f2d19ff87e00750f6b1f96725896a49239d21d896d1947bb6f3d4960c",
+      "key": "score_10000",
+      "google_id": "CgkI5NXU8p0YEAIQDA",
+      "title": "Five Digits of Slop"
+    },
+    {
+      "file": "icons/achievements/collector.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6264,
+      "sha256": "060e6ba7be5ca99d6002ec1797c59c2814b5cfce38b7d589e3884005d9e4d043",
+      "pixel_sha256": "6763151244d5fa372ccaeed7a9d45e7db33d0bef7dbc3b04d22b0cda2863d64b",
+      "key": "collector",
+      "google_id": "CgkI5NXU8p0YEAIQDQ",
+      "title": "Bestiary Complete"
+    },
+    {
+      "file": "icons/achievements/thousand_kills.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 8010,
+      "sha256": "4dbcbe02bb8da16321b1d30550f05f485b6f0d8d0a33efb175aab0852089ed2b",
+      "pixel_sha256": "ab7e102d9d81fbacf76cb18ba8ef070f5d8af1f410668731161b8159b48fd16c",
+      "key": "thousand_kills",
+      "google_id": "CgkI5NXU8p0YEAIQDg",
+      "title": "Slop Sweeper"
+    },
+    {
+      "file": "icons/achievements/ten_runs.png",
+      "role": "achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 9627,
+      "sha256": "f3a7ce7b60c3cafaa9ee1cc8d9163456f882959b00f22f604a97a67efd510ac4",
+      "pixel_sha256": "f3c11801f6a065a29c894dd9ca5c5347018fa82ea7b904376b1f8f9011121b39",
+      "key": "ten_runs",
+      "google_id": "CgkI5NXU8p0YEAIQDw",
+      "title": "Back for More"
+    },
+    {
+      "file": "icons/leaderboards/high_score.png",
+      "role": "leaderboards",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 5976,
+      "sha256": "2036dea9bbcbf6384045a37712ee2dbf040619aaa0f5cffec7437faa1e2a957c",
+      "pixel_sha256": "54b8bcd8dcb333f8d6532b354db8f86569ff44f4805eab9a2b426313598d0a79",
+      "key": "high_score",
+      "google_id": "CgkI5NXU8p0YEAIQAQ",
+      "title": "Endless Glory"
+    },
+    {
+      "file": "icons/leaderboards/longest_run.png",
+      "role": "leaderboards",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 5485,
+      "sha256": "7a5ffd0e5be5fcda81c77d580490c2c0bd0568f375c78c519ce2af20553df13c",
+      "pixel_sha256": "0ac7703512dcde28d90edd9e066d86e9bde16be330ec0fbd7ac00d757ea913e9",
+      "key": "longest_run",
+      "google_id": "CgkI5NXU8p0YEAIQAg",
+      "title": "Last Knight Standing"
+    },
+    {
+      "file": "icons/leaderboards/bosses_in_run.png",
+      "role": "leaderboards",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6063,
+      "sha256": "2fa6ef0f53f4a3632f527ca7b263b5de1a6ab3282f7613fbd51e4f8ab0ee55bb",
+      "pixel_sha256": "b9afda529a1b476ddfc2bd40baa04398129d4228719ff7209f2f6c342f00b8a9",
+      "key": "bosses_in_run",
+      "google_id": "CgkI5NXU8p0YEAIQAw",
+      "title": "Crown Hoarder"
+    },
+    {
+      "file": "screenshots/phone/01_sword_action.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 115525,
+      "sha256": "1d350d21ce5073e7cbc1cddc5ae5878a6d307a9e00375fe0dc329729adb80ed7",
+      "pixel_sha256": "be8a5aa3f8ce6c1b0a329a645d97c9680cbe835d1fe1fa6537062aa6007e6e71"
+    },
+    {
+      "file": "screenshots/phone/02_shield_parry.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 112478,
+      "sha256": "f488e2dd6f3f2a818d0008de5b7159a718e38311771187f85bda522d3c577edb",
+      "pixel_sha256": "650e2dfaffbe92bfc3cd3f12d0459f38aaa11ecb45ee0d5ffebd68cb8d4ee2ee"
+    },
+    {
+      "file": "screenshots/phone/03_boss_bullet_hell.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 125024,
+      "sha256": "45e3ba1a9702d03c9277765630a7ff0ee9af929db78ca37e9d0dd3ac21aa040a",
+      "pixel_sha256": "ee5a60ba74454246523c7feccc9f03b08796dfab93e91171d7d60cf393d4384c"
+    },
+    {
+      "file": "screenshots/phone/04_one_thumb_dash.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 112762,
+      "sha256": "963008530551d9f0cafc9bcbe89edff1e22dbc80f42ba6c7fe09ecabac177e65",
+      "pixel_sha256": "07c56bb32f465ff17e9a03f6a38fa271d63355bfaa7d40aada055a0a3f87297e"
+    },
+    {
+      "file": "screenshots/phone/05_thunderblade.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 115509,
+      "sha256": "5c2ac54a188126f616b8da1907e6728c19f6c9b6bca465e408be6e0a29f81c4c",
+      "pixel_sha256": "3842cea4366fdcf3bfd815bc9a66863b3cac2e3708b8acecc9b2e2fe50bf8119"
+    },
+    {
+      "file": "screenshots/phone/06_hurricane_combo.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 116617,
+      "sha256": "03eaa22c166e66c0f1880d790a27cb48c8e91a460bf308a2880ff47000e9cf66",
+      "pixel_sha256": "61a4c90c7ef8366d29f884398e02d1e3bd5515cf26b9b5e79379a5b65fea85ae"
+    },
+    {
+      "file": "screenshots/phone/07_choose_your_knight.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 130401,
+      "sha256": "1c5e50d544d4e0a03a66d76dcb90316eade6c7ddb557512201c8599fb651a32b",
+      "pixel_sha256": "b86d5f1e7a2f42562afcdf03d7ea1b0ccabdb719448979639fde016e75dee58b"
+    },
+    {
+      "file": "screenshots/phone/08_one_more_run.png",
+      "role": "phone",
+      "width": 1080,
+      "height": 1920,
+      "mode": "RGB",
+      "bytes": 179342,
+      "sha256": "33a1c28bb646310aab30e8c445604de2e32ab61afd20b4c3951f0c93d2968958",
+      "pixel_sha256": "0efe59629dd9f484dc466e9839485cc49219034bddd05c3d75ef04ee0f469824"
+    },
+    {
+      "file": "screenshots/tablet_7/01_sword_action.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 160399,
+      "sha256": "ca55e842091e7c07ad2780e05d6d703d682ec7d85b187c7fa0f89bd5b6fe68b4",
+      "pixel_sha256": "99b10d3d9fd20f5ddd43219013f46b5d9715368af9e8a6e67ed532757605d69c"
+    },
+    {
+      "file": "screenshots/tablet_7/02_shield_parry.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 155173,
+      "sha256": "308a168fa8f6e99a62d75a3c26fc0e275d6d4e6450840ab1969bdbc5b6795bb2",
+      "pixel_sha256": "e8c38604de7355dae7f486b4b6e4d5fd160b5e34d53c34476af1e7e52e574941"
+    },
+    {
+      "file": "screenshots/tablet_7/03_boss_bullet_hell.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 173606,
+      "sha256": "56f1502b568b1140fa31f5f4cd7b325aa8728a42c32f385ed87b02f26d7a7eb4",
+      "pixel_sha256": "d83355fa5e4db5d0ebe82c33d7e2d817ed5579d523f220e31cd10af2a336437b"
+    },
+    {
+      "file": "screenshots/tablet_7/04_one_thumb_dash.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 156860,
+      "sha256": "232db3d38eacfebb8c0988d8793164e960fad2166236fe5db1f918f0167487a5",
+      "pixel_sha256": "26ce7a8ccd31306a21e7ee9f9b32e6ac1213db10e031b086872a9840389457e4"
+    },
+    {
+      "file": "screenshots/tablet_7/05_thunderblade.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 161396,
+      "sha256": "d121d2b6d8888f3455f28ea85bf4ade53ea798b391219ab6f0d420da40c438d3",
+      "pixel_sha256": "a958ed8860f07b1611d7eb3e8567c6dfdf9a8e84994ac53531576389cf265ed4"
+    },
+    {
+      "file": "screenshots/tablet_7/06_hurricane_combo.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 163068,
+      "sha256": "decc943df7c78c2bd1824844ee9260601f478a5a1f72d204d47ffe118e77561e",
+      "pixel_sha256": "85c63a5440a2192bde5a5872d8c468437721c4ea40e8a0e6a223658421f4b020"
+    },
+    {
+      "file": "screenshots/tablet_7/07_choose_your_knight.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 176325,
+      "sha256": "439ade4bfadfd9081d0f589c2813588f7a7bd27fa835d512c01cf6b738f633f8",
+      "pixel_sha256": "21b16f136c444de395a1f17323bbb6e263dbbd3403291696d1bec5fa589ead2f"
+    },
+    {
+      "file": "screenshots/tablet_7/08_one_more_run.png",
+      "role": "tablet_7",
+      "width": 1440,
+      "height": 2560,
+      "mode": "RGB",
+      "bytes": 244563,
+      "sha256": "51ff2dbcd5d564e9627614f6a97e7b3df44589556c643861e55b847188b2e869",
+      "pixel_sha256": "118ca0bbb912a132721dd1fe84ca8da9ede600aef072f906e9ed988d76f2d94f"
+    },
+    {
+      "file": "screenshots/tablet_10/01_sword_action.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 263835,
+      "sha256": "838d4df96ff2de3ac718cc00c86dddd5de11dea7a8c3a4c9898ce8d60dae248b",
+      "pixel_sha256": "ee01fa317589dc433214781e98f2177265068220227ad164a62577437015c866"
+    },
+    {
+      "file": "screenshots/tablet_10/02_shield_parry.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 253706,
+      "sha256": "feba6ba7197933fabd7656f3752d773cc0544cb9d0b31e208f111120b4dced23",
+      "pixel_sha256": "cd3aba7b3d4a4b0c9a2e34a8929c56633eb43a23e82c6ee13e0413240090fa6e"
+    },
+    {
+      "file": "screenshots/tablet_10/03_boss_bullet_hell.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 286128,
+      "sha256": "7b23da4dbff9d4739034704c44791bd77b3144d075731bed45e317ca110735ba",
+      "pixel_sha256": "fc1af7ece0edcae029bbbd4cfae9744a3203b8e9d4365b39f6a185ee981649c3"
+    },
+    {
+      "file": "screenshots/tablet_10/04_one_thumb_dash.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 252632,
+      "sha256": "577166b97693d3b96ee434351eac946dfc5d5d1b016d1bd98f732ccdfceaea0c",
+      "pixel_sha256": "06fdbdaab8d2a9d7553590a0cbff34eb40f29c6ab20a98afde0360ff53a447e2"
+    },
+    {
+      "file": "screenshots/tablet_10/05_thunderblade.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 264926,
+      "sha256": "28b56e83a5bb740c902a8ae4b8a67e108f3c78d15339e2859287b4bc5677ab68",
+      "pixel_sha256": "eaebbd706088ceca0c697f0ccc9e652473a574d116351f6061d363748063a881"
+    },
+    {
+      "file": "screenshots/tablet_10/06_hurricane_combo.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 268452,
+      "sha256": "b3338f1a0f5d07a8b1945f745e2fa3d8164bb7a17084bac984891390a8bd42c1",
+      "pixel_sha256": "aeffd05fcd3554256da63eea46704b279edf17ed08eaac799424b651587b8175"
+    },
+    {
+      "file": "screenshots/tablet_10/07_choose_your_knight.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 283583,
+      "sha256": "bd80af798c47a4c9b66c14b004788ef00ee1ad8eba4903b8a9ba85cfe5bfcea3",
+      "pixel_sha256": "f56ffb6cc7e23b77f3aae32efd8cd2b575a8a5f200267830b5eda3ca95422590"
+    },
+    {
+      "file": "screenshots/tablet_10/08_one_more_run.png",
+      "role": "tablet_10",
+      "width": 2160,
+      "height": 3840,
+      "mode": "RGB",
+      "bytes": 393308,
+      "sha256": "35e2374b44652c5731a096fa6949cfb3bc24c110c3d8ef40e12f0aac0f1623f2",
+      "pixel_sha256": "cfa89bb886fc59ba11bf011cc4459e6bf40fda81c88cf898dad05f09a4fd4b76"
+    }
+  ],
+  "upload_note": "Attach feature icons to the existing Google IDs. Do not re-import achievement definitions."
+}

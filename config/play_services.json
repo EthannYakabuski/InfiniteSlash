@@ -1,28 +1,33 @@
 {
-  "enabled": false,
-  "game_id": "",
+  "enabled": true,
+  "game_id": "832658811620",
   "save_name": "infiniteslash_profile_v1",
   "timeout_seconds": 15,
   "leaderboards": {
-    "high_score": "",
-    "longest_run": "",
-    "bosses_in_run": "",
+    "high_score": "CgkI5NXU8p0YEAIQAQ",
+    "longest_run": "CgkI5NXU8p0YEAIQAg",
+    "bosses_in_run": "CgkI5NXU8p0YEAIQAw",
     "daily_score": ""
   },
   "achievements": {
-    "first_blood": "",
-    "boss_slayer": "",
-    "century": "",
-    "survivor": "",
-    "legend": "",
-    "collector": "",
-    "hundred_club": "",
-    "survivor_60": "",
-    "survivor_180": "",
-    "combo_25": "",
-    "score_10000": "",
-    "thousand_kills": "",
-    "ten_runs": ""
+    "first_blood": "CgkI5NXU8p0YEAIQBA",
+    "boss_slayer": "CgkI5NXU8p0YEAIQBQ",
+    "century": "CgkI5NXU8p0YEAIQBg",
+    "hundred_club": "CgkI5NXU8p0YEAIQBw",
+    "survivor_60": "CgkI5NXU8p0YEAIQCA",
+    "survivor": "CgkI5NXU8p0YEAIQCQ",
+    "legend": "CgkI5NXU8p0YEAIQCg",
+    "combo_25": "CgkI5NXU8p0YEAIQCw",
+    "score_10000": "CgkI5NXU8p0YEAIQDA",
+    "collector": "CgkI5NXU8p0YEAIQDQ",
+    "thousand_kills": "CgkI5NXU8p0YEAIQDg",
+    "ten_runs": "CgkI5NXU8p0YEAIQDw",
+    "survivor_180": ""
   },
-  "incremental_achievements": {}
+  "incremental_achievements": {
+    "century": 100,
+    "collector": 100,
+    "thousand_kills": 1000,
+    "ten_runs": 10
+  }
 }

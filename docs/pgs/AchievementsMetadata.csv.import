@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://j6m32t3l81f1"
+
+[deps]
+
+files=["res://docs/pgs/AchievementsMetadata.Defeat your first creature.translation", "res://docs/pgs/AchievementsMetadata.False.translation", "res://docs/pgs/AchievementsMetadata.Revealed.translation", "res://docs/pgs/AchievementsMetadata.5.translation", "res://docs/pgs/AchievementsMetadata.1.translation"]
+
+source_file="res://docs/pgs/AchievementsMetadata.csv"
+dest_files=["res://docs/pgs/AchievementsMetadata.Defeat your first creature.translation", "res://docs/pgs/AchievementsMetadata.False.translation", "res://docs/pgs/AchievementsMetadata.Revealed.translation", "res://docs/pgs/AchievementsMetadata.5.translation", "res://docs/pgs/AchievementsMetadata.1.translation"]
+
+[params]
+
+compress=true
+delimiter=0

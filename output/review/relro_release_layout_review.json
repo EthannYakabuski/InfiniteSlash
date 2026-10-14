@@ -1,0 +1,130 @@
+{
+  "source": "C:\\Users\\swimr\\Documents\\InfiniteSlash\\InfiniteSlash\\builds\\InfiniteSlash-play-unsigned.aab",
+  "sha256": "9c02290ec456b0ff7f101f7a69f4521b183f14d326eb434b14db96d6c2062900",
+  "libraries": [
+    {
+      "name": "base/lib/arm64-v8a/libc++_shared.so",
+      "bytes": 1253544,
+      "sha256": "ad74bf43eb1fd576518168f664ad16a74e00eeda9595875c33dd87f6dd197869",
+      "loads": [
+        {
+          "virtual_address": "0x0",
+          "offset": "0x0",
+          "align": 16384,
+          "flags": 4,
+          "file_size": "0x988a0",
+          "memory_size": "0x988a0",
+          "end": "0x988a0",
+          "mapping_modulo_matches": true
+        },
+        {
+          "virtual_address": "0x9c8a0",
+          "offset": "0x988a0",
+          "align": 16384,
+          "flags": 5,
+          "file_size": "0x8eff8",
+          "memory_size": "0x8eff8",
+          "end": "0x12b898",
+          "mapping_modulo_matches": true
+        },
+        {
+          "virtual_address": "0x12f898",
+          "offset": "0x127898",
+          "align": 16384,
+          "flags": 6,
+          "file_size": "0x9b98",
+          "memory_size": "0xa768",
+          "end": "0x13a000",
+          "mapping_modulo_matches": true
+        },
+        {
+          "virtual_address": "0x13d430",
+          "offset": "0x131430",
+          "align": 16384,
+          "flags": 6,
+          "file_size": "0x238",
+          "memory_size": "0x7d20",
+          "end": "0x145150",
+          "mapping_modulo_matches": true
+        }
+      ],
+      "gnu_relro": [
+        {
+          "virtual_address": "0x12f898",
+          "memory_size": "0xa768",
+          "end": "0x13a000",
+          "end_modulo_16kb": 8192,
+          "rounded_end": "0x13c000",
+          "covers_entire_matching_load": true,
+          "writable_bytes_after_relro_in_protected_page": []
+        }
+      ],
+      "strict_16kb_check": false,
+      "bionic_layout_16kb_check": true
+    },
+    {
+      "name": "base/lib/arm64-v8a/libgodot_android.so",
+      "bytes": 69989600,
+      "sha256": "9e10c5ebda9bb629c671929441cdde3b4a8ab0e5542fc7e88de8d71f2b9840db",
+      "loads": [
+        {
+          "virtual_address": "0x0",
+          "offset": "0x0",
+          "align": 16384,
+          "flags": 4,
+          "file_size": "0x10fe100",
+          "memory_size": "0x10fe100",
+          "end": "0x10fe100",
+          "mapping_modulo_matches": true
+        },
+        {
+          "virtual_address": "0x1102100",
+          "offset": "0x10fe100",
+          "align": 16384,
+          "flags": 5,
+          "file_size": "0x305b410",
+          "memory_size": "0x305b410",
+          "end": "0x415d510",
+          "mapping_modulo_matches": true
+        },
+        {
+          "virtual_address": "0x4161510",
+          "offset": "0x4159510",
+          "align": 16384,
+          "flags": 6,
+          "file_size": "0x15c2d0",
+          "memory_size": "0x15caf0",
+          "end": "0x42be000",
+          "mapping_modulo_matches": true
+        },
+        {
+          "virtual_address": "0x42c17e0",
+          "offset": "0x42b57e0",
+          "align": 16384,
+          "flags": 6,
+          "file_size": "0x93f8",
+          "memory_size": "0x1e0900",
+          "end": "0x44a20e0",
+          "mapping_modulo_matches": true
+        }
+      ],
+      "gnu_relro": [
+        {
+          "virtual_address": "0x4161510",
+          "memory_size": "0x15caf0",
+          "end": "0x42be000",
+          "end_modulo_16kb": 8192,
+          "rounded_end": "0x42c0000",
+          "covers_entire_matching_load": true,
+          "writable_bytes_after_relro_in_protected_page": []
+        }
+      ],
+      "strict_16kb_check": false,
+      "bionic_layout_16kb_check": true
+    }
+  ],
+  "all_arm64_libraries_strict_16kb": false,
+  "all_arm64_libraries_bionic_layout_16kb": true,
+  "interpretation": "Modulo-only RELRO check is conservative; Android Bionic exempts RELRO covering the entire matching LOAD. No runtime/Play acceptance is inferred.",
+  "primary_source": "https://android.googlesource.com/platform/bionic/+/android16-qpr2-release/linker/linker_phdr_16kib_compat.cpp#427"
+}

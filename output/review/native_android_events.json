@@ -1,0 +1,245 @@
+[
+  {
+    "event": "installed",
+    "wall_time": 1791859200.413508,
+    "apk": "C:\\Users\\swimr\\Documents\\InfiniteSlash\\InfiniteSlash\\builds\\InfiniteSlash-debug.apk",
+    "result": "Performing Streamed Install\r\nSuccess"
+  },
+  {
+    "event": "device",
+    "wall_time": 1791859201.3095076,
+    "serial": "emulator-5580",
+    "width": 1080,
+    "height": 2220,
+    "api": "30",
+    "abi": "x86,armeabi-v7a,armeabi"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791859210.2686017,
+    "component": "com.slash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=com.slash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: com.slash.game/com.godot.game.GodotApp\r\nTotalTime: 8728\r\nWaitTime: 8736\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791859226.111878
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859227.572742,
+    "name": "01_launch",
+    "path": "output\\android-test\\native_pgs_smoke\\01_launch.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791859229.921745,
+    "button": "SwordButton",
+    "overlay": "launch",
+    "point": [
+      298,
+      1325
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791859230.1767414,
+    "state": "running",
+    "pid": "2959"
+  },
+  {
+    "event": "fresh_class_verified",
+    "wall_time": 1791859231.1397421,
+    "style": "sword",
+    "max_health": 80.0,
+    "damage": 32.0,
+    "attack_interval": 0.36,
+    "attack_range": 92.0,
+    "guard_capacity": 65.0,
+    "balance_version": 3
+  },
+  {
+    "event": "sword_started",
+    "wall_time": 1791859231.140743,
+    "max_health": 80.0,
+    "player": [
+      270.0,
+      799.200012207031
+    ]
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859234.2557728,
+    "name": "02_sword_action",
+    "path": "output\\android-test\\native_pgs_smoke\\02_sword_action.png"
+  },
+  {
+    "event": "drag",
+    "wall_time": 1791859236.2917707,
+    "duration_ms": 850
+  },
+  {
+    "event": "flick",
+    "wall_time": 1791859237.8577716,
+    "duration_ms": 100
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859240.0087721,
+    "name": "03_drag_guard_dash",
+    "path": "output\\android-test\\native_pgs_smoke\\03_drag_guard_dash.png"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791859240.9230034,
+    "button": "PauseButton",
+    "overlay": "",
+    "point": [
+      986,
+      82
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791859241.604072,
+    "state": "pause",
+    "pid": "2959"
+  },
+  {
+    "event": "touch_movement_verified",
+    "wall_time": 1791859242.5303307,
+    "distance": 267.6329162142621,
+    "player": [
+      457.214202880859,
+      607.945678710938
+    ]
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859243.1714537,
+    "name": "04_pause",
+    "path": "output\\android-test\\native_pgs_smoke\\04_pause.png"
+  },
+  {
+    "event": "pause_verified",
+    "wall_time": 1791859254.9199772,
+    "elapsed": 9.81666666666673,
+    "minimum_wait_seconds": 11.5
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791859255.8479779,
+    "button": "ResumeButton",
+    "overlay": "pause",
+    "point": [
+      540,
+      1172
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791859256.01598,
+    "state": "running",
+    "pid": "2959"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791859260.5635178,
+    "component": "com.slash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=com.slash.game/com.godot.game.GodotApp }\r\nWarning: Activity not started, its current task has been brought to the front\r\nStatus: ok\r\nLaunchState: HOT\r\nActivity: com.slash.game/com.godot.game.GodotApp\r\nTotalTime: 643\r\nWaitTime: 649\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791859261.836519
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859263.5115206,
+    "name": "07_background_return",
+    "path": "output\\android-test\\native_pgs_smoke\\07_background_return.png"
+  },
+  {
+    "event": "launch",
+    "wall_time": 1791859269.6715164,
+    "component": "com.slash.game/com.godot.game.GodotApp",
+    "result": "Starting: Intent { cmp=com.slash.game/com.godot.game.GodotApp }\r\nStatus: ok\r\nLaunchState: COLD\r\nActivity: com.slash.game/com.godot.game.GodotApp\r\nTotalTime: 4341\r\nWaitTime: 4345\r\nComplete"
+  },
+  {
+    "event": "rendered_frame_ready",
+    "wall_time": 1791859276.362815
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859278.2378132,
+    "name": "08_process_resume",
+    "path": "output\\android-test\\native_pgs_smoke\\08_process_resume.png"
+  },
+  {
+    "event": "process_recovery_verified",
+    "wall_time": 1791859278.5758123,
+    "elapsed": 11.8833333333335,
+    "style": "sword"
+  },
+  {
+    "event": "tap",
+    "wall_time": 1791859280.2181716,
+    "button": "ShieldButton",
+    "overlay": "launch",
+    "point": [
+      782,
+      1412
+    ]
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791859280.4867275,
+    "state": "running",
+    "pid": "4941"
+  },
+  {
+    "event": "fresh_class_verified",
+    "wall_time": 1791859281.4356174,
+    "style": "shield",
+    "max_health": 170.0,
+    "damage": 24.0,
+    "attack_interval": 0.6,
+    "attack_range": 80.0,
+    "guard_capacity": 165.0,
+    "balance_version": 3
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859283.3292394,
+    "name": "09_shield_action",
+    "path": "output\\android-test\\native_pgs_smoke\\09_shield_action.png"
+  },
+  {
+    "event": "ui_state_verified",
+    "wall_time": 1791859284.7072365,
+    "state": "pause",
+    "pid": "4941"
+  },
+  {
+    "event": "screenshot",
+    "wall_time": 1791859286.2562387,
+    "name": "10_android_back_pause",
+    "path": "output\\android-test\\native_pgs_smoke\\10_android_back_pause.png"
+  },
+  {
+    "event": "shield_and_back_verified",
+    "wall_time": 1791859286.4692407,
+    "max_health": 170.0
+  },
+  {
+    "event": "native_plugin_verified",
+    "wall_time": 1791859286.7542384,
+    "singleton": "GodotPlayGameServices",
+    "account_backend_tested": false,
+    "note": "Anonymous local-play fallback; no sign-in request or account login."
+  },
+  {
+    "event": "completed",
+    "wall_time": 1791859286.7552392,
+    "runtime_errors": 0,
+    "note": "Screenshots require visual review; this is functional emulator evidence, not phone performance certification."
+  }
+]

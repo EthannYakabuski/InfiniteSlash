@@ -1,0 +1,63 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 560.94 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GT 1030
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/phone/01_sword_action.png (1080, 1920)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/phone/02_shield_parry.png (1080, 1920)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/phone/03_boss_bullet_hell.png (1080, 1920)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/phone/04_one_thumb_dash.png (1080, 1920)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/phone/05_thunderblade.png (1080, 1920)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/phone/06_hurricane_combo.png (1080, 1920)
+INFINITESLASH_UI running
+INFINITESLASH_UI launch
+STORE_CAPTURE res://store/screenshots/phone/07_choose_your_knight.png (1080, 1920)
+INFINITESLASH_UI running
+INFINITESLASH_UI end
+STORE_CAPTURE res://store/screenshots/phone/08_one_more_run.png (1080, 1920)
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_7/01_sword_action.png (1440, 2560)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_7/02_shield_parry.png (1440, 2560)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_7/03_boss_bullet_hell.png (1440, 2560)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_7/04_one_thumb_dash.png (1440, 2560)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_7/05_thunderblade.png (1440, 2560)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_7/06_hurricane_combo.png (1440, 2560)
+INFINITESLASH_UI running
+INFINITESLASH_UI launch
+STORE_CAPTURE res://store/screenshots/tablet_7/07_choose_your_knight.png (1440, 2560)
+INFINITESLASH_UI running
+INFINITESLASH_UI end
+STORE_CAPTURE res://store/screenshots/tablet_7/08_one_more_run.png (1440, 2560)
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_10/01_sword_action.png (2160, 3840)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_10/02_shield_parry.png (2160, 3840)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_10/03_boss_bullet_hell.png (2160, 3840)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_10/04_one_thumb_dash.png (2160, 3840)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_10/05_thunderblade.png (2160, 3840)
+INFINITESLASH_UI running
+STORE_CAPTURE res://store/screenshots/tablet_10/06_hurricane_combo.png (2160, 3840)
+INFINITESLASH_UI running
+INFINITESLASH_UI launch
+STORE_CAPTURE res://store/screenshots/tablet_10/07_choose_your_knight.png (2160, 3840)
+INFINITESLASH_UI running
+INFINITESLASH_UI end
+STORE_CAPTURE res://store/screenshots/tablet_10/08_one_more_run.png (2160, 3840)
+STORE_CAPTURE_PASS: 24 independently rendered portrait screenshots

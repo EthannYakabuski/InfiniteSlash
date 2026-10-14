@@ -1,0 +1,325 @@
+diff --git a/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/GodotAndroidPlugin.kt b/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/GodotAndroidPlugin.kt
+index 477990e..ffb64b6 100644
+--- a/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/GodotAndroidPlugin.kt
++++ b/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/GodotAndroidPlugin.kt
+@@ -443,6 +443,13 @@ class GodotAndroidPlugin(godot: Godot) : GodotPlugin(godot) {
+     fun loadGame(fileName: String, createIfNotFound: Boolean = false) =
+         snapshotsProxy.loadGame(fileName, createIfNotFound)
+ 
++    /** InfiniteSlash fork: resolve retained snapshot handles using merged content. */
++    @UsedByGodot
++    fun resolveConflict(conflictId: String, description: String, saveData: ByteArray,
++                        playedTimeMillis: Long, progressValue: Long): Boolean =
++        snapshotsProxy.resolveConflict(conflictId, description, saveData, playedTimeMillis, progressValue)
++
++
+     /**
+      * Loads the list of [com.google.android.gms.games.snapshot.SnapshotMetadata](https://developers.google.com/android/reference/com/google/android/gms/games/snapshot/SnapshotMetadata)
+      * for the current signed in Player. This method emits the [com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.snapshotsLoaded]
+diff --git a/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/signals/Signals.kt b/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/signals/Signals.kt
+index 3ae8fc4..7ab0c08 100644
+--- a/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/signals/Signals.kt
++++ b/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/signals/Signals.kt
+@@ -25,6 +25,7 @@ fun getSignals(): MutableSet<SignalInfo> = mutableSetOf(
+ 
+     SnapshotSignals.gameSaved,
+     SnapshotSignals.gameLoaded,
++    SnapshotSignals.gameLoadFailed,
+     SnapshotSignals.conflictEmitted,
+     SnapshotSignals.snapshotsLoaded,
+     SnapshotSignals.snapshotDeleted,
+@@ -180,6 +181,7 @@ object SnapshotSignals {
+      * @return A [Dictionary] representing a [com.google.android.gms.games.snapshot.Snapshot](https://developers.google.com/android/reference/com/google/android/gms/games/snapshot/Snapshot) or null if the Snapshot wasn't found.
+      */
+     val gameLoaded = SignalInfo("gameLoaded", String::class.java)
++    val gameLoadFailed = SignalInfo("gameLoadFailed", String::class.java, String::class.java)
+ 
+     /**
+      * This signal is emitted when saving or loading a game, whenever a conflict occurs.
+diff --git a/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt b/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt
+index 43f77ad..9f4677b 100644
+--- a/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt
++++ b/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt
+@@ -8,9 +8,10 @@ import com.google.android.gms.common.api.ApiException
+ import com.google.android.gms.games.PlayGames
+ import com.google.android.gms.games.SnapshotsClient
+ import com.google.android.gms.games.SnapshotsClient.EXTRA_SNAPSHOT_METADATA
+-import com.google.android.gms.games.SnapshotsClient.RESOLUTION_POLICY_HIGHEST_PROGRESS
+-import com.google.android.gms.games.SnapshotsClient.RESOLUTION_POLICY_MOST_RECENTLY_MODIFIED
++import com.google.android.gms.games.SnapshotsClient.RESOLUTION_POLICY_MANUAL
+ import com.google.android.gms.games.SnapshotsClient.SnapshotConflict
++import com.google.android.gms.games.snapshot.Snapshot
++import java.util.concurrent.ConcurrentHashMap
+ import com.google.android.gms.games.snapshot.SnapshotMetadata
+ import com.google.android.gms.games.snapshot.SnapshotMetadataChange
+ import com.google.gson.Gson
+@@ -18,6 +19,7 @@ import com.jacobibanez.plugin.android.godotplaygameservices.BuildConfig.GODOT_PL
+ import com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.conflictEmitted
+ import com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.snapshotDeleted
+ import com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.gameLoaded
++import com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.gameLoadFailed
+ import com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.gameSaved
+ import com.jacobibanez.plugin.android.godotplaygameservices.signals.SnapshotSignals.snapshotsLoaded
+ import org.godotengine.godot.Dictionary
+@@ -36,6 +38,7 @@ class SnapshotsProxy(
+ 
+     private val showSavedGamesRequestCode = 9010
+     private val snapshotNotFoundCode = 26570
++    private val pendingConflicts = ConcurrentHashMap<String, SnapshotConflict>()
+ 
+     fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         if (requestCode == showSavedGamesRequestCode && resultCode == Activity.RESULT_OK) {
+@@ -65,44 +68,130 @@ class SnapshotsProxy(
+             }
+     }
+ 
+-    fun saveGame(
+-        fileName: String,
+-        description: String,
+-        saveData: ByteArray,
+-        playedTimeMillis: Long,
+-        progressValue: Long
+-    ) {
+-        Log.d(tag, "Saving game data with name $fileName and description ${description}.")
+-        snapshotsClient.open(fileName, true, RESOLUTION_POLICY_HIGHEST_PROGRESS)
+-            .addOnSuccessListener { dataOrConflict ->
+-                if (dataOrConflict.isConflict) {
+-                    handleConflict(Origin.SAVE.name, dataOrConflict.conflict)
+-                    return@addOnSuccessListener
++    // InfiniteSlash fork: acknowledge writes only after the commit Task completes.
++    fun saveGame(fileName: String, description: String, saveData: ByteArray,
++                 playedTimeMillis: Long, progressValue: Long) {
++        snapshotsClient.open(fileName, true, RESOLUTION_POLICY_MANUAL)
++            .addOnCompleteListener { task ->
++                if (!task.isSuccessful) {
++                    Log.e(tag, "Could not open snapshot for saving", task.exception)
++                    emitSaveResult(false, fileName, description)
++                    return@addOnCompleteListener
+                 }
+-                dataOrConflict.data?.let { snapshot ->
+-                    snapshot.snapshotContents.writeBytes(saveData)
+-                    val metadata = SnapshotMetadataChange.Builder().apply {
+-                        setDescription(description)
+-                        setPlayedTimeMillis(playedTimeMillis)
+-                        setProgressValue(progressValue)
+-                    }.build()
+-
+-                    snapshotsClient.commitAndClose(snapshot, metadata)
+-                    emitSignal(
+-                        godot,
+-                        GODOT_PLUGIN_NAME,
+-                        gameSaved,
+-                        true,
+-                        fileName,
+-                        description
+-                    )
++                val result = task.result
++                if (result.isConflict) {
++                    handleConflict(Origin.SAVE.name, result.conflict)
++                } else {
++                    val snapshot = result.data
++                    if (snapshot == null) emitSaveResult(false, fileName, description)
++                    else commitSnapshot(snapshot, description, saveData, playedTimeMillis, progressValue)
++                }
++            }
++    }
++
++    private fun commitSnapshot(snapshot: Snapshot, description: String, bytes: ByteArray,
++                               playedTimeMillis: Long, progressValue: Long,
++                               onFinished: (() -> Unit)? = null) {
++        val name = snapshot.metadata.uniqueName
++        try {
++            if (!snapshot.snapshotContents.writeBytes(bytes)) {
++                closeSnapshot(snapshot)
++                emitSaveResult(false, name, description)
++                onFinished?.invoke()
++                return
++            }
++            val metadata = SnapshotMetadataChange.Builder().setDescription(description)
++                .setPlayedTimeMillis(playedTimeMillis).setProgressValue(progressValue).build()
++            snapshotsClient.commitAndClose(snapshot, metadata).addOnCompleteListener { task ->
++                if (!task.isSuccessful) {
++                    Log.e(tag, "Snapshot commit failed", task.exception)
++                    closeSnapshot(snapshot)
++                }
++                emitSaveResult(task.isSuccessful, name, description)
++                onFinished?.invoke()
++            }
++        } catch (error: Exception) {
++            Log.e(tag, "Snapshot write failed", error)
++            closeSnapshot(snapshot)
++            emitSaveResult(false, name, description)
++            onFinished?.invoke()
++        }
++    }
++
++    private fun emitSaveResult(success: Boolean, name: String, description: String) {
++        emitSignal(godot, GODOT_PLUGIN_NAME, gameSaved, success, name, description)
++    }
++
++    private fun closeSnapshot(snapshot: Snapshot) {
++        try {
++            if (!snapshot.snapshotContents.isClosed) snapshotsClient.discardAndClose(snapshot)
++        } catch (error: Exception) {
++            Log.w(tag, "Snapshot handle already released", error)
++        }
++    }
++
++    // The conflict handles are native SDK objects retained from the open result.
++    // Resolution sends merged bytes to Google; a second conflict re-enters the bounded
++    // application retry flow, and a successful resolution is committed before ack.
++    fun resolveConflict(conflictId: String, description: String, bytes: ByteArray,
++                        playedTimeMillis: Long, progressValue: Long): Boolean {
++        val conflict = pendingConflicts.remove(conflictId) ?: return false
++        val name = conflict.snapshot.metadata.uniqueName
++        try {
++            val contents = conflict.resolutionSnapshotContents
++            if (!contents.writeBytes(bytes)) {
++                closeSnapshot(conflict.snapshot)
++                closeSnapshot(conflict.conflictingSnapshot)
++                emitSaveResult(false, name, description)
++                return true
++            }
++            val metadata = SnapshotMetadataChange.Builder().setDescription(description)
++                .setPlayedTimeMillis(playedTimeMillis).setProgressValue(progressValue).build()
++            snapshotsClient.resolveConflict(conflictId, conflict.snapshot.metadata.snapshotId,
++                metadata, contents).addOnCompleteListener { task ->
++                if (!task.isSuccessful) {
++                    Log.e(tag, "Snapshot conflict resolution failed", task.exception)
++                    closeSnapshot(conflict.snapshot)
++                    closeSnapshot(conflict.conflictingSnapshot)
++                    emitSaveResult(false, name, description)
++                } else {
++                    val result = task.result
++                    if (result.isConflict) {
++                        handleConflict(Origin.SAVE.name, result.conflict)
++                    } else {
++                        val resolved = result.data
++                        if (resolved == null) {
++                            closeSnapshot(conflict.snapshot)
++                            closeSnapshot(conflict.conflictingSnapshot)
++                            emitSaveResult(false, name, description)
++                        }
++                        else commitSnapshot(resolved, description, bytes, playedTimeMillis, progressValue) {
++                            closeSnapshot(conflict.snapshot)
++                            closeSnapshot(conflict.conflictingSnapshot)
++                        }
++                    }
++                    // Retain handles used by a new conflict; release consumed older ones.
++                    if (result.isConflict) {
++                        val next = result.conflict
++                        for (old in listOf(conflict.snapshot, conflict.conflictingSnapshot)) {
++                            if (next == null || (old.snapshotContents !== next.snapshot.snapshotContents &&
++                                old.snapshotContents !== next.conflictingSnapshot.snapshotContents)) closeSnapshot(old)
++                        }
++                    }
+                 }
+             }
++        } catch (error: Exception) {
++            Log.e(tag, "Could not resolve snapshot conflict", error)
++            closeSnapshot(conflict.snapshot)
++            closeSnapshot(conflict.conflictingSnapshot)
++            emitSaveResult(false, name, description)
++        }
++        return true
+     }
+ 
+     fun loadGame(fileName: String, createIfNotFound: Boolean) {
+         Log.d(tag, "Loading snapshot with name $fileName.")
+-        snapshotsClient.open(fileName, createIfNotFound, RESOLUTION_POLICY_MOST_RECENTLY_MODIFIED)
++        snapshotsClient.open(fileName, createIfNotFound, RESOLUTION_POLICY_MANUAL)
+             .addOnCompleteListener { task ->
+                 if (task.isSuccessful) {
+                     val dataOrConflict = task.result
+@@ -110,13 +199,19 @@ class SnapshotsProxy(
+                         handleConflict(Origin.LOAD.name, dataOrConflict.conflict)
+                         return@addOnCompleteListener
+                     }
+-                    dataOrConflict.data?.let { snapshot ->
+-                        emitSignal(
+-                            godot,
+-                            GODOT_PLUGIN_NAME,
+-                            gameLoaded,
+-                            Gson().toJson(fromSnapshot(godot, snapshot))
+-                        )
++                    val snapshot = dataOrConflict.data
++                    if (snapshot == null) {
++                        emitLoadFailure(fileName, "Snapshot data unavailable")
++                    } else {
++                        try {
++                            emitSignal(godot, GODOT_PLUGIN_NAME, gameLoaded,
++                                Gson().toJson(fromSnapshot(godot, snapshot)))
++                        } catch (error: Exception) {
++                            Log.e(tag, "Could not read snapshot", error)
++                            emitLoadFailure(fileName, "Snapshot read failed")
++                        } finally {
++                            closeSnapshot(snapshot)
++                        }
+                     }
+                 } else {
+                     val exception = task.exception
+@@ -131,11 +226,15 @@ class SnapshotsProxy(
+                             gameLoaded,
+                             Gson().toJson(null)
+                         )
+-                    }
++                    } else emitLoadFailure(fileName, "Snapshot open failed")
+                 }
+             }
+     }
+ 
++    private fun emitLoadFailure(fileName: String, message: String) {
++        emitSignal(godot, GODOT_PLUGIN_NAME, gameLoadFailed, fileName, message)
++    }
++
+     fun loadSnapshots(forceReload: Boolean) {
+         Log.d(tag, "Loading snapshots")
+         snapshotsClient.load(forceReload).addOnCompleteListener { task ->
+@@ -213,11 +312,34 @@ class SnapshotsProxy(
+             success,
+             snapshotId
+         )
+-    }    private fun handleConflict(origin: String, conflict: SnapshotConflict?) {
++    }
++
++    private fun handleConflict(origin: String, conflict: SnapshotConflict?) {
+         conflict?.let {
+-            val snapshot = it.snapshot
+-            val fileName = snapshot.metadata.uniqueName
+-            val description = snapshot.metadata.description
++            val fileName = it.snapshot.metadata.uniqueName
++            val description = it.snapshot.metadata.description
++            val payload: String
++            try {
++                payload = Gson().toJson(fromConflict(godot, origin, it))
++            } catch (error: Exception) {
++                Log.e(tag, "Could not read snapshot conflict", error)
++                pendingConflicts.remove(it.conflictId)
++                closeSnapshot(it.snapshot)
++                closeSnapshot(it.conflictingSnapshot)
++                if (origin == Origin.SAVE.name) emitSaveResult(false, fileName, description)
++                else emitLoadFailure(fileName, "Snapshot conflict read failed")
++                return
++            }
++            // Bound retained handles if callers abandon a timed-out operation.
++            if (pendingConflicts.size >= 4) {
++                pendingConflicts.keys.firstOrNull()?.let { oldId ->
++                    pendingConflicts.remove(oldId)?.let { old ->
++                        closeSnapshot(old.snapshot)
++                        closeSnapshot(old.conflictingSnapshot)
++                    }
++                }
++            }
++            pendingConflicts[it.conflictId] = it
+             Log.e(
+                 tag, "Conflict with id ${conflict.conflictId} during saving of data with " +
+                         "name $fileName and description ${description}."
+@@ -226,7 +348,7 @@ class SnapshotsProxy(
+                 godot,
+                 GODOT_PLUGIN_NAME,
+                 conflictEmitted,
+-                Gson().toJson(fromConflict(godot, origin, it))
++                payload
+             )
+         }
+     }

@@ -1,0 +1,93 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.12/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :plugin:preBuild UP-TO-DATE
+> Task :plugin:preDebugBuild UP-TO-DATE
+> Task :plugin:mergeDebugJniLibFolders UP-TO-DATE
+> Task :plugin:mergeDebugNativeLibs NO-SOURCE
+> Task :plugin:stripDebugDebugSymbols NO-SOURCE
+> Task :plugin:copyDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :plugin:generateDebugBuildConfig UP-TO-DATE
+> Task :plugin:generateDebugResValues UP-TO-DATE
+> Task :plugin:generateDebugResources UP-TO-DATE
+> Task :plugin:packageDebugResources UP-TO-DATE
+> Task :plugin:parseDebugLocalResources UP-TO-DATE
+> Task :plugin:generateDebugRFile UP-TO-DATE
+> Task :plugin:extractDeepLinksForAarDebug UP-TO-DATE
+> Task :plugin:javaPreCompileDebug UP-TO-DATE
+> Task :plugin:mergeDebugShaders UP-TO-DATE
+> Task :plugin:compileDebugShaders NO-SOURCE
+> Task :plugin:generateDebugAssets UP-TO-DATE
+> Task :plugin:packageDebugAssets UP-TO-DATE
+> Task :plugin:prepareDebugArtProfile UP-TO-DATE
+> Task :plugin:prepareLintJarForPublish UP-TO-DATE
+> Task :plugin:processDebugManifest UP-TO-DATE
+> Task :plugin:writeDebugAarMetadata UP-TO-DATE
+> Task :plugin:preReleaseBuild UP-TO-DATE
+> Task :plugin:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :plugin:mergeReleaseNativeLibs NO-SOURCE
+> Task :plugin:stripReleaseDebugSymbols NO-SOURCE
+> Task :plugin:copyReleaseJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :plugin:generateReleaseResValues UP-TO-DATE
+> Task :plugin:extractDeepLinksForAarRelease UP-TO-DATE
+> Task :plugin:generateReleaseBuildConfig UP-TO-DATE
+> Task :plugin:generateReleaseResources UP-TO-DATE
+> Task :plugin:packageReleaseResources UP-TO-DATE
+> Task :plugin:parseReleaseLocalResources UP-TO-DATE
+> Task :plugin:generateReleaseRFile UP-TO-DATE
+> Task :plugin:javaPreCompileRelease UP-TO-DATE
+> Task :plugin:mergeReleaseShaders UP-TO-DATE
+> Task :plugin:compileReleaseShaders NO-SOURCE
+> Task :plugin:generateReleaseAssets UP-TO-DATE
+> Task :plugin:packageReleaseAssets UP-TO-DATE
+> Task :plugin:prepareReleaseArtProfile UP-TO-DATE
+> Task :plugin:processReleaseManifest UP-TO-DATE
+> Task :plugin:writeReleaseAarMetadata UP-TO-DATE
+> Task :plugin:mapReleaseSourceSetPaths UP-TO-DATE
+> Task :plugin:mergeReleaseResources UP-TO-DATE
+> Task :plugin:verifyReleaseResources UP-TO-DATE
+> Task :plugin:compileDebugKotlin
+> Task :plugin:compileReleaseKotlin
+
+> Task :plugin:compileDebugKotlin
+w: file:///C:/Users/swimr/Documents/InfiniteSlash/InfiniteSlash/output/test-data/pgs-native-source/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/players/PlayersProxy.kt:40:34 'fun get(p0: String!): Any?' is deprecated. Deprecated in Java.
+w: file:///C:/Users/swimr/Documents/InfiniteSlash/InfiniteSlash/output/test-data/pgs-native-source/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/players/PlayersProxy.kt:40:67 Unchecked cast of 'Any?' to 'ArrayList<Player>'.
+w: file:///C:/Users/swimr/Documents/InfiniteSlash/InfiniteSlash/output/test-data/pgs-native-source/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt:48:27 'fun get(p0: String!): Any?' is deprecated. Deprecated in Java.
+
+> Task :plugin:extractDebugAnnotations
+
+> Task :plugin:compileReleaseKotlin
+w: file:///C:/Users/swimr/Documents/InfiniteSlash/InfiniteSlash/output/test-data/pgs-native-source/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/players/PlayersProxy.kt:40:34 'fun get(p0: String!): Any?' is deprecated. Deprecated in Java.
+w: file:///C:/Users/swimr/Documents/InfiniteSlash/InfiniteSlash/output/test-data/pgs-native-source/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/players/PlayersProxy.kt:40:67 Unchecked cast of 'Any?' to 'ArrayList<Player>'.
+w: file:///C:/Users/swimr/Documents/InfiniteSlash/InfiniteSlash/output/test-data/pgs-native-source/plugin/src/main/java/com/jacobibanez/plugin/android/godotplaygameservices/snapshots/SnapshotsProxy.kt:48:27 'fun get(p0: String!): Any?' is deprecated. Deprecated in Java.
+
+> Task :plugin:compileDebugJavaWithJavac UP-TO-DATE
+> Task :plugin:mergeDebugGeneratedProguardFiles UP-TO-DATE
+> Task :plugin:mergeDebugConsumerProguardFiles UP-TO-DATE
+> Task :plugin:processDebugJavaRes UP-TO-DATE
+> Task :plugin:mergeDebugJavaResource UP-TO-DATE
+> Task :plugin:syncDebugLibJars
+> Task :plugin:bundleDebugAar
+> Task :plugin:assembleDebug
+> Task :plugin:extractReleaseAnnotations
+> Task :plugin:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :plugin:mergeReleaseGeneratedProguardFiles UP-TO-DATE
+> Task :plugin:mergeReleaseConsumerProguardFiles UP-TO-DATE
+> Task :plugin:processReleaseJavaRes UP-TO-DATE
+> Task :plugin:mergeReleaseJavaResource UP-TO-DATE
+> Task :plugin:syncReleaseLibJars
+> Task :plugin:bundleReleaseAar
+> Task :plugin:assembleRelease
+
+[Incubating] Problems report is available at: file:///C:/Users/swimr/Documents/InfiniteSlash/InfiniteSlash/output/test-data/pgs-native-source/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.12/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 25s
+52 actionable tasks: 8 executed, 44 up-to-date
+debug AAR SHA-256: 75b9ec61c3d8e013c8ca2eb150782e33519144dee94713b44f96147f2de55ee9
+release AAR SHA-256: 1f5545274a8b532e24d1f4489345dc8af0e63a1cd506893f85da34dfceb2f708

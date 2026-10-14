@@ -1,0 +1,12 @@
+First Slice,Defeat your first creature,False,,Revealed,5,1
+Crown Collector,Defeat your first boss,False,,Revealed,20,2
+A Hundred Little Problems,Defeat 100 creatures across all runs,True,100,Revealed,10,3
+A Hundred in a Hurry,Defeat 100 creatures in one completed run,False,,Revealed,20,4
+Minute Knight,Survive 60 seconds in one completed run,False,,Revealed,10,5
+Still Standing,Survive 180 seconds in one completed run,False,,Revealed,25,6
+Knight of Infinite Nonsense,Defeat five bosses in one run,False,,Revealed,50,7
+Slice Streak,Reach a 25 kill combo in one run,False,,Revealed,20,8
+Five Digits of Slop,Score 10000 points in one run,False,,Revealed,20,9
+Bestiary Complete,Defeat all 100 generated creature species,True,100,Revealed,75,10
+Slop Sweeper,Defeat 1000 creatures across all runs,True,1000,Revealed,25,11
+Back for More,Complete ten runs,True,10,Revealed,10,12

@@ -31,16 +31,21 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--adb", required=True, type=Path)
     parser.add_argument("--serial", default="emulator-5580")
+    parser.add_argument("--adb-server-port", type=int, default=5037)
     parser.add_argument("--apk", type=Path, help="Optionally install/update this debug APK")
-    parser.add_argument("--package", default="org.infiniteslash.game")
+    parser.add_argument("--package", default="com.slash.game")
     parser.add_argument("--layout", type=Path, default=Path("output/review/ui_layouts.json"))
     parser.add_argument("--output", type=Path, default=Path("output/android-test/smoke"))
     parser.add_argument("--quick", action="store_true", help="Recheck latest APK launch, shield choice and Android Back only")
+    parser.add_argument("--native-check", action="store_true",
+                        help="Check native plugin startup and both classes without requesting Google account sign-in")
     parser.add_argument("--verify-shield-resume-buff", action="store_true",
                         help="Resume the retained version-two Shield18 fixture and verify its damage-only migration")
     args = parser.parse_args()
     if not re.fullmatch(r"emulator-\d+", args.serial):
         parser.error("This automated smoke script is restricted to a named emulator.")
+    if not 1024 <= args.adb_server_port <= 65535:
+        parser.error("Invalid ADB server port.")
     if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_.]+", args.package):
         parser.error("Invalid Android package name.")
     args.output.mkdir(parents=True, exist_ok=True)
@@ -49,7 +54,7 @@ def main() -> int:
 
     def adb(*command: object, binary: bool = False, timeout: float = 30):
         result = subprocess.run(
-            [str(args.adb), "-s", args.serial, *(str(item) for item in command)],
+            [str(args.adb), "-P", str(args.adb_server_port), "-s", args.serial, *(str(item) for item in command)],
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=timeout, check=False,
         )
         if result.returncode:
@@ -279,12 +284,13 @@ def main() -> int:
         if still_paused.get("elapsed") != paused.get("elapsed"):
             raise RuntimeError("Simulation elapsed advanced while the pause overlay was open.")
         event("pause_verified", elapsed=paused["elapsed"], minimum_wait_seconds=11.5)
-        tap_button("LeaderboardButton", "pause")
-        capture("05_local_scores")
-        tap_button("ScoresBackButton", "scores")
-        tap_button("AchievementsButton", "pause")
-        capture("06_badges")
-        tap_button("AchievementsBackButton", "achievements")
+        if not args.native_check:
+            tap_button("LeaderboardButton", "pause")
+            capture("05_local_scores")
+            tap_button("ScoresBackButton", "scores")
+            tap_button("AchievementsButton", "pause")
+            capture("06_badges")
+            tap_button("AchievementsBackButton", "achievements")
         tap_button("ResumeButton", "pause")
         adb("shell", "input", "keyevent", "KEYCODE_HOME")
         time.sleep(1)
@@ -319,6 +325,11 @@ def main() -> int:
                      or ("E godot" in line and "ERROR:" in line)]
         if bad_lines:
             raise RuntimeError("Android runtime errors: " + "\n".join(bad_lines[:8]))
+        if args.native_check:
+            if "GodotPlayGameServices plugin initialized successfully." not in "\n".join(all_logs):
+                raise RuntimeError("The configured native Play Games singleton did not initialize.")
+            event("native_plugin_verified", singleton="GodotPlayGameServices",
+                  account_backend_tested=False, note="Anonymous local-play fallback; no sign-in request or account login.")
         event("completed", runtime_errors=0,
               note="Screenshots require visual review; this is functional emulator evidence, not phone performance certification.")
         print(f"ANDROID_SMOKE_CAPTURED: {args.output.resolve()}")

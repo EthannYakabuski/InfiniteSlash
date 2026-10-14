@@ -7,6 +7,7 @@ signal local_achievements_requested
 
 const CONFIG_PATH := "res://config/play_services.json"
 const VENDOR := "res://addons/GodotPlayGameServices/scripts/"
+const MAX_CONFLICT_ATTEMPTS := 10
 
 var status := "Local play"
 var configuration: Dictionary = {}
@@ -30,6 +31,7 @@ var _debounce_until := 0.0
 var _ignore_store_change := false
 var _write_nonce := ""
 var _write_revision := 0
+var _conflict_attempts := 0
 var _verify_after := 0.0
 var _queued_ui := ""
 var _scores_inflight: Dictionary = {}
@@ -95,6 +97,8 @@ func _initialize_native() -> void:
 	_achievements.achievement_unlocked.connect(_on_achievement_unlocked)
 	_leaderboards.score_submitted.connect(_on_score_submitted)
 	_snapshots.game_loaded.connect(_on_game_loaded)
+	if _snapshots.has_signal("game_load_failed"):
+		_snapshots.connect("game_load_failed", _on_game_load_failed)
 	_snapshots.game_saved.connect(_on_game_saved)
 	_snapshots.conflict_emitted.connect(_on_conflict)
 	_auth_pending = true
@@ -309,6 +313,7 @@ func sync_profile() -> void:
 		_dirty = true
 		return
 	_dirty = false
+	_conflict_attempts = 0
 	_operation = "load"
 	_operation_deadline = _now() + _timeout()
 	_set_status("Checking cloud progress…")
@@ -348,17 +353,26 @@ func _on_game_loaded(snapshot: Variant) -> void:
 		_ignore_store_change = false
 	_begin_save()
 
+func _on_game_load_failed(name: String, _message: String) -> void:
+	if name != _save_name() or _operation.is_empty() or _cloud_suspended:
+		return
+	# A read/open failure is never an absent save: do not create or overwrite remote progress.
+	_suspend_cloud("Cloud load waiting · Progress saved here")
+
 func _begin_save() -> void:
 	_operation = "save"
 	_operation_deadline = _now() + _timeout()
+	var payload := _cloud_write_bytes()
+	_set_status("Saving cloud progress…")
+	_snapshots.save_game(_save_name(), "InfiniteSlash · %s points" % str(_store.profile.best_score),
+		payload, int(_store.profile.total_played_seconds * 1000), int(_store.profile.total_kills))
+
+func _cloud_write_bytes() -> PackedByteArray:
 	_write_revision = int(_store.profile.revision)
 	_write_nonce = Crypto.new().generate_random_bytes(16).hex_encode()
 	var payload: Dictionary = _store.cloud_profile()
 	payload.sync_nonce = _write_nonce
-	_set_status("Saving cloud progress…")
-	_snapshots.save_game(_save_name(), "InfiniteSlash · %s points" % str(_store.profile.best_score),
-		JSON.stringify(payload).to_utf8_buffer(), int(_store.profile.total_played_seconds * 1000),
-		int(_store.profile.total_kills))
+	return JSON.stringify(payload).to_utf8_buffer()
 
 func _on_game_saved(success: bool, name: String, _description: String) -> void:
 	if _operation != "save" or name != _save_name() or _cloud_suspended:
@@ -366,7 +380,7 @@ func _on_game_saved(success: bool, name: String, _description: String) -> void:
 	if not success:
 		_suspend_cloud("Cloud save waiting · Progress saved here")
 		return
-	# The vendor callback does not await commit success. Read back the nonce before acknowledging.
+	# Our native fork waits for commit; readback also checks offline pending state and payload identity.
 	_operation = "verify_wait"
 	_verify_after = _now() + 1.0
 	_operation_deadline = _now() + _timeout()
@@ -375,14 +389,35 @@ func _on_game_saved(success: bool, name: String, _description: String) -> void:
 func _on_conflict(conflict: Variant) -> void:
 	if _operation.is_empty() or _cloud_suspended or _store == null or conflict == null:
 		return
+	var invalid_profile := false
 	_ignore_store_change = true
 	for snapshot: Variant in [conflict.server_snapshot, conflict.conflicting_snapshot]:
 		var remote := _parse_snapshot(snapshot)
-		if not remote.is_empty():
+		if snapshot == null or not _store.is_cloud_profile_valid(remote):
+			invalid_profile = true
+		else:
 			_store.merge_cloud_profile(remote)
 	_ignore_store_change = false
-	# This plugin exposes no native resolveConflict method. Preserve merged progress, do not fake resolution.
-	_suspend_cloud("Cloud conflict · Progress merged safely on this device")
+	# Never replace a malformed or newer-schema branch with a profile this client cannot understand.
+	if invalid_profile:
+		_suspend_cloud("Cloud conflict needs review · Local progress preserved")
+		return
+	if _snapshots == null or not _snapshots.has_method("supports_conflict_resolution") \
+		or not _snapshots.supports_conflict_resolution():
+		_suspend_cloud("Cloud conflict · Progress merged safely on this device")
+		return
+	if conflict.conflict_id.is_empty() or _conflict_attempts >= MAX_CONFLICT_ATTEMPTS:
+		_suspend_cloud("Cloud conflict waiting · Progress saved here")
+		return
+	_conflict_attempts += 1
+	_operation = "save"
+	_operation_deadline = _now() + _timeout()
+	var payload := _cloud_write_bytes()
+	_set_status("Combining cloud progress…")
+	if not _snapshots.resolve_conflict(conflict.conflict_id,
+		"InfiniteSlash · %s points" % str(_store.profile.best_score), payload,
+		int(_store.profile.total_played_seconds * 1000), int(_store.profile.total_kills)):
+		_suspend_cloud("Cloud conflict waiting · Progress saved here")
 
 func _suspend_cloud(message: String) -> void:
 	_operation = ""

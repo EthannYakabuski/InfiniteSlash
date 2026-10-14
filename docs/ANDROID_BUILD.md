@@ -1,4 +1,25 @@
-# Android debug build
+# Android builds
+
+The current builds use **`com.slash.game`**, Godot 4.5.1, the native Play Games integration, minimum API 24 and compile/target API 36. The supplied three leaderboard IDs, twelve achievement IDs and Saved Games profile slot are enabled. See [the native implementation report](PLAY_SERVICES_IMPLEMENTATION.md) for the complete signing, SDK, artifact and device evidence.
+
+| Current artifact | Purpose | Architectures | Size |
+| --- | --- | --- | ---: |
+| `builds/InfiniteSlash-debug.apk` | Signed development APK | ARM64 and x86 | 182,695,870 bytes |
+| `builds/InfiniteSlash-play-unsigned.aab` | Unsigned release preparation; sign with the registered upload key before upload | ARM64 | 35,581,852 bytes |
+
+Debug APK SHA-256: `72951b0643fd45378bfa599dd649e9beebc4acf6f1160b85d00260caba9cec93`.
+
+Unsigned AAB SHA-256: `9c02290ec456b0ff7f101f7a69f4521b183f14d326eb434b14db96d6c2062900`.
+
+Reproduce with `tools/export_android.ps1 -Preset AndroidDebug`, or `tools/export_android.ps1 -Preset AndroidPlay -Release -Unsigned -OutputPath builds/InfiniteSlash-play-unsigned.aab`. Both presets use Gradle. The native plugin build and template preparation helpers are described in the implementation report. Normal preset signing flags are restored after the unsigned export. The current version code is 1; use a higher unused code if that code has already been uploaded.
+
+The configured game and services suites passed 315 and 152 checks respectively. The exact current APK passed an anonymous Android smoke run with eight visually reviewed captures, correct Sword/Shield stats, touch input, pause, backgrounding and process recovery, with zero runtime errors. Static native-library and 16 KB packaging checks passed; a real 16 KB device test remains outstanding. Actual Google account sign-in, server unlocks/scores and two-device cloud saves require eligible testers and a correctly signed installation.
+
+The provided A1:CD:…:64:DB fingerprint is for Play-installed builds. Sideload testing needs an additional linked Android OAuth credential for `com.slash.game` and debug SHA-1 `62:EE:05:F2:CA:C9:95:36:48:BF:3A:D7:C8:22:55:8C:C6:33:CD:24`. Keep upload keys and passwords local. [Owner setup guide](PLAY_SERVICES_SETUP.md).
+
+## Historical offline Shield-damage build — superseded
+
+The following record describes the previous APK, before the package rename and native service integration. Its sizes, fingerprints, API 35 settings, disabled services and five-capture evidence do **not** describe the current APK at the same output path. Historical uses of “current” below refer to that earlier build.
 
 The playable offline APK is `builds/InfiniteSlash-debug.apk`. Exported on 2026-10-12 with Godot 4.5.1 using the installed official Android template and existing debug key. Godot completed APK alignment, signing, and signature verification successfully.
 
