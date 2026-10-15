@@ -59,17 +59,23 @@ def main() -> None:
                     failures.append(f"{entry['key']}: incremental type/target mismatch")
             record.update(key=entry["key"], google_id=entry["google_id"], title=entry["title"])
 
-    # New boss badges await IDs; keep them distinct from configured records.
+    # Boss badges use their own artwork folder and can have configured or pending IDs.
     boss_manifest_path = STORE / "boss-achievements/achievement_manifest.json"
     boss_badges = json.loads(boss_manifest_path.read_text(encoding="utf-8"))["achievements"]
     if {entry["key"] for entry in boss_badges} != {"rare_boss", "all_bosses"}:
         failures.append("Expected two new boss achievement definitions")
     for entry in boss_badges:
-        record = check_image(STORE / "boss-achievements" / entry["filename"], (512, 512), ("RGB",), 1_000_000, "pending_achievements")
+        google_id = config["achievements"].get(entry["key"], "")
+        role = "achievements" if google_id else "pending_achievements"
+        record = check_image(STORE / "boss-achievements" / entry["filename"], (512, 512), ("RGB",), 1_000_000, role)
         if config["achievements"].get(entry["key"], "") != entry["google_id"]:
-            failures.append(f"{entry['key']}: pending Google ID mismatch")
+            failures.append(f"{entry['key']}: Google ID mismatch")
         if record["sha256"] != entry["sha256"] or entry["type"] != "Standard":
-            failures.append(f"{entry['key']}: pending icon hash or type mismatch")
+            failures.append(f"{entry['key']}: icon hash or type mismatch")
+        if entry["key"] in config["incremental_achievements"]:
+            failures.append(f"{entry['key']}: boss achievements must remain Standard")
+        if bool(google_id) != (entry.get("status") == "Configured"):
+            failures.append(f"{entry['key']}: configured status does not match runtime ID")
         record.update(key=entry["key"], google_id=entry["google_id"], title=entry["name"])
 
     categories = {"phone": (1080, 1920), "tablet_7": (1440, 2560), "tablet_10": (2160, 3840)}
@@ -133,7 +139,9 @@ def main() -> None:
                      STORE / "listing/metadata.json", STORE / "branding/prompts.json"]
     upload_paths += [boss_manifest_path, STORE / "boss-achievements/README.md"]
     archive("InfiniteSlash-PlayStore-assets.zip", upload_paths)
-    print(f"STORE_ASSET_PASS: {len(uploads)} unique upload images; 14 achievement icons (2 awaiting IDs), 3 board icons, 24 screenshots; text and archive checks pass.")
+    print(f"STORE_ASSET_PASS: {len(uploads)} unique upload images; {report['achievements']} achievement icons "
+          f"({report['configured_achievements']} configured, {report['pending_achievements']} awaiting IDs), "
+          f"{report['leaderboards']} board icons, {report['screenshots']} screenshots; text and archive checks pass.")
     print(json.dumps(report, indent=2))
 
 

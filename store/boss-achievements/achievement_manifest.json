@@ -10,8 +10,8 @@
       "type": "Standard",
       "suggested_points": 20,
       "suggested_initial_state": "Revealed",
-      "google_id": "",
-      "status": "Awaiting owner-supplied Google achievement ID",
+      "google_id": "CgkI5NXU8p0YEAIQEA",
+      "status": "Configured",
       "filename": "rare_boss.png",
       "dimensions": [
         512,
@@ -29,8 +29,8 @@
       "type": "Standard",
       "suggested_points": 30,
       "suggested_initial_state": "Revealed",
-      "google_id": "",
-      "status": "Awaiting owner-supplied Google achievement ID",
+      "google_id": "CgkI5NXU8p0YEAIQEQ",
+      "status": "Configured",
       "filename": "all_bosses.png",
       "dimensions": [
         512,
@@ -41,7 +41,7 @@
       "sha256": "eef6a633a34ece3759ac4f0d89c262f9c4223077d83e1a8634b31df8f10ccab2"
     }
   ],
-  "instructions": "Create these two new Standard achievements, upload the matching PNGs, then send their IDs. Existing IDs are unchanged. Local unlocks are already saved and queued for replay after the IDs are configured.",
+  "instructions": "Both Standard boss achievements are configured with the owner-supplied Google IDs. Upload each matching PNG to its existing achievement record; do not recreate or re-import definitions. The original twelve achievement IDs are unchanged. Saved local unlocks replay after eligible Google authentication.",
   "provenance": "Extension of the existing code-native pixel medal system; actual moon_mallow sprite reused; no generated-image edits.",
   "generator": "tools/build_boss_achievement_icons.py"
 }

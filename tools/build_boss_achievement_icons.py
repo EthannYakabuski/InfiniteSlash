@@ -1,6 +1,7 @@
 """Extend the established store medal family for the two new boss badges."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import zipfile
@@ -50,12 +51,19 @@ def make_icon(key: str) -> Image.Image:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--metadata-only", action="store_true",
+                        help="Refresh public IDs and archives without rewriting existing artwork.")
+    args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     config = json.loads((ROOT / "config/play_services.json").read_text("utf-8"))
     items = []
     for definition in DEFINITIONS:
         target = OUT / (definition["key"] + ".png")
-        make_icon(definition["key"]).save(target, optimize=True)
+        if not args.metadata_only:
+            make_icon(definition["key"]).save(target, optimize=True)
+        elif not target.is_file():
+            raise SystemExit(f"Missing artwork for metadata-only refresh: {target}")
         with Image.open(target) as image:
             assert image.size == (512, 512) and image.mode == "RGB"
         assert target.stat().st_size < 1_000_000
@@ -64,23 +72,34 @@ def main() -> None:
                       "status": "Configured" if google_id else "Awaiting owner-supplied Google achievement ID",
                       "filename": target.name, "dimensions": [512, 512], "format": "PNG",
                       "bytes": target.stat().st_size, "sha256": hashlib.sha256(target.read_bytes()).hexdigest()})
-    manifest = {"package_name": "com.slash.game", "game_id": "832658811620", "achievements": items,
-                "instructions": "Create these two new Standard achievements, upload the matching PNGs, then send their IDs. Existing IDs are unchanged. Local unlocks are already saved and queued for replay after the IDs are configured.",
+    pending = sum(not item["google_id"] for item in items)
+    instructions = ("Both Standard boss achievements are configured with the owner-supplied Google IDs. "
+                    "Upload each matching PNG to its existing achievement record; do not recreate or re-import definitions. "
+                    "The original twelve achievement IDs are unchanged. Saved local unlocks replay after eligible Google authentication.")
+    if pending:
+        instructions = (f"{len(items) - pending} Standard boss achievements are configured and {pending} await owner-supplied IDs. "
+                        "Upload PNGs to configured records without recreating them. Unconfigured goals still unlock locally "
+                        "and remain queued for replay once their IDs are configured.")
+    manifest = {"package_name": "com.slash.game", "game_id": config["game_id"], "achievements": items,
+                "instructions": instructions,
                 "provenance": "Extension of the existing code-native pixel medal system; actual moon_mallow sprite reused; no generated-image edits.",
                 "generator": "tools/build_boss_achievement_icons.py"}
     (OUT / "achievement_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", "utf-8")
-    preview = Image.new("RGB", (1040, 512), P["ink"])
-    for index, item in enumerate(items):
-        with Image.open(OUT / item["filename"]) as icon:
-            preview.paste(icon, (index * 528, 0))
-    preview.save(OUT / "preview.png", optimize=True)
+    if not args.metadata_only:
+        preview = Image.new("RGB", (1040, 512), P["ink"])
+        for index, item in enumerate(items):
+            with Image.open(OUT / item["filename"]) as icon:
+                preview.paste(icon, (index * 528, 0))
+        preview.save(OUT / "preview.png", optimize=True)
     with zipfile.ZipFile(OUT / "InfiniteSlash-new-boss-achievements.zip", "w", zipfile.ZIP_DEFLATED) as archive:
         for item in items:
             archive.write(OUT / item["filename"], item["filename"])
         archive.write(OUT / "achievement_manifest.json", "achievement_manifest.json")
         if (OUT / "README.md").exists():
             archive.write(OUT / "README.md", "README.md")
-    print(json.dumps({"passed": True, "icons": len(items), "maximum_bytes": max(i["bytes"] for i in items)}, indent=2))
+    print(json.dumps({"passed": True, "icons": len(items), "configured_achievements": len(items) - pending,
+                      "pending_achievements": pending, "metadata_only": args.metadata_only,
+                      "maximum_bytes": max(i["bytes"] for i in items)}, indent=2))
 
 
 if __name__ == "__main__":

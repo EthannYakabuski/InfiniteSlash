@@ -57,6 +57,14 @@ class FakeLeaderboards extends Node:
 	func submit_score(board_id: String, score: int) -> void:
 		submissions.append({"board": board_id, "score": score})
 
+class FakeAchievements extends Node:
+	var unlocks: Array[String] = []
+	var steps: Array[Dictionary] = []
+	func unlock_achievement(id: String) -> void:
+		unlocks.append(id)
+	func set_achievement_steps(id: String, progress: int) -> void:
+		steps.append({"id": id, "progress": progress})
+
 class DatedPlayServices extends PLAY_SCRIPT:
 	var test_date := "2040-03-01"
 	func _challenge_date() -> String:
@@ -102,6 +110,7 @@ func _run_tests() -> void:
 	_test_account_mismatch_blocks_cloud()
 	_test_cloud_read_failure_callbacks()
 	_test_daily_score_routing()
+	_test_configured_boss_achievements()
 	for store: Node in _stores:
 		store.free()
 	print("Service tests: %d checks, %d failures" % [_checks, _failures])
@@ -110,6 +119,50 @@ func _run_tests() -> void:
 		audio.stop_for_shutdown()
 		await create_timer(0.35).timeout
 	quit(0 if _failures == 0 else 1)
+
+func _test_configured_boss_achievements() -> void:
+	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/play_services.json"))
+	var expected := {"rare_boss": "CgkI5NXU8p0YEAIQEA", "all_bosses": "CgkI5NXU8p0YEAIQEQ"}
+	for key: String in expected:
+		_check(config.achievements.get(key) == expected[key], key + " uses the owner-supplied Google ID")
+		_check(not config.incremental_achievements.has(key), key + " remains a Standard achievement")
+	var configured_ids: Array = []
+	var unique_ids: Dictionary = {}
+	for id: String in config.achievements.values():
+		if not id.is_empty():
+			configured_ids.append(id)
+			unique_ids[id] = true
+	_check(configured_ids.size() == 14 and configured_ids.size() == unique_ids.size(), "all fourteen configured achievement IDs are unique")
+	var store := _store("configured_boss_achievements")
+	for boss_id: String in store.BossCatalog.ids():
+		store.record_boss_defeat(boss_id)
+	store.reload_profile()
+	for key: String in expected:
+		_check(store.profile.achievements.has(key) and key in store.profile.cloud.pending_achievements, key + " earned offline remains queued after disk reload")
+	var adapter: Node = PLAY_SCRIPT.new()
+	adapter._store = store
+	adapter.configuration = config.duplicate(true)
+	root.add_child(adapter)
+	adapter.set_process(false)
+	var client := FakeAchievements.new()
+	adapter.add_child(client)
+	adapter._achievements = client
+	adapter._flush_achievements()
+	_check(client.unlocks.is_empty(), "queued boss awards wait for authentication")
+	adapter._authenticated = true
+	adapter._account_ready = true
+	adapter._flush_achievements()
+	_check(client.unlocks.size() == 2 and expected.rare_boss in client.unlocks and expected.all_bosses in client.unlocks, "previously earned boss awards replay through both real Google IDs")
+	_check(client.steps.is_empty(), "boss awards use Standard unlock calls, not incremental steps")
+	adapter._flush_achievements()
+	_check(client.unlocks.size() == 2, "inflight awards are not submitted twice")
+	adapter._on_achievement_unlocked(false, expected.rare_boss)
+	_check("rare_boss" in store.profile.cloud.pending_achievements, "an unsuccessful rare-boss acknowledgement keeps the offline award queued")
+	adapter._on_achievement_unlocked(true, expected.all_bosses)
+	_check("all_bosses" not in store.profile.cloud.pending_achievements and store.profile.achievements.has("all_bosses"), "successful census acknowledgement clears its queue while preserving the earned badge")
+	adapter._flush_achievements()
+	_check(client.unlocks.size() == 2, "acknowledged attempts do not loop during the same session")
+	adapter.free()
 
 func _test_defaults_and_records() -> void:
 	var store := _store("records")

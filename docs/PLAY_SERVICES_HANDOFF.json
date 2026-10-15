@@ -5,7 +5,7 @@
     "This records the supplied public configuration and pending owner tasks; it is not a replacement for config/play_services.json.",
     "Runtime Google integration is enabled for native test builds. IDs/types are configured; native packaging and real signed/account testing remain distinct verification steps.",
     "Public OAuth client IDs and certificate fingerprints are recorded. Keep private signing keys and passwords local.",
-    "The current 12 Google achievements already exist. Upload individual icons to those existing IDs; do not import the earlier metadata draft again.",
+    "All 14 Google achievement IDs are configured, including Standard boss badges Royal Upset and Crown Census. Upload individual icons to those existing records; do not import the earlier metadata draft again. The original 12 IDs are unchanged.",
     "Tester access remains unverified. Owner local release/upload signing is configured; private signing values remain local."
   ],
   "app": {
@@ -28,7 +28,7 @@
     "cloud_project_linked": true,
     "pgs_console_configuration_url": "",
     "achievement_definitions_match_setup_table": true,
-    "achievement_confirmation_scope": "The supplied IDs and four Incremental types/targets are confirmed. Console names, points and initial visibility were not independently confirmed; 290 total points and Revealed remain recommendations.",
+    "achievement_confirmation_scope": "All 14 owner-supplied IDs are configured. The four original Incremental types/targets are confirmed; Royal Upset and Crown Census are configured as Standard. Console points and initial visibility were not independently confirmed; the historical original twelve total 290 suggested points, with another 20 and 30 suggested for the boss badges.",
     "achievement_points_visibility_confirmed": false,
     "leaderboard_definitions_match_setup_table": true,
     "required_console_metadata_and_icons_complete": false,
@@ -155,8 +155,8 @@
       "thousand_kills": "CgkI5NXU8p0YEAIQDg",
       "ten_runs": "CgkI5NXU8p0YEAIQDw",
       "survivor_180": "",
-      "rare_boss": "",
-      "all_bosses": ""
+      "rare_boss": "CgkI5NXU8p0YEAIQEA",
+      "all_bosses": "CgkI5NXU8p0YEAIQEQ"
     },
     "incremental_achievements": {
       "century": 100,
@@ -205,13 +205,13 @@
     "rare_boss": {
       "name": "Royal Upset",
       "type": "Standard",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQEA",
       "description": "Defeat a rare boss: Moonmallow Majesty, Gilded Chancellor, or Lime Imperator."
     },
     "all_bosses": {
       "name": "Crown Census",
       "type": "Standard",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQEQ",
       "description": "Defeat all 12 different bosses across your runs."
     },
     "icons_and_registration": "store/boss-achievements/README.md"

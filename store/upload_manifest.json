@@ -250,7 +250,7 @@
     },
     {
       "file": "boss-achievements/rare_boss.png",
-      "role": "pending_achievements",
+      "role": "achievements",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -258,12 +258,12 @@
       "sha256": "09feafbba2ca3f12f4aaee12a27ffd2110171a2ae1d61659a5c3c2a46a66d967",
       "pixel_sha256": "bfa27da809cab069f203858773db62761e30c0a345178ea28c8bf99102e3a61e",
       "key": "rare_boss",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQEA",
       "title": "Royal Upset"
     },
     {
       "file": "boss-achievements/all_bosses.png",
-      "role": "pending_achievements",
+      "role": "achievements",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -271,7 +271,7 @@
       "sha256": "eef6a633a34ece3759ac4f0d89c262f9c4223077d83e1a8634b31df8f10ccab2",
       "pixel_sha256": "8bea8f23908d3c040181e6675da2619f1e916a6d5e39dadc8f829c3559e71f32",
       "key": "all_bosses",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQEQ",
       "title": "Crown Census"
     },
     {

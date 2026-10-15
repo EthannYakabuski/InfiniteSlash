@@ -1,0 +1,41 @@
+{
+  "passed": false,
+  "handoff_matches_runtime": true,
+  "original_boss_artwork_bit_identical": true,
+  "unique_online_feature_ids": 17,
+  "archives": [
+    {
+      "file": "store/InfiniteSlash-PlayStore-assets.zip",
+      "bytes": 7191745,
+      "sha256": "d84726d0eb1ebcb83126e79f9589605f1e1515fded556b792855945df414cc07"
+    },
+    {
+      "file": "store/boss-achievements/InfiniteSlash-new-boss-achievements.zip",
+      "bytes": 12413,
+      "sha256": "823633c58b0aeae487c9b96e24b55b1cf9da25d7cf7c657efca70d27f264cb06"
+    }
+  ],
+  "relative_links_checked": 43,
+  "missing_relative_links": [
+    {
+      "from": "README.md",
+      "target": "docs/BOSS_ACHIEVEMENTS_CONFIGURED.md"
+    },
+    {
+      "from": "docs/PLAY_SERVICES_SETUP.md",
+      "target": "BOSS_ACHIEVEMENTS_CONFIGURED.md"
+    },
+    {
+      "from": "docs/ROUND2_UPDATES.md",
+      "target": "BOSS_ACHIEVEMENTS_CONFIGURED.md"
+    },
+    {
+      "from": "docs/ROUND2_UPDATES.md",
+      "target": "BOSS_ACHIEVEMENTS_CONFIGURED.md"
+    },
+    {
+      "from": "store/README.md",
+      "target": "../docs/BOSS_ACHIEVEMENTS_CONFIGURED.md"
+    }
+  ]
+}

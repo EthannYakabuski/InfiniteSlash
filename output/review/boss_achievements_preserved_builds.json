@@ -1,0 +1,14 @@
+{
+  "builds\\InfiniteSlash-debug-0.2.0.apk": {
+    "bytes": 182719414,
+    "sha256": "d4c515364931cc3dd6a0a72b51c8261b4da7ded77add412f39366cef9ba13ad7"
+  },
+  "builds\\InfiniteSlash-play-0.2.0.aab": {
+    "bytes": 35920903,
+    "sha256": "51c03f8a91d89f4d576688070a0ad0848d250ba8cbafbe7428031f2e6b00c43b"
+  },
+  "builds\\InfiniteSlash-play.aab": {
+    "bytes": 35896715,
+    "sha256": "dca93d597174a557e1f15bb035d6d606c0575160565d6f7357627b95288e3112"
+  }
+}

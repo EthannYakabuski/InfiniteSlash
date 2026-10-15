@@ -1,6 +1,6 @@
 # Run builds, varied crowns and clearer controls — 2026-10-15
 
-Version **0.2.0**, Android version code **6**. The previous Play preset already used code 5; both updated presets now use 6. Choose a higher unused code if 6 has since been uploaded. The package remains `com.slash.game`.
+This gameplay update originally shipped as version **0.2.0**, Android version code **6**; its versioned native evidence remains unchanged. The follow-up **0.2.1 / code 7** configures both owner-supplied boss achievement IDs. See [the current configuration/build notes](BOSS_ACHIEVEMENTS_CONFIGURED.md). The package remains `com.slash.game`; use a higher unused version code if the current code was already uploaded.
 
 ## Choose a build while the arena waits
 
@@ -41,14 +41,14 @@ Within a selected tier, common identities have weight 28 and the rare identity h
 
 Unique victories save immediately and merge as a set across cloud profiles. Repeated victories cannot inflate the collection.
 
-## Two new achievements awaiting IDs
+## Two configured boss achievements
 
-| Runtime key | Name | Type | Description |
-| --- | --- | --- | --- |
-| `rare_boss` | Royal Upset | Standard | Defeat a rare boss: Moonmallow Majesty, Gilded Chancellor, or Lime Imperator. |
-| `all_bosses` | Crown Census | Standard | Defeat all 12 different bosses across your runs. |
+| Runtime key | Google achievement ID | Name | Type | Description |
+| --- | --- | --- | --- | --- |
+| `rare_boss` | `CgkI5NXU8p0YEAIQEA` | Royal Upset | Standard | Defeat a rare boss: Moonmallow Majesty, Gilded Chancellor, or Lime Imperator. |
+| `all_bosses` | `CgkI5NXU8p0YEAIQEQ` | Crown Census | Standard | Defeat all 12 different bosses across your runs. |
 
-Create those two records and upload [their 512×512 icons](../store/boss-achievements/README.md), then send their IDs. Suggested points are 20 and 30, with Revealed visibility. The conditions already work locally, and pending unlocks remain queued until IDs are provided. The existing twelve Google IDs are unchanged. Do not re-import the old achievement draft.
+Both owner-supplied IDs are configured. Upload [their unchanged 512×512 icons](../store/boss-achievements/README.md) to those existing records; do not recreate them or re-import the old achievement draft. Suggested points remain 20 and 30, with Revealed visibility; actual Console settings are not independently verified. Previously saved local unlocks replay after eligible Google authentication. The original twelve Google IDs are unchanged; the game now has fourteen online achievements and fifteen local badges for fourteen distinct goals.
 
 ## Separate audio and clearer HUD
 
@@ -61,7 +61,7 @@ Dash and guard now have large contrasting cards, icons, labels and progress bars
 - Gameplay: **379 checks, zero failures**, including frozen choices, XP conservation, save/restore, independent audio persistence, real boss kill recording and all prior combat/migration checks.
 - Active boss save regression: **72 checks**, all passing, covering direct on-disk save/restore/continued progress for all twelve identities. This caught and fixed engine StringName keys in new boss metadata; entity keys now become plain strings before strict save validation.
 - Catalogs/profile: **54 upgrade checks, 20 boss-selection checks, 22 boss-progression checks**, all passing.
-- Google adapter: **152 checks**, all passing with simulated clients; these do not establish a live server result.
+- Google adapter: the original 0.2.0 suite passed **152 checks** with simulated clients. The 0.2.1 boss-ID follow-up passes **166 checks**, including offline-earned Standard badge replay; neither result establishes a live server result. See [the follow-up notes](BOSS_ACHIEVEMENTS_CONFIGURED.md).
 - UI: layout and real button-click checks at 540×960 and 540×1110; fifteen rendered captures reviewed, including actual combat → level-up → audio → original offers → resumed combat.
 - Stress: 18,000 fixed steps / 300 simulated seconds with maxima of 100 enemies, 240 bullets, 60 drops and 90 effects. The quiet run averaged 0.893 ms, p95 1.420 ms and maximum 8.556 ms per CPU step. A post-fix repeat during concurrent native building/emulation averaged 1.699 ms, p95 3.163 ms and maximum 67.495 ms; host contention affects those wall-clock samples. This is simulation timing, not phone FPS, battery or thermal certification.
 

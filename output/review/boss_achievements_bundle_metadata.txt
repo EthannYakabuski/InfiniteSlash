@@ -1,0 +1,8 @@
+package=com.slash.game
+versionCode=7
+versionName=0.2.1
+compileSdkVersion=36
+minSdkVersion=24
+targetSdkVersion=36
+nativeLibrariesUncompressedInDeliveredApk=true
+nativeLibraryPageAlignment=PAGE_ALIGNMENT_16K

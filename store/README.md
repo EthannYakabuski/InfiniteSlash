@@ -7,7 +7,7 @@ The playable game uses **`com.slash.game`**, English (`en-US`), and Play Games p
 | Requested item | Location | Count / specification |
 | --- | --- | --- |
 | Existing achievement icons | `icons/achievements/` | 12 PNGs, 512×512, each below 1 MB |
-| New boss achievement icons | `boss-achievements/` | 2 PNGs, 512×512, each below 1 MB; new Google IDs pending |
+| Boss achievement icons | `boss-achievements/` | 2 PNGs, 512×512, each below 1 MB; both Google IDs configured |
 | Leaderboard icons | `icons/leaderboards/` | 3 PNGs, 512×512, each below 1 MB |
 | Short description | `listing/short_description.txt` | 68 characters; limit 80 |
 | Full description | `listing/full_description.txt` | 2,125 characters; limit 4,000 |
@@ -21,9 +21,9 @@ Every screenshot is 9:16, opaque RGB and below 8 MB. Upload each screenshot fold
 
 ## New boss records and existing Play Games records
 
-The 2026-10-15 update adds **Royal Upset** and **Crown Census**. Create these two Standard achievements using [their names, descriptions and icons](boss-achievements/README.md), then send their Google IDs. They already work locally and queue unlocks for later sync. The complete kit now includes 43 upload images and refreshed screenshots of the current HUD. The separate `boss-achievements/InfiniteSlash-new-boss-achievements.zip` contains just the two new icons and definitions.
+**Royal Upset** (`CgkI5NXU8p0YEAIQEA`) and **Crown Census** (`CgkI5NXU8p0YEAIQEQ`) are configured as Standard achievements using the owner-supplied IDs. Upload [their unchanged icons](boss-achievements/README.md) to those existing records. Saved local unlocks replay after eligible Google authentication. The complete kit includes 43 upload images, fourteen configured achievement icons with no IDs pending, and refreshed screenshots of the current HUD. The separate `boss-achievements/InfiniteSlash-new-boss-achievements.zip` contains the two boss icons and their configured metadata.
 
-Your 12 achievements and three leaderboards already exist. **Edit their existing records to upload these icons. Do not re-import the earlier achievement metadata draft** into this configured game. `icons/icon_manifest.json` maps every semantic filename to its supplied Google ID, name, goal and type. `achievement-icons.zip` and `leaderboard-icons.zip` simply group the PNGs for convenient extraction; they are not Console achievement-definition import files.
+All fourteen achievements and three leaderboards already have configured IDs. **Edit their existing records to upload these icons. Do not re-import the earlier achievement metadata draft** into this configured game. `icons/icon_manifest.json` maps the original twelve achievement icons and three board icons to their unchanged Google IDs, names, goals and types. `boss-achievements/achievement_manifest.json` maps the remaining two. `achievement-icons.zip` contains the original twelve PNGs; the separate boss ZIP contains the other two. These archives and `leaderboard-icons.zip` are convenience downloads, not Console achievement-definition import files.
 
 The app icon is RGBA PNG because Google's Play icon specification requires PNG; JPEG is not the accepted store-icon format. Its foreground identity remains readable within a circular crop, and no rounded-corner mask or ranking/price badges are baked in. [Google Play icon specification](https://developer.android.com/distribute/google-play/resources/icon-design-specifications)
 
@@ -49,7 +49,7 @@ These are recommendations, not settings changed in your Console. Verify the avai
 
 The app icon and feature graphic were generated with the built-in imagegen tool using the existing knight/monster artwork as references. Exact prompts, references and formatting notes are in `branding/prompts.json`. Original selected outputs are preserved in `branding/source/`; `tools/prepare_store_brand.ps1` produces the exact upload dimensions and PNG channel formats. The project launcher/editor icon now uses the new brand art under `Assets/Brand`.
 
-Achievement/leaderboard badges reuse the actual sprites with new code-native pixel medal compositions. `tools/build_store_icons.py` reproduces all 15. Their filenames and manifest IDs match runtime configuration.
+Achievement/leaderboard badges reuse the actual sprites with code-native pixel medal compositions. `tools/build_store_icons.py` reproduces the original fifteen feature icons; `tools/build_boss_achievement_icons.py` reproduces the two boss badges. Use the latter's `--metadata-only` option to refresh public IDs and its archive without rewriting artwork. Their filenames and manifest IDs match runtime configuration.
 
 Screenshots are independently rendered captures of the **actual Godot game** at each target resolution, with reproducible demonstration state. They are not AI gameplay mockups or physical-device screenshots, and they do not claim phone/tablet performance or successful Google server uploads. `screenshots/manifest.json` records their provenance, seeds, dimensions and hashes. See `screenshots/README.md` for reproduction.
 
@@ -60,7 +60,7 @@ The copy describes current gameplay and local features. It avoids unverified clo
 ## Remaining owner/backend steps
 
 - Authorize tester accounts and choose a distribution route. The supplied **A1:CD:…:64:DB** certificate is Google's Play App Signing certificate and is appropriate for Play-installed builds. A sideloaded debug build needs its **own linked Android OAuth credential** for `com.slash.game` and its actual signer; the developer report records that fingerprint.
-- Local upload/release signing is now configured. Use the versioned signed 0.2.0 AAB described in [the current Android report](../docs/ROUND2_ANDROID.md); check that version code 6 is unused on your track before uploading. Older unsigned preparation bundles are not signed releases.
+- Local upload/release signing is configured. The current version is **0.2.1 / code 7**; use the signed AAB described in [the current configuration/build notes](../docs/BOSS_ACHIEVEMENTS_CONFIGURED.md) and check that version code 7 is unused on your track. [The 0.2.0 Android report](../docs/ROUND2_ANDROID.md) retains historical evidence. Older unsigned preparation bundles are not signed releases.
 - Add these icons, store descriptions, artwork and screenshot folders to the existing Console records. Publish the Play Games configuration when ready, separately from the app release.
 - Run real eligible-account sign-in, online unlock/score, offline replay and two-device save tests. Simulated native tests do not establish successful Google server operation.
 - Saved Games was reported enabled at 21:20 Eastern on Oct 12. Activation may take up to 24 hours. Toronto uses EDT (UTC−4) on that date; the handoff records that time-zone assumption explicitly. [Activation guidance](https://developer.android.com/games/pgs/console/enable-features), [Toronto 2026 time zones](https://www.timeanddate.com/time/zone/canada/toronto?year=2026)
