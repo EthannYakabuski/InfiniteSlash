@@ -1,0 +1,166 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Unrecognized output string "misc2" in mapping:
+030000000d0f00000202000000000000,Horipad O Nintendo Switch 2 Controller,a:b1,b:b0,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b4,leftstick:b10,lefttrigger:b6,leftx:a0,lefty:a1,misc1:b13,misc2:b14,rightshoulder:b5,rightstick:b11,righttrigger:b7,rightx:a2,righty:a3,start:b9,x:b3,y:b2,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00009601000000000000,Horipad Steam,a:b0,b:b1,back:b10,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b6,leftstick:b13,lefttrigger:b8,leftx:a0,lefty:a1,misc2:b2,paddle1:b5,paddle2:b15,paddle3:b18,paddle4:b19,rightshoulder:b7,rightstick:b14,righttrigger:b9,rightx:a3,righty:a4,start:b11,x:b3,y:b4,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000007e0500006920000000000000,Nintendo Switch 2 Pro Controller,a:b0,b:b1,back:b14,dpdown:b8,dpleft:b10,dpright:b9,dpup:b11,guide:b16,leftshoulder:b12,leftstick:b15,lefttrigger:b13,leftx:a0,lefty:a1~,misc1:b17,misc2:b20,paddle1:b18,paddle2:b19,rightshoulder:b4,rightstick:b7,righttrigger:b5,rightx:a2,righty:a3~,start:b6,x:b2,y:b3,platform:Windows,
+Native OpenGL API detected: 3.3: NVIDIA - NVIDIA GeForce GT 1030
+NVAPI: Init OK!
+NVAPI: Profile not found, creating...
+NVAPI: Application not found in profile, creating...
+NVAPI: Error creating application: NVAPI_EXECUTABLE_ALREADY_IN_USE(code -167)
+SDL: Gamepad XInput Controller connected
+SDL: Init OK!
+Using "winink" pen tablet driver...
+Shader 'CanvasSdfShaderGLES3' SHA256: 4d8bc8d25c7ddded69a297912a4f786051217926419deac6e20b86a9092be7e7
+Shader 'SkeletonShaderGLES3' SHA256: db659b5b0e28da11e82c3d96e4d8b4d555243ab448e51a6bd564588893766d80
+Shader 'ParticlesShaderGLES3' SHA256: 400d4790414ec2ecfcee8e09b071430ef9101ab569a29718d2f31ab8c016f0f1
+Shader 'ParticlesCopyShaderGLES3' SHA256: 604e1ab6a9c640c4ac550db711c7be323a6368dccfb602fbf2ac3a70daf0c19b
+Shader 'CopyShaderGLES3' SHA256: 02755108f508c08ee9d16ef816bb0000fdfc5a9309a2c5282c39a21ed57a85d5
+Shader 'CubemapFilterShaderGLES3' SHA256: a88b2a2d7fcd4054b3dde7dfa12cad1ede23c31af6a16512d9ee8b2cd4098e47
+Shader 'GlowShaderGLES3' SHA256: 215bdd6bc68ac6dcefc60147afbb3a4e3e9bbc275b98588073f53558ec407843
+Shader 'PostShaderGLES3' SHA256: 69ade504811b44a2c699b3beb634cf553c5596437f4068295daddb38e13d808e
+Shader 'FeedShaderGLES3' SHA256: 060ebc3dc113441030f36fd2160619da11d7123a8ed122aa9271eb3ffc65abb6
+Shader 'CanvasShaderGLES3' SHA256: 26c76043092ecf0f8d18c2768ed3765b5f2e07343159a0a249e5f63340d761c3
+Shader 'CanvasOcclusionShaderGLES3' SHA256: 014f4cbb0c332bfe6d22572aab86757ab205a49451e4ef2c7f2212b1b9f2b3b7
+Shader 'SceneShaderGLES3' SHA256: c21000914373af7e8df3bdcca3b33989c44f5d6c76b14028d8d6155cbbf9c3e1
+Shader 'SkyShaderGLES3' SHA256: 76b511a6f925c5bcd5739f21e2c3f59cbfb8e59d154af6353ce2852b6f661ea1
+OpenGL API 3.3.0 NVIDIA 560.94 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GT 1030
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 937899573
+EDITOR API HASH: 1777164193
+Loading resource: res://tests/capture_ui.gd
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://addons/GodotPlayGameServices/scripts/autoloads/godot_play_game_services.gd
+Loading resource: res://scripts/services/save_data.gd
+Loading resource: res://scripts/services/play_services.gd
+Loading resource: res://scripts/audio_manager.gd
+Loading resource: res://Assets/Generated/music_loop.wav
+Loading resource: res://.godot/imported/music_loop.wav-655b920256314b1eafadc278d9beed58.sample
+Loading resource: res://Assets/Audio/RPG/Audio/knifeSlice.ogg
+Loading resource: res://.godot/imported/knifeSlice.ogg-2f872690022e561264de7e18e8b4542a.oggvorbisstr
+Loading resource: res://Assets/Audio/Impact/Audio/impactSoft_medium_000.ogg
+Loading resource: res://.godot/imported/impactSoft_medium_000.ogg-5694d8bc9a2431a71720cf7d1d3a8a5a.oggvorbisstr
+Loading resource: res://Assets/Audio/RPG/Audio/chop.ogg
+Loading resource: res://.godot/imported/chop.ogg-8c2909dbd1e57963ad45b4c37fb08efd.oggvorbisstr
+Loading resource: res://Assets/Audio/Impact/Audio/impactMetal_light_000.ogg
+Loading resource: res://.godot/imported/impactMetal_light_000.ogg-ff7378eebb816fae31f404dca84960cb.oggvorbisstr
+Loading resource: res://Assets/Audio/Impact/Audio/impactBell_heavy_000.ogg
+Loading resource: res://.godot/imported/impactBell_heavy_000.ogg-ebfef5cbf155f9c54cc1b40946a48264.oggvorbisstr
+Loading resource: res://Assets/Audio/RPG/Audio/handleCoins.ogg
+Loading resource: res://.godot/imported/handleCoins.ogg-4c642b3c0c05351810a8466fbdc0709e.oggvorbisstr
+Loading resource: res://Assets/Audio/UI/Audio/confirmation_001.ogg
+Loading resource: res://.godot/imported/confirmation_001.ogg-717482c5624e973d60bf284127908e72.oggvorbisstr
+Loading resource: res://Assets/Audio/UI/Audio/error_001.ogg
+Loading resource: res://.godot/imported/error_001.ogg-0e05a2d51fb9bf64bcc464f004761365.oggvorbisstr
+Loading resource: res://Assets/Audio/UI/Audio/pluck_001.ogg
+Loading resource: res://.godot/imported/pluck_001.ogg-a9a5c2b4433bef08a2a508d88962e54e.oggvorbisstr
+Loading resource: res://Assets/Audio/RPG/Audio/drawKnife1.ogg
+Loading resource: res://.godot/imported/drawKnife1.ogg-160bde48b607281c2ef390d7033f3248.oggvorbisstr
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+Loaded builtin CA certificates
+Loading resource: res://Assets/Town/Tiles/tile_0000.png
+Loading resource: res://.godot/imported/tile_0000.png-2cfde1a6d3a9f0c9174329d9ba867189.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0001.png
+Loading resource: res://.godot/imported/tile_0001.png-110a61918c86004dc180d80954319484.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0002.png
+Loading resource: res://.godot/imported/tile_0002.png-edd3d9ba02bfc4538c05de00f68bb3aa.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0003.png
+Loading resource: res://.godot/imported/tile_0003.png-ce9ed0d6a6ca985e9fb445cc3a499584.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0004.png
+Loading resource: res://.godot/imported/tile_0004.png-5f58472a41ecb7a97e8aec1dc9cddbd9.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0005.png
+Loading resource: res://.godot/imported/tile_0005.png-370ef2293031cd5c7bafaead4c1b8a34.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0007.png
+Loading resource: res://.godot/imported/tile_0007.png-f2c872ac07183957e51e12e8cb523ff2.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0010.png
+Loading resource: res://.godot/imported/tile_0010.png-fa80d3224d2218709399e631f1864a99.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0024.png
+Loading resource: res://.godot/imported/tile_0024.png-0b0945e140a1a7378b016f34ae7312e3.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0025.png
+Loading resource: res://.godot/imported/tile_0025.png-466cee9e9947f4b460bc91ab90667bcb.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0026.png
+Loading resource: res://.godot/imported/tile_0026.png-5215ea9b08412ae8fc953751236e6334.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0028.png
+Loading resource: res://.godot/imported/tile_0028.png-0722299ad909838d1f46d6ac9d923a65.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0029.png
+Loading resource: res://.godot/imported/tile_0029.png-90c5ab6e677858c03b5213c791e2bfb4.ctex
+Loading resource: res://Assets/Town/Tiles/tile_0043.png
+Loading resource: res://.godot/imported/tile_0043.png-cd7a5c5ac8b27b4f44c71618239f627d.ctex
+Loading resource: res://Assets/Farm/Tiles/tile_0027.png
+Loading resource: res://.godot/imported/tile_0027.png-c07323d1d485f50db9fb0044a3b5a94e.ctex
+Loading resource: res://Assets/Farm/Tiles/tile_0039.png
+Loading resource: res://.godot/imported/tile_0039.png-06e9513905cc8a780af3753b61b57a2b.ctex
+Loading resource: res://Assets/Farm/Tiles/tile_0077.png
+Loading resource: res://.godot/imported/tile_0077.png-29769cb6122429ddcce4845f83ebd423.ctex
+Loading resource: res://Assets/Farm/Tiles/tile_0078.png
+Loading resource: res://.godot/imported/tile_0078.png-c5f00bd68cf134ba6dad9651ad41aedc.ctex
+Loading resource: res://Assets/Farm/Tiles/tile_0083.png
+Loading resource: res://.godot/imported/tile_0083.png-30d96c6879a36e21ca75089a663e9f09.ctex
+Loading resource: res://Assets/Farm/Tiles/tile_0085.png
+Loading resource: res://.godot/imported/tile_0085.png-53385d21a222e68ff4a1c776cefdf60c.ctex
+Loading resource: res://Assets/Farm/Tiles/tile_0089.png
+Loading resource: res://.godot/imported/tile_0089.png-efae6c3d0030eb57bceed006fe95129f.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_sword.png
+Loading resource: res://.godot/imported/icon_sword.png-3f5a1f39a7379c697560e563dffb419b.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_shield.png
+Loading resource: res://.godot/imported/icon_shield.png-0c49be3a21017ebbfffc6b357319edcb.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_pause.png
+Loading resource: res://.godot/imported/icon_pause.png-d6839fcd9566e5e88fd5f54e1f36cde2.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_sound.png
+Loading resource: res://.godot/imported/icon_sound.png-ac52cdbf205fe55464a2c31b64a29eba.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_sound_disabled.png
+Loading resource: res://.godot/imported/icon_sound_disabled.png-32399abd1ca434fb29fbdecab5de5bc3.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_star.png
+Loading resource: res://.godot/imported/icon_star.png-f0827bc44dc4b9f25af08e3010c8eac0.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_burst.png
+Loading resource: res://.godot/imported/icon_burst.png-041d82397a8689830833cf0db0ddc6e3.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_music.png
+Loading resource: res://.godot/imported/icon_music.png-60a4826c282fd033e842e63da567548a.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_music_disabled.png
+Loading resource: res://.godot/imported/icon_music_disabled.png-f1fae40a3e1049b6e8f922bc4a1aa230.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_fire.png
+Loading resource: res://.godot/imported/icon_fire.png-be5888f48ead792f4ebb70b39b951f40.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_hand.png
+Loading resource: res://.godot/imported/icon_hand.png-18a91aa964490f53288df01df4f07dbf.ctex
+Loading resource: res://Assets/MobileControls/Sprites/Icons/Default/icon_size_larger.png
+Loading resource: res://.godot/imported/icon_size_larger.png-41653a42a081bf8cb7f6ce27ceea3499.ctex
+INFINITESLASH_UI launch
+UI_CAPTURE launch_audio -> 0
+INFINITESLASH_UI audio
+UI_CAPTURE audio_split -> 0
+INFINITESLASH_UI launch
+INFINITESLASH_UI upgrade
+UI_CAPTURE upgrade_choices -> 0
+INFINITESLASH_UI running
+UI_CAPTURE hud_ready -> 0
+UI_CAPTURE hud_recharging -> 0
+INFINITESLASH_UI launch
+INFINITESLASH_UI scores
+UI_CAPTURE scores -> 0
+INFINITESLASH_UI achievements
+UI_CAPTURE badges -> 0
+UI_CAPTURE badges_scrolled -> 0
+INFINITESLASH_UI upgrade
+UI_CAPTURE upgrade_tall -> 0
+INFINITESLASH_UI achievements
+UI_CAPTURE badges_tall -> 0
+UI_RENDER_CAPTURE_PASS
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"
+WARNING: ObjectDB instances leaked at exit (run with --verbose for details).
+   at: cleanup (core/object/object.cpp:2514)
+Leaked instance: AudioStreamWAV:9223372065610925438 - Resource path: res://Assets/Generated/music_loop.wav
+Leaked instance: AudioStreamPlaybackWAV:9223372069486462383
+Hint: Leaked instances typically happen when nodes are removed from the scene tree (with `remove_child()`) but not freed (with `free()` or `queue_free()`).
+ERROR: 1 resources still in use at exit.
+   at: clear (core/io/resource.cpp:790)
+Resource still in use: res://Assets/Generated/music_loop.wav (AudioStreamWAV)
+Orphan StringName: Master (static: 0, total: 2)
+StringName: 1 unclaimed string names at exit.

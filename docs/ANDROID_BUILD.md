@@ -1,5 +1,7 @@
 # Android builds
 
+The **2026-10-15 / version 0.2.0** update is documented in [ROUND2_UPDATES.md](ROUND2_UPDATES.md), with rebuilt package hashes and Android results in [ROUND2_ANDROID.md](ROUND2_ANDROID.md). Package sizes, version codes and Android captures below describe the preceding builds; use the newer report for this update.
+
 The current builds use **`com.slash.game`**, Godot 4.5.1, the native Play Games integration, minimum API 24 and compile/target API 36. The supplied three leaderboard IDs, twelve achievement IDs and Saved Games profile slot are enabled. See [the native implementation report](PLAY_SERVICES_IMPLEMENTATION.md) for the complete signing, SDK, artifact and device evidence.
 
 | Current artifact | Purpose | Architectures | Size |

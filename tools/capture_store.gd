@@ -99,6 +99,8 @@ func _base(choice: String, seconds: float, target_level: int, points: int) -> vo
 	_scene.run_seed = 125100 + int(seconds)
 	_scene.rng.seed = _scene.run_seed
 	_scene.loot_rng.seed = _scene.run_seed ^ 1234567
+	_scene.upgrade_rng.seed = _scene.run_seed ^ 734719
+	_scene.boss_rng.seed = _scene.run_seed ^ 819331
 	_scene.visual_rng.seed = 876543
 	_scene.visual_time = 0.37
 	_scene.elapsed = seconds
@@ -113,6 +115,7 @@ func _base(choice: String, seconds: float, target_level: int, points: int) -> vo
 	_scene.facing = _scene.move_direction
 	for next_level in range(2, target_level + 1):
 		_scene.level_up()
+		_scene.choose_upgrade(str(_scene.upgrade_choices[0].id))
 	_scene.health = roundf(_scene.max_health * 0.86)
 	_scene.xp = int(_scene.xp_goal * 0.67)
 	_scene.guard_reserve = _scene.guard_capacity * 0.88

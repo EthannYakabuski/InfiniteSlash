@@ -51,7 +51,7 @@ The environment reuses Town grass and a three-tile dirt road, with sparse trees 
 
 The generated knight atlas contains four character poses plus sword and shield cells. Sword draws a larger 42×74px blade and smaller 24×29px shield; Shield draws a 32×55px blade and larger 44×51px shield. This keeps class identity visible during play, alongside the HUD class icon. The monster atlas preserves native 24px pixels from all 100 requested Creature Mixer exports and the supplied original. All original 8x PNG sheets remain available. Nearest-neighbor sampling maintains crisp silhouettes. Hostile bullets retain dark rims and bright cores; boss shots are orange/red, normal shots gold, and frost-slowed shots pale blue. Lines/rings warn before charges and ranged attacks.
 
-Existing Kenney audio supplies combat, guard, arrival, pickup and reward effects. An original 32-second, mono 24kHz fantasy chiptune loops behind them. Twelve cached effect players bound simultaneous sound voices; frequent effects are throttled and major cues can replace lower-priority sounds. Music/effects can be muted without changing gameplay. Android damage vibration respects the saved haptics preference.
+Existing Kenney audio supplies combat, guard, arrival, pickup and reward effects. An original 32-second, mono 24kHz fantasy chiptune loops behind them. Twelve cached effect players bound simultaneous sound voices; frequent effects are throttled and major cues can replace lower-priority sounds. Independent music and effects switches persist locally and are accessible from all main overlays without changing gameplay. Android damage vibration respects the saved haptics preference.
 
 ## Eight monster behaviors
 
@@ -80,15 +80,15 @@ Ordinary health scales by `1 + min(1.6, elapsed/430)`, reaching a 2.6x maximum. 
 
 The first boss arrives at 45 seconds. Later arrivals target 45 seconds after the previous spawn, with only one boss alive at once. If a regular wave fills the cap, the director makes room for the scheduled boss. Defeating it enforces at least 12 seconds before the next arrival and five seconds of reduced ordinary spawning.
 
-The first boss uses the original Cinder Tinpot. Later bosses choose a generated monster silhouette and enlarge it to about 103px, with a crown, name and health bar. Health starts at 560 and multiplies by 1.21 per boss, with exponent growth capped after twelve increases. Every boss attack has a 0.85-second warning and a 1.5-2.9-second recovery cadence. Its repeating patterns are a five-shot fan, a three-shot fan for the first boss or locked charge for later bosses, then an eleven-shot ring that leaves three radial slots empty as a safe wedge. It repositions between attacks. Boss charges last 0.48 seconds at 340px/s.
+Twelve stable boss identities use the supplied creature silhouettes at about 103px, with a crown, name and health bar. Three weighted tier pools favor early, middle and long runs, with rare visitors and no immediate identity repeats. Before 180 seconds the tier weights are 88/10/2; before 420 seconds they are 12/78/10; afterward they are 8/16/76. Each tier has three common identities and one rare identity. Health starts from 560 multiplied by 1.21 per encounter, capped after twelve increases, then a bounded identity multiplier; early visitors retain an early health cap. Each boss has a stable fan, ring, charge or spiral attack family, a 0.85-second warning and bounded recovery cadence. Charges last 0.48 seconds at 340px/s. See [the full roster and weights](ROUND2_UPDATES.md).
 
-Boss defeat clears all hostile bullets, immediately heals 30 up to maximum, gives 18 XP and 15x normal kill score, and drops a 25-health heart plus Hurricane. Titles cycle through The Tinpot King, Duchess Wobble, Mossjaw the Hungry, Sir Spit-a-Lot, The Pumpkin Problem, Madame Moonmoth, Captain Clatter and The Crown of Slop.
+Boss defeat clears all hostile bullets, immediately heals 30 up to maximum, gives 18 XP and 15x normal kill score, and drops a 25-health heart plus Hurricane. Unique victories save immediately, even when the run is later abandoned, and merge across cloud profiles. Royal Upset rewards a rare victory; Crown Census rewards defeating all twelve identities across runs.
 
-## Rewards, pickups and automatic upgrades
+## Rewards, pickups and upgrade choices
 
 Kills increase the combo and refresh a 2.8-second timeout. A timeout or received damage resets it. The score multiplier is 1x below five kills, 2x at five, 3x at twenty and 4x at thirty-five. Boss and gold rewards use that multiplier; perfect bullet guards award a small flat score.
 
-Every ordinary kill drops two XP, a split minion drops one, and a boss drops eighteen. Gems and other drops move toward the knight within `min(140, 64 + level*3)` pixels, then collect within 23px. Level one needs eight XP; later requirements are `int(8 + level^1.28*3)`. Level-up never opens a selection menu. It cycles these automatic upgrades:
+Every ordinary kill drops two XP, a split minion drops one, and a boss drops eighteen. Gems and other drops move toward the knight within `min(140, 64 + level*3)` pixels, then collect within 23px. Level one needs eight XP; later requirements are `int(8 + level^1.28*3)`. Each level freezes the arena and offers two randomized upgrades. Selecting one applies its reward and resumes with damage grace. Excess XP queues further choices; active-run saves retain the exact pending offers and RNG. Capped stats disappear from the pool.
 
 | Upgrade | Increase and cap |
 | --- | --- |
@@ -97,6 +97,11 @@ Every ordinary kill drops two XP, a split minion drops one, and a boss drops eig
 | Longer Reach | Reach +5px; Sword cap 124px, Shield cap 108px. |
 | Heart of a Knight | Maximum health +8; Sword cap 160, Shield cap 300; heal 18. |
 | Stronger Guard | Guard capacity +8; Sword cap 110, Shield cap 250; restore 30 reserve. |
+| Fleet Footed | Level 3+: movement +6% of class base per pick, capped at +30%. |
+| Quickstep | Level 5+: dash recharge -0.10s per pick, floor 0.90s. |
+| Keen Edge | Level 10+: damage +20% and reach +3px, maximum three picks; both stats must benefit. |
+
+If fewer than two stat upgrades remain, recovery/score rewards fill the pair. Field Rations restores health and guard; Royal Purse gives 500 score; Lucky Purse gives a seeded 100–1,000 score. Class caps remain distinct.
 
 | Pickup | Implemented effect |
 | --- | --- |
@@ -113,7 +118,7 @@ Timed pickups extend their matching effect up to eighteen seconds; they do not a
 
 ## Local progression, pause and persistence
 
-Local progression keeps score/time/combo/boss bests, lifetime run/kill/boss/playtime/pickup totals, discovered generated monster IDs, thirteen badges, the last thirty completed results and fourteen dated daily bests. Both styles are available from the first launch. A daily run always uses Sword and a shared seed derived from the UTC calendar date; normal runs use a fresh seed. Separate encounter and loot RNG states survive an active-run restore.
+Local progression keeps score/time/combo/boss bests, lifetime run/kill/boss/playtime/pickup totals, discovered generated monster IDs, fifteen badges, the last thirty completed results and fourteen dated daily bests. Both styles are available from the first launch. A daily run always uses Sword and a shared seed derived from the UTC calendar date; normal runs use a fresh seed. Separate encounter, loot, upgrade-offer and boss-selection RNG states survive an active-run restore.
 
 Pause releases gestures and stops hazard simulation. Android backgrounding or focus loss pauses/saves; resume grants at least 0.45 seconds of damage grace. Active runs save at start, every ten running seconds, on pause/backgrounding and on a close request. Restored runs wait behind the resume overlay with no stale movement. Finishing a run records completed-run totals and clears its active snapshot.
 

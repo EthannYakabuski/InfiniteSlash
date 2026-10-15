@@ -6,10 +6,11 @@ The playable game uses **`com.slash.game`**, English (`en-US`), and Play Games p
 
 | Requested item | Location | Count / specification |
 | --- | --- | --- |
-| Achievement icons | `icons/achievements/` | 12 PNGs, 512×512, each below 1 MB |
+| Existing achievement icons | `icons/achievements/` | 12 PNGs, 512×512, each below 1 MB |
+| New boss achievement icons | `boss-achievements/` | 2 PNGs, 512×512, each below 1 MB; new Google IDs pending |
 | Leaderboard icons | `icons/leaderboards/` | 3 PNGs, 512×512, each below 1 MB |
 | Short description | `listing/short_description.txt` | 68 characters; limit 80 |
-| Full description | `listing/full_description.txt` | 1,981 characters; limit 4,000 |
+| Full description | `listing/full_description.txt` | 2,125 characters; limit 4,000 |
 | Store app icon | `branding/app_icon.png` | 512×512, 32-bit PNG, below 1 MB |
 | Feature graphic | `branding/feature_graphic_v2.png` | 1024×500, 24-bit PNG, below 15 MB; title moved inward for side cropping |
 | Phone screenshots | `screenshots/phone/` | 8 PNGs, 1080×1920 |
@@ -18,7 +19,9 @@ The playable game uses **`com.slash.game`**, English (`en-US`), and Play Games p
 
 Every screenshot is 9:16, opaque RGB and below 8 MB. Upload each screenshot folder in numeric order. The first three emphasize actual Sword combat, Shield defense and boss bullet hell. They satisfy the requested bounds and the current larger-screen guidance. [Google preview asset guidance](https://support.google.com/googleplay/android-developer/answer/9866151?hl=en)
 
-## Attach icons to existing Play Games records
+## New boss records and existing Play Games records
+
+The 2026-10-15 update adds **Royal Upset** and **Crown Census**. Create these two Standard achievements using [their names, descriptions and icons](boss-achievements/README.md), then send their Google IDs. They already work locally and queue unlocks for later sync. The complete kit now includes 43 upload images and refreshed screenshots of the current HUD. The separate `boss-achievements/InfiniteSlash-new-boss-achievements.zip` contains just the two new icons and definitions.
 
 Your 12 achievements and three leaderboards already exist. **Edit their existing records to upload these icons. Do not re-import the earlier achievement metadata draft** into this configured game. `icons/icon_manifest.json` maps every semantic filename to its supplied Google ID, name, goal and type. `achievement-icons.zip` and `leaderboard-icons.zip` simply group the PNGs for convenient extraction; they are not Console achievement-definition import files.
 
@@ -57,7 +60,7 @@ The copy describes current gameplay and local features. It avoids unverified clo
 ## Remaining owner/backend steps
 
 - Authorize tester accounts and choose a distribution route. The supplied **A1:CD:…:64:DB** certificate is Google's Play App Signing certificate and is appropriate for Play-installed builds. A sideloaded debug build needs its **own linked Android OAuth credential** for `com.slash.game` and its actual signer; the developer report records that fingerprint.
-- Complete upload/release signing locally. An unsigned release AAB is a preparation artifact and cannot be uploaded until signed with the registered upload key.
+- Local upload/release signing is now configured. Use the versioned signed 0.2.0 AAB described in [the current Android report](../docs/ROUND2_ANDROID.md); check that version code 6 is unused on your track before uploading. Older unsigned preparation bundles are not signed releases.
 - Add these icons, store descriptions, artwork and screenshot folders to the existing Console records. Publish the Play Games configuration when ready, separately from the app release.
 - Run real eligible-account sign-in, online unlock/score, offline replay and two-device save tests. Simulated native tests do not establish successful Google server operation.
 - Saved Games was reported enabled at 21:20 Eastern on Oct 12. Activation may take up to 24 hours. Toronto uses EDT (UTC−4) on that date; the handoff records that time-zone assumption explicitly. [Activation guidance](https://developer.android.com/games/pgs/console/enable-features), [Toronto 2026 time zones](https://www.timeanddate.com/time/zone/canada/toronto?year=2026)

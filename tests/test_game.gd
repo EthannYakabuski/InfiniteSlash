@@ -90,6 +90,9 @@ func _run() -> void:
 	_test_slash_splitter()
 	_test_enemy_patterns_boss()
 	_test_powerups_upgrades()
+	_test_run_build_choices()
+	_test_boss_variation_restore()
+	_test_audio_preferences()
 	_test_pause_restart()
 	_test_snapshot()
 	_test_malformed_snapshots()
@@ -278,11 +281,13 @@ func _test_class_comparison() -> void:
 		reset(choice)
 		for upgrade in 300:
 			game.level_up()
+			game.choose_upgrade(str(game.upgrade_choices[0].id))
 		result["capped_health"] = game.max_health
 		result["capped_damage"] = game.damage
 		result["capped_attack_interval"] = game.attack_interval
 		result["capped_range"] = game.attack_range
 		result["capped_guard"] = game.guard_capacity
+		result["capped_move_speed"] = game.move_speed
 		near(game.max_health, 160.0 if choice == "sword" else 300.0, "%s reaches its own health cap" % choice)
 		near(game.damage, 150.0 if choice == "sword" else 95.0, "%s reaches its own damage cap" % choice)
 		near(game.attack_interval, 0.22 if choice == "sword" else 0.40, "%s reaches its own attack cadence cap" % choice)
@@ -300,7 +305,7 @@ func _test_class_comparison() -> void:
 		near(game.attack_interval, result["capped_attack_interval"], "%s restore retains class attack cadence" % choice)
 		near(game.attack_range, result["capped_range"], "%s restore retains class reach cap" % choice)
 		near(game.guard_capacity, result["capped_guard"], "%s restore retains class guard capacity" % choice)
-		near(game.move_speed, result["move_speed"], "%s restore retains its class movement speed" % choice)
+		near(game.move_speed, result["capped_move_speed"], "%s restore retains its chosen movement upgrades" % choice)
 		classes[choice] = result
 	var sword: Dictionary = classes["sword"]
 	var shield: Dictionary = classes["shield"]
@@ -465,7 +470,7 @@ func _test_enemy_patterns_boss() -> void:
 	check(game._boss() != null and game.enemies.size() <= game.MAX_ENEMIES, "A full regular wave still reserves room for the scheduled boss")
 	reset()
 	game.boss_number = 1
-	var boss: Dictionary = game.spawn_enemy(100, true, Vector2(270, 240))
+	var boss: Dictionary = game.spawn_enemy(100, true, Vector2(270, 240), false, game.BossCatalog.by_id("moss_baron"))
 	game._prepare_attack(boss)
 	check(boss.windup >= 0.8 and game.bullets.is_empty(), "The boss has a visible warning interval before shots")
 	boss.phase = 0
@@ -495,6 +500,7 @@ func _test_powerups_upgrades() -> void:
 	check(game.ward_hits == 3, "Repeated wards replace charges instead of accumulating invulnerability")
 	for upgrade in 110:
 		game.level_up()
+		game.choose_upgrade(str(game.upgrade_choices[0].id))
 	check(game.damage <= 150 and game.attack_interval >= 0.22 and game.attack_range <= 124, "Offensive upgrades remain within late-run caps")
 	check(game.max_health <= 160 and game.guard_capacity <= 110, "Defensive upgrades remain within late-run caps")
 	game.buffs = {"haste": 0.01, "ward": 0.01}
@@ -507,7 +513,127 @@ func _test_powerups_upgrades() -> void:
 	game._update_drops(0.02)
 	check(game.drops.is_empty(), "Uncollected pickups expire")
 	game.collect_drop({"kind": "xp", "value": 8})
-	check(game.level == 2 and game.xp == 0, "Reaching the first XP goal grants an automatic upgrade")
+	check(game.level == 2 and game.xp == 0 and game.state == "upgrading" and game.upgrade_choices.size() == 2, "Reaching the first XP goal pauses for two upgrade choices")
+	game.choose_upgrade(str(game.upgrade_choices[0].id))
+	check(game.state == "running", "Picking one reward resumes gameplay")
+
+
+func _test_run_build_choices() -> void:
+	reset()
+	game.buffs = {"haste": 5.0}
+	game.combo = 4
+	game.combo_timer = 2.0
+	game.dash_cooldown = 0.7
+	game.spawn_enemy(0, false, Vector2(200, 260))
+	game._add_bullet(Vector2(150, 500), Vector2(100, 40), 12)
+	game._drop(game.player_pos, "xp", 8)
+	var damage_before: float = game.damage
+	game._update_drops(0.016)
+	check(game.state == "upgrading" and game.upgrade_choices.size() == 2, "Actual XP pickup enters a two-card choice")
+	near(game.damage, damage_before, "Level-up applies no automatic damage reward")
+	check(game.drops.is_empty() and game.active_touch == -1, "Collected XP is removed before the pending decision is saved")
+	var frozen: Dictionary = game.serialize_run()
+	var animation_time: float = game.visual_time
+	var first_options: Array = frozen.upgrade_choices.duplicate()
+	game.tick(5.0)
+	game._physics_process(5.0)
+	game._process(0.5)
+	check(game.serialize_run() == frozen, "Level-up freezes timer, actors, bullets, buffs, combo and cooldowns")
+	near(game.visual_time, animation_time, "Choice overlay freezes background animation too")
+	game.level_up()
+	game.choose_upgrade("not_an_offered_upgrade")
+	check(game.level == 2 and game.state == "upgrading" and game.serialize_run().upgrade_choices == first_options, "Re-entry and invalid choices cannot reroll offers or advance a level")
+	game._notification(MainLoop.NOTIFICATION_APPLICATION_FOCUS_OUT)
+	game._notification(Node.NOTIFICATION_WM_GO_BACK_REQUEST)
+	check(game.state == "upgrading", "Android Back and losing focus cannot bypass a pending choice")
+	var first_id: String = str(game.upgrade_choices[0].id)
+	game.choose_upgrade(first_id)
+	check(game.state == "running" and game.upgrade_counts.get(first_id, 0) == 1 and game.upgrade_choices.is_empty(), "Exactly the selected card is applied once and gameplay resumes")
+	var after_choice: Dictionary = game.serialize_run()
+	game.choose_upgrade(first_id)
+	check(game.serialize_run() == after_choice, "A duplicate choice after resume is ignored")
+	check(game.hurt_timer >= 0.6 and not game.dragging, "Returning from choices grants damage grace and fresh thumb input")
+	reset("shield")
+	game.collect_drop({"kind": "xp", "value": 100})
+	check(game.state == "upgrading" and game.xp == 92, "Large XP rewards retain overflow while the first choice waits")
+	var pending_snapshot: Dictionary = game.serialize_run()
+	var expected_upgrades: int = game.upgrade_rng.randi()
+	var expected_boss: int = game.boss_rng.randi()
+	reset()
+	check(game.restore_run(JSON.parse_string(JSON.stringify(pending_snapshot))), "A pending upgrade survives a JSON save/restart")
+	check(game.state == "paused" and game.serialize_run().upgrade_choices == pending_snapshot.upgrade_choices, "Restored run keeps the exact original options behind Resume")
+	check(game.upgrade_rng.randi() == expected_upgrades and game.boss_rng.randi() == expected_boss, "Both new RNG streams resume without rerolling")
+	game.resume_run()
+	check(game.state == "upgrading" and game.xp == 92, "Resume returns to the required choice without discarding excess XP")
+	var picks := 0
+	var spent_xp := 8
+	while game.state == "upgrading" and picks < 20:
+		var previous_goal: int = game.xp_goal
+		game.choose_upgrade(str(game.upgrade_choices[0].id))
+		picks += 1
+		if game.state == "upgrading": spent_xp += previous_goal
+	check(game.state == "running" and picks == game.level - 1 and picks > 1, "Overflow presents and applies one explicit choice per earned level")
+	check(spent_xp + game.xp == 100, "Queued decisions conserve every point of earned XP")
+	var committed: int = 0
+	for count in game.upgrade_counts.values(): committed += int(count)
+	check(committed == picks, "Saved build counts contain exactly one accepted pick per level")
+	var bad: Dictionary = pending_snapshot.duplicate(true)
+	bad.upgrade_choices = ["sharper_steel", "sharper_steel"]
+	check(not game.restore_run(bad), "Duplicate saved offers are rejected")
+	bad.upgrade_choices = ["keen_edge", "sharper_steel"]
+	check(not game.restore_run(bad), "A saved level-two choice cannot bypass the level-ten gate")
+	bad.upgrade_choices = ["unknown", "sharper_steel"]
+	check(not game.restore_run(bad), "Unknown saved upgrade IDs are rejected safely")
+
+
+func _test_boss_variation_restore() -> void:
+	var first_bosses: Dictionary = {}
+	for seed_value in 24:
+		reset()
+		game.boss_rng.seed = seed_value + 100
+		game.elapsed = 45
+		game.next_boss = 45
+		game._update_spawns(0.016)
+		var boss: Dictionary = game._boss()
+		first_bosses[boss.boss_id] = true
+		check(not game.BossCatalog.by_id(str(boss.boss_id)).is_empty(), "Scheduled boss has a stable catalog identity")
+	check(first_bosses.size() >= 4, "Different run seeds produce varied opening bosses")
+	var snapshot: Dictionary = game.serialize_run()
+	var original_id: String = str(game._boss().boss_id)
+	var expected: String = str(game.BossCatalog.choose(game.boss_rng, 250.0, game.last_boss_id).id)
+	reset()
+	check(game.restore_run(JSON.parse_string(JSON.stringify(snapshot))), "Named boss encounter restores")
+	check(str(game._boss().boss_id) == original_id and game.last_boss_id == original_id, "Boss identity and repeat protection survive restart")
+	check(str(game.BossCatalog.choose(game.boss_rng, 250.0, game.last_boss_id).id) == expected, "Boss sequence resumes from the exact saved random state")
+	for pattern in ["ring", "fan", "charge", "spiral"]:
+		reset()
+		var definition: Dictionary = {}
+		for item in game.BossCatalog.all():
+			if item.pattern == pattern: definition = item
+		var boss: Dictionary = game.spawn_enemy(0, true, Vector2(200, 250), false, definition)
+		boss.phase = 0
+		boss.aim = Vector2.DOWN
+		game._fire_enemy(boss)
+		check(boss.charge > 0 if pattern == "charge" else game.bullets.size() == (7 if pattern == "fan" else 11), "%s boss executes its distinct attack pattern" % pattern)
+	reset()
+	var rare: Dictionary = game.spawn_enemy(0, true, Vector2(200, 250), false, game.BossCatalog.by_id("moonmallow_majesty"))
+	game.testing = false
+	game.damage_enemy(rare, 100000)
+	game.testing = true
+	check("moonmallow_majesty" in save.profile.defeated_bosses and save.profile.achievements.has("rare_boss"), "An actual rare-boss kill records its victory and local badge immediately")
+
+
+func _test_audio_preferences() -> void:
+	reset()
+	for combination in [[true, false], [false, true], [false, false], [true, true]]:
+		game._set_audio_setting("music", combination[0])
+		game._set_audio_setting("sfx", combination[1])
+		check(audio.is_music_enabled() == combination[0] and audio.is_sfx_enabled() == combination[1], "Music and effects support the requested independent combination")
+		save.reload_profile()
+		check(save.profile.settings.music == combination[0] and save.profile.settings.sfx == combination[1], "Independent audio preferences survive a disk reload")
+	game._set_audio_setting("unsupported", false)
+	check(save.profile.settings.music and save.profile.settings.sfx, "Unknown audio settings are ignored")
+	audio.set_enabled(false)
 
 
 func _test_pause_restart() -> void:
@@ -623,6 +749,9 @@ func _test_stress() -> void:
 			for n in range(game.MAX_EFFECTS):
 				game._add_effect(Vector2(100, 250), Vector2(1, 1), "spark", Color.WHITE, 0.4)
 		var step_start: int = Time.get_ticks_usec()
+		# The stress bot chooses deliberately; production play never auto-picks.
+		while game.state == "upgrading":
+			game.choose_upgrade(str(game.upgrade_choices[0].id))
 		game.tick(1.0 / 60.0)
 		game._process(1.0 / 60.0)
 		samples.append(Time.get_ticks_usec() - step_start)

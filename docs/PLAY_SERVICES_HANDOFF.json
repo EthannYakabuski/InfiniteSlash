@@ -6,7 +6,7 @@
     "Runtime Google integration is enabled for native test builds. IDs/types are configured; native packaging and real signed/account testing remain distinct verification steps.",
     "Public OAuth client IDs and certificate fingerprints are recorded. Keep private signing keys and passwords local.",
     "The current 12 Google achievements already exist. Upload individual icons to those existing IDs; do not import the earlier metadata draft again.",
-    "Tester access and an upload-keystore path/alias have not yet been supplied. The owner will complete those steps."
+    "Tester access remains unverified. Owner local release/upload signing is configured; private signing values remain local."
   ],
   "app": {
     "name": "InfiniteSlash",
@@ -113,7 +113,9 @@
     "release_or_upload_key_alias": "",
     "optional_debug_keystore_path": "",
     "optional_debug_key_alias": "",
-    "owner_commitment": "Owner will arrange upload/release signing. Local path/alias and signing workflow remain pending; no private credentials are stored here."
+    "owner_commitment": "Owner configured local AndroidPlay signing after the original handoff. A signed bundle has been exported. Key paths, alias and passwords remain local and are intentionally omitted from this public record.",
+    "local_configuration_present": true,
+    "public_certificate_sha1": "D6:7C:5B:0B:81:C6:7F:EB:A1:FE:1A:F5:2F:33:62:E7:97:C8:5F:AB"
   },
   "publication_decisions": {
     "include_remote_daily_score": false,
@@ -152,7 +154,9 @@
       "collector": "CgkI5NXU8p0YEAIQDQ",
       "thousand_kills": "CgkI5NXU8p0YEAIQDg",
       "ten_runs": "CgkI5NXU8p0YEAIQDw",
-      "survivor_180": ""
+      "survivor_180": "",
+      "rare_boss": "",
+      "all_bosses": ""
     },
     "incremental_achievements": {
       "century": 100,
@@ -196,5 +200,20 @@
     "usage": "Historical creation draft. The owner has already created these achievements; attach store/icons/achievements PNGs to the existing Google IDs instead of re-importing definitions."
   },
   "verification_source": "Project IDs and console confirmations were supplied by the owner. Live Google services have not yet been verified.",
-  "store_icon_manifest": "store/icons/icon_manifest.json"
+  "store_icon_manifest": "store/icons/icon_manifest.json",
+  "new_achievements_2026_10_15": {
+    "rare_boss": {
+      "name": "Royal Upset",
+      "type": "Standard",
+      "google_id": "",
+      "description": "Defeat a rare boss: Moonmallow Majesty, Gilded Chancellor, or Lime Imperator."
+    },
+    "all_bosses": {
+      "name": "Crown Census",
+      "type": "Standard",
+      "google_id": "",
+      "description": "Defeat all 12 different bosses across your runs."
+    },
+    "icons_and_registration": "store/boss-achievements/README.md"
+  }
 }

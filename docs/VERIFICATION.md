@@ -1,5 +1,7 @@
 # MVP verification
 
+The **2026-10-15 / version 0.2.0** update is documented in [ROUND2_UPDATES.md](ROUND2_UPDATES.md), with rebuilt package hashes and Android results in [ROUND2_ANDROID.md](ROUND2_ANDROID.md). Package sizes, version codes and Android captures below describe the preceding builds; use the newer report for this update.
+
 Current configured native builds are documented in [PLAY_SERVICES_IMPLEMENTATION.md](PLAY_SERVICES_IMPLEMENTATION.md): package `com.slash.game`, API 36, 315 gameplay checks, 152 services checks and eight reviewed anonymous Android captures. The store kit contains 41 validated upload images and the finished listing copy; see [store/README.md](../store/README.md). Earlier Android hashes/captures below retain their original build context and do not establish current Google server results. Upload signing, eligible-account backend tests and real 16 KB device testing remain release steps.
 
 Verified on 2026-10-12 with Godot 4.5.1. The portrait game is playable from launch through death and immediate restart. The Android development APK, source project, original monster exports, optimized rendering atlas and test tools are included.

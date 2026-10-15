@@ -36,7 +36,8 @@ def main() -> None:
     check_image(STORE / "branding/app_icon.png", (512, 512), ("RGBA",), 1_000_000, "app_icon")
     branding = json.loads((STORE / "branding/prompts.json").read_text(encoding="utf-8"))
     check_image(ROOT / branding["feature_graphic"]["output"], (1024, 500), ("RGB",), 15_000_000, "feature_graphic")
-    expected_achievement_keys = {k for k, v in config["achievements"].items() if v}
+    new_boss_keys = {"rare_boss", "all_bosses"}
+    expected_achievement_keys = {k for k, v in config["achievements"].items() if v and k not in new_boss_keys}
     expected_board_keys = {k for k, v in config["leaderboards"].items() if v}
     for category, keys in [("achievements", expected_achievement_keys), ("leaderboards", expected_board_keys)]:
         entries = [i for i in icons if i["category"] == category]
@@ -57,6 +58,19 @@ def main() -> None:
                 if (entry["type"] == "Incremental") != (incremental is not None) or entry["steps"] != incremental:
                     failures.append(f"{entry['key']}: incremental type/target mismatch")
             record.update(key=entry["key"], google_id=entry["google_id"], title=entry["title"])
+
+    # New boss badges await IDs; keep them distinct from configured records.
+    boss_manifest_path = STORE / "boss-achievements/achievement_manifest.json"
+    boss_badges = json.loads(boss_manifest_path.read_text(encoding="utf-8"))["achievements"]
+    if {entry["key"] for entry in boss_badges} != {"rare_boss", "all_bosses"}:
+        failures.append("Expected two new boss achievement definitions")
+    for entry in boss_badges:
+        record = check_image(STORE / "boss-achievements" / entry["filename"], (512, 512), ("RGB",), 1_000_000, "pending_achievements")
+        if config["achievements"].get(entry["key"], "") != entry["google_id"]:
+            failures.append(f"{entry['key']}: pending Google ID mismatch")
+        if record["sha256"] != entry["sha256"] or entry["type"] != "Standard":
+            failures.append(f"{entry['key']}: pending icon hash or type mismatch")
+        record.update(key=entry["key"], google_id=entry["google_id"], title=entry["name"])
 
     categories = {"phone": (1080, 1920), "tablet_7": (1440, 2560), "tablet_10": (2160, 3840)}
     if len(shots) != 24:
@@ -85,10 +99,13 @@ def main() -> None:
     metadata = json.loads((STORE / "listing/metadata.json").read_text(encoding="utf-8"))
     if metadata["package_name"] != "com.slash.game" or len(metadata["recommended_tags"]) != 5:
         failures.append("Listing package or tag count is incorrect")
-    if len({r["google_id"] for r in uploads if "google_id" in r}) != 15:
-        failures.append("Expected 15 unique Google feature IDs")
+    expected_feature_ids = {v for category in ["achievements", "leaderboards"] for v in config[category].values() if v}
+    if {r["google_id"] for r in uploads if r.get("google_id")} != expected_feature_ids:
+        failures.append("Upload icon IDs do not match the configured Google features")
     report = {"passed": not failures, "failures": failures, "image_count": len(uploads),
-              "achievements": len(expected_achievement_keys), "leaderboards": len(expected_board_keys),
+              "achievements": len(expected_achievement_keys) + len(boss_badges),
+              "configured_achievements": len(expected_achievement_keys) + sum(bool(i["google_id"]) for i in boss_badges),
+              "pending_achievements": sum(not i["google_id"] for i in boss_badges), "leaderboards": len(expected_board_keys),
               "screenshots": len(shots), "description_lengths": descriptions,
               "all_image_bytes": sum(r["bytes"] for r in uploads)}
     (STORE / "validation.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
@@ -114,8 +131,9 @@ def main() -> None:
                      STORE / "icons/icon_manifest.json", STORE / "screenshots/manifest.json",
                      STORE / "listing/short_description.txt", STORE / "listing/full_description.txt",
                      STORE / "listing/metadata.json", STORE / "branding/prompts.json"]
+    upload_paths += [boss_manifest_path, STORE / "boss-achievements/README.md"]
     archive("InfiniteSlash-PlayStore-assets.zip", upload_paths)
-    print(f"STORE_ASSET_PASS: {len(uploads)} unique upload images; 12 achievement icons, 3 board icons, 24 screenshots; text and archive checks pass.")
+    print(f"STORE_ASSET_PASS: {len(uploads)} unique upload images; 14 achievement icons (2 awaiting IDs), 3 board icons, 24 screenshots; text and archive checks pass.")
     print(json.dumps(report, indent=2))
 
 

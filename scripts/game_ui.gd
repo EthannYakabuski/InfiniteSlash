@@ -6,7 +6,8 @@ signal resume_requested
 signal pause_requested
 signal leaderboard_requested
 signal achievements_requested
-signal audio_toggled
+signal audio_setting_changed(key: String, enabled: bool)
+signal upgrade_selected(id: String)
 signal daily_requested
 signal share_requested
 
@@ -29,6 +30,8 @@ const ACHIEVEMENTS := {
 	"survivor_180": ["Three Minute Hero", "Survive for three minutes"],
 	"thousand_kills": ["Slop Sweeper", "Defeat 1,000 creatures"],
 	"ten_runs": ["Back for More", "Complete ten runs"],
+	"rare_boss": ["Royal Upset", "Defeat any rare boss"],
+	"all_bosses": ["Crown Census", "Defeat all 12 different bosses"],
 }
 
 var _root: Control
@@ -48,11 +51,21 @@ var _level: Label
 var _combo: Label
 var _time: Label
 var _dash: Label
+var _dash_detail: Label
+var _dash_card: Panel
+var _dash_progress: ProgressBar
+var _dash_icon: TextureRect
+var _guard_card: Panel
+var _guard_label: Label
+var _guard_icon: TextureRect
 var _buffs: Label
 var _boss_name: Label
 var _pause: Button
 var _sound: Button
-var _sound_enabled := true
+var _audio_settings: Dictionary = {"sfx": true, "music": true}
+var _audio_previous_kind := "launch"
+var _audio_previous_data: Dictionary = {}
+var _upgrade_selection_locked := false
 var _size := Vector2(540, 960)
 var _top := 26.0
 var _bottom := 26.0
@@ -66,7 +79,7 @@ var _icons: Dictionary = {}
 func _ready() -> void:
 	layer = 10
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	for icon in ["sword", "shield", "pause", "sound", "sound_disabled", "star"]:
+	for icon in ["sword", "shield", "pause", "sound", "sound_disabled", "star", "burst", "music", "music_disabled", "fire", "hand", "size_larger"]:
 		var path := "res://Assets/MobileControls/Sprites/Icons/Default/icon_%s.png" % icon
 		if ResourceLoader.exists(path):
 			_icons[icon] = load(path)
@@ -118,25 +131,48 @@ func _build_hud() -> void:
 	_best = _label("BEST 0", 13, GOLD)
 	_best.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_hud.add_child(_best)
-	_level = _label("LV 1", 13, GOLD)
+	_level = _label("LV 1", 17, GOLD)
+	_level.name = "LevelLabel"
 	_hud.add_child(_level)
-	_time = _label("0:00", 14, CREAM)
+	_time = _label("0:00", 17, CREAM)
+	_time.name = "TimeLabel"
 	_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.add_child(_time)
 	_combo = _label("", 22, GOLD)
 	_combo.name = "ComboLabel"
 	_combo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.add_child(_combo)
-	_dash = _label("DASH READY", 11, Color("b2e5e7"))
-	_dash.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	_dash_card = Panel.new()
+	_dash_card.name = "DashCard"
+	_dash_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_dash_card.add_theme_stylebox_override("panel", _box(Color("1b3a40"), Color("5bacae")))
+	_hud.add_child(_dash_card)
+	_dash_icon = _hud_icon("burst", "DashIcon")
+	_dash = _label("DASH READY", 18, Color("c4fff0"))
+	_dash.name = "DashLabel"
 	_hud.add_child(_dash)
+	_dash_detail = _label("FLICK TO DASH", 12, CREAM)
+	_dash_detail.name = "DashDetail"
+	_hud.add_child(_dash_detail)
+	_dash_progress = _bar("DashProgress", Color("a1e6df"), Color("293c41"))
+	_hud.add_child(_dash_progress)
+	_guard_card = Panel.new()
+	_guard_card.name = "GuardCard"
+	_guard_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_guard_card.add_theme_stylebox_override("panel", _box(Color("24343b"), Color("648a91")))
+	_hud.add_child(_guard_card)
+	_guard_icon = _hud_icon("shield", "GuardIcon")
+	_guard_label = _label("GUARD 100%", 18, Color("c4ecf1"))
+	_guard_label.name = "GuardLabel"
+	_hud.add_child(_guard_label)
 	_guard = _bar("GuardBar", Color("86d7d3"), Color("233d40"))
 	_hud.add_child(_guard)
-	_buffs = _label("", 13, GOLD)
+	_buffs = _label("", 17, GOLD)
+	_buffs.name = "BuffLabel"
 	_buffs.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_buffs.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	_hud.add_child(_buffs)
-	_boss_name = _label("", 16, GOLD)
+	_boss_name = _label("", 18, GOLD)
 	_boss_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.add_child(_boss_name)
 	_boss = _bar("BossHealthBar", Color("ef965a"), Color("433538"))
@@ -146,8 +182,19 @@ func _build_hud() -> void:
 	_pause.pressed.connect(func(): pause_requested.emit())
 	_hud.add_child(_pause)
 	_sound = _button("", "SoundButton", Color("354b4d"), "sound")
-	_sound.pressed.connect(_toggle_sound)
+	_sound.pressed.connect(show_audio_settings)
 	_hud.add_child(_sound)
+
+
+func _hud_icon(icon_name: String, node_name: String) -> TextureRect:
+	var icon := TextureRect.new()
+	icon.name = node_name
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture = _icons.get(icon_name)
+	_hud.add_child(icon)
+	return icon
 
 
 func _resize() -> void:
@@ -166,18 +213,28 @@ func _resize() -> void:
 	_place(_health_text, Vector2(49, _top + 5), Vector2(hp_width - 29, 22))
 	_place(_class_icon, Vector2(30, _top + 7), Vector2(18, 18))
 	_place(_xp, Vector2(24, _top + 34), Vector2(hp_width, 5))
-	_place(_level, Vector2(24, _top + 45), Vector2(80, 20))
+	_place(_level, Vector2(24, _top + 45), Vector2(100, 25))
 	_place(_score, Vector2(_size.x - 225, _top - 6), Vector2(136, 38))
 	_place(_best, Vector2(_size.x - 240, _top + 30), Vector2(151, 20))
-	_place(_time, Vector2(_size.x * 0.5 - 40, _top + 44), Vector2(80, 20))
+	_place(_time, Vector2(_size.x * 0.5 - 45, _top + 44), Vector2(90, 25))
 	_place(_pause, Vector2(_size.x - 71, _top - 5), Vector2(48, 48))
 	_place(_sound, Vector2(_size.x - 71, _top + 48), Vector2(48, 42))
 	_place(_combo, Vector2(70, _top + 89), Vector2(_size.x - 140, 31))
 	_place(_boss_name, Vector2(55, _top + 125), Vector2(_size.x - 110, 24))
 	_place(_boss, Vector2(55, _top + 154), Vector2(_size.x - 110, 9))
-	_place(_guard, Vector2(26, _size.y - _bottom - 10), Vector2(100, 5))
-	_place(_dash, Vector2(_size.x - 162, _size.y - _bottom - 19), Vector2(137, 22))
-	_place(_buffs, Vector2(140, _size.y - _bottom - 25), Vector2(_size.x - 290, 32))
+	var status_width := (_size.x - 68.0) * 0.5
+	var status_y := _size.y - _bottom - 62.0
+	var dash_x := _size.x - 26.0 - status_width
+	_place(_guard_card, Vector2(26, status_y), Vector2(status_width, 62))
+	_place(_guard_icon, Vector2(36, status_y + 11), Vector2(24, 24))
+	_place(_guard_label, Vector2(68, status_y + 8), Vector2(status_width - 50, 27))
+	_place(_guard, Vector2(39, status_y + 43), Vector2(status_width - 26, 7))
+	_place(_dash_card, Vector2(dash_x, status_y), Vector2(status_width, 62))
+	_place(_dash_icon, Vector2(dash_x + 10, status_y + 11), Vector2(24, 24))
+	_place(_dash, Vector2(dash_x + 42, status_y + 5), Vector2(status_width - 49, 26))
+	_place(_dash_detail, Vector2(dash_x + 42, status_y + 29), Vector2(status_width - 49, 18))
+	_place(_dash_progress, Vector2(dash_x + 13, status_y + 50), Vector2(status_width - 26, 5))
+	_place(_buffs, Vector2(30, status_y - 38), Vector2(_size.x - 60, 30))
 	var toast_y := _size.y - _bottom - 112.0 if _overlay.visible else _top + 182.0
 	_place(_toasts, Vector2(30, toast_y), Vector2(_size.x - 60, 110))
 	if _card != null and is_instance_valid(_card):
@@ -215,9 +272,18 @@ func update_hud(data: Dictionary) -> void:
 	var combo := int(data.get("combo", 0))
 	_combo.text = "%d COMBO  ×%d" % [combo, int(data.get("multiplier", 1))] if combo >= 3 else ""
 	_time.text = _duration(float(data.get("elapsed", 0)))
-	_dash.text = "DASH READY" if bool(data.get("dash_ready", true)) else "DASH RECHARGING"
-	_dash.modulate.a = 1.0 if bool(data.get("dash_ready", true)) else 0.5
-	_guard.value = clampf(float(data.get("guard_ratio", 1.0)), 0.0, 1.0) * 100.0
+	var dash_ready := bool(data.get("dash_ready", true))
+	var dash_remaining := maxf(0.0, float(data.get("dash_cooldown", 0.0)))
+	_dash.text = "DASH READY" if dash_ready else "DASH CHARGING"
+	_dash.add_theme_color_override("font_color", Color("c4fff0") if dash_ready else CREAM)
+	_dash_detail.text = "FLICK TO DASH" if dash_ready else ("READY IN %.1fs" % dash_remaining if dash_remaining > 0.0 else "RECHARGING")
+	var dash_recharge := maxf(0.1, float(data.get("dash_recharge", 1.45)))
+	_dash_progress.value = 100.0 if dash_ready else clampf(1.0 - dash_remaining / dash_recharge, 0.0, 1.0) * 100.0
+	_dash_icon.modulate = Color("c4fff0") if dash_ready else MUTED
+	var guard_ratio := clampf(float(data.get("guard_ratio", 1.0)), 0.0, 1.0)
+	_guard.value = guard_ratio * 100.0
+	_guard_label.text = "GUARDING" if bool(data.get("guard_active", false)) else "GUARD %d%%" % int(round(guard_ratio * 100.0))
+	_guard_label.add_theme_color_override("font_color", Color("c4ecf1") if guard_ratio > 0.2 else Color("ffae8e"))
 	var boss_max := float(data.get("boss_max", 0))
 	var boss_active := not str(data.get("boss_name", "")).is_empty() and boss_max > 0.0 and float(data.get("boss_hp", 0)) > 0.0
 	_boss.visible = boss_active
@@ -235,6 +301,9 @@ func update_hud(data: Dictionary) -> void:
 			names.append(str(buff).to_upper())
 	elif buffs is String:
 		names.append(buffs)
+	var ward_hits := int(data.get("ward_hits", 0))
+	if ward_hits > 0:
+		names.append("WARD ×%d" % ward_hits)
 	_buffs.text = " · ".join(names)
 
 
@@ -250,6 +319,7 @@ func show_launch(can_resume: bool, best_score: int) -> void:
 		_spacer(4)
 	_add_styles()
 	_add_text("BEST  " + _number(best_score), 16, MUTED)
+	_add_audio_button()
 	_finish_overlay()
 
 
@@ -264,6 +334,150 @@ func show_pause() -> void:
 	_spacer(16)
 	_footer(false, false)
 	_finish_overlay()
+
+
+func show_upgrade_choices(choices: Array, current_level: int) -> void:
+	# The game owns the paused run and validates the selected identifier. Never
+	# provide a resume/skip route while these two choices are awaiting a decision.
+	_overlay_data = {"choices": choices.duplicate(true), "level": current_level}
+	_upgrade_selection_locked = false
+	_new_overlay("upgrade")
+	_add_text("LEVEL %d" % current_level, 21, GOLD)
+	_add_text("CHOOSE YOUR EDGE", 35, CREAM)
+	_add_text("One upgrade. Your kind of chaos.", 17, MUTED)
+	_spacer(10)
+	for index in range(mini(2, choices.size())):
+		if choices[index] is Dictionary:
+			_card.add_child(_upgrade_button(choices[index], index))
+		if index == 0:
+			_add_text("OR", 14, MUTED)
+	_spacer(5)
+	_add_text("The arena waits for your choice.", 15, MUTED)
+	_add_audio_button()
+	_finish_overlay()
+
+
+func _upgrade_button(choice: Dictionary, index: int) -> Button:
+	var rare := bool(choice.get("rare", false)) or str(choice.get("rarity", "")).to_lower() in ["rare", "epic", "legendary"]
+	var color := Color("705032") if rare else (Color("3d6562") if index == 0 else Color("435c76"))
+	var button := _button("", "UpgradeChoice%d" % (index + 1), color)
+	button.custom_minimum_size.y = 145
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.set_meta("upgrade_id", str(choice.get("id", "")))
+	var issued_card := _card
+	button.pressed.connect(func():
+		if _upgrade_selection_locked or _overlay_kind != "upgrade" or issued_card != _card:
+			return
+		_upgrade_selection_locked = true
+		for target in _card.get_children():
+			if target is Button and target.has_meta("upgrade_id"):
+				target.disabled = true
+		upgrade_selected.emit(str(choice.get("id", "")))
+	)
+	var margin := MarginContainer.new()
+	margin.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	for side in ["left", "right"]:
+		margin.add_theme_constant_override("margin_" + side, 19)
+	for side in ["top", "bottom"]:
+		margin.add_theme_constant_override("margin_" + side, 13)
+	button.add_child(margin)
+	var contents := VBoxContainer.new()
+	contents.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	contents.alignment = BoxContainer.ALIGNMENT_CENTER
+	contents.add_theme_constant_override("separation", 8)
+	margin.add_child(contents)
+	var heading := HBoxContainer.new()
+	heading.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	heading.add_theme_constant_override("separation", 12)
+	contents.add_child(heading)
+	var icon := TextureRect.new()
+	icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	icon.custom_minimum_size = Vector2(30, 30)
+	icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture = _icons.get(str(choice.get("icon", "star")), _icons.get("star"))
+	icon.modulate = GOLD if rare else Color("c4fff0")
+	heading.add_child(icon)
+	var title := _label(str(choice.get("name", "A sharper edge")), 23, CREAM)
+	title.name = "UpgradeTitle%d" % (index + 1)
+	title.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	heading.add_child(title)
+	var description := _label(str(choice.get("description", "")), 20, Color("e6f8eb"))
+	description.name = "UpgradeDescription%d" % (index + 1)
+	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	contents.add_child(description)
+	var hint := _label("RARE UPGRADE · TAP TO TAKE" if rare else "TAP TO TAKE", 12, GOLD if rare else Color("c6dfdf"))
+	contents.add_child(hint)
+	return button
+
+
+func set_audio_settings(settings: Dictionary) -> void:
+	for key in ["music", "sfx"]:
+		_audio_settings[key] = bool(settings.get(key, _audio_settings[key]))
+	var any_enabled := bool(_audio_settings.sfx) or bool(_audio_settings.music)
+	if _sound != null:
+		_sound.icon = _icons.get("sound" if any_enabled else "sound_disabled")
+	if _overlay_kind == "audio":
+		_update_audio_buttons()
+
+
+func show_audio_settings() -> void:
+	if _overlay_kind == "audio":
+		return
+	if _overlay_kind.is_empty():
+		# pause_requested is connected synchronously by game.gd, which freezes
+		# combat before the audio panel can consume another touch.
+		pause_requested.emit()
+	_audio_previous_kind = _overlay_kind if not _overlay_kind.is_empty() else "pause"
+	_audio_previous_data = _overlay_data.duplicate(true)
+	_new_overlay("audio")
+	_add_text("SET THE MOOD", 16, GOLD)
+	_add_text("SOUND", 52, CREAM)
+	_add_text("Your music. Your mayhem.", 17, MUTED)
+	_spacer(20)
+	for spec in [["music", "BACKGROUND MUSIC", "MusicToggle", "music"], ["sfx", "SOUND EFFECTS", "SfxToggle", "sound"]]:
+		var key: String = spec[0]
+		var button := _action("", spec[2], Color("35565b"))
+		button.custom_minimum_size.y = 82
+		button.icon = _icons.get(spec[3])
+		button.expand_icon = true
+		button.pressed.connect(func():
+			_audio_settings[key] = not bool(_audio_settings[key])
+			audio_setting_changed.emit(key, bool(_audio_settings[key]))
+			_update_audio_buttons()
+		)
+	_spacer(15)
+	var back := _action("BACK", "AudioBackButton", Color("548d94"))
+	back.pressed.connect(_return_from_audio)
+	_update_audio_buttons()
+	_finish_overlay()
+
+
+func _update_audio_buttons() -> void:
+	for spec in [["music", "MusicToggle", "BACKGROUND MUSIC", "music"], ["sfx", "SfxToggle", "SOUND EFFECTS", "sound"]]:
+		var button := _card.get_node_or_null(str(spec[1])) as Button
+		if button == null:
+			continue
+		var enabled := bool(_audio_settings[spec[0]])
+		button.text = "%s   %s" % [spec[2], "ON" if enabled else "OFF"]
+		button.icon = _icons.get(str(spec[3]) if enabled else str(spec[3]) + "_disabled")
+		button.add_theme_stylebox_override("normal", _box(Color("355f5c") if enabled else Color("344249"), Color("8fcab5") if enabled else Color("677a7e")))
+
+
+func _return_from_audio() -> void:
+	_restore_overlay(_audio_previous_kind, _audio_previous_data)
+
+
+func close_auxiliary_overlay() -> bool:
+	if _overlay_kind == "audio":
+		_return_from_audio()
+		return true
+	if _overlay_kind in ["scores", "achievements"]:
+		_return_overlay()
+		return true
+	return false
 
 
 func show_end(data: Dictionary) -> void:
@@ -531,6 +745,16 @@ func _footer(include_daily: bool, include_share: bool) -> void:
 		share.custom_minimum_size.y = 48
 		share.add_theme_font_size_override("font_size", 14)
 		share.pressed.connect(func(): share_requested.emit())
+	_add_audio_button()
+
+
+func _add_audio_button() -> void:
+	var button := _action("AUDIO", "AudioSettingsButton", Color("30484a"))
+	button.custom_minimum_size.y = 44
+	button.add_theme_font_size_override("font_size", 14)
+	button.icon = _icons.get("sound")
+	button.expand_icon = true
+	button.pressed.connect(show_audio_settings)
 
 
 func _remember_overlay() -> void:
@@ -540,19 +764,23 @@ func _remember_overlay() -> void:
 
 
 func _return_overlay() -> void:
-	match _previous_kind:
+	_restore_overlay(_previous_kind, _previous_data)
+
+
+func _restore_overlay(kind: String, data: Dictionary) -> void:
+	match kind:
 		"end":
-			show_end(_previous_data)
+			show_end(data)
 		"launch":
-			show_launch(bool(_previous_data.get("can_resume", false)), int(_previous_data.get("best", 0)))
+			show_launch(bool(data.get("can_resume", false)), int(data.get("best", 0)))
+		"upgrade":
+			show_upgrade_choices(data.get("choices", []), int(data.get("level", 2)))
+		"scores":
+			show_scores(data.get("profile", {}), str(data.get("cloud_status", "")))
+		"achievements":
+			show_achievements(data.get("profile", {}))
 		_:
 			show_pause()
-
-
-func _toggle_sound() -> void:
-	_sound_enabled = not _sound_enabled
-	_sound.icon = _icons.get("sound" if _sound_enabled else "sound_disabled")
-	audio_toggled.emit()
 
 
 func _add_text(text: String, font_size: int, color: Color) -> Label:

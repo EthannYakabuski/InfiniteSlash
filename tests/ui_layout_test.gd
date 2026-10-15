@@ -7,6 +7,9 @@ const ClassProfiles = preload("res://scripts/class_profiles.gd")
 var _failures: Array[String] = []
 var _styles: Array[String] = []
 var _resume_count := 0
+var _pause_count := 0
+var _audio_changes: Array = []
+var _upgrades: Array[String] = []
 var _layouts: Array = []
 
 
@@ -27,6 +30,12 @@ func _run() -> void:
 	root.add_child(ui)
 	ui.start_requested.connect(func(style: String): _styles.append(style))
 	ui.resume_requested.connect(func(): _resume_count += 1)
+	ui.pause_requested.connect(func():
+		_pause_count += 1
+		ui.show_pause()
+	)
+	ui.audio_setting_changed.connect(func(key: String, enabled: bool): _audio_changes.append([key, enabled]))
+	ui.upgrade_selected.connect(func(id: String): _upgrades.append(id))
 	ui.achievements_requested.connect(func(): ui.show_achievements({"achievements": {"first_blood": 1}}))
 	for dimensions in [Vector2i(540, 960), Vector2i(540, 1110)]:
 		root.size = dimensions
@@ -41,6 +50,17 @@ func _run() -> void:
 		_check_buttons(ui, ["SwordButton", "ShieldButton"])
 		_check_style_cards(ui)
 		_check(ui.find_child("LeaderboardButton", true, false) == null, "Launch has no utility menu")
+		ui.set_audio_settings({"music": true, "sfx": true})
+		await _click_button(ui, "AudioSettingsButton")
+		_check_buttons(ui, ["MusicToggle", "SfxToggle", "AudioBackButton"])
+		await _click_button(ui, "MusicToggle")
+		_check(ui.get("_audio_settings") == {"music": false, "sfx": true}, "Music can be disabled while effects remain enabled")
+		await _click_button(ui, "SfxToggle")
+		_check(ui.get("_audio_settings") == {"music": false, "sfx": false}, "Both audio channels can be disabled")
+		await _click_button(ui, "MusicToggle")
+		_check(ui.get("_audio_settings") == {"music": true, "sfx": false}, "Music can remain enabled with effects disabled")
+		await _click_button(ui, "AudioBackButton")
+		_check(ui.get("_overlay_kind") == "launch", "Audio returns to launch without starting a run")
 		await _click_button(ui, "SwordButton")
 		await _click_button(ui, "ShieldButton")
 		ui.show_launch(true, 15023)
@@ -54,10 +74,13 @@ func _run() -> void:
 		_check(not ui.find_child("BossHealthBar", true, false).visible, "No boss bar outside a boss fight")
 		ui.update_hud({"style": "shield", "health": 64.5, "max_health": 170, "score": 15823, "best": 15900,
 			"level": 7, "xp": 4, "xp_goal": 10, "combo": 25, "multiplier": 3,
-			"dash_ready": false, "guard_ratio": 0.4, "boss_name": "The Tinpot King",
+			"dash_ready": false, "dash_cooldown": 0.7, "guard_ratio": 0.4, "boss_name": "The Tinpot King",
 			"boss_hp": 232, "boss_max": 700, "elapsed": 181, "buffs": {"ward": 3, "haste": 5}})
 		_check(ui.find_child("HealthText", true, false).text == "65 / 170", "Health HUD rounds damage readout")
 		_check(ui.find_child("ClassIcon", true, false).texture == ui.get("_icons")["shield"], "Health HUD identifies the selected Shield class")
+		_check_status_cards(ui)
+		_check(ui.find_child("DashDetail", true, false).text.contains("0.7s"), "Dash HUD shows the remaining recharge time")
+		_check(ui.find_child("GuardLabel", true, false).text == "GUARD 40%", "Guard HUD labels the remaining reserve")
 		ui.update_hud({"style": "sword"})
 		_check(ui.find_child("ClassIcon", true, false).texture == ui.get("_icons")["sword"], "Health HUD follows a switch to Sword")
 		ui.update_hud({"style": "shield", "health": 64.5, "max_health": 170, "score": 15823,
@@ -66,6 +89,10 @@ func _run() -> void:
 		_check(ui.find_child("ComboLabel", true, false).text.contains("25 COMBO"), "Combo HUD contract")
 		_check(ui.find_child("BossHealthBar", true, false).visible, "Boss bar appears for an active boss")
 		_check_buttons(ui, ["PauseButton", "SoundButton"])
+		await _click_button(ui, "SoundButton")
+		_check(ui.get("_overlay_kind") == "audio", "HUD sound button opens separate sound controls")
+		_check(ui.close_auxiliary_overlay(), "Back closes the audio panel")
+		_check(ui.get("_overlay_kind") == "pause", "Audio from combat returns to an explicitly paused run")
 		for i in range(12):
 			ui.toast("Reward %d" % i)
 		ui.toast("Reward 11")
@@ -90,14 +117,41 @@ func _run() -> void:
 		await process_frame
 		_check_buttons(ui, ["SwordButton", "ShieldButton", "ShareButton"])
 		_check_style_cards(ui)
+		await _click_button(ui, "AudioSettingsButton")
+		await _click_button(ui, "AudioBackButton")
+		_check(ui.get("_overlay_kind") == "end", "Audio returns to the completed run without starting again")
 		ui.show_achievements({"achievements": {"first_blood": 1739200123, "combo_25": 1739200130}})
 		await process_frame
 		await process_frame
 		_check_buttons(ui, ["AchievementsBackButton"])
 		ui.find_child("AchievementsBackButton", true, false).pressed.emit()
 		_check(ui.find_child("ShareButton", true, false) != null, "Badges returns to completed run overlay")
+		var choices := [
+			{"id": "keen_edge", "name": "Keen Edge", "description": "+4 slash damage", "icon": "sword"},
+			{"id": "thunderheart", "name": "Thunderheart", "description": "+1 lightning strike every fourth slash", "icon": "burst", "rarity": "rare"},
+		]
+		ui.show_upgrade_choices(choices, 10)
+		await process_frame
+		await process_frame
+		_check_buttons(ui, ["UpgradeChoice1", "UpgradeChoice2", "AudioSettingsButton"])
+		_check_upgrade_cards(ui)
+		_check(ui.find_child("ResumeButton", true, false) == null, "Pending upgrade has no resume bypass")
+		_check(not ui.close_auxiliary_overlay(), "Back cannot dismiss an unchosen upgrade")
+		await _click_button(ui, "AudioSettingsButton")
+		_check(ui.close_auxiliary_overlay(), "Back closes audio while an upgrade is pending")
+		await process_frame
+		await process_frame
+		_check(ui.get("_overlay_kind") == "upgrade", "Audio returns to the pending upgrade")
+		_check(ui.get("_overlay_data").choices == choices, "Audio preserves both exact randomized upgrade choices")
+		_check_upgrade_cards(ui)
+		await _click_button(ui, "UpgradeChoice2")
+		ui.find_child("UpgradeChoice2", true, false).pressed.emit()
+		_check(_upgrades.size() == (1 if dimensions.y == 960 else 2), "A choice emits once even if its callback is repeated")
 	_check(_styles == ["sword", "shield", "sword", "shield"], "Style button signals carry exact keys")
 	_check(_resume_count == 2, "Resume emits once per press")
+	_check(_pause_count == 2, "Audio pauses each active run once")
+	_check(_audio_changes == [["music", false], ["sfx", false], ["music", true], ["music", false], ["sfx", false], ["music", true]], "Audio emits the exact independent preference changes")
+	_check(_upgrades == ["thunderheart", "thunderheart"], "Upgrade choice emits its exact identifier")
 	world.reset()
 	_check(world.elapsed == 0.0, "World reset clears elapsed")
 	var layout_file := FileAccess.open("res://output/review/ui_layouts.json", FileAccess.WRITE)
@@ -107,7 +161,7 @@ func _run() -> void:
 	world.queue_free()
 	await process_frame
 	if _failures.is_empty():
-		print("UI_LAYOUT_PASS: portrait 540x960 and expanded540x1110; class comparison cards, actual one-tap input, HUD, local overlays and World contract")
+		print("UI_LAYOUT_PASS: portrait 540x960 and expanded540x1110; class and upgrade cards, independent audio, pending choice/back behavior, status HUD, actual one-tap input, local overlays and World contract")
 		quit(0)
 	else:
 		for failure in _failures:
@@ -169,3 +223,29 @@ func _click_button(ui: Node, button_name: String) -> void:
 		await process_frame
 	await process_frame
 	await process_frame
+
+
+func _check_status_cards(ui: Node) -> void:
+	var viewport := Rect2(Vector2.ZERO, root.get_visible_rect().size)
+	for prefix in ["Dash", "Guard"]:
+		var card: Panel = ui.find_child(prefix + "Card", true, false)
+		_check(viewport.encloses(card.get_global_rect()), prefix + " status card stays in the safe portrait area")
+		var label: Label = ui.find_child(prefix + "Label", true, false)
+		_check(card.get_global_rect().encloses(label.get_global_rect()), prefix + " large label fits its status card")
+		_check(label.get_theme_font_size("font_size") >= 18, prefix + " status is visibly larger than the previous small text")
+		_check(label.size.x >= label.get_minimum_size().x, prefix + " status fits without clipping")
+	var dash: Panel = ui.find_child("DashCard", true, false)
+	var guard: Panel = ui.find_child("GuardCard", true, false)
+	_check(not dash.get_global_rect().intersects(guard.get_global_rect()), "Guard and dash cards do not overlap")
+	_check(not dash.get_global_rect().intersects(ui.find_child("BuffLabel", true, false).get_global_rect()), "Buffs sit above the dash and guard cards")
+
+
+func _check_upgrade_cards(ui: Node) -> void:
+	for index in [1, 2]:
+		var button: Button = ui.find_child("UpgradeChoice%d" % index, true, false)
+		for prefix in ["UpgradeTitle", "UpgradeDescription"]:
+			var label: Label = ui.find_child("%s%d" % [prefix, index], true, false)
+			_check(button.get_global_rect().encloses(label.get_global_rect()), "Upgrade title and stat description fit inside its touch card")
+	var first: Button = ui.find_child("UpgradeChoice1", true, false)
+	var second: Button = ui.find_child("UpgradeChoice2", true, false)
+	_check(not first.get_global_rect().intersects(second.get_global_rect()), "Upgrade choice touch targets do not overlap")

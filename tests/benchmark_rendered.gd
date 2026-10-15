@@ -103,6 +103,8 @@ func _run() -> void:
 			while game.bullets.size() < game.MAX_BULLETS:
 				game._add_bullet(Vector2(random.randf_range(20, 520), random.randf_range(180, 900)), Vector2.from_angle(random.randf() * TAU) * 140, 12, true)
 			var tick_start = Time.get_ticks_usec()
+			while game.state == "upgrading":
+				game.choose_upgrade(str(game.upgrade_choices[0].id))
 			game.tick(1.0 / 60.0)
 			if measuring: simulation_times.append((Time.get_ticks_usec() - tick_start) / 1000.0)
 		elif measuring:

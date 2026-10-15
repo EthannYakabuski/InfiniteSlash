@@ -1,5 +1,7 @@
 # InfiniteSlash native Play Games implementation
 
+The **2026-10-15 / version 0.2.0** update is documented in [ROUND2_UPDATES.md](ROUND2_UPDATES.md), with rebuilt package hashes and Android results in [ROUND2_ANDROID.md](ROUND2_ANDROID.md). Package sizes, version codes and Android captures below describe the preceding builds; use the newer report for this update.
+
 The game now uses the supplied Play Games project `832658811620` and Android package `com.slash.game`. Native sign-in, achievements, leaderboards and saved profiles are enabled. The three configured leaderboards and twelve achievements are in `config/play_services.json`; daily scores and the duplicate 180-second achievement remain omitted. The confirmed incremental totals are 100 enemies, 100 monster discoveries, 1,000 lifetime kills and 10 runs. Longest Run sends whole seconds to the zero-decimal numeric leaderboard.
 
 ## Native build and saved-game behavior

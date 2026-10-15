@@ -1,6 +1,8 @@
 extends Node
 ## Offline-first profile storage. Only completed runs affect competitive records.
 
+const BossCatalog = preload("res://scripts/boss_catalog.gd")
+
 signal achievement_unlocked(key: String)
 signal profile_changed
 signal storage_error(message: String)
@@ -18,7 +20,11 @@ const ACHIEVEMENTS := {
 	"hundred_club": "A Hundred in a Hurry", "survivor_60": "Minute Knight",
 	"survivor_180": "Three Minute Hero", "combo_25": "Slice Streak",
 	"score_10000": "Five Digits of Slop", "thousand_kills": "Slop Sweeper",
-	"ten_runs": "Back for More"
+	"ten_runs": "Back for More", "rare_boss": "Royal Upset", "all_bosses": "Crown Census"
+}
+const BOSS_ACHIEVEMENT_DESCRIPTIONS := {
+	"rare_boss": "Defeat a rare boss: Moonmallow Majesty, Gilded Chancellor, or Lime Imperator.",
+	"all_bosses": "Defeat all 12 different bosses across your runs."
 }
 const COUNTERS := ["runs", "kills", "bosses", "played", "powerups"]
 
@@ -51,7 +57,7 @@ func _defaults() -> Dictionary:
 		"total_runs": 0, "total_kills": 0, "total_bosses": 0,
 		"total_played_seconds": 0.0, "collected_powerups": 0,
 		"device_totals": {device_id: _empty_counter()},
-		"achievements": {}, "discovered": [], "run_history": [], "daily_best": {},
+		"achievements": {}, "discovered": [], "defeated_bosses": [], "run_history": [], "daily_best": {},
 		"settings": {"music": true, "sfx": true, "haptics": true},
 		"cloud": {"pending_scores": {}, "pending_achievements": [],
 			"last_verified_revision": 0, "player_id": ""}
@@ -142,6 +148,13 @@ func _normalize_profile(raw: Dictionary) -> Dictionary:
 			if monster_id is String and _known_monsters.has(monster_id) and monster_id not in result.discovered:
 				result.discovered.append(monster_id)
 	result.discovered.sort()
+	var defeated_bosses: Variant = raw.get("defeated_bosses", [])
+	if defeated_bosses is Array:
+		var known_bosses := BossCatalog.ids()
+		for boss_id: Variant in defeated_bosses:
+			if boss_id is String and boss_id in known_bosses and boss_id not in result.defeated_bosses:
+				result.defeated_bosses.append(boss_id)
+	result.defeated_bosses.sort()
 	var history: Variant = raw.get("run_history", [])
 	if history is Array:
 		for run: Variant in history.slice(maxi(0, history.size() - MAX_HISTORY)):
@@ -402,8 +415,13 @@ func _evaluate_achievements(announce: bool) -> void:
 		"score_10000": profile.best_score >= 10000,
 		"thousand_kills": profile.total_kills >= 1000,
 		"ten_runs": profile.total_runs >= 10,
-		"collector": _known_monsters.size() >= 100 and profile.discovered.size() >= _known_monsters.size()
+		"collector": _known_monsters.size() >= 100 and profile.discovered.size() >= _known_monsters.size(),
+		"rare_boss": false,
+		"all_bosses": profile.get("defeated_bosses", []).size() >= BossCatalog.BOSSES.size()
 	}
+	for boss_id: String in profile.get("defeated_bosses", []):
+		if BossCatalog.is_rare(boss_id):
+			checks.rare_boss = true
 	for run: Dictionary in profile.run_history:
 		if run.kills >= 100:
 			checks.hundred_club = true
@@ -420,6 +438,24 @@ func discover_monster(monster_id: String) -> bool:
 	_evaluate_achievements(true)
 	save_profile()
 	return true
+
+## Persist unique victories at the moment of defeat, including runs later abandoned.
+## Repeats do not rewrite storage or inflate cumulative completed-run counters.
+func record_boss_defeat(boss_id: String) -> bool:
+	if BossCatalog.by_id(boss_id).is_empty():
+		return false
+	if profile.is_empty():
+		profile = _defaults()
+	if boss_id in profile.defeated_bosses:
+		return false
+	profile.defeated_bosses.append(boss_id)
+	profile.defeated_bosses.sort()
+	_evaluate_achievements(true)
+	save_profile()
+	return true
+
+func discover_boss(boss_id: String) -> bool:
+	return record_boss_defeat(boss_id)
 
 func save_active_run(run: Dictionary) -> void:
 	var safe := _normalize_active(run)
@@ -474,6 +510,10 @@ func merge_cloud_profile(remote: Dictionary) -> bool:
 		if monster_id not in profile.discovered:
 			profile.discovered.append(monster_id)
 	profile.discovered.sort()
+	for boss_id: String in incoming.defeated_bosses:
+		if boss_id not in profile.defeated_bosses:
+			profile.defeated_bosses.append(boss_id)
+	profile.defeated_bosses.sort()
 	for date: String in incoming.daily_best:
 		profile.daily_best[date] = maxi(int(profile.daily_best.get(date, 0)), int(incoming.daily_best[date]))
 	_prune_daily(profile.daily_best)

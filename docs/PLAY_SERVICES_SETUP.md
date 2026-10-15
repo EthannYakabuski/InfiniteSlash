@@ -18,7 +18,7 @@ Updated on **2026-10-12** against the game, owner-supplied console configuration
 | Intentionally omitted | Remote `survivor_180` and `daily_score` remain blank; their local behavior remains available |
 | Saved Games | Owner reported enabled on 2026-10-12 at “21:20 EST”; slot stays `infiniteslash_profile_v1` |
 | Native snapshot changes | Local fork awaits commit completion, exposes conflict resolution and distinguishes failed reads from absent saves; adapter validates both branches, merges progress and limits resolution attempts to ten |
-| Outstanding access/signing | Eligible PGS test accounts/track and a local release/upload signing workflow have not been supplied; the owner will handle these |
+| Outstanding access/signing | Eligible PGS test accounts/track remain unverified; local release/upload signing is now configured and has produced a signed bundle |
 
 The Saved Games time above preserves the owner's wording. The handoff records **2026-10-13 01:20 UTC under an explicit Toronto-local-time assumption**: Toronto observes EDT (UTC−4) on October 12. Literal EST would instead be 02:20 UTC. The owner-reported wording is not a confirmed UTC activation timestamp. Allow the documented activation window before diagnosing a missing cloud slot.
 
@@ -41,7 +41,7 @@ The current client uses real feature IDs with `enabled: true`. Local play remain
 | Feature | Implemented in the game | Still required |
 | --- | --- | --- |
 | Sign-in | Authentication check, manual sign-in through Scores/Badges, player identity lookup, local fallback | Eligible testers, matching debug credential or Play-installed build, live testing |
-| Achievements | 13 local badges, 12 configured online IDs, milestone triggers, replay and four cumulative counters | Upload icons to existing IDs and verify real Standard/Incremental behavior |
+| Achievements | 15 local badges, 12 configured online IDs and two new Standard badges awaiting IDs, milestone triggers, replay and four cumulative counters | Upload icons to existing IDs and verify real Standard/Incremental behavior |
 | Leaderboards | Three configured boards, pending best submissions; local daily challenge | Upload board artwork and verify the signed build's server records |
 | Saved Games | Stable cloud profile slot, validated merge, bounded native conflict resolution, awaited commit and readback verification | Confirm native artifact validation, activation propagation and real two-device tests |
 | Offline progression | Atomic local saves, backup recovery, active-run resume, local records/badges | Already usable; no Google setup required |
@@ -94,7 +94,7 @@ Android OAuth uses the **certificate SHA-1**, not the APK file checksum. This is
 
 ## 3. Create achievements
 
-There are **13 local keys but 12 distinct goals**. The following 12 achievements already exist and their generated IDs are configured. `survivor` and `survivor_180` both unlock locally after a completed run of at least 180 seconds; remote `survivor_180` is intentionally blank. All local badges continue working. Do not map both keys to the same remote ID or create another copy during icon upload.
+There are **15 local keys but 14 distinct goals**: twelve configured Google achievements and two new boss achievements awaiting IDs. See [new boss achievement registration](../store/boss-achievements/README.md). The following 12 achievements already exist and their generated IDs are configured. `survivor` and `survivor_180` both unlock locally after a completed run of at least 180 seconds; remote `survivor_180` is intentionally blank. All local badges continue working. Do not map both keys to the same remote ID or create another copy during icon upload.
 
 The initial definition table is retained below for reference and icon matching. It proposes **Revealed** English definitions and **290** total points; review the existing console entries before publication rather than recreating them. The owner confirmed the four Incremental types and step targets.
 
@@ -184,7 +184,7 @@ The supplied public configuration has been recorded in [PLAY_SERVICES_HANDOFF.js
 
 ### Configuration checklist retained for reference
 
-Game identity, twelve achievement IDs, three leaderboard IDs, the confirmed four Incremental types/targets, Saved Games confirmation and the Play App Signing credential are already supplied. The list below shows the full initial handoff scope; items 6 and 8 and any distribution-specific credentials remain pending. Blank optional feature IDs are skipped safely.
+Game identity, twelve achievement IDs, three leaderboard IDs, the confirmed four Incremental types/targets, Saved Games confirmation and the Play App Signing credential are already supplied. The list below shows the full initial handoff scope; item 6 and any additional distribution-specific OAuth credentials remain pending; local release signing is configured. Blank optional feature IDs are skipped safely.
 
 1. **Final package name** and confirmation of which installed build/signing route we will use.
 2. **Numeric PGS game ID**; linked Cloud project ID/number for troubleshooting.
@@ -193,7 +193,7 @@ Game identity, twelve achievement IDs, three leaderboard IDs, the confirmed four
 5. Confirmation that **Saved Games and the Games Services API are enabled**, plus the time the Saved Games switch was changed.
 6. **Eligible tester Google emails** and confirmation of PGS/OAuth test access; test track and opt-in URL if applicable.
 7. **Registered signer SHA-1s and linked Android OAuth client IDs** for the distribution routes in use. Public fingerprints/client IDs are safe to share. Include the Play app-signing fingerprint once available.
-8. For an uploadable release build: the **local upload-keystore path and alias**, or your existing signing workflow. Supply passwords locally through the editor/build environment; do not put them in this handoff.
+8. **Already configured locally:** the upload/release signing workflow. Keep its keystore, alias and passwords local; no signing secrets need to be sent again.
 
 ### Needed before public release, or when applicable
 
@@ -212,7 +212,7 @@ These are developer implementation/build tasks, distinct from the remaining owne
 1. **Configured:** real key/ID mappings, four Incremental targets, `enabled: true`, package `com.slash.game` and the intentionally omitted optional IDs.
 2. **Configured for native exports:** Gradle presets and the bundled editor export plugin, with exactly one wrapper autoload before SaveData/PlayServices. Verify the matching template/toolchain in the final build. [Godot Gradle build](https://docs.godotengine.org/en/4.5/tutorials/export/android_gradle_build.html)
 3. **Configured:** numeric game ID **`832658811620`** in `godot_play_game_services/game_id`. InfiniteSlash's export plugin generates `game_services_project_id` in the dedicated `android/build/res/values/godot_play_services.xml`, preserving the template's `strings.xml`. Final packaging must include the fork AAR/Maven dependencies and expose the Android singleton. [Upstream plugin configuration](https://github.com/godot-sdk-integrations/godot-play-game-services#configuring-the-plugin)
-4. **Owner-dependent:** release/upload signing and eligible test access. Confirm package/certificate metadata on the final signed build; the old offline APK cannot be converted by editing an external JSON file.
+4. **Owner-dependent:** eligible test access and Console publication. Local release/upload signing is configured. Confirm package/certificate metadata on the final signed build; the old offline APK cannot be converted by editing an external JSON file.
 5. **Build validation required:** API36/Gradle is requested in the current presets. Historical API35/offline evidence does not verify that configured export. Consult the final build report and [target API guidance](https://developer.android.com/google/play/requirements/target-sdk).
 6. **Artifact/runtime validation required:** check the final libraries/bundle for 16 KB page-size compatibility and run the required runtime. Partial alignment checks alone do not establish compatibility. [Android page-size guidance](https://developer.android.com/guide/practices/page-sizes)
 7. **Implemented locally:** native snapshot commit waiting, conflict resolution and explicit read failures; adapter validation and ten-attempt bound. The 152 fake-client checks do not replace live Google commit/conflict failure testing.

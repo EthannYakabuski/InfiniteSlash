@@ -59,7 +59,7 @@ func _ready() -> void:
 	_music_player.stream = loop
 	add_child(_music_player)
 	refresh_settings()
-	if _music_enabled:
+	if _music_enabled and not _music_player.playing:
 		_music_player.play()
 
 

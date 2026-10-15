@@ -1,5 +1,7 @@
 # Android build and test notes
 
+The **2026-10-15 / version 0.2.0** update is documented in [ROUND2_UPDATES.md](ROUND2_UPDATES.md), with rebuilt package hashes and Android results in [ROUND2_ANDROID.md](ROUND2_ANDROID.md). Package sizes, version codes and Android captures below describe the preceding builds; use the newer report for this update.
+
 The project uses Godot 4.5.1 with the compatibility renderer. Two export presets are provided:
 
 | Preset | Purpose | Build | Architectures | SDK behavior |

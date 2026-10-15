@@ -1,0 +1,37 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 560.94 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce GT 1030
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+INFINITESLASH_UI launch
+UI_CAPTURE launch_audio -> 0
+INFINITESLASH_UI audio
+UI_CAPTURE audio_split -> 0
+INFINITESLASH_UI launch
+INFINITESLASH_UI upgrade
+UI_CAPTURE upgrade_choices -> 0
+INFINITESLASH_UI running
+UI_CAPTURE hud_ready -> 0
+UI_CAPTURE hud_recharging -> 0
+INFINITESLASH_UI launch
+INFINITESLASH_UI scores
+UI_CAPTURE scores -> 0
+INFINITESLASH_UI achievements
+UI_CAPTURE badges -> 0
+UI_CAPTURE badges_scrolled -> 0
+INFINITESLASH_UI upgrade
+UI_CAPTURE upgrade_tall -> 0
+INFINITESLASH_UI achievements
+UI_CAPTURE badges_tall -> 0
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+UI_CAPTURE actual_combat_hud -> 0
+INFINITESLASH_UI upgrade
+UI_CAPTURE actual_level_up -> 0
+INFINITESLASH_UI audio
+UI_CAPTURE actual_upgrade_audio -> 0
+INFINITESLASH_UI upgrade
+UI_CAPTURE actual_upgrade_restored -> 0
+INFINITESLASH_UI running
+UI_CAPTURE actual_upgrade_resumed -> 0
+UI_RENDER_CAPTURE_PASS

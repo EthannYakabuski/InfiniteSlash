@@ -1,0 +1,47 @@
+{
+  "package_name": "com.slash.game",
+  "game_id": "832658811620",
+  "achievements": [
+    {
+      "key": "rare_boss",
+      "name": "Royal Upset",
+      "description": "Defeat a rare boss: Moonmallow Majesty, Gilded Chancellor, or Lime Imperator.",
+      "short_description": "Defeat any rare boss.",
+      "type": "Standard",
+      "suggested_points": 20,
+      "suggested_initial_state": "Revealed",
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google achievement ID",
+      "filename": "rare_boss.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "bytes": 5830,
+      "sha256": "09feafbba2ca3f12f4aaee12a27ffd2110171a2ae1d61659a5c3c2a46a66d967"
+    },
+    {
+      "key": "all_bosses",
+      "name": "Crown Census",
+      "description": "Defeat all 12 different bosses across your runs.",
+      "short_description": "Defeat all 12 different bosses.",
+      "type": "Standard",
+      "suggested_points": 30,
+      "suggested_initial_state": "Revealed",
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google achievement ID",
+      "filename": "all_bosses.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "bytes": 6318,
+      "sha256": "eef6a633a34ece3759ac4f0d89c262f9c4223077d83e1a8634b31df8f10ccab2"
+    }
+  ],
+  "instructions": "Create these two new Standard achievements, upload the matching PNGs, then send their IDs. Existing IDs are unchanged. Local unlocks are already saved and queued for replay after the IDs are configured.",
+  "provenance": "Extension of the existing code-native pixel medal system; actual moon_mallow sprite reused; no generated-image edits.",
+  "generator": "tools/build_boss_achievement_icons.py"
+}

@@ -1,8 +1,10 @@
 {
   "passed": true,
   "failures": [],
-  "image_count": 41,
-  "achievements": 12,
+  "image_count": 43,
+  "achievements": 14,
+  "configured_achievements": 12,
+  "pending_achievements": 2,
   "leaderboards": 3,
   "screenshots": 24,
   "description_lengths": {
@@ -11,9 +13,9 @@
       "limit": 80
     },
     "full_description": {
-      "characters": 1981,
+      "characters": 2125,
       "limit": 4000
     }
   },
-  "all_image_bytes": 6646238
+  "all_image_bytes": 7500962
 }

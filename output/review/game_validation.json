@@ -1,11 +1,12 @@
 {
-	"checks": 315,
+	"checks": 379,
 	"class_comparison": {
 		"shield": {
 			"capped_attack_interval": 0.4,
 			"capped_damage": 95.0,
 			"capped_guard": 250.0,
 			"capped_health": 300.0,
+			"capped_move_speed": 286.0,
 			"capped_range": 108.0,
 			"eight_guarded_hits_remaining_health": 138.0,
 			"guard_under_four_bullets_per_second": 3.86666666666667,
@@ -22,6 +23,7 @@
 			"capped_damage": 150.0,
 			"capped_guard": 110.0,
 			"capped_health": 160.0,
+			"capped_move_speed": 377.0,
 			"capped_range": 124.0,
 			"eight_guarded_hits_remaining_health": 0.0,
 			"guard_under_four_bullets_per_second": 0.766666666666667,
@@ -38,12 +40,12 @@
 	"pass": true,
 	"stress": {
 		"android_device_measured": false,
-		"average_step_ms": 1.21498144444444,
-		"bosses_seen": 6,
-		"kills": 4057,
-		"level": 36,
-		"max_step_ms": 447.917,
-		"p95_step_ms": 2.325,
+		"average_step_ms": 1.69901877777778,
+		"bosses_seen": 5,
+		"kills": 3327,
+		"level": 35,
+		"max_step_ms": 67.495,
+		"p95_step_ms": 3.163,
 		"peaks": {
 			"bullets": 240,
 			"drops": 60,
@@ -53,6 +55,6 @@
 		"rendering_measured": false,
 		"simulated_seconds": 300,
 		"steps": 18000,
-		"wall_time_ms": 23676.319
+		"wall_time_ms": 33008.117
 	}
 }

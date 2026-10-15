@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "apk_sha256": "d4c515364931cc3dd6a0a72b51c8261b4da7ded77add412f39366cef9ba13ad7",
+  "screenshots_reviewed": 6,
+  "device": "API30 Google APIs x86,1080x2220,host GPU,4096-byte pages",
+  "emulator_and_isolated_adb_stopped": true,
+  "evidence": [
+    {
+      "event": "upgrade_pause_verified",
+      "time": 1792059884.222018,
+      "duration": 17.561999999918044,
+      "checked_fields": [
+        "elapsed",
+        "health",
+        "score",
+        "player",
+        "bullets",
+        "enemies",
+        "buffs",
+        "xp",
+        "upgrade_choices"
+      ]
+    },
+    {
+      "event": "choice_resumes_combat",
+      "time": 1792059935.8033366,
+      "damage": 36.48,
+      "elapsed": 31.5999999999999,
+      "upgrade_counts": {
+        "sharper_steel": 1
+      },
+      "max_health": 80.0
+    },
+    {
+      "event": "rare_boss_identity_restored_and_saved",
+      "time": 1792059959.0800245,
+      "boss": "moonmallow_majesty",
+      "pattern": "spiral",
+      "elapsed": 92.1666666666665,
+      "age": 2.16666666666666
+    },
+    {
+      "event": "round2_android_smoke_pass",
+      "time": 1792059959.4390259,
+      "runtime_errors": 0,
+      "storage_failures_observed": 0
+    }
+  ]
+}

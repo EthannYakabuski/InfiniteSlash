@@ -4,12 +4,13 @@ extends Node2D
 const WorldScript = preload("res://scripts/world.gd")
 const UIScript = preload("res://scripts/game_ui.gd")
 const ClassProfiles = preload("res://scripts/class_profiles.gd")
+const UpgradeCatalog = preload("res://scripts/upgrade_catalog.gd")
+const BossCatalog = preload("res://scripts/boss_catalog.gd")
 const MAX_ENEMIES = 100
 const MAX_BULLETS = 240
 const MAX_DROPS = 60
 const MAX_EFFECTS = 90
 const PLAYER_RADIUS = 13.0
-const BOSS_TITLES = ["THE TINPOT KING", "DUCHESS WOBBLE", "MOSSJAW THE HUNGRY", "SIR SPIT-A-LOT", "THE PUMPKIN PROBLEM", "MADAME MOONMOTH", "CAPTAIN CLATTER", "THE CROWN OF SLOP"]
 const UNLOCK_TIMES = {"chaser": 0.0, "skitter": 12.0, "tank": 20.0, "spitter": 16.0, "charger": 25.0, "fan": 32.0, "orbiter": 38.0, "splitter": 45.0}
 const BUFF_NAMES = {"haste": "QUICKSILVER", "hurricane": "HURRICANE", "ward": "THREE-HIT WARD", "magnet": "LOOT MAGNET", "frost": "FROSTBITE", "spark": "THUNDERBLADE"}
 const ACHIEVEMENT_NAMES = {"first_blood": "FIRST SLICE", "boss_slayer": "CROWN COLLECTOR", "century": "A HUNDRED LITTLE PROBLEMS", "hundred_club": "CENTURY CLUB", "survivor": "STILL STANDING", "survivor_60": "ONE MINUTE WONDER", "survivor_180": "STILL STANDING", "legend": "KNIGHT OF INFINITE NONSENSE", "combo_25": "SLICE STREAK", "score_10000": "FIVE DIGITS OF SLOP", "collector": "BESTIARY COMPLETE", "thousand_kills": "A THOUSAND SLICES", "ten_runs": "ONE MORE RUN"}
@@ -33,7 +34,13 @@ var challenge_date = ""
 var run_seed: int = 0
 var rng = RandomNumberGenerator.new()
 var loot_rng = RandomNumberGenerator.new()
+var upgrade_rng = RandomNumberGenerator.new()
+var boss_rng = RandomNumberGenerator.new()
 var visual_rng = RandomNumberGenerator.new()
+var upgrade_choices: Array = []
+var upgrade_counts: Dictionary = {}
+var last_boss_id = ""
+var dash_recharge = 1.45
 var player_pos = Vector2(270, 720)
 var move_direction = Vector2.ZERO
 var facing = Vector2.UP
@@ -113,7 +120,9 @@ func _ready() -> void:
 	hud.pause_requested.connect(pause_run)
 	hud.leaderboard_requested.connect(_show_scores)
 	hud.achievements_requested.connect(_show_achievements)
-	hud.audio_toggled.connect(_toggle_audio)
+	hud.audio_setting_changed.connect(_set_audio_setting)
+	hud.upgrade_selected.connect(choose_upgrade)
+	hud.set_audio_settings(SaveData.profile.get("settings", {}))
 	hud.daily_requested.connect(func(): start_run("sword", true))
 	if hud.has_signal("share_requested"):
 		hud.share_requested.connect(_share_score)
@@ -191,6 +200,12 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	run_seed = int(challenge_date.replace("-", "")) * 7919 if daily else int(Time.get_ticks_usec())
 	rng.seed = run_seed
 	loot_rng.seed = run_seed ^ 1234567
+	upgrade_rng.seed = run_seed ^ 734719
+	boss_rng.seed = run_seed ^ 819331
+	upgrade_choices.clear()
+	upgrade_counts.clear()
+	last_boss_id = ""
+	dash_recharge = 1.45
 	state = "running"
 	enemies.clear()
 	bullets.clear()
@@ -252,11 +267,14 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
+	if state == "upgrading" and demo and not upgrade_choices.is_empty():
+		choose_upgrade(str(upgrade_choices[0].id))
 	if state != "running":
 		return
 	tick(minf(delta, 0.05))
 
 func tick(delta: float) -> void:
+	if state != "running": return
 	elapsed += delta
 	combo_timer = maxf(0, combo_timer - delta)
 	if combo_timer <= 0:
@@ -277,7 +295,11 @@ func tick(delta: float) -> void:
 	_update_spawns(delta)
 	_update_enemies(delta)
 	_update_bullets(delta)
+	if health <= 0:
+		end_run()
+		return
 	_update_drops(delta)
+	if state != "running": return
 	_update_weapon(delta)
 	if buffs.has("spark"):
 		spark_timer -= delta
@@ -295,16 +317,17 @@ func tick(delta: float) -> void:
 		end_run()
 
 func _process(delta: float) -> void:
-	visual_time += minf(delta, 0.05)
+	var combat_delta = 0.0 if state == "upgrading" else delta
+	visual_time += minf(combat_delta, 0.05)
 	if get_viewport_rect().size != arena:
 		arena = get_viewport_rect().size
 		player_pos = _clamp_player(player_pos)
-	slash_time = maxf(0, slash_time - delta)
-	shake = maxf(0, shake - delta * 25)
+	slash_time = maxf(0, slash_time - combat_delta)
+	shake = maxf(0, shake - combat_delta * 25)
 	for i in range(effects.size() - 1, -1, -1):
 		var effect = effects[i]
-		effect.life -= delta
-		if effect.kind != "lightning": effect.pos += effect.vel * delta
+		effect.life -= combat_delta
+		if effect.kind != "lightning": effect.pos += effect.vel * combat_delta
 		if effect.life <= 0: effects.remove_at(i)
 	if world != null:
 		world.advance(delta if state == "running" else delta * 0.18 if state == "launch" else 0.0, elapsed)
@@ -357,7 +380,7 @@ func try_dash(direction: Vector2) -> bool:
 		return false
 	dash_direction = direction.normalized()
 	dash_timer = 0.18
-	dash_cooldown = 1.45
+	dash_cooldown = dash_recharge
 	guarding = false
 	AudioManager.play_sound("dash")
 	return true
@@ -370,10 +393,17 @@ func _update_spawns(delta: float) -> void:
 		if enemies.size() >= MAX_ENEMIES:
 			enemies.remove_at(0)
 		boss_number += 1
-		spawn_enemy(roster.size() - 1 if boss_number == 1 else rng.randi_range(0, roster.size() - 2), true, Vector2(arena.x * 0.5, 190))
+		var definition: Dictionary = BossCatalog.choose(boss_rng, elapsed, last_boss_id)
+		last_boss_id = str(definition.id)
+		var monster_index = roster.size() - 1
+		for index in range(roster.size()):
+			if str(roster[index].id) == str(definition.monster_id):
+				monster_index = index
+				break
+		spawn_enemy(monster_index, true, Vector2(arena.x * 0.5, 190), false, definition)
 		next_boss = elapsed + 45.0
 		has_boss = true
-		hud.toast(BOSS_TITLES[(boss_number - 1) % BOSS_TITLES.size()], Color("ffb679"))
+		hud.toast(("RARE CROWN · " if bool(definition.rare) else "") + str(definition.name), Color("ffb679"))
 		AudioManager.play_sound("boss")
 		shake = 5.0
 	if spawn_timer <= 0:
@@ -389,7 +419,7 @@ func _choose_monster() -> int:
 			eligible.append(i)
 	return eligible[rng.randi_range(0, eligible.size() - 1)] if not eligible.is_empty() else 0
 
-func spawn_enemy(index: int = -1, is_boss: bool = false, spawn_pos: Vector2 = Vector2.INF, is_minion: bool = false) -> Dictionary:
+func spawn_enemy(index: int = -1, is_boss: bool = false, spawn_pos: Vector2 = Vector2.INF, is_minion: bool = false, boss_definition: Dictionary = {}) -> Dictionary:
 	if enemies.size() >= MAX_ENEMIES:
 		return {}
 	if index < 0: index = _choose_monster()
@@ -405,6 +435,22 @@ func spawn_enemy(index: int = -1, is_boss: bool = false, spawn_pos: Vector2 = Ve
 	if is_boss: hp = 560.0 * pow(1.21, minf(12, boss_number - 1))
 	if is_minion: hp = 12.0 * scaling
 	var enemy = {"kind": index, "pos": spawn_pos, "hp": hp, "max_hp": hp, "radius": 35.0 if is_boss else float(info.get("radius", 16)) * (0.65 if is_minion else 1.0), "speed": 58.0 if is_boss else float(info.speed) * (1.0 + minf(0.4, elapsed / 900.0)), "damage": minf(26, float(info.damage) * (1.0 + elapsed / 1100.0)), "behavior": "boss" if is_boss else "chaser" if is_minion else str(info.behavior), "boss": is_boss, "minion": is_minion, "alive": true, "age": 0.0, "cooldown": rng.randf_range(1.4, 2.6), "windup": 0.0, "charge": 0.0, "aim": Vector2.DOWN, "knock": Vector2.ZERO, "flash": 0.0, "phase": 0, "anim": rng.randf() * 4.0, "last_slash": -1}
+	if is_boss:
+		# Direct spawns use the first catalog identity; scheduled bosses receive
+		# a weighted identity independent of appearance order.
+		if boss_definition.is_empty(): boss_definition = BossCatalog.all()[0]
+		enemy.boss_id = str(boss_definition.id)
+		enemy.boss_name = str(boss_definition.name)
+		enemy.boss_pattern = str(boss_definition.pattern)
+		enemy.boss_rare = bool(boss_definition.rare)
+		var phase_tier: int = BossCatalog.phase(elapsed)
+		# An early rare visitor is still an early encounter, with fair early HP.
+		var hp_multiplier = clampf(float(boss_definition.health_multiplier), 0.85, 1.15 + (phase_tier - 1) * 0.22)
+		enemy.hp = minf(10000, hp * hp_multiplier)
+		enemy.max_hp = enemy.hp
+		enemy.speed = clampf(58.0 * float(boss_definition.speed_multiplier), 42, 90)
+		enemy.damage = clampf((12.0 + minf(10, boss_number * 0.7)) * float(boss_definition.damage_multiplier), 10, 28)
+		enemy.boss_cooldown_multiplier = float(boss_definition.cooldown_multiplier)
 	enemies.append(enemy)
 	return enemy
 
@@ -429,7 +475,7 @@ func _update_enemies(delta: float) -> void:
 			if enemy.windup <= 0: _fire_enemy(enemy)
 		elif behavior == "boss":
 			var desired = Vector2(arena.x * 0.5 + sin(enemy.age * 0.8) * arena.x * 0.29, clampf(player_pos.y - 170, 190, arena.y * 0.58))
-			velocity = (desired - enemy.pos).limit_length(60)
+			velocity = (desired - enemy.pos).limit_length(float(enemy.speed))
 			if enemy.cooldown <= 0: _prepare_attack(enemy)
 		elif behavior in ["spitter", "fan", "orbiter"]:
 			if behavior == "orbiter":
@@ -465,20 +511,29 @@ func _fire_enemy(enemy: Dictionary) -> void:
 	var info = roster[enemy.kind]
 	var bullet_speed = maxf(115, float(info.get("bullet_speed", 130))) + minf(65, elapsed * 0.13)
 	if enemy.boss:
-		enemy.cooldown = maxf(1.5, 2.9 - boss_number * 0.09)
-		match int(enemy.phase) % 3:
-			0:
-				for i in range(14):
-					if i in [0, 1, 13]: continue
-					var angle = enemy.aim.angle() + float(i) * TAU / 14.0
-					_add_bullet(enemy.pos, Vector2.from_angle(angle) * (125 + mini(50, boss_number * 6)), 13, true)
-			1:
-				for i in range(-2, 3): _add_bullet(enemy.pos, enemy.aim.rotated(i * 0.25) * bullet_speed, 14, true)
-			2:
-				if boss_number >= 2:
-					enemy.charge = 0.48
-				else:
-					for i in range(-1, 2): _add_bullet(enemy.pos, enemy.aim.rotated(i * 0.38) * bullet_speed, 12, true)
+		enemy.cooldown = clampf((2.9 - minf(12, boss_number) * 0.09) * float(enemy.get("boss_cooldown_multiplier", 1.0)), 1.45, 3.5)
+		var pattern = str(enemy.get("boss_pattern", "ring"))
+		var phase = int(enemy.phase)
+		var shot_damage = minf(26, float(enemy.damage))
+		if pattern == "charge" and phase % 2 == 0:
+			enemy.charge = 0.48
+		elif pattern == "fan" or (pattern == "charge"):
+			var half = 3 if pattern == "fan" else 1
+			for i in range(-half, half + 1):
+				_add_bullet(enemy.pos, enemy.aim.rotated(i * 0.24) * bullet_speed, shot_damage, true)
+		elif pattern == "spiral":
+			# Alternating spoke volleys keep a large telegraphed escape wedge.
+			for i in range(16):
+				if i in [0, 1, 2, 14, 15]: continue
+				var angle = enemy.aim.angle() + float(i) * TAU / 16.0 + (0.08 if phase % 2 == 0 else -0.08)
+				_add_bullet(enemy.pos, Vector2.from_angle(angle) * (130 + mini(45, boss_number * 4)), shot_damage, true)
+		elif phase % 3 == 1:
+			for i in range(-2, 3): _add_bullet(enemy.pos, enemy.aim.rotated(i * 0.25) * bullet_speed, shot_damage, true)
+		else:
+			for i in range(14):
+				if i in [0, 1, 13]: continue
+				var angle = enemy.aim.angle() + float(i) * TAU / 14.0
+				_add_bullet(enemy.pos, Vector2.from_angle(angle) * (125 + mini(50, boss_number * 6)), shot_damage, true)
 	elif enemy.behavior == "charger":
 		enemy.charge = 0.48
 		enemy.cooldown = 2.7
@@ -586,6 +641,7 @@ func _kill_enemy(enemy: Dictionary) -> void:
 		hud.toast("CROWN COLLECTED · +30 HEALTH", Color("ffd580"))
 		AudioManager.play_sound("level")
 		if not testing and not demo:
+			SaveData.record_boss_defeat(str(enemy.get("boss_id", "")))
 			SaveData.unlock("boss_slayer")
 			if bosses >= 5: SaveData.unlock("legend")
 	elif enemy.behavior == "splitter" and not enemy.minion:
@@ -646,8 +702,9 @@ func _update_drops(delta: float) -> void:
 		if offset.length() < attraction:
 			drop.pos += offset.normalized() * (310.0 if buffs.has("magnet") else 180.0) * delta
 		if offset.length() < 23:
-			collect_drop(drop)
 			drops.remove_at(i)
+			collect_drop(drop)
+			if state != "running": return
 		elif drop.life <= 0:
 			drops.remove_at(i)
 
@@ -655,7 +712,7 @@ func collect_drop(drop: Dictionary) -> void:
 	var kind = str(drop.kind)
 	if kind == "xp":
 		xp += int(drop.value)
-		while xp >= xp_goal:
+		if xp >= xp_goal and state == "running":
 			xp -= xp_goal
 			level_up()
 		AudioManager.play_sound("pickup", 1.05)
@@ -675,30 +732,52 @@ func collect_drop(drop: Dictionary) -> void:
 	AudioManager.play_sound("pickup")
 
 func level_up() -> void:
+	if state != "running": return
 	level += 1
 	xp_goal = int(8 + pow(float(level), 1.28) * 3)
-	var upgrade = ""
-	match (level - 2) % 5:
-		0:
-			damage = minf(float(class_stats.damage_cap), damage * 1.14)
-			upgrade = "SHARPER STEEL"
-		1:
-			attack_interval = maxf(float(class_stats.attack_floor), attack_interval * 0.94)
-			upgrade = "QUICKER SLICES"
-		2:
-			attack_range = minf(float(class_stats.range_cap), attack_range + 5)
-			upgrade = "LONGER REACH"
-		3:
-			max_health = minf(float(class_stats.health_cap), max_health + 8)
-			health = minf(max_health, health + 18)
-			upgrade = "HEART OF A KNIGHT"
-		4:
-			guard_capacity = minf(float(class_stats.guard_cap), guard_capacity + 8)
-			guard_reserve = minf(guard_capacity, guard_reserve + 30)
-			upgrade = "STRONGER GUARD"
-	_burst(player_pos, Color("ffd574"), 12)
-	hud.toast("LEVEL %d · %s" % [level, upgrade], Color("ffe5a5"))
+	upgrade_choices = UpgradeCatalog.roll_offers(upgrade_rng, level, _upgrade_stats(), upgrade_counts)
+	state = "upgrading"
+	_release_input()
+	hud.show_upgrade_choices(upgrade_choices, level)
 	AudioManager.play_sound("level")
+	_update_hud()
+	if not testing and not demo: SaveData.save_active_run(serialize_run())
+
+func _upgrade_stats() -> Dictionary:
+	return {"style": style, "class_stats": class_stats, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "move_speed": move_speed, "dash_recharge": dash_recharge, "score": score}
+
+func choose_upgrade(id: String) -> void:
+	if state != "upgrading": return
+	var selected: Dictionary = {}
+	for choice in upgrade_choices:
+		if str(choice.id) == id: selected = choice
+	if selected.is_empty(): return
+	var upgraded: Dictionary = UpgradeCatalog.apply_upgrade(id, _upgrade_stats(), upgrade_rng)
+	health = float(upgraded.health)
+	max_health = float(upgraded.max_health)
+	damage = float(upgraded.damage)
+	attack_interval = float(upgraded.attack_interval)
+	attack_range = float(upgraded.attack_range)
+	guard_capacity = float(upgraded.guard_capacity)
+	guard_reserve = float(upgraded.guard_reserve)
+	move_speed = float(upgraded.move_speed)
+	dash_recharge = float(upgraded.dash_recharge)
+	dash_cooldown = minf(dash_cooldown, dash_recharge)
+	score = int(upgraded.score)
+	upgrade_counts[id] = int(upgrade_counts.get(id, 0)) + 1
+	upgrade_choices.clear()
+	state = "running"
+	_release_input()
+	hurt_timer = maxf(hurt_timer, 0.65)
+	hud.hide_overlay()
+	hud.toast(str(selected.name), Color("ffe5a5"))
+	_burst(player_pos, Color("ffd574"), 12)
+	# Overflow XP queues the next decision without ever discarding a reward.
+	if xp >= xp_goal:
+		xp -= xp_goal
+		level_up()
+	_update_hud()
+	if not testing and not demo: SaveData.save_active_run(serialize_run())
 
 func _chain_lightning() -> void:
 	var remaining = 3
@@ -726,7 +805,7 @@ func _boss():
 
 func _update_hud() -> void:
 	var boss = _boss()
-	hud.update_hud({"style": style, "health": health, "max_health": max_health, "score": score, "best": int(SaveData.profile.get("best_score", 0)), "level": level, "xp": xp, "xp_goal": xp_goal, "combo": combo, "multiplier": multiplier(), "dash_ready": dash_cooldown <= 0, "guard_ratio": guard_reserve / guard_capacity, "boss_name": BOSS_TITLES[(maxi(1, boss_number) - 1) % BOSS_TITLES.size()] if boss != null else "", "boss_hp": float(boss.hp) if boss != null else 0.0, "boss_max": float(boss.max_hp) if boss != null else 1.0, "elapsed": elapsed, "buffs": buffs, "ward_hits": ward_hits, "combo_ratio": combo_timer / 2.8})
+	hud.update_hud({"style": style, "health": health, "max_health": max_health, "score": score, "best": int(SaveData.profile.get("best_score", 0)), "level": level, "xp": xp, "xp_goal": xp_goal, "combo": combo, "multiplier": multiplier(), "dash_ready": dash_cooldown <= 0, "dash_cooldown": dash_cooldown, "dash_recharge": dash_recharge, "guard_active": guarding, "guard_ratio": guard_reserve / guard_capacity, "boss_name": (("RARE · " if bool(boss.get("boss_rare", false)) else "") + str(boss.get("boss_name", "ROAMING CROWN"))).to_upper() if boss != null else "", "boss_hp": float(boss.hp) if boss != null else 0.0, "boss_max": float(boss.max_hp) if boss != null else 1.0, "elapsed": elapsed, "buffs": buffs, "ward_hits": ward_hits, "combo_ratio": combo_timer / 2.8})
 
 func pause_run() -> void:
 	if state != "running": return
@@ -737,6 +816,11 @@ func pause_run() -> void:
 
 func resume_run() -> void:
 	if state != "paused": return
+	if not upgrade_choices.is_empty():
+		state = "upgrading"
+		_release_input()
+		hud.show_upgrade_choices(upgrade_choices, level)
+		return
 	state = "running"
 	_release_input()
 	hurt_timer = maxf(hurt_timer, 0.45)
@@ -766,15 +850,14 @@ func _show_achievements() -> void:
 	if state == "running": pause_run()
 	PlayServices.show_achievements()
 
-func _toggle_audio() -> void:
+func _set_audio_setting(key: String, enabled: bool) -> void:
+	if key not in ["music", "sfx"]: return
 	var settings = SaveData.profile.get("settings", {})
-	var enabled = not (bool(settings.get("music", true)) or bool(settings.get("sfx", true)))
-	settings["music"] = enabled
-	settings["sfx"] = enabled
+	settings[key] = enabled
 	SaveData.profile["settings"] = settings
 	SaveData.save_profile()
-	AudioManager.set_enabled(enabled)
-	hud.toast("SOUND ON" if enabled else "SOUND OFF", Color("fff1d0"))
+	AudioManager.refresh_settings()
+	hud.set_audio_settings(settings)
 
 func _share_score() -> void:
 	var text = "I sliced through %d creatures and %d bosses in InfiniteSlash. Score: %d. One thumb. Endless trouble." % [kills, bosses, score]
@@ -789,18 +872,23 @@ func _notification(what: int) -> void:
 	if not ready_complete: return
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		if state == "running" and not demo and not testing: pause_run()
+		elif state == "upgrading" and not demo and not testing: SaveData.save_active_run(serialize_run())
 	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
-		if state == "running": pause_run()
+		if hud.close_auxiliary_overlay(): return
+		if state == "upgrading": return
+		elif state == "running": pause_run()
 		elif state == "paused": resume_run()
 		else: get_tree().quit()
 	elif what == NOTIFICATION_WM_CLOSE_REQUEST:
-		if state == "running" and not testing and not demo: SaveData.save_active_run(serialize_run())
+		if state in ["running", "upgrading"] and not testing and not demo: SaveData.save_active_run(serialize_run())
 		get_tree().quit()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_ESCAPE:
-			if state == "running": pause_run()
+			if hud.close_auxiliary_overlay(): return
+			if state == "upgrading": return
+			elif state == "running": pause_run()
 			elif state == "paused": resume_run()
 		elif event.keycode == KEY_SPACE and state == "running": try_dash(move_direction if move_direction.length() > 0 else facing)
 	if state != "running": return
@@ -843,7 +931,11 @@ func _release_input() -> void:
 	gesture_dashed = false
 
 func _encode_entity(entity: Dictionary) -> Dictionary:
-	var result = entity.duplicate(true)
+	# New Dictionary dot-properties can create StringName keys. Canonicalize
+	# them before validation, rather than depending on a JSON round-trip to do it.
+	var result: Dictionary = {}
+	for key in entity:
+		result[str(key)] = entity[key]
 	for key in ["pos", "vel", "aim", "knock"]:
 		if result.has(key) and result[key] is Vector2:
 			result[key] = [result[key].x, result[key].y]
@@ -894,6 +986,13 @@ func _decode_entities(values, cap: int, category: String) -> Array:
 			entity.last_slash = -1
 			entity.knock = entity.knock.limit_length(200)
 			entity.aim = entity.aim.normalized()
+			if entity.boss:
+				var definition: Dictionary = BossCatalog.by_id(str(entity.get("boss_id", "")))
+				entity.boss_id = str(definition.get("id", ""))
+				entity.boss_name = str(definition.get("name", "ROAMING CROWN"))
+				entity.boss_pattern = str(definition.get("pattern", "ring"))
+				entity.boss_rare = bool(definition.get("rare", false))
+				entity.boss_cooldown_multiplier = float(definition.get("cooldown_multiplier", 1.0))
 		elif category == "bullet":
 			if not entity.has_all(["vel", "damage", "life", "boss", "radius"]): continue
 			if not _numeric_fields(entity, ["damage", "life", "radius"]) or not entity.boss is bool: continue
@@ -919,7 +1018,8 @@ func serialize_run() -> Dictionary:
 		if entity.alive: saved_enemies.append(_encode_entity(entity))
 	for entity in bullets: saved_bullets.append(_encode_entity(entity))
 	for entity in drops: saved_drops.append(_encode_entity(entity))
-	return {"schema": 1, "balance_version": ClassProfiles.BALANCE_VERSION, "style": style, "daily": daily, "challenge_date": challenge_date, "seed": str(run_seed), "rng_state": str(rng.state), "loot_state": str(loot_rng.state), "player": [player_pos.x, player_pos.y], "elapsed": elapsed, "score": score, "kills": kills, "bosses": bosses, "powerups": powerups, "combo": combo, "best_combo": best_combo, "combo_timer": combo_timer, "level": level, "xp": xp, "xp_goal": xp_goal, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "ward_hits": ward_hits, "buffs": buffs.duplicate(true), "next_boss": next_boss, "boss_number": boss_number, "spawn_timer": spawn_timer, "relief_until": relief_until, "dash_cooldown": dash_cooldown, "enemies": saved_enemies, "bullets": saved_bullets, "drops": saved_drops}
+	return {"schema": 1, "balance_version": ClassProfiles.BALANCE_VERSION, "style": style, "daily": daily, "challenge_date": challenge_date, "seed": str(run_seed), "rng_state": str(rng.state), "loot_state": str(loot_rng.state), "player": [player_pos.x, player_pos.y], "elapsed": elapsed, "score": score, "kills": kills, "bosses": bosses, "powerups": powerups, "combo": combo, "best_combo": best_combo, "combo_timer": combo_timer, "level": level, "xp": xp, "xp_goal": xp_goal, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "ward_hits": ward_hits, "buffs": buffs.duplicate(true), "next_boss": next_boss, "boss_number": boss_number, "spawn_timer": spawn_timer, "relief_until": relief_until, "dash_cooldown": dash_cooldown, "enemies": saved_enemies, "bullets": saved_bullets, "drops": saved_drops,
+		"upgrade_version": 1, "upgrade_state": str(upgrade_rng.state), "boss_state": str(boss_rng.state), "last_boss_id": last_boss_id, "move_speed": move_speed, "dash_recharge": dash_recharge, "upgrade_counts": upgrade_counts.duplicate(), "upgrade_choices": upgrade_choices.map(func(card): return str(card.id))}
 
 func restore_run(data: Dictionary) -> bool:
 	if not _finite_number(data.get("schema")) or int(data.schema) != 1 or not data.has_all(["player", "health", "elapsed", "score", "style"]): return false
@@ -927,6 +1027,15 @@ func restore_run(data: Dictionary) -> bool:
 	if not _numeric_fields(data, ["health", "elapsed", "score", "kills", "bosses", "powerups", "combo", "best_combo", "combo_timer", "level", "xp", "xp_goal", "max_health", "damage", "attack_interval", "attack_range", "guard_capacity", "guard_reserve", "ward_hits", "next_boss", "boss_number", "spawn_timer", "relief_until", "dash_cooldown"]): return false
 	if not data.style is String or (data.has("daily") and not data.daily is bool): return false
 	if not data.player is Array or data.player.size() != 2 or not _finite_number(data.player[0]) or not _finite_number(data.player[1]) or float(data.health) <= 0: return false
+	if data.has("upgrade_version") and (not _finite_number(data.upgrade_version) or int(data.upgrade_version) != 1): return false
+	if not _numeric_fields(data, ["move_speed", "dash_recharge"]): return false
+	var pending: Variant = data.get("upgrade_choices", [])
+	if not pending is Array or pending.size() not in [0, 2]: return false
+	for id in pending:
+		if not id is String or UpgradeCatalog.get_upgrade(id).is_empty(): return false
+		if int(UpgradeCatalog.get_upgrade(id).min_level) > int(data.get("level", 1)): return false
+	if pending.size() == 2 and pending[0] == pending[1]: return false
+	if data.has("upgrade_counts") and not data.upgrade_counts is Dictionary: return false
 	var pos = Vector2(float(data.player[0]), float(data.player[1]))
 	if not pos.is_finite(): return false
 	style = "shield" if str(data.style) == "shield" else "sword"
@@ -938,6 +1047,16 @@ func restore_run(data: Dictionary) -> bool:
 	rng.state = int(str(data.get("rng_state", str(rng.state))))
 	loot_rng.seed = run_seed ^ 1234567
 	loot_rng.state = int(str(data.get("loot_state", str(loot_rng.state))))
+	upgrade_rng.seed = run_seed ^ 734719
+	upgrade_rng.state = int(str(data.get("upgrade_state", str(upgrade_rng.state))))
+	boss_rng.seed = run_seed ^ 819331
+	boss_rng.state = int(str(data.get("boss_state", str(boss_rng.state))))
+	last_boss_id = str(data.get("last_boss_id", ""))
+	if BossCatalog.by_id(last_boss_id).is_empty(): last_boss_id = ""
+	upgrade_counts.clear()
+	for id in data.get("upgrade_counts", {}):
+		if id is String and not UpgradeCatalog.get_upgrade(id).is_empty() and _finite_number(data.upgrade_counts[id]):
+			upgrade_counts[id] = clampi(int(data.upgrade_counts[id]), 0, 10000)
 	player_pos = _clamp_player(pos)
 	elapsed = clampf(float(data.elapsed), 0, 86400)
 	score = clampi(int(data.score), 0, 2000000000)
@@ -947,9 +1066,9 @@ func restore_run(data: Dictionary) -> bool:
 	combo = clampi(int(data.get("combo", 0)), 0, 10000)
 	best_combo = maxi(combo, clampi(int(data.get("best_combo", 0)), 0, 10000))
 	combo_timer = clampf(float(data.get("combo_timer", 0)), 0, 2.8)
-	level = clampi(int(data.get("level", 1)), 1, 100)
-	xp_goal = clampi(int(data.get("xp_goal", 8)), 1, 10000)
-	xp = clampi(int(data.get("xp", 0)), 0, xp_goal - 1)
+	level = clampi(int(data.get("level", 1)), 1, 10000)
+	xp_goal = clampi(int(data.get("xp_goal", 8)), 1, 10000000)
+	xp = clampi(int(data.get("xp", 0)), 0, 10000000 if data.has("upgrade_version") else xp_goal - 1)
 	max_health = clampf(float(data.get("max_health", class_stats.health)), 1, float(class_stats.health_cap))
 	health = clampf(float(data.health), 1, max_health)
 	damage = clampf(float(data.get("damage", class_stats.damage)), 1, float(class_stats.damage_cap))
@@ -971,7 +1090,19 @@ func restore_run(data: Dictionary) -> bool:
 	elif int(data.get("balance_version", 1)) == 2 and style == "shield":
 		# Carry the damage-only buff into existing runs, preserving every other stat.
 		damage = clampf(float(data.get("damage", 18.0)) * (24.0 / 18.0), 1, float(class_stats.damage_cap))
-	move_speed = float(class_stats.move_speed)
+	move_speed = clampf(float(data.get("move_speed", class_stats.move_speed)), float(class_stats.move_speed), float(class_stats.move_speed) * UpgradeCatalog.MOVE_CAP_MULTIPLIER)
+	dash_recharge = clampf(float(data.get("dash_recharge", 1.45)), UpgradeCatalog.DASH_FLOOR, 1.45)
+	upgrade_choices.clear()
+	for id in pending:
+		var card: Dictionary = UpgradeCatalog.get_upgrade(id)
+		# Rebuild descriptions from the unchanged pre-choice stats, without RNG.
+		var allowed = id not in UpgradeCatalog.REGULAR_IDS
+		for eligible_card in UpgradeCatalog.eligible(level, _upgrade_stats(), upgrade_counts):
+			if str(eligible_card.id) == id:
+				card = eligible_card
+				allowed = true
+		if not allowed: return false
+		upgrade_choices.append(card)
 	ward_hits = clampi(int(data.get("ward_hits", 0)), 0, 3)
 	buffs.clear()
 	if data.get("buffs") is Dictionary:
@@ -981,7 +1112,7 @@ func restore_run(data: Dictionary) -> bool:
 	boss_number = clampi(int(data.get("boss_number", bosses)), 0, 1000)
 	spawn_timer = clampf(float(data.get("spawn_timer", 0.5)), 0, 3)
 	relief_until = clampf(float(data.get("relief_until", 0)), 0, elapsed + 5)
-	dash_cooldown = clampf(float(data.get("dash_cooldown", 0)), 0, 1.45)
+	dash_cooldown = clampf(float(data.get("dash_cooldown", 0)), 0, dash_recharge)
 	enemies = _decode_entities(data.get("enemies", []), MAX_ENEMIES, "enemy")
 	bullets = _decode_entities(data.get("bullets", []), MAX_BULLETS, "bullet")
 	drops = _decode_entities(data.get("drops", []), MAX_DROPS, "drop")
@@ -1010,7 +1141,7 @@ func _draw() -> void:
 		if not enemy.alive: continue
 		if enemy.windup > 0:
 			var warning = Color(1, 0.52, 0.34, 0.5 + sin(visual_time * 22) * 0.2)
-			if enemy.behavior == "charger" or (enemy.boss and int(enemy.phase) % 3 == 2 and boss_number >= 2):
+			if enemy.behavior == "charger" or (enemy.boss and str(enemy.get("boss_pattern", "ring")) == "charge" and int(enemy.phase) % 2 == 0):
 				draw_line(enemy.pos, enemy.pos + enemy.aim * 260, warning, 14)
 				draw_line(enemy.pos, enemy.pos + enemy.aim * 260, Color(1, 0.88, 0.6, 0.8), 2)
 			else:

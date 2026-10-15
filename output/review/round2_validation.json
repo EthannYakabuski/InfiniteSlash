@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "client_date": "2026-10-15",
+  "version": "0.2.0",
+  "version_code": 6,
+  "automated_checks": 699,
+  "suites": [
+    {
+      "suite": "gameplay",
+      "checks": 379,
+      "passed": true,
+      "log": "output/review/round2_game_runtime.log"
+    },
+    {
+      "suite": "services",
+      "checks": 152,
+      "passed": true,
+      "log": "output/review/round2_services_runtime.log"
+    },
+    {
+      "suite": "upgrades",
+      "checks": 54,
+      "passed": true,
+      "log": "output/review/round2_upgrade_runtime.log"
+    },
+    {
+      "suite": "boss_selection",
+      "checks": 20,
+      "passed": true,
+      "log": "output/review/boss_catalog_update.log"
+    },
+    {
+      "suite": "boss_progression",
+      "checks": 22,
+      "passed": true,
+      "log": "output/review/boss_progress_update.log"
+    },
+    {
+      "suite": "boss_active_save",
+      "checks": 72,
+      "passed": true,
+      "log": "output/review/active_boss_save_after.log"
+    }
+  ],
+  "ui_layout_and_audio_checks": "PASS",
+  "android_touch": "PASS",
+  "android_captures_reviewed": 6,
+  "apk_sha256": "d4c515364931cc3dd6a0a72b51c8261b4da7ded77add412f39366cef9ba13ad7",
+  "store_upload_images": 43,
+  "new_boss_achievement_ids": "Awaiting owner; local unlocks implemented",
+  "live_google_server_tests_performed": false,
+  "physical_device_performance_verified": false,
+  "signed_play_aab": "builds/InfiniteSlash-play-0.2.0.aab",
+  "signed_play_aab_sha256": "51c03f8a91d89f4d576688070a0ad0848d250ba8cbafbe7428031f2e6b00c43b",
+  "release_signature_verified": true
+}

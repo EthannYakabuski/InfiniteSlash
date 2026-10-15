@@ -1,0 +1,318 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: tinpot_tyrant direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: tinpot_tyrant direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: tinpot_tyrant stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: tinpot_tyrant restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: tinpot_tyrant resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: moss_baron direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: moss_baron direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: moss_baron stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: moss_baron restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: moss_baron resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: ember_earl direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: ember_earl direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: ember_earl stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: ember_earl restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: ember_earl resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: moonmallow_majesty direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: moonmallow_majesty direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: moonmallow_majesty stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: moonmallow_majesty restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: moonmallow_majesty resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: thistle_regent direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: thistle_regent direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: thistle_regent stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: thistle_regent restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: thistle_regent resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: azure_archduke direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: azure_archduke direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: azure_archduke stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: azure_archduke restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: azure_archduke resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: acorn_king direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: acorn_king direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: acorn_king stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: acorn_king restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: acorn_king resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: gilded_chancellor direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: gilded_chancellor direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: gilded_chancellor stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: gilded_chancellor restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: gilded_chancellor resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: violet_sovereign direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: violet_sovereign direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: violet_sovereign stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: violet_sovereign restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: violet_sovereign resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: crimson_duke direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: crimson_duke direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: crimson_duke stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: crimson_duke restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: crimson_duke resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: ochre_oracle direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: ochre_oracle direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: ochre_oracle stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: ochre_oracle restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: ochre_oracle resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+INFINITESLASH_UI running
+ERROR: ACTIVE SAVE: lime_imperator direct snapshot uses JSON-safe keys
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:32)
+ERROR: ACTIVE SAVE: lime_imperator direct boss snapshot persists to disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:35)
+ERROR: ACTIVE SAVE: lime_imperator stored encounter restores
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:36)
+ERROR: ACTIVE SAVE: lime_imperator restored metadata is safe before stringify
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:42)
+ERROR: ACTIVE SAVE: lime_imperator resumed boss progress updates on disk
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_active_boss_save.gd:14)
+       [1] _run (res://tests/test_active_boss_save.gd:45)
+ACTIVE_BOSS_SAVE_TESTS checks=60 failures=60
