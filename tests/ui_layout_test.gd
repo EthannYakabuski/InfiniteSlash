@@ -4,6 +4,7 @@ extends SceneTree
 const Interface = preload("res://scripts/game_ui.gd")
 const World = preload("res://scripts/world.gd")
 const ClassProfiles = preload("res://scripts/class_profiles.gd")
+const Upgrades = preload("res://scripts/upgrade_catalog.gd")
 var _failures: Array[String] = []
 var _styles: Array[String] = []
 var _resume_count := 0
@@ -37,7 +38,9 @@ func _run() -> void:
 	ui.audio_setting_changed.connect(func(key: String, enabled: bool): _audio_changes.append([key, enabled]))
 	ui.upgrade_selected.connect(func(id: String): _upgrades.append(id))
 	ui.achievements_requested.connect(func(): ui.show_achievements({"achievements": {"first_blood": 1}}))
-	for dimensions in [Vector2i(540, 960), Vector2i(540, 1110)]:
+	var viewport_index := 0
+	for dimensions in [Vector2i(540, 960), Vector2i(540, 1110), Vector2i(1080, 1920)]:
+		viewport_index += 1
 		root.size = dimensions
 		await process_frame
 		await process_frame
@@ -81,6 +84,14 @@ func _run() -> void:
 		_check_status_cards(ui)
 		_check(ui.find_child("DashDetail", true, false).text.contains("0.7s"), "Dash HUD shows the remaining recharge time")
 		_check(ui.find_child("GuardLabel", true, false).text == "GUARD 40%", "Guard HUD labels the remaining reserve")
+		ui.update_hud({"stage": 3, "night": true, "overdrive_time": 4.2})
+		_check(ui.find_child("StageLabel", true, false).text.contains("CROWNFALL KEEP") and ui.find_child("StageLabel", true, false).text.contains("NIGHT"), "HUD identifies the late biome and night phase")
+		_check(ui.find_child("OverdriveLabel", true, false).text.contains("4.2s"), "Overdrive HUD shows its remaining active duration")
+		ui.update_hud({"health": 1000000000, "max_health": 1000000000, "score": 2000000000, "best": 2000000000})
+		for label_name: String in ["ScoreLabel", "HealthText"]:
+			var large_label: Label = ui.find_child(label_name, true, false)
+			_check(large_label.size.x >= large_label.get_minimum_size().x, "endless large score/health remains readable without clipping: " + label_name)
+			_check(Rect2(Vector2.ZERO, root.get_visible_rect().size).encloses(large_label.get_global_rect()), "large score/health stays inside its portrait screen: " + label_name)
 		ui.update_hud({"style": "sword"})
 		_check(ui.find_child("ClassIcon", true, false).texture == ui.get("_icons")["sword"], "Health HUD follows a switch to Sword")
 		ui.update_hud({"style": "shield", "health": 64.5, "max_health": 170, "score": 15823,
@@ -124,6 +135,7 @@ func _run() -> void:
 		await process_frame
 		await process_frame
 		_check_buttons(ui, ["AchievementsBackButton"])
+		_check(ui.find_child("AchievementList", true, false).get_child_count() == 60, "all20 local badge keys have readable title, description and spacing")
 		ui.find_child("AchievementsBackButton", true, false).pressed.emit()
 		_check(ui.find_child("ShareButton", true, false) != null, "Badges returns to completed run overlay")
 		var choices := [
@@ -146,12 +158,13 @@ func _run() -> void:
 		_check_upgrade_cards(ui)
 		await _click_button(ui, "UpgradeChoice2")
 		ui.find_child("UpgradeChoice2", true, false).pressed.emit()
-		_check(_upgrades.size() == (1 if dimensions.y == 960 else 2), "A choice emits once even if its callback is repeated")
-	_check(_styles == ["sword", "shield", "sword", "shield"], "Style button signals carry exact keys")
-	_check(_resume_count == 2, "Resume emits once per press")
-	_check(_pause_count == 2, "Audio pauses each active run once")
-	_check(_audio_changes == [["music", false], ["sfx", false], ["music", true], ["music", false], ["sfx", false], ["music", true]], "Audio emits the exact independent preference changes")
-	_check(_upgrades == ["thunderheart", "thunderheart"], "Upgrade choice emits its exact identifier")
+		_check(_upgrades.size() == viewport_index, "A choice emits once even if its callback is repeated")
+		await _check_production_cards(ui)
+	_check(_styles == ["sword", "shield", "sword", "shield", "sword", "shield"], "Style button signals carry exact keys")
+	_check(_resume_count == 3, "Resume emits once per press")
+	_check(_pause_count == 3, "Audio pauses each active run once")
+	_check(_audio_changes == [["music", false], ["sfx", false], ["music", true], ["music", false], ["sfx", false], ["music", true], ["music", false], ["sfx", false], ["music", true]], "Audio emits the exact independent preference changes")
+	_check(_upgrades == ["thunderheart", "thunderheart", "thunderheart"], "Upgrade choice emits its exact identifier")
 	world.reset()
 	_check(world.elapsed == 0.0, "World reset clears elapsed")
 	var layout_file := FileAccess.open("res://output/review/ui_layouts.json", FileAccess.WRITE)
@@ -161,7 +174,7 @@ func _run() -> void:
 	world.queue_free()
 	await process_frame
 	if _failures.is_empty():
-		print("UI_LAYOUT_PASS: portrait 540x960 and expanded540x1110; class and upgrade cards, independent audio, pending choice/back behavior, status HUD, actual one-tap input, local overlays and World contract")
+		print("UI_LAYOUT_PASS: 540x960,540x1110,1080x1920; class and stage/rare/legendary/trade upgrade cards, independent audio, frozen choice/back behavior, status HUD,20badgekeys, actual one-tap input, local overlays and World contract")
 		quit(0)
 	else:
 		for failure in _failures:
@@ -246,6 +259,20 @@ func _check_upgrade_cards(ui: Node) -> void:
 		for prefix in ["UpgradeTitle", "UpgradeDescription"]:
 			var label: Label = ui.find_child("%s%d" % [prefix, index], true, false)
 			_check(button.get_global_rect().encloses(label.get_global_rect()), "Upgrade title and stat description fit inside its touch card")
+			_check(label.size.y >= label.get_minimum_size().y, "Upgrade description fits its wrapped height")
+			if prefix == "UpgradeDescription":
+				_check(label.get_theme_font_size("font_size") >= 20, "Upgrade stat descriptions remain prominent")
 	var first: Button = ui.find_child("UpgradeChoice1", true, false)
 	var second: Button = ui.find_child("UpgradeChoice2", true, false)
 	_check(not first.get_global_rect().intersects(second.get_global_rect()), "Upgrade choice touch targets do not overlap")
+
+func _check_production_cards(ui: Node) -> void:
+	for spec: Array in [[20, "vampire_steel", "trade_guard_delay_for_move_speed"], [30, "titan_heart", "headhunter"], [50, "abyssal_steel", "adamant_vow"], [25, "phoenix_oath", "worldbreaker"]]:
+		var choices: Array = []
+		for key: String in [spec[1], spec[2]]:
+			choices.append(Upgrades.get_upgrade(key))
+		ui.show_upgrade_choices(choices, int(spec[0]))
+		await process_frame
+		await process_frame
+		_check_buttons(ui, ["UpgradeChoice1", "UpgradeChoice2", "AudioSettingsButton"])
+		_check_upgrade_cards(ui)

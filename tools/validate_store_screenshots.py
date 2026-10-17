@@ -10,7 +10,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageStat
 PROJECT = Path(__file__).resolve().parents[1]
 SCREENSHOTS = PROJECT / "store" / "screenshots"
 REVIEW = PROJECT / "output" / "review" / "store-captures"
-EXPECTED = {"phone": (1080, 1920), "tablet_7": (1440, 2560), "tablet_10": (2160, 3840)}
+EXPECTED = {"phone": (540, 960), "tablet_7": (1080, 1920), "tablet_10": (1080, 1920)}
 MAX_BYTES = 8 * 1024 * 1024
 
 
@@ -25,7 +25,7 @@ def main() -> None:
     title_font = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 21)
     source_hashes = {
         path: hashlib.sha256((PROJECT / path).read_bytes()).hexdigest()
-        for path in ["scripts/game.gd", "scripts/game_ui.gd", "scripts/world.gd", "scripts/class_profiles.gd", "tools/capture_store.gd"]
+        for path in ["scripts/game.gd", "scripts/game_ui.gd", "scripts/world.gd", "scripts/class_profiles.gd", "tests/capture_production.gd", "tools/promote_production_screenshots.py"]
     }
     for category, dimensions in EXPECTED.items():
         images = sorted((SCREENSHOTS / category).glob("*.png"))
@@ -57,6 +57,16 @@ def main() -> None:
                 if max(stat.var) < 100:
                     failures.append(f"{relative}: image appears blank or nearly flat")
                 pixel_hash = hashlib.sha256(image.tobytes()).hexdigest()
+                source = PROJECT / records[relative]["source_capture"]
+                if hashlib.sha256(source.read_bytes()).hexdigest() != records[relative]["source_sha256"]:
+                    failures.append(f"{relative}: preserved source hash changed")
+                with Image.open(source) as original:
+                    if original.mode == "RGBA" and original.getchannel("A").getextrema() != (255, 255):
+                        failures.append(f"{relative}: source alpha was not fully opaque")
+                    if original.size != image.size or hashlib.sha256(original.convert("RGB").tobytes()).hexdigest() != pixel_hash:
+                        failures.append(f"{relative}: rendered source RGB pixels changed")
+                if records[relative]["source_rgb_pixel_sha256"] != pixel_hash:
+                    failures.append(f"{relative}: recorded source RGB hash mismatch")
                 if pixel_hash in pixel_hashes:
                     failures.append(f"{relative}: duplicate image in category")
                 pixel_hashes.add(pixel_hash)
@@ -80,7 +90,7 @@ def main() -> None:
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     if failures:
         raise SystemExit("SCREENSHOT_VALIDATION_FAIL\n" + "\n".join(failures))
-    print(f"SCREENSHOT_VALIDATION_PASS: {len(checked)} unique RGB PNGs, correct dimensions/9:16/bounds, under 8 MiB, with capture provenance")
+    print(f"SCREENSHOT_VALIDATION_PASS: {len(checked)} RGB PNGs, eight distinct views per category, correct dimensions/9:16/bounds, under 8 MiB, rendered source pixels verified; tablet categories intentionally share frames")
 
 
 if __name__ == "__main__":

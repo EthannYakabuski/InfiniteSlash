@@ -1,0 +1,11 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+ERROR: BOSS PROGRESS: new online badges await owner-provided Google IDs
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] _check (res://tests/test_boss_progress.gd:19)
+       [1] _test_pending_configuration (res://tests/test_boss_progress.gd:109)
+       [2] _run (res://tests/test_boss_progress.gd:32)
+Boss progression tests: 22 checks, 1 failures

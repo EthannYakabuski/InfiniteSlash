@@ -99,6 +99,7 @@ func _run_tests() -> void:
 	_test_normalization()
 	_test_daily_and_history()
 	_test_discovery()
+	_test_production_bestiary_and_records()
 	_test_cloud_merge()
 	_test_disabled_adapter()
 	_test_cloud_adapter_callbacks()
@@ -219,7 +220,7 @@ func _test_storage_and_backup() -> void:
 	_check(not backup.reload_profile() and backup.profile.total_runs == 0, "both corrupt files restore defaults")
 	backup.save_active_run({"bad": Vector2.ONE})
 	_check(backup.active_run.is_empty() and not backup.last_storage_error.is_empty(), "engine objects rejected from active JSON")
-	backup.save_active_run({"huge": "x".repeat(140000)})
+	backup.save_active_run({"huge": "x".repeat(STORE_SCRIPT.MAX_ACTIVE_BYTES + 1)})
 	_check(backup.active_run.is_empty(), "oversized active-run snapshots rejected")
 	var future := _store("future")
 	var future_text := JSON.stringify({"format": "InfiniteSlash", "schema_version": 99, "profile": {"best_score": 999999}})
@@ -259,14 +260,129 @@ func _test_daily_and_history() -> void:
 
 func _test_discovery() -> void:
 	var store := _store("discovery")
-	_check(store._known_monsters.size() == 100, "exactly one hundred generated species are known")
+	_check(store._known_monsters.size() >= 100, "original creature roster remains known")
 	var keys: Array = store._known_monsters.keys()
 	_check(not store.discover_monster("missing_species"), "unknown discovery rejected")
 	_check(store.discover_monster(keys[0]) and not store.discover_monster(keys[0]), "discovery is unique")
 	for key: String in keys.slice(1):
 		store.discover_monster(key)
-	_check(store.profile.discovered.size() == 100 and store.profile.achievements.has("collector"), "all generated species unlock collector")
-	_check(store.reload_profile() and store.profile.discovered.size() == 100, "discovery round trip")
+	_check(store.profile.discovered.size() == keys.size() and store.profile.achievements.has("collector"), "one hundred species still unlock collector as the roster grows")
+	_check(store.reload_profile() and store.profile.discovered.size() == keys.size(), "discovery round trip")
+
+func _test_production_bestiary_and_records() -> void:
+	var store := _store("production_bestiary")
+	# Isolate milestone boundaries from asset-import timing and catalog order.
+	for index: int in range(200):
+		store._known_monsters["fixture_species_%03d" % index] = true
+	_check(not store.record_monster_defeat("invented_species"), "unknown defeated species rejected")
+	store.save_active_run({"seed": 828, "level": 31})
+	for index: int in range(200):
+		var id := "fixture_species_%03d" % index
+		_check(store.record_monster_defeat(id), "a new species victory is recorded")
+		if index in [48, 98, 148, 198]:
+			_check(not store.profile.achievements.has("bestiary_%d" % (index + 2)), "bestiary goal waits for exact unique-species boundary")
+		if index in [49, 99, 149, 199]:
+			var key := "bestiary_%d" % (index + 1)
+			_check(store.profile.achievements.has(key) and key in store.profile.cloud.pending_achievements,
+				"unique-species milestone unlocks offline and remains queued")
+	var revision: int = store.profile.revision
+	_check(not store.record_monster_defeat("fixture_species_000") and store.profile.revision == revision,
+		"repeated species neither inflate the collection nor rewrite storage")
+	_check(store.profile.defeated_monsters.size() == 200 and store.profile.total_kills == 0,
+		"species records do not alter completed-run cumulative kills")
+	_check(store.profile.discovered.size() == 200 and store.profile.achievements.has("collector"),
+		"confirmed defeats also fill the existing bestiary and its target100 collector")
+	_check(store.record_biome_entry() and not store.record_biome_entry(), "biome arrival award is immediate and idempotent")
+	_check(store.reload_profile() and store.profile.defeated_monsters.size() == 200 and store.active_run.seed == 828,
+		"new collection and biome awards persist without altering the active run")
+	var malformed: Dictionary = store.cloud_profile()
+	malformed.defeated_monsters = ["fixture_species_000", "fixture_species_000", "forged", 9, {}]
+	malformed.best_level = INF
+	var normalized: Dictionary = store._normalize_profile(malformed)
+	_check(normalized.defeated_monsters == ["fixture_species_000"] and normalized.best_level == 0,
+		"species collection rejects forged, non-string, and duplicate identities; non-finite levels rejected")
+	malformed.erase("defeated_monsters")
+	normalized = store._normalize_profile(malformed)
+	_check(normalized.defeated_monsters.size() == 200, "legacy kill-only discoveries migrate without erasing victories")
+	var remote := _store("production_remote")
+	for index: int in range(200):
+		remote._known_monsters["fixture_species_%03d" % index] = true
+	remote.record_monster_defeat("fixture_species_199")
+	remote.add_run({"combo": 80, "level": 63, "bosses": 9})
+	store.add_run({"combo": 55, "level": 51, "bosses": 7})
+	store.save_active_run({"seed": 829})
+	_check(store.merge_cloud_profile(remote.cloud_profile()), "higher remote combo and level records merge")
+	_check(store.profile.best_combo == 80 and store.profile.best_level == 63 and store.profile.best_bosses == 9,
+		"combo, level, and existing bosses-destroyed board use completed-run maxima")
+	_check(store.profile.cloud.pending_scores.highest_combo == 80 and store.profile.cloud.pending_scores.highest_level == 63,
+		"new records remain queued before their Google IDs exist")
+	_check(store.active_run.seed == 829 and store.profile.defeated_monsters.size() == 200,
+		"cloud union preserves active simulation and cannot reduce the collection")
+	_check(not store.merge_cloud_profile(remote.cloud_profile()), "replayed species/record cloud payload is idempotent")
+	var union_store := _store("production_collection_union")
+	for id: String in store._known_monsters: union_store._known_monsters[id] = true
+	union_store.profile.defeated_monsters = store.profile.defeated_monsters.slice(0, 49)
+	union_store.profile.discovered = union_store.profile.defeated_monsters.duplicate()
+	var complementary: Dictionary = remote.cloud_profile()
+	complementary.defeated_monsters = store.profile.defeated_monsters.slice(25, 100)
+	complementary.discovered = complementary.defeated_monsters.duplicate()
+	_check(union_store.merge_cloud_profile(complementary) and union_store.profile.defeated_monsters.size() == 100,
+		"overlapping complementary cloud collections union to100 distinct species")
+	_check(union_store.profile.achievements.has("bestiary_50") and union_store.profile.achievements.has("bestiary_100"),
+		"combined cloud victories cross species boundaries without requiring another kill")
+	_check(not union_store.merge_cloud_profile(complementary), "replaying a complementary collection does not count repeats")
+	var legacy_combo := _store("production_legacy_combo")
+	legacy_combo.profile.best_combo = 88
+	legacy_combo.save_profile()
+	_check(legacy_combo.reload_profile() and legacy_combo.profile.cloud.pending_scores.highest_combo == 88,
+		"a combo record predating its new board is queued during reload")
+	_test_production_pending_replay(store)
+
+func _test_production_pending_replay(store: Node) -> void:
+	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/play_services.json"))
+	var keys := ["bestiary_50", "bestiary_100", "bestiary_150", "bestiary_200", "biome_50"]
+	for key: String in keys:
+		_check(config.achievements.get(key, "missing") == "" and not config.incremental_achievements.has(key),
+			"new goal is intentionally pending a Standard Google ID: " + key)
+	for key: String in ["highest_combo", "highest_level"]:
+		_check(config.leaderboards.get(key, "missing") == "", "new board is intentionally pending a Google ID: " + key)
+	var adapter: Node = PLAY_SCRIPT.new()
+	adapter._store = store
+	adapter.configuration = {"enabled": false, "game_id": "", "leaderboards": {}, "achievements": {}}
+	root.add_child(adapter)
+	adapter.set_process(false)
+	var awards := FakeAchievements.new()
+	var scores := FakeLeaderboards.new()
+	adapter.add_child(awards)
+	adapter.add_child(scores)
+	adapter._achievements = awards
+	adapter._leaderboards = scores
+	adapter._authenticated = true
+	adapter._account_ready = true
+	adapter._flush_scores()
+	adapter._flush_achievements()
+	_check(scores.submissions.is_empty() and awards.unlocks.is_empty(), "blank feature IDs skip native calls and preserve pending records")
+	for key: String in keys:
+		adapter.configuration.achievements[key] = "test_" + key
+	adapter.configuration.leaderboards = {"highest_combo": "test_combo", "highest_level": "test_level"}
+	adapter._flush_scores()
+	adapter._flush_achievements()
+	_check(scores.submissions.size() == 2 and scores.submissions[0].score == 80 and scores.submissions[1].score == 63,
+		"saved combo and level records replay when IDs are supplied")
+	_check(awards.unlocks.size() == 5 and awards.steps.is_empty(), "all five new local awards replay as Standard unlocks")
+	adapter._flush_scores()
+	adapter._flush_achievements()
+	_check(scores.submissions.size() == 2 and awards.unlocks.size() == 5, "new inflight features do not submit duplicates")
+	for key: String in keys:
+		adapter._on_achievement_unlocked(true, "test_" + key)
+		_check(key not in store.profile.cloud.pending_achievements and store.profile.achievements.has(key),
+			"acknowledged new award clears only its pending request")
+	store.add_run({"combo": 90, "level": 70})
+	adapter._on_score_submitted(true, "test_combo")
+	adapter._on_score_submitted(true, "test_level")
+	_check(store.profile.cloud.pending_scores.highest_combo == 90 and store.profile.cloud.pending_scores.highest_level == 70,
+		"older acknowledgements preserve a higher newly earned combo and level")
+	adapter.free()
 
 func _test_cloud_merge() -> void:
 	var local := _store("cloud_local")

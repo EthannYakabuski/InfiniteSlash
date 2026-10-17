@@ -1,17 +1,61 @@
 {
   "pass": true,
-  "generated_monsters": 100,
-  "unique_pngs": 100,
-  "unique_pixel_sheets": 100,
+  "generated_monsters": 200,
+  "unique_pngs": 200,
+  "unique_pixel_sheets": 200,
   "original_preserved": true,
+  "stage2_monsters": 50,
+  "night_only_monsters": 50,
+  "atlas_size": [
+    960,
+    504
+  ],
+  "atlas_strips_verified": 201,
+  "world_packed_tiles_verified": 30,
+  "world_packed_regions": {
+    "town": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      10,
+      24,
+      25,
+      26,
+      28,
+      29,
+      43,
+      76,
+      79,
+      99,
+      100,
+      101,
+      109,
+      111,
+      112,
+      113
+    ],
+    "farm": [
+      27,
+      39,
+      77,
+      78,
+      83,
+      85,
+      89
+    ]
+  },
   "roles": {
     "chaser": 11,
-    "fan": 11,
-    "tank": 18,
+    "fan": 43,
+    "tank": 52,
     "spitter": 14,
-    "charger": 15,
+    "charger": 32,
     "orbiter": 10,
-    "skitter": 11,
+    "skitter": 28,
     "splitter": 10
   },
   "music": {
@@ -1018,6 +1062,1006 @@
       "id": "iron_nibbler",
       "sha256": "d1b6a519440d8f0fcebe420694d2d0d290ecba67770f66322cec79f46d161730",
       "pixel_sha256": "9b10064fc5d1ee81e24fb6aa6afbff0688916f92fb88bc134670e3c26da88be9",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ivory_baron",
+      "sha256": "351582a71c27b46ac8947e07c65d1f758554d2b8e0142e14d22e30f9526a5356",
+      "pixel_sha256": "880e2cad4def024821306dc58a19033b95fd6135ef56671ba58c99f0dde9c52c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "cobalt_conjurer",
+      "sha256": "1e79ca5bd8c78c46248ce49428b85de6acf9f17536c2ff9bd08456e963c40bc1",
+      "pixel_sha256": "65cef509d4d35cfd35488092fc34e3fad1855548aefafdfe273cb274165c3555",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "viridian_ripper",
+      "sha256": "b09404ded38c5de79d5ae0f1ef8f78c09c59a35a72fc15f9b18ecbebfff1b7e9",
+      "pixel_sha256": "c79a2ffbe322249a2b6bd5c762c24b7bfa643473ee31790866d9cdc805c04818",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "brass_breaker",
+      "sha256": "0887215d0c357f86be0abee0d74efa467556209fa7d9207d8c1957b8bf389b87",
+      "pixel_sha256": "83a23c6d1ae79f99f6189919f47525f3f134ef65abb552895e4abbd5928ddee0",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "cyan_channeler",
+      "sha256": "a9bf330f4b5d885b9ba4563f561087125da994e1ae177117c2b02dc0a84f689e",
+      "pixel_sha256": "b323dd49d1fcd721c71dfeb3b09fdeb470f0bedab5a710070db582b39fbf770b",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "coal_marauder",
+      "sha256": "420b818952ff318017cf50074fe5dc7d6321e27e776ed7169b25a24448f6d0a5",
+      "pixel_sha256": "407ba1dfa9ce47149c9b69e7e8cf834705e994e6b37d73e8b53ca4355f7df373",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "rust_rampart",
+      "sha256": "10d15d10eca74dffb10c4bd2ecf34ef8715ee4595bf21aa69704c68d13f3dc58",
+      "pixel_sha256": "dbd2db880ac2ab72f0a21545dd06a02891a856a6f50774adee2e31286af87cb6",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "emerald_cantor",
+      "sha256": "a96a0b09d79f1f7bb9b245cd1fa2f25edbd459cdaae940c1c0be8c17569ff715",
+      "pixel_sha256": "5c40668cfc4e4a99f61f9275b89314f104273d2af2b28c518a7dd031144a7a76",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "redcap_ravager",
+      "sha256": "b8937ee0c49f105af5578223e059d544d97666bca31e485781345002c5861e71",
+      "pixel_sha256": "c969aa597bb7d66c81aa02597ee82db623a8737ab34967f8c25c02b666f08e5c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "biscuit_bastion",
+      "sha256": "ff9fdbd547a7a4ae3275d46df1507e978e3509785cb9cebc3b062652a94e55fb",
+      "pixel_sha256": "e11f1c1ab489b4ee1352edbc4fd55f541cdde49e62ddfe933a78cf0e07109b42",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "sunlit_hexer",
+      "sha256": "2f0d7722ceba0caa4cab3f522bf92c9bd1674d488e98c9cd5694a66e71ea0cb3",
+      "pixel_sha256": "432e5e24d714bbd0cc417b83e5d14acc51cd1cdc7aa05e7da3a1c5230e3180c6",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "slate_stalker",
+      "sha256": "243a6dad0b2f081f5ce68a0edcc2bb190da0c250a30e2ded728ee30309050c4a",
+      "pixel_sha256": "11690892453a654b6f53e427aa20bc1e05a8fc1110f88c8b1c2f88b83332cbce",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ivory_bulwark",
+      "sha256": "11c54c5eefc38b63835f8dcb6911ea07938c126a4eef9a112ef7366d2458d225",
+      "pixel_sha256": "784ecd350661f75e0911da4c4b88be6ba5728cb5734f07607b85463820b2f49d",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "winter_warden",
+      "sha256": "ba9c84a91310a1c97f4c7217273f2c05d3900897134f19d275f0f09af26e13c9",
+      "pixel_sha256": "4438e13eb8fd941f6892fcc5da04ae9382bde7881db136da8abef6172771469a",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "obsidian_fang",
+      "sha256": "1ec438978481ee7fd38e51919521693c7e8c64c981f4bc81542e13f4096bc932",
+      "pixel_sha256": "837b9ee9ed4d5f798e570372e6a3dd3eab01b52f451ad9ca1063579aae86547a",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "azure_rampart",
+      "sha256": "9ee145d5d867012b0c9e7b0d9506246affaf242d57355e378f1037b43848cd51",
+      "pixel_sha256": "4f974479c9386549ca30337044898c773743303e4547f3b6eeb8291fdba8c60d",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "goldtongue_seer",
+      "sha256": "734a6ea5a28b2481c25e4845a521c9cf4c27d498d8855da610d7a1c416f6d2a9",
+      "pixel_sha256": "ba26266ad36a578a5c92b9eb4259e039a748a0d3355bdf822a6a64f7a951fe31",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ashplate_rusher",
+      "sha256": "21f61151c4031f6df7413221a3c3df1160fe68f48bf50a9ea4c341c524408b52",
+      "pixel_sha256": "f3ca1aa492638df6e403c1fc5963b8f152c3055e0eb88de18e382124929f41c9",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "mustard_monolith",
+      "sha256": "8c69a375e0c95603b4d37d0153cbb0e55882346b209a9db18f956a0dcece819a",
+      "pixel_sha256": "618f0e7fe8376441b6c7dce6e41afc79c9ae63658eaf397b3a94a387028b045c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "boneblossom_hex",
+      "sha256": "492b18cfed29dce8d2331418bcd38f6953701948afd80b342f2b2e868970e5bb",
+      "pixel_sha256": "1fa18b23223534c9ecf54cf0b8b3ec2aff159ff7595f4c705ba8ef3c26a43239",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "copper_lancer",
+      "sha256": "3dadcd3a4610810af2eed289045e6f8172eab9b618c6a5fea7ef3065fdb7e6da",
+      "pixel_sha256": "1e97c52047e300d1cb48ff612578ec9d726cdb2104b95dafb0dbbe4267a3da00",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "honey_goliath",
+      "sha256": "b2f820fdfc5fe1f787cf684c2b9b426a11c5e473a65cb2d830c5790f79810c1e",
+      "pixel_sha256": "d16655b661ea5e806fa5eb397be9d1ef2fdf30471dad63aa60d3e12430005f6a",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "barkbeard_oracle",
+      "sha256": "0a54990b620af5ba8428361a1edac0765b0aa44a1deaf18ec46a52df82191232",
+      "pixel_sha256": "4b15c626286d4153842acba215c6956927bb0480d852b75f6114f46fd27ca447",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "gilded_gremlin",
+      "sha256": "623dd0d5fcab8f11e6b6676f608d52d119792048b0c2168172cf05727752ca40",
+      "pixel_sha256": "caa6da30ce3409de86592bcc5dd1bba4d841eb6c9bd47d8bbf336dda2603c8ed",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "mauve_mountain",
+      "sha256": "00a8be3bee7e25629c1eeb20a97c5d225e52823a59d25ed68d34572551918679",
+      "pixel_sha256": "06e4c3db60a34abc055ed5b788d96d004bbda5a29d73fd060d49429522e2c8f9",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "cobalt_cantor",
+      "sha256": "c50eca450bed37db19a5bec1589d1b65da8522823c3d5dceec86c1e3d53fcfef",
+      "pixel_sha256": "730960d9d9b52146b183b7d27512bb9cfb6647e521a8791959bdaac93b22d318",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "russet_razor",
+      "sha256": "1516c6ec4db34c9c8300ec3270c14ad87947bb40911a8c9edd1bcdcf7b1168a5",
+      "pixel_sha256": "a400576d25eb8ce4c07d59b8afd68c7bdfca6d074723b0844e2e04449b2b697f",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ivory_ironroot",
+      "sha256": "7a8f524a762ff0592af15ade1d723b5d7304657fee5ed398d988011dd5e86422",
+      "pixel_sha256": "fba2b6d62fe7ebc590a1970a2e92d4e60a7f3fd1082f5559b83adf166f5ec936",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "crimson_coronet",
+      "sha256": "ec8b795a4b70f8d1935ce1deef517ab82abee8e5fb98f96d9f9a39afaf52b76f",
+      "pixel_sha256": "f755e138c5edcaeab7dbd12fe6e2473b64364c179fdbfb02387c73e3505891e6",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ruby_rake",
+      "sha256": "e7d19d6e69b6342599d5e0d7bd00055fc7704faa2ba04b92c260eebbe0e65185",
+      "pixel_sha256": "c395686b769bb2fa14060f4f82f91d67efaae1afc5ededc98ddd564f25c90165",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ruby_rampart",
+      "sha256": "daf42ee631adb783babb6eb4ece50ff22bf5eebe53130e71f8b4379a801c2cef",
+      "pixel_sha256": "8b8ad2cccafb965fbc2a09393e8bb9e32f7daa4bdc94e4a730623072a4eb0516",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "corncrown_hexer",
+      "sha256": "03b1edb552d3c57ea5438283831aa379ef564018085da4f016c329a4fdd4d063",
+      "pixel_sha256": "3a1134546acabf360d3dea1eb9fb3901793ba737356953b3a6769e92136e6e07",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "blush_biter",
+      "sha256": "791bef85c6571cec23c2781039906fa5dbe58837668082e4f578648b2e9b543f",
+      "pixel_sha256": "c0cc3f8bc616dda2e2afdfb2254994af5a460b6775f12502dd0e2854c47a5d64",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "clay_colossus",
+      "sha256": "e680360aba3b5e17d06cb37be6e71963272476174ffa653881dc5ce24b990644",
+      "pixel_sha256": "1d5bdbe78ceca7b88813e78b1b739c561a477c6ffbd1ce930de63a08ac64d8d2",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "pine_prophet",
+      "sha256": "5ef109c1e2d76521a082dc5031d772bf289df12e1eb4c8b44e2962f71b90433f",
+      "pixel_sha256": "2efdb6bc7afa1034014e94d6bf2ed85c0ba6c416163a0cf5b621c31c61b9d69b",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "crimson_knave",
+      "sha256": "ac2df29da3d88281c5ce63d81e01aecbf0b505a24e15de900fbc8fb702346562",
+      "pixel_sha256": "865a9a58ff7fa0f4467f2b54b63d8155464ddab59e6f585c28c9878c65174ab9",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "jade_juggernaut",
+      "sha256": "36ecbfe622215730c3f88676879f68980114b503ac3dce1188ab809d2292758b",
+      "pixel_sha256": "87e42eaaf810357005f025e8edeebfe8ddb50d382402e3a4d7602cb5bea2a824",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "white_redcap",
+      "sha256": "3c9b14f120c8f40f931bab589591ebfb3bdb56a6b1523d96c48cfe8fd8bea600",
+      "pixel_sha256": "4c343f726bbfce2ddb0ef2267714ebdb7ea8f533fd1718e693ae186debb0f88c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "cinder_anvil",
+      "sha256": "ff91f45bb202c5e5a13bb43a88c4cedea61d692c59f900c8eb58f00c01cf0655",
+      "pixel_sha256": "2e1486d5c3093fb87975e8de4ff9e4b4e95763a119bf9e99b702152584df9de3",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "forked_fang",
+      "sha256": "08b74dfd6134caa28125b7754e53ee1176e0320b030a5bc3baa53173766bcaea",
+      "pixel_sha256": "3429c6e374a10ff8f69c83de1f1538f893ebfe3241ade783a291036261b510a2",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "slate_scythe",
+      "sha256": "d190589c14ac2174a172a304ae781dfac05f35845cf09c0ab54d394c182fe84b",
+      "pixel_sha256": "59cae8e4e670a0b2937ff7df461b1cf1456d7b3ba05ecb9de38397669d196734",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "barkwall",
+      "sha256": "d0b0ed68782112400d61163459717bdb527ede164659264581ef3bc0dc9c0a8b",
+      "pixel_sha256": "53bf0e6c40529d3c2dff07f678b622064a1875e51935d275c9f78aa9301d6de4",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "biscuit_warlock",
+      "sha256": "f12392ea3a84cde94b5c64ef1f3204a77146f5a625613e8307ea969ad59d5ae8",
+      "pixel_sha256": "e558632d1b5f6cd5d6ddf4f097df08fbbf629bf69c3ba946a55d22e6c32f1698",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "crimson_skulk",
+      "sha256": "f5a6f6e639389343d63ff3e719ed31b7458bb30883d852a5829bd6e32d81d01d",
+      "pixel_sha256": "0c168af41dd0f2afa2a3c2809892286ee353d22eae595e37e6d16f7c4134f9d0",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "orchid_colossus",
+      "sha256": "8e8d98c9747eeeb5e3ca6edb6eb4fbfb39d758abb783aa58555ea9fdb5827762",
+      "pixel_sha256": "87b47b7d2cc76a3bbdff76987adf78cc95803a69fc2ecd7d0de92691d97e347e",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "skycrown_prophet",
+      "sha256": "d6fe0a3bfa2655cb3aa2944d6d53d0c5ae26b390a9c556ce2283e614540db674",
+      "pixel_sha256": "81ba77a7c842515c3a72680506c611ae1d091a69c07b49f7e4b3efe620a385e9",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ember_claw",
+      "sha256": "0ee0a14470cc3a549f6240aca65cde300c7b422d84ddf1598061ebeb298d3a85",
+      "pixel_sha256": "2b91ed89d0b1ee016358a361b92f887e2d9192e01e1d167623f344281b9243b5",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "jade_barricade",
+      "sha256": "4d011dcbaf2d9810db5c3986963db606e6e52bc2a67bec0b327620329dad6e07",
+      "pixel_sha256": "133aac49fc5164791019edc9e4f131b1f346b40e743d16c82fe7fbce5e3563f3",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "gravejaw_chorus",
+      "sha256": "c42fba4dc5bbc375f5b2b0fee6ca3202794469ed9923e705ab9db9eb04eea905",
+      "pixel_sha256": "9992cf19d987a321b812c013cc8a5542ea70069c239dac6d3e48dc67b3c5912a",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "crimson_velvet",
+      "sha256": "0f7acd4f3bd48ac80b8d1e6b6c276c5368aa9c46990afb98220ce414337817f3",
+      "pixel_sha256": "fefd9d8f2b998ead9ebb3dc02306b1c89dc8a05ea18caa093a13ef3b6f755e3e",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "moonlit_marshal",
+      "sha256": "ccc63897ce660209c67176a25bdab160864d0ab018c68647ce2e114f04db0a88",
+      "pixel_sha256": "5dbc7ebdbca7adeadfbec72721d748838fb8a4803b08242f63d12f84e939ca01",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "bramble_sleepwalker",
+      "sha256": "2841aaa4535490fa44d190225f78b606c69f60cbbdb35ffbe2712bf7c1f6003d",
+      "pixel_sha256": "44d6770f9d3f767fb1e604e5d965ed5443527af0befab48360bd036fb6619d5b",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "hollow_candle",
+      "sha256": "273c65d9b2dc96cbad20ad0e2b5a927a7b7d64d9938b9ee3e70017b1c38b3b32",
+      "pixel_sha256": "9437ba7d40bb5881638785ee131eb516186eb67f72f869b9323b17c5dd5d2234",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "chapel_gargoyle",
+      "sha256": "9f8b9ce3691d700d74fe5634cb7b17adf7481b69beae95641136f75e9980fbf7",
+      "pixel_sha256": "af8986a80243b2166acbe5a6307e004d784f8db9ee85a39a296698d913bb124d",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "cinder_sandman",
+      "sha256": "eb78974cd3e72e7cc591c030b9e1d0905d773a467c9f708e156dadfa2798ad9b",
+      "pixel_sha256": "2a8ee3964ee3cf55d5606022973abbf5ce0d50fb383f20d29c874d1e9a483ea8",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "neon_nightmare",
+      "sha256": "56c81a4dc93280a575398a7cc04304083cc2e962e8942a6c6fce9bc727c3e7d8",
+      "pixel_sha256": "c25c159312481d0eeec80e8e864198f0fbd4ec01dc8733dbbbf338b23f5ea6ca",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "midnight_sailor",
+      "sha256": "1f2af7bf9323662d683ab596429a5ef75dabac2c72b9dc55e34146f38fe815ec",
+      "pixel_sha256": "3e821d52b5420d19ca501dfb070492352ff5a3503b2a32015c29b74e3d24fb7c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "bone_moonbeast",
+      "sha256": "afe101c72727caf346625b7f2cda786ee552f803e7d63208c0d0a20778b4d672",
+      "pixel_sha256": "688de0c6518b537073d4ef57d013d6594673dfd9a45c90be043913e67fbe9d0d",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "violet_graveguard",
+      "sha256": "80b0921b9f3254809e5cb9a0fece64d8b69d77b62ddeed2ea1d1c1a02fd019b6",
+      "pixel_sha256": "3b0a2479b1d9f26c3c96eb8bd0859158d45af74b44c576db6f0b0c4ed17973f9",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "scarlet_sleepless",
+      "sha256": "ae3c17fdf59a28325788635ce233e8bb29c1f255b7745eaf7943b2acc0fa4739",
+      "pixel_sha256": "2046d27c19b549668d7bf2735431ab1fdbb8311ff5d39802c4cc6640e8cbe902",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "dream_jester",
+      "sha256": "7d79eca8833bf83ba25167997599b23a237d4065788ff696a8e414caf81f7139",
+      "pixel_sha256": "ffd3fb47f07971444e29ae653749b2d4c20271e2922db47fe5a7cb2f0c1bbc47",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "wraithwood_eye",
+      "sha256": "fbad93fe64ecc3d37e22143beebf6111b12a305b20347bf1b69b9b9a31aaea36",
+      "pixel_sha256": "f54d40c1a75c321747d63e5a32ed3dff9f74c9ff9fd91971c19aabd0fb0ce062",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "witching_bough",
+      "sha256": "96184f037f16d49f72138ed56b777d13db60f6dc5cf0484712b361384920cea8",
+      "pixel_sha256": "383eb65ffc6aac8fe30a3c5671b638c571f3cb3e6bdfc9b2048b0ed7effdc91b",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "hollow_bell",
+      "sha256": "09e79f3c619209997899bbb47bbb03f781d1bdc2e3d5d51d13d13571fff70099",
+      "pixel_sha256": "c5becee73fff1659439279ee9ccbfc2c1260a55852d69437a7f7b9259ec0d88a",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "dusk_howler",
+      "sha256": "45ac5b2cca3980317f5462698970d154e9ec613d8021f580ec4d1e80e766ae53",
+      "pixel_sha256": "faf50ca0f43d0f6f3bc34b1e418ec486d2914900ff0ac1258df314fa45dfd3d0",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "lantern_ghast",
+      "sha256": "e96271721e5e109c5428e657fd090c5a0586a8d8727f87c6840becf185e3807c",
+      "pixel_sha256": "7519c5ca2577c1af3d4c18381637700c1768042b2c0e1404842495d75787240a",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "copper_nocturne",
+      "sha256": "894c1ec6ff89237c1f43c33cc48a107c0dce1fd6d8dac26f3b89dc763505c232",
+      "pixel_sha256": "b6d0e661cf217c9cd7be12a1b4445a637a3cc463e39ca1ed41bd105b20043d30",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ivory_nightcap",
+      "sha256": "2e13b777df18f4df07d8848996f1314add2ce360142263ab9f5bbeef21b00d0b",
+      "pixel_sha256": "260f9e2071069f07fd67aafeccfd8c666e6def0b7111cb63a1ee389a6be1f05d",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "jade_moonbaron",
+      "sha256": "5731137ef7252f096d6142ba2876034862fa0b875bf9a2761a39434bc79164cd",
+      "pixel_sha256": "2a00227c9cd02133c0e4097dcb120e383c65e54574b8099d90321b61d00e707c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "silver_sleepwalker",
+      "sha256": "2f2922276abe3d285bc2a1c953ca3175a18a08d18a3873015d82f5a2764c0546",
+      "pixel_sha256": "45ff8bc7f0905ee1c6eed2a01b0ee6a035c1652a4eb8f839d3f4f274d83ee27c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "sallow_moonmoth",
+      "sha256": "d392619f56363011ba17e7ea4607bdbeaacdc4ff20b1a6dfd19cc3dc5b3c007b",
+      "pixel_sha256": "c1957e2670b1cf26b9cbc6802b8de4d76296e69aff04e977b3358ba4cf3da5cc",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ember_nightbloom",
+      "sha256": "6e96634817729936f07c34a963a91607cde8280fa1e117aa7769f47fb4ebb8e7",
+      "pixel_sha256": "b3fc2d73c97f75f7b04634877b78c282407c0e02558171998ea2bb0864c57cb5",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "hooded_dreamer",
+      "sha256": "5448846d1d566cca41ba92910a6a34d588c8036d9fa48fc6d9bada151be4396e",
+      "pixel_sha256": "3d4708b7cd44e9dbb62bf049ca4ab0c368f6a8bee54d92f63d2aace6fe9b29e8",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "cinder_coven",
+      "sha256": "db68ffdd4c9f4d94b141cb09378b46804d07c666c409ecc263747a81a7c363d6",
+      "pixel_sha256": "a5c1492b25d1d9a9d46a3e95e7a2a0475b6efe618063449064852f233e4e48dc",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "rust_moonfang",
+      "sha256": "b0267f03483562f92170506f3e2fb406f2a852fc76d2c8baa9b68d52abd6b002",
+      "pixel_sha256": "9bee217c235d81126634a555ae2ce39eb3bbefa05807303a525c9d94b9668447",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ashen_howl",
+      "sha256": "2235f19e343998728e327a36f133c53b7e745195d755e4d26e096278e2e04811",
+      "pixel_sha256": "ee9dc28e1afd78cd044bac2fd09ec98a5fcb674fb53a780d456e12bb026993a1",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "gravebone_hare",
+      "sha256": "d4da57b43b66ba1db8a5d457474ef2f619e08040eeed668015d1aeb47889816c",
+      "pixel_sha256": "e2e04b14b97074aad08126c9b4e98d9666acf566ae2810ea9e6e3c16ec6a1b3b",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "malachite_screech",
+      "sha256": "c21e39c70a05e6ad182c607cf8bd31b599f0d3e52800046bafb69518ecf81a42",
+      "pixel_sha256": "3c3d889e9f34e2dbb52fa73495b6f5e1ab2fb669967eeafc17474338e831f194",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "copper_dreamhorn",
+      "sha256": "ac217daf2b0ea4cd27192f11e349342d40fc0dd87a0ccb2303485edea4ff6ab9",
+      "pixel_sha256": "22fd44e3b174bd0677333aee55b6db789cfe5adb5b093b4f9f6331dfff8b6585",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "tin_witchling",
+      "sha256": "39a161e92a89b230d7adeb43673523705db3e5f41ade7735645f46a3c23f323f",
+      "pixel_sha256": "95ff36fb8b9181adc96f92e52da27ddfab1b3f0d5aabb9585e6c740e1b2b7563",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "bone_dreadroot",
+      "sha256": "106dcdad22df3d0241d98c80d96d8050f9c74def994bd03be64e92aa6d01a58e",
+      "pixel_sha256": "905f65ed633c87906b35b179630c00950af94a250cb9c2f3f9dbb7efd86a66ed",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "marigold_mourner",
+      "sha256": "c161505f29423533cfacf884de85675dce7f4e0344a6cf21fbce251993be8dc6",
+      "pixel_sha256": "d9798c332338d3d4ab5f6f5c183f97d647c9dbf6167467ab2cb372bd269326af",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "blackthorn_conjurer",
+      "sha256": "c28b71a1f6737c19fbf3c510a85db969b3808ed5beb6d751446f05cd41f02ec8",
+      "pixel_sha256": "6033285e36f9a2d4eaf2cb920ca8a7dd0553deb9deabfe0c617a27114eaf0ec1",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ivory_haunter",
+      "sha256": "82e0f92892caed5e48f03243fed1653de21537b88d310a990415ee47135fe2ba",
+      "pixel_sha256": "4f463c53caa4b2f22d57736a32cb051db5ee08d6b41c7cd33aba2a5511b26292",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "dusk_bellringer",
+      "sha256": "9533ded5eac331161e2170ee7f4bf3d4575b5668ea33fc5cf47966503a403724",
+      "pixel_sha256": "6eb29a8fd8bfc2c98bba395aed7afbeca156c71a0ef0d65a38b6d60eef79ddfd",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "velvet_nightmare",
+      "sha256": "70385d0dea4aa1968a37c8e84653e7320b8fb087b82336e5f96896ed4d9ed4d8",
+      "pixel_sha256": "0ffcf8b666cf045583a7ec7d9d98d17ff97374330307c9b70559c1cee6a6ec8c",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "copper_cairn",
+      "sha256": "22ce8fda04f9365e32b134adac93205c091b271cf7d334ef30186c399cdfbdc7",
+      "pixel_sha256": "1f003ddcd084bb278c40ba82455f0fc2fa8603eca54834c432c65e93909f5231",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "bramble_dreadhorn",
+      "sha256": "cdc8926b3d96d8edb272382a7af0fcd70abff2f29a5dc7d82825b049ee2ad2bf",
+      "pixel_sha256": "ead9cd4caa4841010b516cdb6485255af95f2c7d369faac7994e29c0ab3d3687",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "emerald_gravegrin",
+      "sha256": "2862a7e2df2b326bd38d0641944b4530e5c96385c9cd0f981736a02ad89821a0",
+      "pixel_sha256": "22c86d689c016aef94eb94418cc9c84ce2dbabe621b224f853810087de01baaf",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "cinder_nightcap",
+      "sha256": "ae16b930a2aaef5df2f21c33beffc07fa9c399d65bd08f2f8a7bc22afd0b0854",
+      "pixel_sha256": "4d27504f21dc6c7e7bf45ad359ffe62075949206cba97b9574466178cd06abd6",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "orchid_abyssal",
+      "sha256": "73a071effd4f079bd29f4536cec934e996d7baa6abd8794e6823d362e25bfb4d",
+      "pixel_sha256": "fedfa8267ea222334a8f284eed186ba0cb143c49662a5897359f3c1d5c9831f9",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "bloodmoon_sentinel",
+      "sha256": "f3b6ae897ee0fd2bcecc5d28e51a152c68b32506633ecc7483c697b8fee7e11b",
+      "pixel_sha256": "2f0a466393ae6c02f4551accf34b7d2e2564ec2aaa3ffd4624c5776eb701e464",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "dreamroot_devourer",
+      "sha256": "db11407e9d7ea31718cd00da3585079a7ae9e263c3a7d3b2b138e36e4a145c9b",
+      "pixel_sha256": "c28ba8b363bc885615a66f21cb712d02527f3af24211cfc9357e4612722c6e82",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "ivory_cryptseer",
+      "sha256": "5fbae88bb0dc295ce127a0036cc4433e1f646774e7f9743edb8745c8b8032431",
+      "pixel_sha256": "830067043f25cabb627a509afd8738cfa8701f0007893c9dd123559e38340627",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "plum_doomcaster",
+      "sha256": "b8cb736c7bb29125196a4cf6981aee3d6a2f3252dee8a94d6e092a4a3294bdfb",
+      "pixel_sha256": "5dccb8a3a9b062d99a8c499a3d181d862bcfbf35df7166651c5b7446171a068f",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "violet_dirge",
+      "sha256": "4ae3038849968229e5e21e3cd46b84f62f7dc3a58e94fd945b061f0e93929899",
+      "pixel_sha256": "cade18aec7b81c1318dd73893fa6e5093a4ab56263214ae7b4a3cdabe5c236a7",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "pale_crownfiend",
+      "sha256": "8a7d151005441c3a78e0b26c6097d9d2d47396e086cbec682368b0636a0fd681",
+      "pixel_sha256": "ee8f96f6963df6eabede34c2e1a7a0127efcc77918538f0eecff229fb1934506",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "amber_eclipse",
+      "sha256": "ac146f98c7906f9b968c1d89a6a3a1b6cce0b6e9f0cb30e925342ca14a355641",
+      "pixel_sha256": "d204eed5dc3cce2a2b115eef11468330f70a73faed45e6f071282112afca58e8",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "obsidian_maw",
+      "sha256": "b2ea22602707d7822dcc24e9ef1c8e5c1a814419e9229d24e5b0d7a178d3fafe",
+      "pixel_sha256": "0bca55b91f9a644a6a34106fd23c345e0660bdd9752a24eaea42acd175c902fa",
+      "size": [
+        768,
+        192
+      ],
+      "animated": true
+    },
+    {
+      "id": "gilded_nightwarden",
+      "sha256": "737deb624fd858cd426703f2f98c8d5c29f54cc8d18a4bc606ba1e19f21eb434",
+      "pixel_sha256": "75c94a85a213610b0eba268ccce443a644c6d9d8b06c143d034abb22b362ee3a",
       "size": [
         768,
         192

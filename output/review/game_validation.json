@@ -1,60 +1,38 @@
 {
-	"checks": 379,
+	"checks": 355,
 	"class_comparison": {
 		"shield": {
-			"capped_attack_interval": 0.4,
-			"capped_damage": 95.0,
-			"capped_guard": 250.0,
-			"capped_health": 300.0,
-			"capped_move_speed": 286.0,
-			"capped_range": 108.0,
-			"eight_guarded_hits_remaining_health": 138.0,
-			"guard_under_four_bullets_per_second": 3.86666666666667,
-			"guarded_damage_in_four_seconds": 144.0,
+			"bullet_hold_seconds": 5.01666666666667,
 			"health": 170.0,
-			"idle_guard_seconds": 7.51666666666667,
 			"move_speed": 220.0,
-			"moving_target_kill_seconds": 5.41666666666667,
-			"reserve_recharged_in_two_seconds": 56.0,
-			"survives_eight_guarded_hits": true
+			"target_seconds": 5.41666666666667
 		},
 		"sword": {
-			"capped_attack_interval": 0.22,
-			"capped_damage": 150.0,
-			"capped_guard": 110.0,
-			"capped_health": 160.0,
-			"capped_move_speed": 377.0,
-			"capped_range": 124.0,
-			"eight_guarded_hits_remaining_health": 0.0,
-			"guard_under_four_bullets_per_second": 0.766666666666667,
-			"guarded_damage_in_four_seconds": 224.0,
+			"bullet_hold_seconds": 1.26666666666667,
 			"health": 80.0,
-			"idle_guard_seconds": 2.03333333333333,
 			"move_speed": 290.0,
-			"moving_target_kill_seconds": 2.58333333333333,
-			"reserve_recharged_in_two_seconds": 44.0,
-			"survives_eight_guarded_hits": false
+			"target_seconds": 2.58333333333333
 		}
 	},
 	"failures": [],
 	"pass": true,
 	"stress": {
 		"android_device_measured": false,
-		"average_step_ms": 1.69901877777778,
-		"bosses_seen": 5,
-		"kills": 3327,
-		"level": 35,
-		"max_step_ms": 67.495,
-		"p95_step_ms": 3.163,
+		"average_step_ms": 2.14220194444444,
+		"bosses_seen": 4,
+		"kills": 3180,
+		"level": 27,
+		"max_step_ms": 104.072,
+		"p95_step_ms": 3.61,
 		"peaks": {
-			"bullets": 240,
+			"bullets": 480,
 			"drops": 60,
 			"effects": 90,
-			"enemies": 100
+			"enemies": 140
 		},
 		"rendering_measured": false,
 		"simulated_seconds": 300,
 		"steps": 18000,
-		"wall_time_ms": 33008.117
+		"wall_time_ms": 39502.328
 	}
 }

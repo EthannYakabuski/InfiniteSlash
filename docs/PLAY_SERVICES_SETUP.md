@@ -13,7 +13,7 @@ Updated on **2026-10-12** against the game, owner-supplied console configuration
 | Linked Cloud project | Owner supplied project ID `infiniteslash`, project number `832658811620` |
 | Android OAuth client | Owner supplied `832658811620-hsgkm87bv72d31hba64pi0rjslr94319.apps.googleusercontent.com`; OAuth publication and Play App Signing credential reported by the owner |
 | Installed Play certificate | Owner confirmed Play App Signing SHA-1 `A1:CD:9D:32:4A:E8:AE:3E:38:38:D3:FB:7D:AF:70:F7:DD:46:64:DB` |
-| Achievements | 14 Google IDs configured, including Standard boss badges Royal Upset and Crown Census; four confirmed Incremental goals: `century` / 100, `collector` / 100, `thousand_kills` / 1,000, `ten_runs` / 10 |
+| Achievements | 14 Google IDs configured, plus five new Standard goals awaiting IDs; four confirmed Incremental goals remain `century` / 100, `collector` / 100, `thousand_kills` / 1,000, `ten_runs` / 10 |
 | Leaderboards | Three existing IDs configured: `high_score`, `longest_run`, `bosses_in_run` |
 | Intentionally omitted | Remote `survivor_180` and `daily_score` remain blank; their local behavior remains available |
 | Saved Games | Owner reported enabled on 2026-10-12 at “21:20 EST”; slot stays `infiniteslash_profile_v1` |
@@ -41,7 +41,7 @@ The current client uses real feature IDs with `enabled: true`. Local play remain
 | Feature | Implemented in the game | Still required |
 | --- | --- | --- |
 | Sign-in | Authentication check, manual sign-in through Scores/Badges, player identity lookup, local fallback | Eligible testers, matching debug credential or Play-installed build, live testing |
-| Achievements | 15 local badges representing 14 distinct goals, all 14 online IDs configured, milestone triggers, replay and four cumulative counters | Upload icons to existing IDs and verify real Standard/Incremental behavior |
+| Achievements | 20 local keys representing 19 distinct goals; 14 online IDs configured and five new Standard goals pending; milestone triggers, replay and four cumulative counters | Upload existing icons, create the five new definitions, return their IDs and verify real behavior |
 | Leaderboards | Three configured boards, pending best submissions; local daily challenge | Upload board artwork and verify the signed build's server records |
 | Saved Games | Stable cloud profile slot, validated merge, bounded native conflict resolution, awaited commit and readback verification | Confirm native artifact validation, activation propagation and real two-device tests |
 | Offline progression | Atomic local saves, backup recovery, active-run resume, local records/badges | Already usable; no Google setup required |
@@ -94,7 +94,7 @@ Android OAuth uses the **certificate SHA-1**, not the APK file checksum. This is
 
 ## 3. Configure the existing achievements
 
-There are **15 local keys but 14 distinct goals**, with **all 14 Google achievement IDs configured**. The two boss achievements are Standard: Royal Upset (`CgkI5NXU8p0YEAIQEA`) and Crown Census (`CgkI5NXU8p0YEAIQEQ`). See [their configured IDs and icons](../store/boss-achievements/README.md). The original twelve achievements and IDs remain unchanged. `survivor` and `survivor_180` both unlock locally after a completed run of at least 180 seconds; remote `survivor_180` is intentionally blank. All local badges continue working. Do not map both keys to the same remote ID or create another copy during icon upload.
+There are **20 local keys but 19 distinct goals**: **14 existing Google achievement IDs configured**, plus **five new Standard goals awaiting IDs**. Use the [production-update registration table and icons](../store/production-update/README.md) to create only the five new definitions. The two boss achievements remain Standard: Royal Upset (`CgkI5NXU8p0YEAIQEA`) and Crown Census (`CgkI5NXU8p0YEAIQEQ`); see [their configured IDs and icons](../store/boss-achievements/README.md). Original IDs and Incremental targets are preserved. `survivor` and `survivor_180` both unlock locally after a completed run of at least 180 seconds; remote `survivor_180` is intentionally blank. All local badges continue working. Do not map both keys to the same remote ID or create another copy during icon upload.
 
 The initial definition table is retained below for reference and icon matching. It proposes **Revealed** English definitions and **290** total points; review the existing console entries before publication rather than recreating them. The owner confirmed the four Incremental types and step targets.
 
@@ -109,7 +109,7 @@ The initial definition table is retained below for reference and icon matching. 
 | `legend` | Knight of Infinite Nonsense | Defeat five bosses in one run | Standard | 50 |
 | `combo_25` | Slice Streak | Reach a 25-kill combo | Standard | 20 |
 | `score_10000` | Five Digits of Slop | Reach 10,000 points in one run | Standard | 20 |
-| `collector` | Bestiary Complete | Defeat/discover all 100 generated creature species | Incremental / 100 | 75 |
+| `collector` | Bestiary Pioneer | Defeat 100 different creature species across runs | Incremental / 100 | 75 |
 | `thousand_kills` | Slop Sweeper | Defeat 1,000 creatures across completed runs | Incremental / 1,000 | 25 |
 | `ten_runs` | Back for More | Complete ten runs | Incremental / 10 | 10 |
 
@@ -120,9 +120,11 @@ The two boss records are also configured; their suggested points are separate fr
 | `rare_boss` | `CgkI5NXU8p0YEAIQEA` | Royal Upset | Defeat Moonmallow Majesty, Gilded Chancellor, or Lime Imperator | Standard | 20 |
 | `all_bosses` | `CgkI5NXU8p0YEAIQEQ` | Crown Census | Defeat all 12 different bosses across any number of runs | Standard | 30 |
 
-Boss victories persist immediately and merge as a validated set across cloud profiles. A previously earned boss badge is replayed through the Standard unlock API after eligible authentication; no new Incremental counter is used. Missing optional IDs elsewhere do not block these achievements or cloud synchronization.
+Boss victories persist immediately and merge as a validated set across cloud profiles. A previously earned boss badge is replayed through the Standard unlock API after eligible authentication; no new Incremental counter is used. Missing optional IDs elsewhere do not block these achievements or cloud synchronization. **Crown Census still requires all 12 boss identities**, separate from creature species.
 
-First kill/boss, five bosses, combo and discovery milestones can update during combat. The 10,000-score check runs on kills and at run completion; a gold pickup crossing the threshold waits for the next such check. Lifetime kills, run count and survival goals are evaluated on completed runs. Merely pausing/resuming a run does not count another completed run. The originally supplied Cinder Tinpot is excluded from the 100 generated-species collection.
+The production update adds Standard `bestiary_50`, `bestiary_100`, `bestiary_150`, `bestiary_200` for 50/100/150/200 different defeated species, and Standard `biome_50` for entering Crownfall Keep at level 50. They unlock locally now and queue for Google replay after their IDs are supplied. Follow [the exact definitions and icon links](../store/production-update/README.md). Keep the existing collector ID and 100-step target; update only its display name/description to match the table above. Existing awards remain earned. [Collection migration and merge details](PRODUCTION_PLAY_SERVICES.md).
+
+First kill/boss, five bosses, combo and discovery milestones can update during combat. Unique species victories and biome arrival persist immediately. The 10,000-score check runs on kills and at run completion; a gold pickup crossing the threshold waits for the next such check. Lifetime kills, run count and survival goals are evaluated on completed runs. Merely pausing/resuming a run does not count another completed run. The originally supplied Cinder Tinpot and temporary boss summons are excluded from generated-species goals.
 
 Each existing Google ID is already mapped in `config/play_services.json`, [the original icon manifest](../store/icons/icon_manifest.json) or [the boss icon manifest](../store/boss-achievements/achievement_manifest.json). Names are not IDs. Current incremental counters support **only** `century`, `collector`, `thousand_kills`, and `ten_runs`; their targets are confirmed. The JSON map's numeric values describe console targets; runtime uses key membership and actual counters, so changing those numbers alone does not change achievement thresholds.
 
@@ -149,6 +151,8 @@ These three boards already have configured Google IDs. The intended definition i
 | `high_score` | Endless Glory | Best completed-run score | points |
 | `longest_run` | Last Knight Standing | Best completed-run duration, truncated to whole seconds | second / seconds |
 | `bosses_in_run` | Crown Hoarder | Most bosses in one completed run | boss / bosses |
+
+Create two additional boards with the same Numeric/integer/larger-is-better settings: `highest_combo` / **Unbroken Steel** for highest kill combo in a completed run, and `highest_level` / **Beyond All Reason** for highest level in a completed run. Their [icons and registration details](../store/production-update/README.md) are ready; return their IDs to fill the pending config slots. Offline maxima and existing combo records are retained for replay. The existing `bosses_in_run` already meets the request for bosses destroyed per run; do not duplicate it.
 
 The IDs are mapped in `config/play_services.json` and [the icon manifest](../store/icons/icon_manifest.json). Do not select Google's Time format for `longest_run` with the current code: that format expects milliseconds. Changing to a formatted timer requires submission-unit changes. Sorting/format decisions should be settled before publishing. Google automatically supplies daily, weekly and all-time spans for ordinary boards. [Leaderboard configuration](https://developer.android.com/games/pgs/leaderboards)
 
@@ -193,7 +197,7 @@ The supplied public configuration has been recorded in [PLAY_SERVICES_HANDOFF.js
 
 ### Configuration checklist retained for reference
 
-Game identity, fourteen achievement IDs, three leaderboard IDs, the confirmed four Incremental types/targets, Saved Games confirmation and the Play App Signing credential are already supplied. The list below shows the full initial handoff scope; item 6 and any additional distribution-specific OAuth credentials remain pending; local release signing is configured. Blank optional feature IDs are skipped safely.
+Game identity, fourteen achievement IDs, three leaderboard IDs, the confirmed four Incremental types/targets, Saved Games confirmation and the Play App Signing credential are already supplied. **The production update additionally needs five new Standard achievement IDs and two new leaderboard IDs**, listed with icons in [the registration handoff](../store/production-update/README.md). The list below shows the initial handoff scope; item 6 and any additional distribution-specific OAuth credentials remain pending; local release signing is configured. Blank optional feature IDs are skipped safely.
 
 1. **Final package name** and confirmation of which installed build/signing route we will use.
 2. **Numeric PGS game ID**; linked Cloud project ID/number for troubleshooting.

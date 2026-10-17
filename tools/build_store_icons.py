@@ -34,7 +34,7 @@ ACHIEVEMENTS = [
     ("legend", "Knight of Infinite Nonsense", "Defeat five bosses in one run", "Standard", None, "CgkI5NXU8p0YEAIQCg"),
     ("combo_25", "Slice Streak", "Reach a 25-kill combo", "Standard", None, "CgkI5NXU8p0YEAIQCw"),
     ("score_10000", "Five Digits of Slop", "Reach 10000 points in one run", "Standard", None, "CgkI5NXU8p0YEAIQDA"),
-    ("collector", "Bestiary Complete", "Defeat all 100 generated creature species", "Incremental", 100, "CgkI5NXU8p0YEAIQDQ"),
+    ("collector", "Bestiary Pioneer", "Defeat 100 different creature species across your runs", "Incremental", 100, "CgkI5NXU8p0YEAIQDQ"),
     ("thousand_kills", "Slop Sweeper", "Defeat 1000 creatures across completed runs", "Incremental", 1000, "CgkI5NXU8p0YEAIQDg"),
     ("ten_runs", "Back for More", "Complete ten runs", "Incremental", 10, "CgkI5NXU8p0YEAIQDw"),
 ]

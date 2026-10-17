@@ -50,8 +50,16 @@ static func tier_weights(elapsed: float) -> Array[int]:
 		2: return [12, 78, 10]
 		_: return [8, 16, 76]
 
-static func choose(rng: RandomNumberGenerator, elapsed: float, last_id: String = "") -> Dictionary:
-	var weights := tier_weights(elapsed)
+static func level_tier_weights(level: int) -> Array[int]:
+	if level < 20: return [88, 10, 2]
+	if level < 50: return [10, 76, 14]
+	if level < 80: return [3, 20, 77]
+	return [1, 9, 90]
+
+static func choose(rng: RandomNumberGenerator, elapsed: float, last_id: String = "", level: int = -1) -> Dictionary:
+	# Optional level keeps old saved/debug callers compatible; live encounters
+	# follow the player's stage rather than simply waiting out the clock.
+	var weights := level_tier_weights(level) if level >= 1 else tier_weights(elapsed)
 	var ticket := rng.randi_range(1, 100)
 	var tier := 1
 	for index: int in range(weights.size()):

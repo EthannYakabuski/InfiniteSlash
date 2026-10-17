@@ -1,0 +1,17 @@
+{
+  "Assets/Generated/monster_atlas.png": "23a7d58b7cd5d8527466af7981b43c3b2591d4f75c0c5bf7276ac613e943ffba",
+  "config/play_services.json": "c88986d712a66d86598ba8a11150f55ac89e55cbeae56203f9cf74fff55aee05",
+  "data/monsters.json": "9f2e10ea0d0a5baa23794f278498c8cb78e5b4da055d4408ee86b2a4545d7091",
+  "project.godot": "e2f682d92eec496ef9e3cbeb552768229b7f5a679ba61cc91369543e4952fb9e",
+  "scripts/audio_manager.gd": "4e2db4e21de86601ffcd28931bc786a4ddc1cd21e37ecf954e42fbceb2e389c8",
+  "scripts/boss_catalog.gd": "dd7c46097147bd6fb744fd150263d0d2d19505c2b7aa358a467e7c65e1fc68fc",
+  "scripts/boss_hazards.gd": "e25b51f99794fa3570d0bf61bf817f44220a51a6926e9f2249cae14504758997",
+  "scripts/class_profiles.gd": "df4f8d7cb773a31a0ece9b3f04200ccec9a90c3bc7e2ec58f3904d8aa2ef54bf",
+  "scripts/game.gd": "4201735efa586ba755de0527711a89e636804a0af21237d300486a214b893eb9",
+  "scripts/game_ui.gd": "bf8e746295b8a66e59d4f1ac9c9e1398cabce1701237d11cdf8983b43143a459",
+  "scripts/progression.gd": "5c737d71a10efa1e97cfa6e772e639ac590e5c027dea3966db4ec33206a7f525",
+  "scripts/services/play_services.gd": "4f40d50fba8e6b3045a7154aa1efe6167879c15f10ccdbf70293211d8b29e73d",
+  "scripts/services/save_data.gd": "2554c8d74b719b557a4b633f0a5e974122d77e244b2244aadd28cdc0cb8c2039",
+  "scripts/upgrade_catalog.gd": "c7b723a7409f173f4e0c6db28cc1cc2c14d1edd4579f96122d6d937c95dad200",
+  "scripts/world.gd": "706b57d8ac22f0de144748c9b582270c6a2cdbeabb2db174b2c7630402bcc822"
+}

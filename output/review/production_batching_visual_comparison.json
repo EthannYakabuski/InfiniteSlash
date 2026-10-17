@@ -1,0 +1,42 @@
+[
+  {
+    "scenario": "01_meadow_mayhem",
+    "identical_rgb": true,
+    "difference_bounds": null
+  },
+  {
+    "scenario": "02_night_war_host",
+    "identical_rgb": true,
+    "difference_bounds": null
+  },
+  {
+    "scenario": "03_crownfall_overdrive",
+    "identical_rgb": true,
+    "difference_bounds": null
+  },
+  {
+    "scenario": "04_boss_fire_circle",
+    "identical_rgb": true,
+    "difference_bounds": null
+  },
+  {
+    "scenario": "05_earthquake_corridor",
+    "identical_rgb": true,
+    "difference_bounds": null
+  },
+  {
+    "scenario": "06_electric_escape_gap",
+    "identical_rgb": true,
+    "difference_bounds": null
+  },
+  {
+    "scenario": "07_build_your_tradeoff",
+    "identical_rgb": true,
+    "difference_bounds": null
+  },
+  {
+    "scenario": "08_legendary_crossroads",
+    "identical_rgb": true,
+    "difference_bounds": null
+  }
+]

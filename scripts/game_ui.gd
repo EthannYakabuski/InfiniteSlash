@@ -24,7 +24,7 @@ const ACHIEVEMENTS := {
 	"legend": ["Knight of Infinite Nonsense", "Defeat 5 bosses in one run"],
 	"combo_25": ["Slice Streak", "Reach a 25-kill combo"],
 	"score_10000": ["Five Digits of Slop", "Score 10,000 in one run"],
-	"collector": ["Bestiary Complete", "Discover all 100 creatures"],
+	"collector": ["Bestiary Pioneer", "Defeat 100 different creature species"],
 	"hundred_club": ["A Hundred in a Hurry", "Defeat 100 creatures in one run"],
 	"survivor_60": ["Minute Knight", "Survive for one minute"],
 	"survivor_180": ["Three Minute Hero", "Survive for three minutes"],
@@ -32,6 +32,11 @@ const ACHIEVEMENTS := {
 	"ten_runs": ["Back for More", "Complete ten runs"],
 	"rare_boss": ["Royal Upset", "Defeat any rare boss"],
 	"all_bosses": ["Crown Census", "Defeat all 12 different bosses"],
+	"bestiary_50": ["Field Guide", "Defeat 50 different creature species"],
+	"bestiary_100": ["Monster Scholar", "Defeat 100 different creature species"],
+	"bestiary_150": ["Midnight Archivist", "Defeat 150 different creature species"],
+	"bestiary_200": ["Living Bestiary", "Defeat 200 different creature species"],
+	"biome_50": ["Beyond the Kingdom", "Reach level 50 and enter Crownfall Keep"],
 }
 
 var _root: Control
@@ -50,6 +55,8 @@ var _best: Label
 var _level: Label
 var _combo: Label
 var _time: Label
+var _stage: Label
+var _rush: Label
 var _dash: Label
 var _dash_detail: Label
 var _dash_card: Panel
@@ -138,6 +145,14 @@ func _build_hud() -> void:
 	_time.name = "TimeLabel"
 	_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_hud.add_child(_time)
+	_stage = _label("STAGE 1 · DAY", 12, MUTED)
+	_stage.name = "StageLabel"
+	_stage.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hud.add_child(_stage)
+	_rush = _label("OVERDRIVE 0% · DASH THROUGH SHOTS", 13, Color("b5edff"))
+	_rush.name = "OverdriveLabel"
+	_rush.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hud.add_child(_rush)
 	_combo = _label("", 22, GOLD)
 	_combo.name = "ComboLabel"
 	_combo.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -217,6 +232,7 @@ func _resize() -> void:
 	_place(_score, Vector2(_size.x - 225, _top - 6), Vector2(136, 38))
 	_place(_best, Vector2(_size.x - 240, _top + 30), Vector2(151, 20))
 	_place(_time, Vector2(_size.x * 0.5 - 45, _top + 44), Vector2(90, 25))
+	_place(_stage, Vector2(120, _top + 71), Vector2(_size.x - 240, 18))
 	_place(_pause, Vector2(_size.x - 71, _top - 5), Vector2(48, 48))
 	_place(_sound, Vector2(_size.x - 71, _top + 48), Vector2(48, 42))
 	_place(_combo, Vector2(70, _top + 89), Vector2(_size.x - 140, 31))
@@ -235,6 +251,7 @@ func _resize() -> void:
 	_place(_dash_detail, Vector2(dash_x + 42, status_y + 29), Vector2(status_width - 49, 18))
 	_place(_dash_progress, Vector2(dash_x + 13, status_y + 50), Vector2(status_width - 26, 5))
 	_place(_buffs, Vector2(30, status_y - 38), Vector2(_size.x - 60, 30))
+	_place(_rush, Vector2(30, status_y - 61), Vector2(_size.x - 60, 22))
 	var toast_y := _size.y - _bottom - 112.0 if _overlay.visible else _top + 182.0
 	_place(_toasts, Vector2(30, toast_y), Vector2(_size.x - 60, 110))
 	if _card != null and is_instance_valid(_card):
@@ -260,11 +277,13 @@ func update_hud(data: Dictionary) -> void:
 	var maximum := maxf(1.0, float(data.get("max_health", 100)))
 	_health.max_value = maximum
 	_health.value = hp
-	_health_text.text = "%d / %d" % [int(ceil(hp)), int(maximum)]
+	_health_text.text = "%d / %d" % [int(ceil(hp)), int(ceil(maximum))]
+	_fit_hud_number(_health_text, 17, 11)
 	var style := str(data.get("style", "sword"))
 	_class_icon.texture = _icons.get(style, _icons.get("sword"))
 	_class_icon.modulate = GOLD if style == "sword" else Color("b2e5e7")
 	_score.text = _number(int(data.get("score", 0)))
+	_fit_hud_number(_score, 32, 15)
 	_best.text = "BEST " + _number(int(data.get("best", 0)))
 	_level.text = "LV %d" % int(data.get("level", 1))
 	_xp.max_value = maxf(1.0, float(data.get("xp_goal", 1)))
@@ -272,6 +291,10 @@ func update_hud(data: Dictionary) -> void:
 	var combo := int(data.get("combo", 0))
 	_combo.text = "%d COMBO  ×%d" % [combo, int(data.get("multiplier", 1))] if combo >= 3 else ""
 	_time.text = _duration(float(data.get("elapsed", 0)))
+	var stage: int = int(data.get("stage", 1))
+	_stage.text = "%s · %s" % ["CROWNFALL KEEP" if stage >= 3 else "STAGE %d" % stage, "NIGHT" if bool(data.get("night", false)) else "DAY"]
+	var overdrive_time: float = float(data.get("overdrive_time", 0))
+	_rush.text = "OVERDRIVE %.1fs · DAMAGE +25%%" % overdrive_time if overdrive_time > 0 else "OVERDRIVE %d%% · DASH THROUGH SHOTS" % int(data.get("overdrive_charge", 0))
 	var dash_ready := bool(data.get("dash_ready", true))
 	var dash_remaining := maxf(0.0, float(data.get("dash_cooldown", 0.0)))
 	_dash.text = "DASH READY" if dash_ready else "DASH CHARGING"
@@ -282,7 +305,7 @@ func update_hud(data: Dictionary) -> void:
 	_dash_icon.modulate = Color("c4fff0") if dash_ready else MUTED
 	var guard_ratio := clampf(float(data.get("guard_ratio", 1.0)), 0.0, 1.0)
 	_guard.value = guard_ratio * 100.0
-	_guard_label.text = "GUARDING" if bool(data.get("guard_active", false)) else "GUARD %d%%" % int(round(guard_ratio * 100.0))
+	_guard_label.text = "GUARD %d%%" % int(round(guard_ratio * 100.0))
 	_guard_label.add_theme_color_override("font_color", Color("c4ecf1") if guard_ratio > 0.2 else Color("ffae8e"))
 	var boss_max := float(data.get("boss_max", 0))
 	var boss_active := not str(data.get("boss_name", "")).is_empty() and boss_max > 0.0 and float(data.get("boss_hp", 0)) > 0.0
@@ -358,10 +381,11 @@ func show_upgrade_choices(choices: Array, current_level: int) -> void:
 
 
 func _upgrade_button(choice: Dictionary, index: int) -> Button:
+	var legendary := str(choice.get("rarity", "")).to_lower() == "legendary"
 	var rare := bool(choice.get("rare", false)) or str(choice.get("rarity", "")).to_lower() in ["rare", "epic", "legendary"]
-	var color := Color("705032") if rare else (Color("3d6562") if index == 0 else Color("435c76"))
+	var color := Color("5c3975") if legendary else Color("705032") if rare else (Color("3d6562") if index == 0 else Color("435c76"))
 	var button := _button("", "UpgradeChoice%d" % (index + 1), color)
-	button.custom_minimum_size.y = 145
+	button.custom_minimum_size.y = clampf(112 + str(choice.get("description", "")).split("\n").size() * 25, 155, 240)
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.set_meta("upgrade_id", str(choice.get("id", "")))
 	var issued_card := _card
@@ -408,7 +432,7 @@ func _upgrade_button(choice: Dictionary, index: int) -> Button:
 	description.name = "UpgradeDescription%d" % (index + 1)
 	description.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	contents.add_child(description)
-	var hint := _label("RARE UPGRADE · TAP TO TAKE" if rare else "TAP TO TAKE", 12, GOLD if rare else Color("c6dfdf"))
+	var hint := _label("LEGENDARY · TAP TO TAKE" if legendary else "RARE TRADE-OFF · TAP TO TAKE" if rare and bool(choice.get("tradeoff", false)) else "RARE UPGRADE · TAP TO TAKE" if rare else "TRADE-OFF · TAP TO TAKE" if bool(choice.get("tradeoff", false)) else "TAP TO TAKE", 12, Color("edc7ff") if legendary else GOLD if rare else Color("c6dfdf"))
 	contents.add_child(hint)
 	return button
 
@@ -484,7 +508,7 @@ func show_end(data: Dictionary) -> void:
 	_overlay_data = data.duplicate(true)
 	_new_overlay("end")
 	_add_text("A GLORIOUS LITTLE MESS", 14, GOLD)
-	_add_text("%s" % _number(int(data.get("score", 0))), 72, CREAM)
+	_add_text("%s" % _number(int(data.get("score", 0))), 72 if int(data.get("score", 0)) < 1000000 else 52, CREAM)
 	_add_text("NEW BEST!" if bool(data.get("new_best", false)) else "BEST  " + _number(int(data.get("best", 0))), 20, GOLD)
 	_spacer(4)
 	_add_text("%d creatures   ·   %d bosses   ·   %s" % [int(data.get("kills", 0)), int(data.get("bosses", 0)), _duration(float(data.get("duration", 0)))], 16, MUTED)
@@ -513,6 +537,7 @@ func show_scores(profile: Dictionary, cloud_status: String) -> void:
 	_add_text("HALL OF LITTLE LEGENDS", 14, GOLD)
 	_add_text("SCORES", 48, CREAM)
 	_add_text("PERSONAL BEST  " + _number(int(profile.get("best_score", 0))), 22, GOLD)
+	_add_text("COMBO %d   ·   LEVEL %d   ·   BOSSES %d" % [int(profile.get("best_combo", 0)), int(profile.get("best_level", 1)), int(profile.get("best_bosses", 0))], 15, CREAM)
 	_add_text(cloud_status if not cloud_status.is_empty() else "Saved on this device", 13, MUTED)
 	_spacer(14)
 	var history: Array = profile.get("run_history", [])
@@ -883,6 +908,14 @@ func _duration(seconds: float) -> String:
 	var whole := maxi(0, int(seconds))
 	return "%d:%02d" % [whole / 60, whole % 60]
 
+
+func _fit_hud_number(label: Label, preferred: int, minimum: int) -> void:
+	var font := label.get_theme_font("font")
+	var size := preferred
+	var width := maxf(80, label.size.x)
+	while size > minimum and font.get_string_size(label.text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x > width:
+		size -= 1
+	label.add_theme_font_size_override("font_size", size)
 
 func _number(value: int) -> String:
 	var raw := str(maxi(0, value))

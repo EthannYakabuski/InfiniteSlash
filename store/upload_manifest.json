@@ -28,7 +28,7 @@
       "limit": 80
     },
     "full_description": {
-      "characters": 2125,
+      "characters": 2654,
       "limit": 4000
     }
   },
@@ -181,7 +181,7 @@
       "pixel_sha256": "6763151244d5fa372ccaeed7a9d45e7db33d0bef7dbc3b04d22b0cda2863d64b",
       "key": "collector",
       "google_id": "CgkI5NXU8p0YEAIQDQ",
-      "title": "Bestiary Complete"
+      "title": "Bestiary Pioneer"
     },
     {
       "file": "icons/achievements/thousand_kills.png",
@@ -275,245 +275,336 @@
       "title": "Crown Census"
     },
     {
-      "file": "screenshots/phone/01_sword_action.png",
+      "file": "production-update/achievements/bestiary_50.png",
+      "role": "pending_achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 5854,
+      "sha256": "d2d1b557b1685af9e69dd0729f4a621d27d318cb0cc78a14e7409e8d3d00c097",
+      "pixel_sha256": "18e52000824818ab475d8b6240cf2d9601799d87164501f0741138f1a0d27b33",
+      "key": "bestiary_50",
+      "google_id": "",
+      "title": "Field Guide"
+    },
+    {
+      "file": "production-update/achievements/bestiary_100.png",
+      "role": "pending_achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6007,
+      "sha256": "50a3395d733f24eb6f685daf2b3cefdf058cbcfec69e18e91723826cd111ccbf",
+      "pixel_sha256": "ec4f7838f63c1852dd7114366c0c43c911e1031a224f656c6bfe46a8eb8f17a6",
+      "key": "bestiary_100",
+      "google_id": "",
+      "title": "Monster Scholar"
+    },
+    {
+      "file": "production-update/achievements/bestiary_150.png",
+      "role": "pending_achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6115,
+      "sha256": "ee5b6cdffcb301d56433b826cc030f951e41e92a747bc1ce7d8604d237c794c0",
+      "pixel_sha256": "1277529fc2ba70cc522ede1e1065bf0febf5312fc9af253fba181f1053e6cdb0",
+      "key": "bestiary_150",
+      "google_id": "",
+      "title": "Midnight Archivist"
+    },
+    {
+      "file": "production-update/achievements/bestiary_200.png",
+      "role": "pending_achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 6924,
+      "sha256": "9354791aa97a10fe323730bf3d787b4623e51f5fb20b22d7cfbaec6c33ca6053",
+      "pixel_sha256": "328fbdf2666aebaa9ddf87523399bafa19e2e9ea84ebbd05a656d493a0a44063",
+      "key": "bestiary_200",
+      "google_id": "",
+      "title": "Living Bestiary"
+    },
+    {
+      "file": "production-update/achievements/biome_50.png",
+      "role": "pending_achievements",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 7422,
+      "sha256": "9c8821ac5f9e407417811aa5dc664e8316b3f0538ed13bc8c630d0a68e257651",
+      "pixel_sha256": "f45e0f0103ff28b9b50a0de43b798e88ac6060d564ff41ead3fea65261046d18",
+      "key": "biome_50",
+      "google_id": "",
+      "title": "Beyond the Kingdom"
+    },
+    {
+      "file": "production-update/leaderboards/highest_combo.png",
+      "role": "pending_leaderboards",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 12353,
+      "sha256": "c5bacc3b71bed997372cba8db32bf9a926b9f0a55c9275e0945ec929f730e667",
+      "pixel_sha256": "9a83d8cba06a7ec5ff3a69357b98b89923777373cd40087dbf2f17d490e87368",
+      "key": "highest_combo",
+      "google_id": "",
+      "title": "Unbroken Steel"
+    },
+    {
+      "file": "production-update/leaderboards/highest_level.png",
+      "role": "pending_leaderboards",
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "bytes": 7030,
+      "sha256": "51b3d62bd3b3c49aeb143994a7644a4f532cf26dd2b92f0ad6aac8ae90542f4b",
+      "pixel_sha256": "efe24e0bbd7490a9cb877e246fee20785a758694d59abcc8e2b53857ae3083e5",
+      "key": "highest_level",
+      "google_id": "",
+      "title": "Beyond All Reason"
+    },
+    {
+      "file": "screenshots/phone/01_meadow_mayhem.png",
       "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 73377,
+      "sha256": "794c868f56e48170adea2cba0b27b978b2b8bc0ea41308c0660bfa11c96f0798",
+      "pixel_sha256": "c374f53664056999700e665044e1da6ec393412f28ae8fa745bac7af733b06f2"
+    },
+    {
+      "file": "screenshots/phone/02_night_war_host.png",
+      "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 70958,
+      "sha256": "8d43e7f81f16af82c02b968d580d141f22cba5f0fbd9d96c5611c851b6ce0cbd",
+      "pixel_sha256": "b8eaaadf47fe498d63f3800ab1fe2950433ae3cb33dabd457f80e6a23ea73e45"
+    },
+    {
+      "file": "screenshots/phone/03_crownfall_overdrive.png",
+      "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 78512,
+      "sha256": "d1fd1671964034c4f5ac4d917bb96e08caea66d0e5af6486eb4298f09cdf84f5",
+      "pixel_sha256": "d30376c8e868dec1965de1231b1c56cfc8cdbd9ffe8fb6aaffb5c54dcaf448b1"
+    },
+    {
+      "file": "screenshots/phone/04_boss_fire_circle.png",
+      "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 79887,
+      "sha256": "fbc146b36175112ce7e5faab4324be3b573b916f8eb9247bfce238f8d5cef9ec",
+      "pixel_sha256": "f8dd89560017f1d9dc342c6845d94e11ae169a83626dc0903399e9a6a269b16f"
+    },
+    {
+      "file": "screenshots/phone/05_earthquake_corridor.png",
+      "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 80447,
+      "sha256": "578e3585684ccab923c7705551e575cc87dee053aed00a03ca451e045250c0cb",
+      "pixel_sha256": "fec52976222e9b91c8539967e1c0e8aa475cf74f54d4e969f62c6c00a89ff8c2"
+    },
+    {
+      "file": "screenshots/phone/06_electric_escape_gap.png",
+      "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 79677,
+      "sha256": "641788b735a1b3fbcad3ac1fe926ecf022e005db271a531e4330bc1cd38cab4a",
+      "pixel_sha256": "2aab3498a5fac3866861f850b064f2b8fa6ea588222976f6009acead7f40a084"
+    },
+    {
+      "file": "screenshots/phone/07_build_your_tradeoff.png",
+      "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 84543,
+      "sha256": "6cad36181cc012694581368e8b42ad2625da2edaaedd6400924435333c1557d6",
+      "pixel_sha256": "452a549ee7d734bb20125590da76d9141d352b7d86387fd364f4224b770e76d4"
+    },
+    {
+      "file": "screenshots/phone/08_legendary_crossroads.png",
+      "role": "phone",
+      "width": 540,
+      "height": 960,
+      "mode": "RGB",
+      "bytes": 85524,
+      "sha256": "d4eadd21a416982ce2b9c242e957adb2af94cabc1275806f706edfbf257964dd",
+      "pixel_sha256": "26b1450913e1c0b567571e693c1d90ee0d020f351a18bb53db903b8f4c28f0c8"
+    },
+    {
+      "file": "screenshots/tablet_7/01_meadow_mayhem.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 142919,
-      "sha256": "45219db7af3cd9e89a5293cf96498bef1e96d080fe8e3f4d09e60ed09f4e4df9",
-      "pixel_sha256": "132e02a27899d724f4c3c957b05fd588db161fc1d75fbd7acf49bd4e8b0247a0"
+      "bytes": 161929,
+      "sha256": "482dc449fc6e9a3357e89fcf37c7cfd947e672c4c1eba5d4cd76a5a6f8311975",
+      "pixel_sha256": "095c48c4e34b52ecde6a98e0626bbde506eb3754c07369e6208550dfc6cad41d"
     },
     {
-      "file": "screenshots/phone/02_shield_parry.png",
-      "role": "phone",
+      "file": "screenshots/tablet_7/02_night_war_host.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 136872,
-      "sha256": "cd73f70f9b2a37a777b2ff144cf9cd930a1934df343cb9eeec1bd81d4ff77bdb",
-      "pixel_sha256": "4fd6bd2224491a3b637629755b4a228c972978f20e7587f518c30bc7cdbcb434"
+      "bytes": 153996,
+      "sha256": "f9debf2e05555891eab3bb53c36cda20ad6ae2e4887ea5436e73dcefcb061652",
+      "pixel_sha256": "b396ccbfaef05eddebbdd541b66745927be0fc839ef24b4f362057207ca74af5"
     },
     {
-      "file": "screenshots/phone/03_boss_bullet_hell.png",
-      "role": "phone",
+      "file": "screenshots/tablet_7/03_crownfall_overdrive.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 150564,
-      "sha256": "ae4164b593f798d4eeb2070b1e728dec566f27bfb95427ed8e843ffbb47998f7",
-      "pixel_sha256": "8622f0987cb6716a934e66dacbcd581c28c83355043e81995cdf2aad4f88a44c"
+      "bytes": 167544,
+      "sha256": "0d7ad678276d4082b34d56eec8a842a70104a32e832fe9c3e6a03296cd765219",
+      "pixel_sha256": "85ea9a03e13148df2eaaa77216272133cfc8ed6b57f20443cfbb6e7e1c60ab37"
     },
     {
-      "file": "screenshots/phone/04_one_thumb_dash.png",
-      "role": "phone",
+      "file": "screenshots/tablet_7/04_boss_fire_circle.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 140764,
-      "sha256": "ae217f08debe7a2e346a59146a8aa06ac4d9d8275d7718495abd276e9991d7ad",
-      "pixel_sha256": "0fdb10ee20057e1828520cbb3eaa58f053f20dbe09866dd1f222f30f5711ffe1"
+      "bytes": 169801,
+      "sha256": "7567c18bb9b36f7e22230bee499b9bcea10f37b4d454f1a30a490be5a8b784dc",
+      "pixel_sha256": "fdbeb1dd60d999c2e65a14dbc1b11ea28e41b321d2368b78d20c49924daa1550"
     },
     {
-      "file": "screenshots/phone/05_thunderblade.png",
-      "role": "phone",
+      "file": "screenshots/tablet_7/05_earthquake_corridor.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 149621,
-      "sha256": "f3c477a7f90056b982440193907273cf29f903ec89eb24ef048b74c8d4315f48",
-      "pixel_sha256": "3cc5f6e722996da81ae6737f4b4e18b86dcfa1b0d68a28810d7c3748b1fd7013"
+      "bytes": 170291,
+      "sha256": "58b04bd2a4c12618980513d37f1d6fe4a4540248d9a3aa1257eaa64db6a3b376",
+      "pixel_sha256": "21affb4e66ce6af05ac5cd0b3cc7164a478abec93fa9076e3f30ace675102920"
     },
     {
-      "file": "screenshots/phone/06_hurricane_combo.png",
-      "role": "phone",
+      "file": "screenshots/tablet_7/06_electric_escape_gap.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 145781,
-      "sha256": "871f343cc3bcaf7cbed78f53043256cf4c616d4f49b35c7e4746b72272dd4d74",
-      "pixel_sha256": "ed77497fbd730d2252a4bd778cb75a4bda0d6afcd6362ca7ee7d19e8dd8829cf"
+      "bytes": 169684,
+      "sha256": "61c99b3f0aa6167e89b2d8a259daeae42dc7506506c17d37b46e3f901b0c9b46",
+      "pixel_sha256": "308c00f5fe5a997f3ca88bf9e83f46237f20a6368cd9e41d1f3806e4e6eef5a0"
     },
     {
-      "file": "screenshots/phone/07_choose_your_knight.png",
-      "role": "phone",
+      "file": "screenshots/tablet_7/07_build_your_tradeoff.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 137083,
-      "sha256": "7abd0f52c567071da976df3ad59f80157d0ab0cc39d5ea9edb0e106265a8a19a",
-      "pixel_sha256": "080bc42f93ce8234b7faf12a9e7cc84e9449064019a4120fb945c999f8aa5516"
+      "bytes": 178069,
+      "sha256": "a46c87689d70aa28704421ffe7c7f38821e2dda2214805e9127ce09812a8d905",
+      "pixel_sha256": "80713135ce59e6450cd6402dd4c22525574ba8778809f0e71b371e6f44e6870e"
     },
     {
-      "file": "screenshots/phone/08_one_more_run.png",
-      "role": "phone",
+      "file": "screenshots/tablet_7/08_legendary_crossroads.png",
+      "role": "tablet_7",
       "width": 1080,
       "height": 1920,
       "mode": "RGB",
-      "bytes": 184529,
-      "sha256": "0a04cd210671a20b8f0723a27079f208fcd6168466177d985c29eb18a71d86c5",
-      "pixel_sha256": "f5a4b638549068f97c7cd1b38c5b6d70b6da03cfc5cab74667b42bacb9be4d4c"
+      "bytes": 182494,
+      "sha256": "6db362a8df495edf8f13dfc78394bf0af69c33dc098b823e65bd06f8bab8f250",
+      "pixel_sha256": "969846698c2b481a2f8e155ad8a4f73aa943501a89da1fcf1fa0d34f8ea2fa1f"
     },
     {
-      "file": "screenshots/tablet_7/01_sword_action.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 197761,
-      "sha256": "9b8552ee7fd892e3be88766fa93ab761d5ab1eb248140460a51e75b854ab1539",
-      "pixel_sha256": "6bcaf6497e65cb9665e87a4c6fed7b9f36d44f3b9f587798bcc9692a3e9fa6e5"
-    },
-    {
-      "file": "screenshots/tablet_7/02_shield_parry.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 190055,
-      "sha256": "4c57b37f58d9732c5e34ce6c0ad6f1ca171a39d52ccfb3b34e8e77fa92792f26",
-      "pixel_sha256": "90f7ddae6499f80eba427a4811f8ef62f8c2fab9446f9c81d11b8d798c97d021"
-    },
-    {
-      "file": "screenshots/tablet_7/03_boss_bullet_hell.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 208917,
-      "sha256": "de534048c90ee898b82dba64e03c2d700957afe065aedca41d2bb23a45ff65a5",
-      "pixel_sha256": "5a7447a21447a9200e9876dc8a12c6bf038e4cf52fda95cb5cd51a634ca0aebf"
-    },
-    {
-      "file": "screenshots/tablet_7/04_one_thumb_dash.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 195785,
-      "sha256": "2c966867b4123a69e13fc27b5e767bf79df100c84afd1c075541e8f46543bf7f",
-      "pixel_sha256": "189c796fb1ffa7d7575a669a0d3c3b93adc9e27d4c0995c66883feb471686d37"
-    },
-    {
-      "file": "screenshots/tablet_7/05_thunderblade.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 208875,
-      "sha256": "ff86906c71887537e3ee86c27beaad7b026bfbde7fb2ac1c4ac093838695b813",
-      "pixel_sha256": "cdac70d41ea056b0f1da6e50f42fb1043d24bdacd3fcd336edaf60c97a27148b"
-    },
-    {
-      "file": "screenshots/tablet_7/06_hurricane_combo.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 203745,
-      "sha256": "a7f743645f026bf7cadfac67d9fd632c1a26f2a43b5c9b155e1dc6bb19bad147",
-      "pixel_sha256": "feaa04a0fa55d979c98830f56bc00d2080d408c995d4f1f9661fcbdfd349344d"
-    },
-    {
-      "file": "screenshots/tablet_7/07_choose_your_knight.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 185939,
-      "sha256": "0aaf44518aafe0ec26a4b6282e079a39ee4ccb9e4b9a41e5272655af7e20e8c8",
-      "pixel_sha256": "ac7542f0f938ca0b032b8f059b08112f5ce1c10c3c949378b59cdc10f0027431"
-    },
-    {
-      "file": "screenshots/tablet_7/08_one_more_run.png",
-      "role": "tablet_7",
-      "width": 1440,
-      "height": 2560,
-      "mode": "RGB",
-      "bytes": 251961,
-      "sha256": "0e3ecac5779a23ecc5f85c9da814fbf97e1351bf11bb44b6414982767c39f92b",
-      "pixel_sha256": "6f9aad0b952159a7d4960d30367e585316ed41d5f9fbcf73ad6a00f54df2db6c"
-    },
-    {
-      "file": "screenshots/tablet_10/01_sword_action.png",
+      "file": "screenshots/tablet_10/01_meadow_mayhem.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 327375,
-      "sha256": "80399b12feba41808dccc0284a5343fb638c0cbeab3281d9174b6f254aec0111",
-      "pixel_sha256": "77c2b63c180073e7260b05a2344918f8d34f1533018dfc3f996d9df5ff04b761"
+      "bytes": 161929,
+      "sha256": "482dc449fc6e9a3357e89fcf37c7cfd947e672c4c1eba5d4cd76a5a6f8311975",
+      "pixel_sha256": "095c48c4e34b52ecde6a98e0626bbde506eb3754c07369e6208550dfc6cad41d"
     },
     {
-      "file": "screenshots/tablet_10/02_shield_parry.png",
+      "file": "screenshots/tablet_10/02_night_war_host.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 309047,
-      "sha256": "90b753cfd9ca1c7bcdfec0f5ebb5b2d90904d164daa7ab06194b916dacf6f6e1",
-      "pixel_sha256": "915284c5185ec8cadd1d55829e6086546448473b34f9016c9508222649453de0"
+      "bytes": 153996,
+      "sha256": "f9debf2e05555891eab3bb53c36cda20ad6ae2e4887ea5436e73dcefcb061652",
+      "pixel_sha256": "b396ccbfaef05eddebbdd541b66745927be0fc839ef24b4f362057207ca74af5"
     },
     {
-      "file": "screenshots/tablet_10/03_boss_bullet_hell.png",
+      "file": "screenshots/tablet_10/03_crownfall_overdrive.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 341724,
-      "sha256": "530b00391f697975e7d1dec9908f542a3315297fa1e525b3edd74b1351a8180a",
-      "pixel_sha256": "556b88924ef05688d622d94a62bb18402a02516506b6c5247e86530f8d168d3b"
+      "bytes": 167544,
+      "sha256": "0d7ad678276d4082b34d56eec8a842a70104a32e832fe9c3e6a03296cd765219",
+      "pixel_sha256": "85ea9a03e13148df2eaaa77216272133cfc8ed6b57f20443cfbb6e7e1c60ab37"
     },
     {
-      "file": "screenshots/tablet_10/04_one_thumb_dash.png",
+      "file": "screenshots/tablet_10/04_boss_fire_circle.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 319705,
-      "sha256": "0a5af1b25eae96719d399d17a4293c998d80d37c232513aa8d6efb25b8787ede",
-      "pixel_sha256": "51520ef22bf5ea15d507689145c3d41d9c04fccf078ef9671b446fa5298b46bd"
+      "bytes": 169801,
+      "sha256": "7567c18bb9b36f7e22230bee499b9bcea10f37b4d454f1a30a490be5a8b784dc",
+      "pixel_sha256": "fdbeb1dd60d999c2e65a14dbc1b11ea28e41b321d2368b78d20c49924daa1550"
     },
     {
-      "file": "screenshots/tablet_10/05_thunderblade.png",
+      "file": "screenshots/tablet_10/05_earthquake_corridor.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 340623,
-      "sha256": "2a814607a5428d598df90396c52b76708c7685e91c7a2b08d529b0b44da92d49",
-      "pixel_sha256": "73f3610e60db2cbca39ea196c88e7056f1bbd0e1daf0deee3dc7716d10554afb"
+      "bytes": 170291,
+      "sha256": "58b04bd2a4c12618980513d37f1d6fe4a4540248d9a3aa1257eaa64db6a3b376",
+      "pixel_sha256": "21affb4e66ce6af05ac5cd0b3cc7164a478abec93fa9076e3f30ace675102920"
     },
     {
-      "file": "screenshots/tablet_10/06_hurricane_combo.png",
+      "file": "screenshots/tablet_10/06_electric_escape_gap.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 333849,
-      "sha256": "65f77426979413134d568b88e675e4637ad7dbce680b5a26deccdf4754a75b2d",
-      "pixel_sha256": "e99a32001bbf7ad1b888db99edde49bc9fba12998ba2b05832db1772c96c5357"
+      "bytes": 169684,
+      "sha256": "61c99b3f0aa6167e89b2d8a259daeae42dc7506506c17d37b46e3f901b0c9b46",
+      "pixel_sha256": "308c00f5fe5a997f3ca88bf9e83f46237f20a6368cd9e41d1f3806e4e6eef5a0"
     },
     {
-      "file": "screenshots/tablet_10/07_choose_your_knight.png",
+      "file": "screenshots/tablet_10/07_build_your_tradeoff.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 299728,
-      "sha256": "a4d638b29a3359582f12aff2c9b3fa44798f629cb9d5bee336bff90c25c9e147",
-      "pixel_sha256": "98c8f61a601d85b455574765073226d7767ecc72c164141f95e8da04ab60b0fe"
+      "bytes": 178069,
+      "sha256": "a46c87689d70aa28704421ffe7c7f38821e2dda2214805e9127ce09812a8d905",
+      "pixel_sha256": "80713135ce59e6450cd6402dd4c22525574ba8778809f0e71b371e6f44e6870e"
     },
     {
-      "file": "screenshots/tablet_10/08_one_more_run.png",
+      "file": "screenshots/tablet_10/08_legendary_crossroads.png",
       "role": "tablet_10",
-      "width": 2160,
-      "height": 3840,
+      "width": 1080,
+      "height": 1920,
       "mode": "RGB",
-      "bytes": 404972,
-      "sha256": "139db092c60db19efe37650efb8d9919b390d34b37a58dd7784fee1731d24b6d",
-      "pixel_sha256": "bc951b07090714891cd9d36c0c579d9c1b8ba2acce21e42997d706a7fe73d430"
+      "bytes": 182494,
+      "sha256": "6db362a8df495edf8f13dfc78394bf0af69c33dc098b823e65bd06f8bab8f250",
+      "pixel_sha256": "969846698c2b481a2f8e155ad8a4f73aa943501a89da1fcf1fa0d34f8ea2fa1f"
     }
   ],
-  "upload_note": "Attach feature icons to the existing Google IDs. Do not re-import achievement definitions."
+  "upload_note": "Attach configured feature icons to existing Google IDs. Create only the seven pending production-update definitions, following their manifest. Do not re-import historical achievement definitions."
 }

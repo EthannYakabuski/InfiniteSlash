@@ -1,11 +1,14 @@
 {
   "passed": true,
   "failures": [],
-  "image_count": 43,
-  "achievements": 14,
+  "image_count": 50,
+  "distinct_image_count": 42,
+  "achievements": 19,
   "configured_achievements": 14,
-  "pending_achievements": 0,
-  "leaderboards": 3,
+  "pending_achievements": 5,
+  "leaderboards": 5,
+  "configured_leaderboards": 3,
+  "pending_leaderboards": 2,
   "screenshots": 24,
   "description_lengths": {
     "short_description": {
@@ -13,9 +16,9 @@
       "limit": 80
     },
     "full_description": {
-      "characters": 2125,
+      "characters": 2654,
       "limit": 4000
     }
   },
-  "all_image_bytes": 7500962
+  "all_image_bytes": 5385014
 }

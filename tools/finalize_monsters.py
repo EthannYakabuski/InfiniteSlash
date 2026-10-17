@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 MONSTERS = ROOT / "Assets" / "Monsters"
 OUT = ROOT / "output" / "review"
 OUT.mkdir(parents=True, exist_ok=True)
+manifest = ROOT / "data" / "monsters.json"
+if manifest.exists() and len(json.loads(manifest.read_text(encoding="utf-8"))) > 100:
+    raise SystemExit("This historical first100finalizer must not overwrite the expanded roster. Use finalize_production_monsters.py for the expansion.")
 
 # Each name and combat role was chosen after inspecting the first animation
 # frame on monster_review_1.png and monster_review_2.png.

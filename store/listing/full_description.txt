@@ -1,24 +1,27 @@
 A brave little knight. A very unreasonable number of monsters.
 
-InfiniteSlash is a portrait action slasher and bullet hell made for one hand. Pick Sword or Shield and jump straight into an endless fantasy swarm. Your knight swings automatically. You steer, dodge, guard and turn narrow escapes into ridiculous combos.
+InfiniteSlash is a portrait action slasher and bullet hell made for one hand. Pick Sword or Shield and jump straight into an endless fantasy swarm. Your knight swings automatically. You steer, dodge and turn narrow escapes into ridiculous combos.
 
 ONE HAND, ALL THE CHAOS
-Drag to move. Lift your thumb to guard. Flick to dash through trouble. Simple controls get you into the action quickly; timing, positioning and parries give you room to improve every run.
+Drag to move. Flick to dash through trouble. Your guard absorbs incoming hits and recovers when you find breathing room. Dash through enemy fire to charge Overdrive and unleash a burst of stronger, faster slashes.
 
 SWORD OR SHIELD?
-Sword is fast, fierce and fragile: cut through crowds before they corner you. Shield is slower and much tougher: hold your ground, block the barrage and slash back. Two very different ways to become a very small problem for a very large horde.
+Sword is fast, fierce and fragile: cut through crowds before they corner you. Shield is slower and much tougher, with a larger guard and faster recovery. Two different ways to become a very small problem for a very large horde.
 
-100 STRANGE CREATURES
-Meet a colorful cast of pixel monsters with names as questionable as their manners. Chargers rush you. Spitters line up shots. Splitters bring friends. Twelve crowned bosses arrive from changing tier pools, with rare royalty crashing the party.
+200 STRANGE CREATURES
+Meet a colorful cast of animated pixel monsters with names as questionable as their manners. Chargers rush you. Splitters bring friends. At level 30, glass cannons, towering tanks and volley squads join the fight. Fifty night-only species stalk the road after dark.
 
-TURN A GOOD RUN INTO A SILLY ONE
-Level up, pause the chaos and choose one of two random upgrades. Build harder hits, faster slices, longer reach, tougher defenses or quicker dashes. Chase gold, grab healing hearts and stack temporary powers. Hurricane turns your blade into a whirlwind. Thunderblade adds sparks to the argument. Keep the combo alive and watch your score climb.
+BUILD YOUR OWN LITTLE DISASTER
+Level up, pause the chaos and choose one of two random upgrades. Explore 103 options, including 72 stat trade-offs: give up defense for speed, reach for power, or damage for a sturdier knight. Chase rare upgrades as the stages advance, or find a legendary choice from level 25. Lifesteal, thorns, guard recovery and a second chance at life can change your run. Permanent growth keeps going beyond level 50. Late-run purses offer thousands of bonus points if you can afford to pass up an upgrade.
+
+THE CROWNS FIGHT BACK
+Twelve named bosses arrive from changing tier pools, with rare royalty crashing the party. Later bosses bring marked fire circles, ground-shattering fissures and electric waves with gaps to escape through. Wounded bosses become enraged. The longer you survive, the more unreasonable the kingdom becomes.
 
 THE ROAD KEEPS GOING
-Fight through scrolling meadows, autumn scenery and twilight. Enemy patterns grow more demanding, bosses return, and every little gap becomes a chance to survive a little longer.
+Fight through scrolling meadows, glowing nights and the ruined stone halls of Crownfall Keep from level 50. Each new stage brings harder hits, tougher enemies and denser barrages. Near level 100, every opening matters.
 
 ONE MORE RUN
-Beat your score, chase survival records, unlock badges and fill your creature collection. Try the daily seeded challenge, or copy a score challenge to send to friends. Falling is one tap away from another attempt.
+Beat your score, chase survival records, unlock badges and fill your bestiary. Try the daily seeded challenge, or copy a score challenge to send to friends. Falling is one tap away from another attempt.
 
 MADE FOR YOUR POCKET
 Portrait play, one-handed controls and quick starts. Set music and sound effects independently. The core game works offline, saves your progress locally and can resume an unfinished run on the same device.

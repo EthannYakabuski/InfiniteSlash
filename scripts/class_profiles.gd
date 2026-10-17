@@ -1,12 +1,13 @@
 extends RefCounted
 ## Shared balance source for combat and the one-tap class cards.
 
-const BALANCE_VERSION := 3
+const BALANCE_VERSION := 4
 const PROFILES := {
 	"sword": {
 		"health": 80.0, "damage": 32.0, "attack_interval": 0.36,
 		"move_speed": 290.0, "attack_range": 92.0, "guard_capacity": 65.0,
 		"guard_drain": 32.0, "guard_regen": 22.0, "block_cost": 12.0,
+		"guard_delay": 0.50, "guard_cost_multiplier": 1.20,
 		"parry_window": 0.12, "guard_damage_multiplier": 0.75,
 		"guard_attack_interval": 0.65, "health_cap": 160.0, "damage_cap": 150.0,
 		"attack_floor": 0.22, "range_cap": 124.0, "guard_cap": 110.0,
@@ -15,6 +16,7 @@ const PROFILES := {
 		"health": 170.0, "damage": 24.0, "attack_interval": 0.60,
 		"move_speed": 220.0, "attack_range": 80.0, "guard_capacity": 165.0,
 		"guard_drain": 22.0, "guard_regen": 28.0, "block_cost": 5.0,
+		"guard_delay": 0.30, "guard_cost_multiplier": 0.80,
 		"parry_window": 0.32, "guard_damage_multiplier": 0.20,
 		"guard_attack_interval": 0.68, "health_cap": 300.0, "damage_cap": 95.0,
 		"attack_floor": 0.40, "range_cap": 108.0, "guard_cap": 250.0,

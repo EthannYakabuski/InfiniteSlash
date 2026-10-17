@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 80688,
+    "ProcessName": "adb",
+    "CPU": 0.75,
+    "StartTime": "2026-10-16T22:10:28.1659227-04:00"
+  },
+  {
+    "Id": 2452,
+    "ProcessName": "Godot_v4.5.1-stable_win64",
+    "CPU": 181.5,
+    "StartTime": "2026-10-15T08:53:56.5426888-04:00"
+  },
+  {
+    "Id": 71444,
+    "ProcessName": "Godot_v4.5.1-stable_win64",
+    "CPU": 30.140625,
+    "StartTime": "2026-10-16T22:39:17.4758554-04:00"
+  },
+  {
+    "Id": 85388,
+    "ProcessName": "Godot_v4.5.1-stable_win64",
+    "CPU": 335.703125,
+    "StartTime": "2026-10-14T08:21:59.9869939-04:00"
+  },
+  {
+    "Id": 88312,
+    "ProcessName": "Godot_v4.5.1-stable_win64_console",
+    "CPU": 0.0,
+    "StartTime": "2026-10-16T22:39:17.4613334-04:00"
+  }
+]

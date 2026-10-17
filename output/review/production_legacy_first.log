@@ -1,0 +1,1927 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+INFINITESLASH_UI launch
+INFINITESLASH_UI running
+ERROR: GAME TEST: sword thumb drag moves and releases guard
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_controls (res://tests/test_game.gd:125)
+       [2] _run (res://tests/test_game.gd:87)
+ERROR: GAME TEST: Lifting the active thumb begins a timed parry
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_controls (res://tests/test_game.gd:134)
+       [2] _run (res://tests/test_game.gd:87)
+INFINITESLASH_UI running
+ERROR: GAME TEST: shield thumb drag moves and releases guard
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_controls (res://tests/test_game.gd:125)
+       [2] _run (res://tests/test_game.gd:87)
+ERROR: GAME TEST: Lifting the active thumb begins a timed parry
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_controls (res://tests/test_game.gd:134)
+       [2] _run (res://tests/test_game.gd:87)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: An exposed knight takes damage
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_damage_guard (res://tests/test_game.gd:166)
+       [2] _run (res://tests/test_game.gd:88)
+ERROR: GAME TEST: Damage subtracts the expected amount (got 80.00000, expected 60.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_damage_guard (res://tests/test_game.gd:167)
+       [3] _run (res://tests/test_game.gd:88)
+ERROR: GAME TEST: Damage grace leaves health unchanged (got 80.00000, expected 60.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_damage_guard (res://tests/test_game.gd:169)
+       [3] _run (res://tests/test_game.gd:88)
+INFINITESLASH_UI running
+ERROR: GAME TEST: sword guard contact reduction (got 0.00000, expected 15.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_damage_guard (res://tests/test_game.gd:179)
+       [3] _run (res://tests/test_game.gd:88)
+INFINITESLASH_UI running
+ERROR: GAME TEST: shield guard contact reduction (got 0.00000, expected 4.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_damage_guard (res://tests/test_game.gd:179)
+       [3] _run (res://tests/test_game.gd:88)
+INFINITESLASH_UI running
+ERROR: GAME TEST: Perfect guard removes a nearby bullet and awards a small score
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_damage_guard (res://tests/test_game.gd:191)
+       [2] _run (res://tests/test_game.gd:88)
+ERROR: GAME TEST: Perfect bullet guard refunds reserve
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_damage_guard (res://tests/test_game.gd:192)
+       [2] _run (res://tests/test_game.gd:88)
+INFINITESLASH_UI running
+ERROR: GAME TEST: A stationary guard stays exhausted instead of flickering/recharging
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_damage_guard (res://tests/test_game.gd:196)
+       [2] _run (res://tests/test_game.gd:88)
+INFINITESLASH_UI running
+ERROR: GAME TEST: A fourth hit passes through an exhausted ward
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_damage_guard (res://tests/test_game.gd:211)
+       [2] _run (res://tests/test_game.gd:88)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: sword eventually exhausts guard without recharging at rest
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:259)
+       [2] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: sword remains exposed after guard exhaustion
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:262)
+       [2] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: sword recharges reserve only while moving
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:269)
+       [2] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+ERROR: GAME TEST: sword reaches its own health cap (got 1772.86238, expected 160.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:291)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: sword reaches its own damage cap (got 407.60639, expected 150.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:292)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: sword reaches its own attack cadence cap (got 0.15680, expected 0.22000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:293)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: sword reaches its own reach cap (got 230.00000, expected 124.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:294)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: sword reaches its own guard cap (got 1516.19266, expected 110.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:295)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: sword snapshot records the new class balance version
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:297)
+       [2] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: shield eventually exhausts guard without recharging at rest
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:259)
+       [2] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: shield remains exposed after guard exhaustion
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:262)
+       [2] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: shield recharges reserve only while moving
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:269)
+       [2] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+ERROR: GAME TEST: shield reaches its own health cap (got 1331.95543, expected 300.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:291)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: shield reaches its own damage cap (got 520.14730, expected 95.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:292)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: shield reaches its own attack cadence cap (got 0.28426, expected 0.40000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:293)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: shield reaches its own reach cap (got 235.00000, expected 108.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:294)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: shield reaches its own guard cap (got 3558.70189, expected 250.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_class_comparison (res://tests/test_game.gd:295)
+       [3] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: shield snapshot records the new class balance version
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:297)
+       [2] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+ERROR: GAME TEST: Identical contact pressure defeats Sword while Shield survives
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:315)
+       [2] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: Shield holds guard far longer but still exhausts it
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:317)
+       [2] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: Sword retains substantially higher damage output at maximum upgrades
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:321)
+       [2] _run (res://tests/test_game.gd:89)
+ERROR: GAME TEST: Shield retains substantially higher survival reserves at maximum upgrades
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_class_comparison (res://tests/test_game.gd:322)
+       [2] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: Shield baseline migrated run is saved as balance version 3
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_v2_shield_damage_migration (res://tests/test_game.gd:403)
+       [2] _test_class_comparison (res://tests/test_game.gd:325)
+       [3] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: upgraded Shield migrated run is saved as balance version 3
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_v2_shield_damage_migration (res://tests/test_game.gd:403)
+       [2] _test_class_comparison (res://tests/test_game.gd:325)
+       [3] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: Shield near its damage cap migrated run is saved as balance version 3
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_v2_shield_damage_migration (res://tests/test_game.gd:403)
+       [2] _test_class_comparison (res://tests/test_game.gd:325)
+       [3] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: Sword baseline migrated run is saved as balance version 3
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_v2_shield_damage_migration (res://tests/test_game.gd:403)
+       [2] _test_class_comparison (res://tests/test_game.gd:325)
+       [3] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: upgraded Sword migrated run is saved as balance version 3
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_v2_shield_damage_migration (res://tests/test_game.gd:403)
+       [2] _test_class_comparison (res://tests/test_game.gd:325)
+       [3] _run (res://tests/test_game.gd:89)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+ERROR: GAME TEST: Offensive upgrades remain within late-run caps
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_powerups_upgrades (res://tests/test_game.gd:504)
+       [2] _run (res://tests/test_game.gd:92)
+ERROR: GAME TEST: Defensive upgrades remain within late-run caps
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_powerups_upgrades (res://tests/test_game.gd:505)
+       [2] _run (res://tests/test_game.gd:92)
+INFINITESLASH_UI running
+ERROR: GAME TEST: Reaching the first XP goal pauses for two upgrade choices
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_powerups_upgrades (res://tests/test_game.gd:516)
+       [2] _run (res://tests/test_game.gd:92)
+SCRIPT ERROR: Invalid access of index '0' on a base object of type: 'Array'.
+   at: _test_powerups_upgrades (res://tests/test_game.gd:517)
+   GDScript backtrace (most recent call first):
+       [0] _test_powerups_upgrades (res://tests/test_game.gd:517)
+       [1] _run (res://tests/test_game.gd:92)
+INFINITESLASH_UI running
+ERROR: GAME TEST: Actual XP pickup enters a two-card choice
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_run_build_choices (res://tests/test_game.gd:532)
+       [2] _run (res://tests/test_game.gd:93)
+ERROR: GAME TEST: Level-up freezes timer, actors, bullets, buffs, combo and cooldowns
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_run_build_choices (res://tests/test_game.gd:541)
+       [2] _run (res://tests/test_game.gd:93)
+ERROR: GAME TEST: Choice overlay freezes background animation too (got 0.05000, expected 0.00000)
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] near (res://tests/test_game.gd:24)
+       [2] _test_run_build_choices (res://tests/test_game.gd:542)
+       [3] _run (res://tests/test_game.gd:93)
+INFINITESLASH_UI upgrade
+ERROR: GAME TEST: Re-entry and invalid choices cannot reroll offers or advance a level
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_run_build_choices (res://tests/test_game.gd:545)
+       [2] _run (res://tests/test_game.gd:93)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+ERROR: GAME TEST: Large XP rewards retain overflow while the first choice waits
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_run_build_choices (res://tests/test_game.gd:558)
+       [2] _run (res://tests/test_game.gd:93)
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+ERROR: GAME TEST: Resume returns to the required choice without discarding excess XP
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_run_build_choices (res://tests/test_game.gd:567)
+       [2] _run (res://tests/test_game.gd:93)
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+ERROR: GAME TEST: Queued decisions conserve every point of earned XP
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_run_build_choices (res://tests/test_game.gd:576)
+       [2] _run (res://tests/test_game.gd:93)
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI pause
+INFINITESLASH_UI running
+INFINITESLASH_UI end
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+INFINITESLASH_UI running
+ERROR: GAME TEST: Malformed enemy dictionaries are skipped safely
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_malformed_snapshots (res://tests/test_game.gd:712)
+       [2] _run (res://tests/test_game.gd:98)
+ERROR: GAME TEST: Restored bullet radius, velocity, damage and lifetime have safe caps
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/test_game.gd:20)
+       [1] _test_malformed_snapshots (res://tests/test_game.gd:721)
+       [2] _run (res://tests/test_game.gd:98)
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+INFINITESLASH_UI upgrade
+INFINITESLASH_UI running
+STRESS: {"android_device_measured":false,"average_step_ms":3.13271166666667,"bosses_seen":4,"kills":3610,"level":28,"max_step_ms":312.974,"p95_step_ms":4.61,"peaks":{"bullets":480,"drops":60,"effects":90,"enemies":140},"rendering_measured":false,"simulated_seconds":300,"steps":18000,"wall_time_ms":59216.073}
+GAME TESTS: 378 checks, 52 failures

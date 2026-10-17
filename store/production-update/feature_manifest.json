@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "package_name": "com.slash.game",
+  "game_id": "832658811620",
+  "features": [
+    {
+      "category": "achievements",
+      "key": "bestiary_50",
+      "name": "Field Guide",
+      "description": "Defeat 50 different creature species across your runs.",
+      "type": "Standard",
+      "suggested_points": 10,
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google ID",
+      "suggested_initial_state": "Revealed",
+      "relative_path": "store/production-update/achievements/bestiary_50.png",
+      "filename": "bestiary_50.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 5854,
+      "sha256": "d2d1b557b1685af9e69dd0729f4a621d27d318cb0cc78a14e7409e8d3d00c097"
+    },
+    {
+      "category": "achievements",
+      "key": "bestiary_100",
+      "name": "Monster Scholar",
+      "description": "Defeat 100 different creature species across your runs.",
+      "type": "Standard",
+      "suggested_points": 15,
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google ID",
+      "suggested_initial_state": "Revealed",
+      "relative_path": "store/production-update/achievements/bestiary_100.png",
+      "filename": "bestiary_100.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6007,
+      "sha256": "50a3395d733f24eb6f685daf2b3cefdf058cbcfec69e18e91723826cd111ccbf"
+    },
+    {
+      "category": "achievements",
+      "key": "bestiary_150",
+      "name": "Midnight Archivist",
+      "description": "Defeat 150 different creature species across your runs.",
+      "type": "Standard",
+      "suggested_points": 20,
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google ID",
+      "suggested_initial_state": "Revealed",
+      "relative_path": "store/production-update/achievements/bestiary_150.png",
+      "filename": "bestiary_150.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6115,
+      "sha256": "ee5b6cdffcb301d56433b826cc030f951e41e92a747bc1ce7d8604d237c794c0"
+    },
+    {
+      "category": "achievements",
+      "key": "bestiary_200",
+      "name": "Living Bestiary",
+      "description": "Defeat 200 different creature species across your runs.",
+      "type": "Standard",
+      "suggested_points": 25,
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google ID",
+      "suggested_initial_state": "Revealed",
+      "relative_path": "store/production-update/achievements/bestiary_200.png",
+      "filename": "bestiary_200.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 6924,
+      "sha256": "9354791aa97a10fe323730bf3d787b4623e51f5fb20b22d7cfbaec6c33ca6053"
+    },
+    {
+      "category": "achievements",
+      "key": "biome_50",
+      "name": "Beyond the Kingdom",
+      "description": "Reach level 50 and enter Crownfall Keep.",
+      "type": "Standard",
+      "suggested_points": 20,
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google ID",
+      "suggested_initial_state": "Revealed",
+      "relative_path": "store/production-update/achievements/biome_50.png",
+      "filename": "biome_50.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 7422,
+      "sha256": "9c8821ac5f9e407417811aa5dc664e8316b3f0538ed13bc8c630d0a68e257651"
+    },
+    {
+      "category": "leaderboards",
+      "key": "highest_combo",
+      "name": "Unbroken Steel",
+      "description": "Highest kill combo in one completed run.",
+      "type": "Numeric",
+      "decimals": 0,
+      "order": "Larger is better",
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google ID",
+      "suggested_initial_state": null,
+      "relative_path": "store/production-update/leaderboards/highest_combo.png",
+      "filename": "highest_combo.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 12353,
+      "sha256": "c5bacc3b71bed997372cba8db32bf9a926b9f0a55c9275e0945ec929f730e667"
+    },
+    {
+      "category": "leaderboards",
+      "key": "highest_level",
+      "name": "Beyond All Reason",
+      "description": "Highest level reached in one completed run.",
+      "type": "Numeric",
+      "decimals": 0,
+      "order": "Larger is better",
+      "google_id": "",
+      "status": "Awaiting owner-supplied Google ID",
+      "suggested_initial_state": null,
+      "relative_path": "store/production-update/leaderboards/highest_level.png",
+      "filename": "highest_level.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "mode": "RGB",
+      "bytes": 7030,
+      "sha256": "51b3d62bd3b3c49aeb143994a7644a4f532cf26dd2b92f0ad6aac8ae90542f4b"
+    }
+  ],
+  "species_metric": "Unique confirmed creature species defeated across runs; repeat kills and boss summons do not count again.",
+  "legacy_migration": "Validated legacy discovered species were kill-only discoveries and migrate into unique defeated species.",
+  "existing_collector": "Keep the same Google ID, Incremental type and target100. Update its display name to Bestiary Pioneer and description to Defeat 100 different creature species across your runs.",
+  "existing_bosses_board": "Crown Hoarder/bosses_in_run already tracks most bosses in a completed run; no duplicate board is needed.",
+  "registration": "Create the five Standard achievements and two Numeric integer larger-is-better leaderboards, upload matching icons, and return the generated IDs by semantic key. Blank IDs still track locally and replay after configuration/authentication.",
+  "provenance": "Established code-native pixel medal system with existing knight/creature sprite crops; source images unchanged.",
+  "generator": "tools/build_production_service_icons.py"
+}

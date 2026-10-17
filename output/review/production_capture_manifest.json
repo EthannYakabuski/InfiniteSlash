@@ -1,0 +1,390 @@
+{
+	"captures": [
+		{
+			"file": "output/review/production_day_540x960.png",
+			"label": "day_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_night_host_540x960.png",
+			"label": "night_host_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_keep_overdrive_540x960.png",
+			"label": "keep_overdrive_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_fire_warning_540x960.png",
+			"label": "fire_warning_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_fire_active_540x960.png",
+			"label": "fire_active_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_quake_warning_540x960.png",
+			"label": "quake_warning_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_quake_active_540x960.png",
+			"label": "quake_active_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_pulse_warning_540x960.png",
+			"label": "pulse_warning_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_pulse_active_540x960.png",
+			"label": "pulse_active_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_common_choices_540x960.png",
+			"label": "common_choices_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_rare_trade_choices_540x960.png",
+			"label": "rare_trade_choices_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_rare30_choices_540x960.png",
+			"label": "rare30_choices_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_rare50_choices_540x960.png",
+			"label": "rare50_choices_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_legendary_choices_540x960.png",
+			"label": "legendary_choices_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_choice_audio_540x960.png",
+			"label": "choice_audio_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_choice_audio_restored_540x960.png",
+			"label": "choice_audio_restored_540x960",
+			"size": [
+				540,
+				960
+			]
+		},
+		{
+			"file": "output/review/production_day_540x1110.png",
+			"label": "day_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_night_host_540x1110.png",
+			"label": "night_host_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_keep_overdrive_540x1110.png",
+			"label": "keep_overdrive_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_fire_warning_540x1110.png",
+			"label": "fire_warning_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_fire_active_540x1110.png",
+			"label": "fire_active_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_quake_warning_540x1110.png",
+			"label": "quake_warning_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_quake_active_540x1110.png",
+			"label": "quake_active_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_pulse_warning_540x1110.png",
+			"label": "pulse_warning_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_pulse_active_540x1110.png",
+			"label": "pulse_active_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_common_choices_540x1110.png",
+			"label": "common_choices_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_rare_trade_choices_540x1110.png",
+			"label": "rare_trade_choices_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_rare30_choices_540x1110.png",
+			"label": "rare30_choices_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_rare50_choices_540x1110.png",
+			"label": "rare50_choices_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_legendary_choices_540x1110.png",
+			"label": "legendary_choices_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_choice_audio_540x1110.png",
+			"label": "choice_audio_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_choice_audio_restored_540x1110.png",
+			"label": "choice_audio_restored_540x1110",
+			"size": [
+				540,
+				1110
+			]
+		},
+		{
+			"file": "output/review/production_day_1080x1920.png",
+			"label": "day_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_night_host_1080x1920.png",
+			"label": "night_host_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_keep_overdrive_1080x1920.png",
+			"label": "keep_overdrive_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_fire_warning_1080x1920.png",
+			"label": "fire_warning_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_fire_active_1080x1920.png",
+			"label": "fire_active_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_quake_warning_1080x1920.png",
+			"label": "quake_warning_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_quake_active_1080x1920.png",
+			"label": "quake_active_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_pulse_warning_1080x1920.png",
+			"label": "pulse_warning_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_pulse_active_1080x1920.png",
+			"label": "pulse_active_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_common_choices_1080x1920.png",
+			"label": "common_choices_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_rare_trade_choices_1080x1920.png",
+			"label": "rare_trade_choices_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_rare30_choices_1080x1920.png",
+			"label": "rare30_choices_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_rare50_choices_1080x1920.png",
+			"label": "rare50_choices_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_legendary_choices_1080x1920.png",
+			"label": "legendary_choices_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_choice_audio_1080x1920.png",
+			"label": "choice_audio_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		},
+		{
+			"file": "output/review/production_choice_audio_restored_1080x1920.png",
+			"label": "choice_audio_restored_1080x1920",
+			"size": [
+				1080,
+				1920
+			]
+		}
+	],
+	"provenance": "Actual Godot game scene, deterministic composed state, desktop renderer; not physical-device captures or live service verification",
+	"renderer": "gl_compatibility"
+}

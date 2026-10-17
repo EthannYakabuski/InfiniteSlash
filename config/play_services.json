@@ -7,7 +7,9 @@
     "high_score": "CgkI5NXU8p0YEAIQAQ",
     "longest_run": "CgkI5NXU8p0YEAIQAg",
     "bosses_in_run": "CgkI5NXU8p0YEAIQAw",
-    "daily_score": ""
+    "daily_score": "",
+    "highest_combo": "",
+    "highest_level": ""
   },
   "achievements": {
     "first_blood": "CgkI5NXU8p0YEAIQBA",
@@ -24,7 +26,12 @@
     "ten_runs": "CgkI5NXU8p0YEAIQDw",
     "survivor_180": "",
     "rare_boss": "CgkI5NXU8p0YEAIQEA",
-    "all_bosses": "CgkI5NXU8p0YEAIQEQ"
+    "all_bosses": "CgkI5NXU8p0YEAIQEQ",
+    "bestiary_50": "",
+    "bestiary_100": "",
+    "bestiary_150": "",
+    "bestiary_200": "",
+    "biome_50": ""
   },
   "incremental_achievements": {
     "century": 100,

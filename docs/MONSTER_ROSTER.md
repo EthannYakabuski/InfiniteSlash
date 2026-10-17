@@ -1,5 +1,7 @@
 # Monster roster
 
+This page records the original 100 generated monsters. Their order, stats, IDs and art remain unchanged. The expanded game has 200 generated monsters plus the supplied original; see [the expansion roster](MONSTER_ROSTER_EXPANSION.md) for the 50 stage-2 veterans and 50 night-only additions.
+
 100 unique animated monsters were generated using Kenney Creature Mixer in the browser, with the full Randomize control and Save spritesheet at 8x. The supplied original sheet is preserved separately.
 
 Every sheet is 768 x 192 RGBA pixels, with four 192 x 192 frames. The game displays those frames with nearest-neighbor sampling.

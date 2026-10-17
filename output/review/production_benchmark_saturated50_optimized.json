@@ -1,0 +1,495 @@
+{
+  "average_fps": 57.8759461100263,
+  "budget": {
+    "bullets": 480,
+    "enemies": 140,
+    "hazards": 24
+  },
+  "case": "saturated50",
+  "desktop_only": true,
+  "engine_max_fps": 60,
+  "final_level": 50,
+  "focused_frame_fraction": 1.0,
+  "frame_ms": {
+    "max": 40.467,
+    "mean": 17.2880466589862,
+    "min": 12.056,
+    "p50": 16.673,
+    "p95": 20.228,
+    "p99": 21.676
+  },
+  "frames": 1736,
+  "gpu": "NVIDIA GeForce GT 1030",
+  "gpu_timer_note": "Zero GPU timing means the renderer/driver did not expose a meaningful GPU timer; it does not prove zero GPU work.",
+  "initial_level": 50,
+  "injection_ms": {
+    "max": 4.308,
+    "mean": 0.0578392857142856,
+    "min": 0.009,
+    "p50": 0.037,
+    "p95": 0.07,
+    "p99": 0.739
+  },
+  "low_processor_usage_mode": false,
+  "method": "30 measured seconds after 5 seconds warmup; actual rendered scene at 60 FPS cap with VSync disabled. 140 enemies, 480 bullets and 24 mixed telegraphed/active hazards replenished each frame. One fixed 1/60-second gameplay tick per rendered frame; this is a stress workload, not a real-time survival or balance test.",
+  "monitors": {
+    "draw_calls": {
+      "max": 455.0,
+      "mean": 353.658986175115,
+      "min": 298.0,
+      "p50": 351.0,
+      "p95": 399.0,
+      "p99": 435.0
+    },
+    "frame_setup_cpu_ms": {
+      "max": 2.015,
+      "mean": 0.0112609447004606,
+      "min": 0.007,
+      "p50": 0.01,
+      "p95": 0.011,
+      "p99": 0.014
+    },
+    "node_count": {
+      "max": 81.0,
+      "mean": 79.6042626728111,
+      "min": 79.0,
+      "p50": 80.0,
+      "p95": 81.0,
+      "p99": 81.0
+    },
+    "physics_ms": {
+      "max": 2.047,
+      "mean": 0.128792050691244,
+      "min": 0.03,
+      "p50": 0.038,
+      "p95": 0.21,
+      "p99": 2.047
+    },
+    "process_ms": {
+      "max": 40.395,
+      "mean": 21.8197718894008,
+      "min": 17.826,
+      "p50": 20.759,
+      "p95": 31.964,
+      "p99": 40.395
+    },
+    "render_cpu_ms": {
+      "max": 6.92199993133545,
+      "mean": 3.57488133995214,
+      "min": 2.62800002098084,
+      "p50": 3.24900007247925,
+      "p95": 5.41400003433228,
+      "p99": 5.70599985122681
+    },
+    "render_gpu_ms": {
+      "max": 7.1560001373291,
+      "mean": 0.839883064001387,
+      "min": 0.518999993801117,
+      "p50": 0.610000014305115,
+      "p95": 2.59200000762939,
+      "p99": 2.87199997901917
+    },
+    "render_objects": {
+      "max": 2316.0,
+      "mean": 2014.9366359447,
+      "min": 1805.0,
+      "p50": 2024.0,
+      "p95": 2128.0,
+      "p99": 2237.0
+    },
+    "render_primitives": {
+      "max": 23013.0,
+      "mean": 20405.4596774194,
+      "min": 18347.0,
+      "p50": 20389.0,
+      "p95": 21947.0,
+      "p99": 22495.0
+    },
+    "texture_mb": {
+      "max": 23.7251043319702,
+      "mean": 23.6478437597301,
+      "min": 23.4334383010864,
+      "p50": 23.6834383010864,
+      "p95": 23.6834383010864,
+      "p99": 23.6834383010864
+    },
+    "video_mb": {
+      "max": 30.3975076675415,
+      "mean": 30.3050221462953,
+      "min": 30.0785455703735,
+      "p50": 30.338906288147,
+      "p95": 30.376145362854,
+      "p99": 30.3861780166626
+    }
+  },
+  "occupancy": {
+    "bullets": {
+      "max": 480,
+      "mean": 480.0,
+      "min": 480,
+      "p50": 480,
+      "p95": 480,
+      "p99": 480
+    },
+    "drops": {
+      "max": 6,
+      "mean": 0.563940092165899,
+      "min": 0,
+      "p50": 0,
+      "p95": 2,
+      "p99": 6
+    },
+    "effects": {
+      "max": 90,
+      "mean": 64.4222350230415,
+      "min": 18,
+      "p50": 66,
+      "p95": 90,
+      "p99": 90
+    },
+    "enemies": {
+      "max": 140,
+      "mean": 140.0,
+      "min": 140,
+      "p50": 140,
+      "p95": 140,
+      "p99": 140
+    },
+    "hazards": {
+      "max": 24,
+      "mean": 24.0,
+      "min": 24,
+      "p50": 24,
+      "p95": 24,
+      "p99": 24
+    }
+  },
+  "platform": "Windows",
+  "practical_budget": false,
+  "processor": "Intel(R) Core(TM) i5-3570 CPU @ 3.40GHz",
+  "real_android_device_verified": false,
+  "renderer": "gl_compatibility",
+  "run_tag": "optimized",
+  "seconds": 29.99519,
+  "seconds_trace": [
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 55.3760229731387,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 1.011268
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 55.8971492453885,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 2.013108
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 58.3334816387951,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 3.024534
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.9868858522229,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 4.041146
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 58.7073438907048,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 5.046131
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.9218981266017,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 6.047413
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 59.2735434514589,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 7.059669
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 53.7355672734474,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 8.06459
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.252150310348,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 9.077002
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 53.2606358530874,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 10.090884
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 52.6292793562148,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 11.097928
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 53.5427449580582,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 12.106468
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 59.444844596315,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 13.115807
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.002282054006,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 14.132435
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 57.5509300924883,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 15.140238
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 59.4948883975052,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 16.148728
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 55.735637072999,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 17.171413
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.4393045714903,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 18.18069
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 57.8506873758828,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 19.183271
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 59.1558460764885,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 20.197541
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.0023410749469,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 21.214168
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 59.8576761091333,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 22.233252
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 59.8062278218572,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 23.236492
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.3435228152924,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 24.247371
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 59.5863515475569,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 25.254313
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 54.9966952878635,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 26.272556
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.9852661564233,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 27.289195
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 58.4547342390184,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 28.298523
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.1712612192276,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 29.312296
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.7597559250723,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 30.31625
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 60.0028132466539,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 31.332869
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 53.6516932076956,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 32.339361
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 50.7646550591458,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 33.343997
+    },
+    {
+      "bullets": 480,
+      "enemies": 140,
+      "focused": true,
+      "fps": 53.3425003407993,
+      "hazards": 24,
+      "level": 50,
+      "wall_second": 34.356323
+    }
+  ],
+  "simulation_ms": {
+    "max": 5.947,
+    "mean": 2.06705472350231,
+    "min": 0.012,
+    "p50": 2.073,
+    "p95": 4.155,
+    "p99": 4.354
+  },
+  "viewport": [
+    540,
+    960
+  ],
+  "vsync_mode": 0
+}

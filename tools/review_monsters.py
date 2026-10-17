@@ -13,7 +13,7 @@ else:
     files = [ROOT / "Assets/Monsters/cinder_cheek.png", ROOT / "Assets/Monsters/hex_hat.png"]
     files += [ROOT / f"Assets/Monsters/mixer_{n:03}.png" for n in range(3, 101)]
 font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 16)
-for page in range(2):
+for page in range((len(files) + 49) // 50):
     sheet = Image.new("RGB", (1400, 800), "#252939")
     draw = ImageDraw.Draw(sheet)
     for i, path in enumerate(files[page * 50:(page + 1) * 50]):
@@ -24,4 +24,4 @@ for page in range(2):
         sheet.paste(tile, (x + 10, y + 6), tile)
         draw.text((x + 56, y + 135), f"{page * 50 + i + 1:03}", font=font, fill="white")
     sheet.save(OUT / f"monster_review_{page + 1}.png")
-print("100 original exports have valid 768x192 dimensions. Built two review sheets.")
+print(f"{len(files)} original exports have valid 768x192 dimensions. Built {(len(files)+49)//50} review sheets.")

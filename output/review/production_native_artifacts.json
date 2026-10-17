@@ -1,0 +1,427 @@
+{
+  "status": "PASS",
+  "package": "com.slash.game",
+  "version_name": "0.3.0",
+  "version_code": 8,
+  "google_backend_tested": false,
+  "real_16kb_device_tested": false,
+  "scope": "Actual signed packages, config/data, bridge/SDK, manifests and static native alignment",
+  "apk": {
+    "path": "builds\\InfiniteSlash-debug-0.3.0.apk",
+    "bytes": 182935394,
+    "sha256": "c8e9bfd09202453f58b388547477a88019c3078318570f1635478fd2fc732667",
+    "packaged_config_matches": true,
+    "packaged_monster_count": 200,
+    "configured_achievements": 14,
+    "configured_leaderboards": 3,
+    "packaged_scripts": [
+      "assets/addons/GodotPlayGameServices/scripts/achievements/achievement.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/achievements/achievements_client.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/autoloads/godot_play_game_services.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/events/event.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/events/events_client.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard_score.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard_scores.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard_variant.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboards_client.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/marshalling/json_marshaller.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/players/player.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/players/player_level.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/players/player_level_info.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/players/players_client.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/sign_in/sign_in_client.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/snapshots/game.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/snapshots/snapshot.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/snapshots/snapshot_conflict.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/snapshots/snapshot_metadata.gdc",
+      "assets/addons/GodotPlayGameServices/scripts/snapshots/snapshots_client.gdc",
+      "assets/scripts/audio_manager.gdc",
+      "assets/scripts/boss_catalog.gdc",
+      "assets/scripts/boss_hazards.gdc",
+      "assets/scripts/class_profiles.gdc",
+      "assets/scripts/game.gdc",
+      "assets/scripts/game_ui.gdc",
+      "assets/scripts/progression.gdc",
+      "assets/scripts/services/play_services.gdc",
+      "assets/scripts/services/save_data.gdc",
+      "assets/scripts/upgrade_catalog.gdc",
+      "assets/scripts/world.gdc"
+    ],
+    "game_script_sha256": {
+      "scripts/audio_manager.gdc": "05e0197ea683721328f9c94b8f30f82bd1b039c141c7ee4b5db83a7fdce18d1b",
+      "scripts/boss_catalog.gdc": "25639add6b6804790a8b41222f3a12638b73941ce76424b0912eddd716bc7c59",
+      "scripts/boss_hazards.gdc": "a7fb8c69eb9ae4a4f2e3fdd23cc26ee7a7639b31665b0583280aef2b8af649bc",
+      "scripts/class_profiles.gdc": "4bd9d4887256095e926795632706d227ab3a1b858f20f5566d42ec5c90d796d5",
+      "scripts/game.gdc": "0c1c5eff304d91cbaf58d665ae16cfe32371127580568e448bfff0ea718b8d16",
+      "scripts/game_ui.gdc": "14bbcf103384b81efd0221d9c0b8cfea2514710dd64d745a5b8070d0c9e4b73f",
+      "scripts/progression.gdc": "1aa2909dce295482a1ff3c1d561c02167a060e1cf5e977bef3634116078c6058",
+      "scripts/services/play_services.gdc": "58c5beb272fce8e0ca83a24f49f831784e801f720842c082b919515c6e4085c2",
+      "scripts/services/save_data.gdc": "dcfd76945ebaae88ef3a433a9eb061f60ec3c81a022b1aef00466cc58b4ad788",
+      "scripts/upgrade_catalog.gdc": "01675b99f4f1ef5a3472df9fc9663f74c3f09edc753f416e429e46e703ec15b1",
+      "scripts/world.gdc": "247119410cb51fa1a197eec45895cc5bb9e0234997952679b5c6712c14a327a4"
+    },
+    "bridge_dex": {
+      "plugin_class": true,
+      "resolve_conflict": true,
+      "load_failure_signal": true,
+      "google_games_sdk": true
+    },
+    "native_libraries": [
+      {
+        "name": "lib/arm64-v8a/libc++_shared.so",
+        "compressed": false,
+        "segments": [
+          {
+            "type": "LOAD",
+            "virtual_address": 0,
+            "memory_size": 624800,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 641184,
+            "memory_size": 585720,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 1243288,
+            "memory_size": 42856,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 1299504,
+            "memory_size": 32032,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "GNU_RELRO",
+            "virtual_address": 1243288,
+            "memory_size": 42856,
+            "alignment": 1,
+            "relro_end_modulo_16k": 8192,
+            "covers_whole_load": true,
+            "static_16kb_accepted": true,
+            "assessment": "whole_LOAD_exception"
+          }
+        ],
+        "load_alignment_16k": true,
+        "relro_static_16kb_accepted": true
+      },
+      {
+        "name": "lib/arm64-v8a/libgodot_android.so",
+        "compressed": false,
+        "segments": [
+          {
+            "type": "LOAD",
+            "virtual_address": 0,
+            "memory_size": 18727820,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 18744208,
+            "memory_size": 55623152,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 74383744,
+            "memory_size": 1629824,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 76026592,
+            "memory_size": 1974048,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "GNU_RELRO",
+            "virtual_address": 74383744,
+            "memory_size": 1629824,
+            "alignment": 1,
+            "relro_end_modulo_16k": 8192,
+            "covers_whole_load": true,
+            "static_16kb_accepted": true,
+            "assessment": "whole_LOAD_exception"
+          }
+        ],
+        "load_alignment_16k": true,
+        "relro_static_16kb_accepted": true
+      },
+      {
+        "name": "lib/x86/libc++_shared.so",
+        "compressed": false,
+        "segments": [
+          {
+            "type": "LOAD",
+            "virtual_address": 0,
+            "memory_size": 522792,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 526896,
+            "memory_size": 598176,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 1129168,
+            "memory_size": 21808,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 1153432,
+            "memory_size": 24056,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "GNU_RELRO",
+            "virtual_address": 1129168,
+            "memory_size": 21808,
+            "alignment": 1,
+            "relro_end_modulo_16k": 4096,
+            "covers_whole_load": true,
+            "static_16kb_accepted": true,
+            "assessment": "whole_LOAD_exception"
+          }
+        ],
+        "load_alignment_16k": false,
+        "relro_static_16kb_accepted": true
+      },
+      {
+        "name": "lib/x86/libgodot_android.so",
+        "compressed": false,
+        "segments": [
+          {
+            "type": "LOAD",
+            "virtual_address": 0,
+            "memory_size": 15242724,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 15246832,
+            "memory_size": 75483632,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 90734560,
+            "memory_size": 839712,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 91575256,
+            "memory_size": 1152136,
+            "alignment": 4096,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "GNU_RELRO",
+            "virtual_address": 90734560,
+            "memory_size": 839712,
+            "alignment": 1,
+            "relro_end_modulo_16k": 4096,
+            "covers_whole_load": true,
+            "static_16kb_accepted": true,
+            "assessment": "whole_LOAD_exception"
+          }
+        ],
+        "load_alignment_16k": false,
+        "relro_static_16kb_accepted": true
+      }
+    ]
+  },
+  "aab": {
+    "path": "builds\\InfiniteSlash-play-0.3.0.aab",
+    "bytes": 36167239,
+    "sha256": "4dd61060ad0150ddd5cec124289723a122e49f7a14966f45d87f7be1dc41c33f",
+    "packaged_config_matches": true,
+    "packaged_monster_count": 200,
+    "configured_achievements": 14,
+    "configured_leaderboards": 3,
+    "packaged_scripts": [
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/achievements/achievement.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/achievements/achievements_client.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/autoloads/godot_play_game_services.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/events/event.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/events/events_client.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard_score.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard_scores.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboard_variant.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/leaderboards/leaderboards_client.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/marshalling/json_marshaller.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/players/player.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/players/player_level.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/players/player_level_info.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/players/players_client.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/sign_in/sign_in_client.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/snapshots/game.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/snapshots/snapshot.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/snapshots/snapshot_conflict.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/snapshots/snapshot_metadata.gdc",
+      "assetPackInstallTime/assets/addons/GodotPlayGameServices/scripts/snapshots/snapshots_client.gdc",
+      "assetPackInstallTime/assets/scripts/audio_manager.gdc",
+      "assetPackInstallTime/assets/scripts/boss_catalog.gdc",
+      "assetPackInstallTime/assets/scripts/boss_hazards.gdc",
+      "assetPackInstallTime/assets/scripts/class_profiles.gdc",
+      "assetPackInstallTime/assets/scripts/game.gdc",
+      "assetPackInstallTime/assets/scripts/game_ui.gdc",
+      "assetPackInstallTime/assets/scripts/progression.gdc",
+      "assetPackInstallTime/assets/scripts/services/play_services.gdc",
+      "assetPackInstallTime/assets/scripts/services/save_data.gdc",
+      "assetPackInstallTime/assets/scripts/upgrade_catalog.gdc",
+      "assetPackInstallTime/assets/scripts/world.gdc"
+    ],
+    "game_script_sha256": {
+      "scripts/audio_manager.gdc": "05e0197ea683721328f9c94b8f30f82bd1b039c141c7ee4b5db83a7fdce18d1b",
+      "scripts/boss_catalog.gdc": "25639add6b6804790a8b41222f3a12638b73941ce76424b0912eddd716bc7c59",
+      "scripts/boss_hazards.gdc": "a7fb8c69eb9ae4a4f2e3fdd23cc26ee7a7639b31665b0583280aef2b8af649bc",
+      "scripts/class_profiles.gdc": "4bd9d4887256095e926795632706d227ab3a1b858f20f5566d42ec5c90d796d5",
+      "scripts/game.gdc": "0c1c5eff304d91cbaf58d665ae16cfe32371127580568e448bfff0ea718b8d16",
+      "scripts/game_ui.gdc": "14bbcf103384b81efd0221d9c0b8cfea2514710dd64d745a5b8070d0c9e4b73f",
+      "scripts/progression.gdc": "1aa2909dce295482a1ff3c1d561c02167a060e1cf5e977bef3634116078c6058",
+      "scripts/services/play_services.gdc": "58c5beb272fce8e0ca83a24f49f831784e801f720842c082b919515c6e4085c2",
+      "scripts/services/save_data.gdc": "dcfd76945ebaae88ef3a433a9eb061f60ec3c81a022b1aef00466cc58b4ad788",
+      "scripts/upgrade_catalog.gdc": "01675b99f4f1ef5a3472df9fc9663f74c3f09edc753f416e429e46e703ec15b1",
+      "scripts/world.gdc": "247119410cb51fa1a197eec45895cc5bb9e0234997952679b5c6712c14a327a4"
+    },
+    "bridge_dex": {
+      "plugin_class": true,
+      "resolve_conflict": true,
+      "load_failure_signal": true,
+      "google_games_sdk": true
+    },
+    "native_libraries": [
+      {
+        "name": "base/lib/arm64-v8a/libc++_shared.so",
+        "compressed": true,
+        "segments": [
+          {
+            "type": "LOAD",
+            "virtual_address": 0,
+            "memory_size": 624800,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 641184,
+            "memory_size": 585720,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 1243288,
+            "memory_size": 42856,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 1299504,
+            "memory_size": 32032,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "GNU_RELRO",
+            "virtual_address": 1243288,
+            "memory_size": 42856,
+            "alignment": 1,
+            "relro_end_modulo_16k": 8192,
+            "covers_whole_load": true,
+            "static_16kb_accepted": true,
+            "assessment": "whole_LOAD_exception"
+          }
+        ],
+        "load_alignment_16k": true,
+        "relro_static_16kb_accepted": true
+      },
+      {
+        "name": "base/lib/arm64-v8a/libgodot_android.so",
+        "compressed": true,
+        "segments": [
+          {
+            "type": "LOAD",
+            "virtual_address": 0,
+            "memory_size": 17817856,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 17834240,
+            "memory_size": 50705424,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 68556048,
+            "memory_size": 1428208,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "LOAD",
+            "virtual_address": 69998560,
+            "memory_size": 1968384,
+            "alignment": 16384,
+            "relro_end_modulo_16k": null
+          },
+          {
+            "type": "GNU_RELRO",
+            "virtual_address": 68556048,
+            "memory_size": 1428208,
+            "alignment": 1,
+            "relro_end_modulo_16k": 8192,
+            "covers_whole_load": true,
+            "static_16kb_accepted": true,
+            "assessment": "whole_LOAD_exception"
+          }
+        ],
+        "load_alignment_16k": true,
+        "relro_static_16kb_accepted": true
+      }
+    ]
+  },
+  "delivery_native_alignment": {
+    "enabled": true,
+    "alignment": "PAGE_ALIGNMENT_16K"
+  },
+  "frozen_source_files": 15,
+  "game_scripts_match_between_apk_and_aab": true,
+  "preserved_prior_artifacts": [
+    "InfiniteSlash-debug-0.2.0.apk",
+    "InfiniteSlash-debug.apk",
+    "InfiniteSlash-play-0.2.0.aab",
+    "InfiniteSlash-play-0.2.1.aab",
+    "InfiniteSlash-play-unsigned.aab",
+    "InfiniteSlash-play.aab"
+  ]
+}

@@ -1,34 +1,34 @@
-# InfiniteSlash store screenshots
+# InfiniteSlash 0.3.0 store screenshots
 
-These are full-frame captures of the actual game and its current interface. Each device category was independently rendered by Godot 4.5.1's OpenGL compatibility renderer. The game's normal 540×960 portrait canvas is preserved at each output density. No image generation, fake service interface, marketing text, device frame or post-capture image scaling was used.
+These eight views show the Crownfall update's actual game and current interface. They were selected from the 48 acceptance renders produced by Godot 4.5.1's desktop OpenGL compatibility renderer. The ordinary 540×960 game canvas is preserved. There is no added marketing text, device frame, fake service interface, image generation, compositing, retouching or post-capture resizing.
 
 | Upload category | Count | Output size | Format |
 | --- | ---: | --- | --- |
-| Phone | 8 | 1080×1920 | 24-bit RGB PNG, no alpha |
-| 7-inch tablet | 8 | 1440×2560 | 24-bit RGB PNG, no alpha |
-| 10-inch tablet | 8 | 2160×3840 | 24-bit RGB PNG, no alpha |
+| Phone | 8 | 540×960 | 24-bit RGB PNG, no alpha |
+| 7-inch tablet | 8 | 1080×1920 | 24-bit RGB PNG, no alpha |
+| 10-inch tablet | 8 | 1080×1920 | 24-bit RGB PNG, no alpha |
 
-All images are 9:16 and under 8 MiB. Both sides are within the requested category limits. Each folder is numbered in upload order; the first three lead with combat.
+All images are 9:16 and below 8 MB. Both sides satisfy the requested category limits. The two tablet groups intentionally share the same exact source frames; these are not independent tablet-device captures. Each folder is numbered in upload order:
 
-1. **Sword action:** meadow slash, mixed creatures, enemy fans and loot.
-2. **Shield parry:** autumn guard, perfect block and repeated projectile fans.
-3. **Boss bullet hell:** twilight crowned boss, radial shots and aimed volleys.
-4. **One-thumb dash:** live dash protection/trail and the floating thumb control.
-5. **Thunderblade:** actual chain-lightning powerup and three-hit ward.
-6. **Hurricane combo:** wider slash, defeated creatures, gems and the ×4 combo tier.
-7. **Choose your knight:** actual one-tap Sword/Shield cards with starting stats.
-8. **One more run:** actual result/replay interface with local Scores, Badges and Daily Run entry points.
+1. **Meadow Mayhem:** daytime automatic slashing and always-active guard.
+2. **Night War Host:** stage-two veterans and night-only creatures.
+3. **Crownfall Overdrive:** the level-50 stone biome and active Overdrive.
+4. **Boss Fire Circle:** the active circular fire spell zone.
+5. **Earthquake Corridor:** the rectangular ground attack and lateral escape routes.
+6. **Electric Escape Gap:** the concave pulse's open escape wedge.
+7. **Build Your Tradeoff:** paused lifesteal versus a speed/guard-recovery tradeoff, with explicit GAIN and COST.
+8. **Legendary Crossroads:** paused Phoenix Oath and Worldbreaker choices.
 
-The scenes use reproducible composed game-state fixtures and actual gameplay methods. Scores, levels, timers and enemy placements are demonstration state, not a submitted leaderboard record. Captures come from independently sized desktop-rendered viewports, not physical phones or tablets; they do not establish hardware performance, cutout/safe-area behavior or live Google Play integration.
+The source PNGs contain a fully opaque alpha channel. Promotion removes only that redundant channel for the upload format, verifies that **every RGB pixel is identical**, and preserves all original acceptance files. `manifest.json` maps every upload to its exact source path, source PNG SHA-256, matching RGB-pixel SHA-256, output hash, dimensions and scenario. The prior 24 screenshots, manifest and README are preserved in [the historical 0.2.x backup](../../output/review/store-screenshots-0.2/README.md).
 
-`manifest.json` records each capture's dimensions, seed, class, time, score, level, entity counts, renderer, source hashes and image hashes. `output/review/store-captures/validation.json` checks count, dimensions, format, file size, uniqueness and nonblank frames. All 24 were visually reviewed using the three contact sheets in that folder; class cards, result controls, health text, combat effects and the knight remain visible and in bounds.
+These are deterministic composed game states using the actual game renderer and gameplay methods. Scores, levels, timers and enemy placements are demonstration state, not submitted competitive results. The files are desktop renders, not physical-phone/tablet captures. They do not establish hardware performance, cutout/safe-area behavior or live Google Play integration.
 
-To reproduce from the project directory with the tested Godot executable:
+The current capture source is `tests/capture_production.gd`. Existing acceptance renders can be promoted without starting a renderer:
 
 ```powershell
-$env:APPDATA = Join-Path (Get-Location) 'output/test-data/store-capture-runtime'
-godot --path . --log-file output/review/store_capture.log --script tools/capture_store.gd -- --test
+python tools/promote_production_screenshots.py
 python tools/validate_store_screenshots.py
+python tools/validate_store_assets.py
 ```
 
-The capture profile is isolated under `output/test-data`; normal player progress is untouched. The format conversion happens inside Godot before saving each screenshot and preserves the rendered RGB pixels.
+The promotion script preserves the historical backup and acceptance originals. Validation checks all source RGB pixels, image hashes, count, dimensions, format, file size, eight distinct views within each category and nonblank frames. Visual-review contact sheets and validation reports are under `output/review/store-captures/`.

@@ -1,0 +1,1309 @@
+{
+  "source": "https://kenney.itch.io/creature-mixer",
+  "embeddedApp": "https://html-classic.itch.zone/html/9229894/index.html",
+  "tool": "Kenney Creature Mixer v1.6.0",
+  "browser": "Microsoft Edge / Playwright",
+  "scale": 8,
+  "requestedWorkflow": "full Randomize -> Save spritesheet",
+  "startedUtc": "2026-10-17T02:29:01.445Z",
+  "downloads": [
+    {
+      "index": 101,
+      "target": "Assets\\Monsters\\production_101.png",
+      "sha256": "351582a71c27b46ac8947e07c65d1f758554d2b8e0142e14d22e30f9526a5356",
+      "resumed": true,
+      "named_target": "Assets/Monsters/ivory_baron.png"
+    },
+    {
+      "index": 102,
+      "target": "Assets\\Monsters\\production_102.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "1e79ca5bd8c78c46248ce49428b85de6acf9f17536c2ff9bd08456e963c40bc1",
+      "bytes": 5257,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:04:59.404Z",
+      "named_target": "Assets/Monsters/cobalt_conjurer.png"
+    },
+    {
+      "index": 103,
+      "target": "Assets\\Monsters\\production_103.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "b09404ded38c5de79d5ae0f1ef8f78c09c59a35a72fc15f9b18ecbebfff1b7e9",
+      "bytes": 5102,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:05:28.266Z",
+      "named_target": "Assets/Monsters/viridian_ripper.png"
+    },
+    {
+      "index": 104,
+      "target": "Assets\\Monsters\\production_104.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "0887215d0c357f86be0abee0d74efa467556209fa7d9207d8c1957b8bf389b87",
+      "bytes": 5209,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:05:44.710Z",
+      "named_target": "Assets/Monsters/brass_breaker.png"
+    },
+    {
+      "index": 105,
+      "target": "Assets\\Monsters\\production_105.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "a9bf330f4b5d885b9ba4563f561087125da994e1ae177117c2b02dc0a84f689e",
+      "bytes": 5339,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:06:09.011Z",
+      "named_target": "Assets/Monsters/cyan_channeler.png"
+    },
+    {
+      "index": 106,
+      "target": "Assets\\Monsters\\production_106.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "420b818952ff318017cf50074fe5dc7d6321e27e776ed7169b25a24448f6d0a5",
+      "bytes": 4926,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:07:37.833Z",
+      "named_target": "Assets/Monsters/coal_marauder.png"
+    },
+    {
+      "index": 107,
+      "target": "Assets\\Monsters\\production_107.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "10d15d10eca74dffb10c4bd2ecf34ef8715ee4595bf21aa69704c68d13f3dc58",
+      "bytes": 4804,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:07:59.841Z",
+      "named_target": "Assets/Monsters/rust_rampart.png"
+    },
+    {
+      "index": 108,
+      "target": "Assets\\Monsters\\production_108.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "a96a0b09d79f1f7bb9b245cd1fa2f25edbd459cdaae940c1c0be8c17569ff715",
+      "bytes": 4974,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:11:10.939Z",
+      "named_target": "Assets/Monsters/emerald_cantor.png"
+    },
+    {
+      "index": 109,
+      "target": "Assets\\Monsters\\production_109.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "b8937ee0c49f105af5578223e059d544d97666bca31e485781345002c5861e71",
+      "bytes": 4674,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:11:39.937Z",
+      "named_target": "Assets/Monsters/redcap_ravager.png"
+    },
+    {
+      "index": 110,
+      "target": "Assets\\Monsters\\production_110.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ff9fdbd547a7a4ae3275d46df1507e978e3509785cb9cebc3b062652a94e55fb",
+      "bytes": 4864,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:12:10.359Z",
+      "named_target": "Assets/Monsters/biscuit_bastion.png"
+    },
+    {
+      "index": 111,
+      "target": "Assets\\Monsters\\production_111.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "2f0d7722ceba0caa4cab3f522bf92c9bd1674d488e98c9cd5694a66e71ea0cb3",
+      "bytes": 4908,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:13:20.472Z",
+      "named_target": "Assets/Monsters/sunlit_hexer.png"
+    },
+    {
+      "index": 112,
+      "target": "Assets\\Monsters\\production_112.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "243a6dad0b2f081f5ce68a0edcc2bb190da0c250a30e2ded728ee30309050c4a",
+      "bytes": 5044,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:13:49.118Z",
+      "named_target": "Assets/Monsters/slate_stalker.png"
+    },
+    {
+      "index": 113,
+      "target": "Assets\\Monsters\\production_113.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "11c54c5eefc38b63835f8dcb6911ea07938c126a4eef9a112ef7366d2458d225",
+      "bytes": 4990,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:14:05.497Z",
+      "named_target": "Assets/Monsters/ivory_bulwark.png"
+    },
+    {
+      "index": 114,
+      "target": "Assets\\Monsters\\production_114.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ba9c84a91310a1c97f4c7217273f2c05d3900897134f19d275f0f09af26e13c9",
+      "bytes": 5072,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:14:29.187Z",
+      "named_target": "Assets/Monsters/winter_warden.png"
+    },
+    {
+      "index": 115,
+      "target": "Assets\\Monsters\\production_115.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "1ec438978481ee7fd38e51919521693c7e8c64c981f4bc81542e13f4096bc932",
+      "bytes": 4524,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:15:06.966Z",
+      "named_target": "Assets/Monsters/obsidian_fang.png"
+    },
+    {
+      "index": 116,
+      "target": "Assets\\Monsters\\production_116.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "9ee145d5d867012b0c9e7b0d9506246affaf242d57355e378f1037b43848cd51",
+      "bytes": 5056,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:15:40.377Z",
+      "named_target": "Assets/Monsters/azure_rampart.png"
+    },
+    {
+      "index": 117,
+      "target": "Assets\\Monsters\\production_117.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "734a6ea5a28b2481c25e4845a521c9cf4c27d498d8855da610d7a1c416f6d2a9",
+      "bytes": 5096,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:16:12.042Z",
+      "named_target": "Assets/Monsters/goldtongue_seer.png"
+    },
+    {
+      "index": 118,
+      "target": "Assets\\Monsters\\production_118.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "21f61151c4031f6df7413221a3c3df1160fe68f48bf50a9ea4c341c524408b52",
+      "bytes": 4860,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:16:34.379Z",
+      "named_target": "Assets/Monsters/ashplate_rusher.png"
+    },
+    {
+      "index": 119,
+      "target": "Assets\\Monsters\\production_119.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "8c69a375e0c95603b4d37d0153cbb0e55882346b209a9db18f956a0dcece819a",
+      "bytes": 5156,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:16:54.776Z",
+      "named_target": "Assets/Monsters/mustard_monolith.png"
+    },
+    {
+      "index": 120,
+      "target": "Assets\\Monsters\\production_120.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "492b18cfed29dce8d2331418bcd38f6953701948afd80b342f2b2e868970e5bb",
+      "bytes": 5155,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:17:09.985Z",
+      "named_target": "Assets/Monsters/boneblossom_hex.png"
+    },
+    {
+      "index": 121,
+      "target": "Assets\\Monsters\\production_121.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "3dadcd3a4610810af2eed289045e6f8172eab9b618c6a5fea7ef3065fdb7e6da",
+      "bytes": 5111,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:17:23.442Z",
+      "named_target": "Assets/Monsters/copper_lancer.png"
+    },
+    {
+      "index": 122,
+      "target": "Assets\\Monsters\\production_122.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "b2f820fdfc5fe1f787cf684c2b9b426a11c5e473a65cb2d830c5790f79810c1e",
+      "bytes": 4873,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:17:36.679Z",
+      "named_target": "Assets/Monsters/honey_goliath.png"
+    },
+    {
+      "index": 123,
+      "target": "Assets\\Monsters\\production_123.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "0a54990b620af5ba8428361a1edac0765b0aa44a1deaf18ec46a52df82191232",
+      "bytes": 5487,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:17:49.089Z",
+      "named_target": "Assets/Monsters/barkbeard_oracle.png"
+    },
+    {
+      "index": 124,
+      "target": "Assets\\Monsters\\production_124.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "623dd0d5fcab8f11e6b6676f608d52d119792048b0c2168172cf05727752ca40",
+      "bytes": 5151,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:18:00.468Z",
+      "named_target": "Assets/Monsters/gilded_gremlin.png"
+    },
+    {
+      "index": 125,
+      "target": "Assets\\Monsters\\production_125.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "00a8be3bee7e25629c1eeb20a97c5d225e52823a59d25ed68d34572551918679",
+      "bytes": 5347,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:18:08.500Z",
+      "named_target": "Assets/Monsters/mauve_mountain.png"
+    },
+    {
+      "index": 126,
+      "target": "Assets\\Monsters\\production_126.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "c50eca450bed37db19a5bec1589d1b65da8522823c3d5dceec86c1e3d53fcfef",
+      "bytes": 5136,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:18:19.645Z",
+      "named_target": "Assets/Monsters/cobalt_cantor.png"
+    },
+    {
+      "index": 127,
+      "target": "Assets\\Monsters\\production_127.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "1516c6ec4db34c9c8300ec3270c14ad87947bb40911a8c9edd1bcdcf7b1168a5",
+      "bytes": 4811,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:18:28.755Z",
+      "named_target": "Assets/Monsters/russet_razor.png"
+    },
+    {
+      "index": 128,
+      "target": "Assets\\Monsters\\production_128.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "7a8f524a762ff0592af15ade1d723b5d7304657fee5ed398d988011dd5e86422",
+      "bytes": 4954,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:18:49.502Z",
+      "named_target": "Assets/Monsters/ivory_ironroot.png"
+    },
+    {
+      "index": 129,
+      "target": "Assets\\Monsters\\production_129.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ec8b795a4b70f8d1935ce1deef517ab82abee8e5fb98f96d9f9a39afaf52b76f",
+      "bytes": 5146,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:19:00.015Z",
+      "named_target": "Assets/Monsters/crimson_coronet.png"
+    },
+    {
+      "index": 130,
+      "target": "Assets\\Monsters\\production_130.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "e7d19d6e69b6342599d5e0d7bd00055fc7704faa2ba04b92c260eebbe0e65185",
+      "bytes": 4693,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:19:13.583Z",
+      "named_target": "Assets/Monsters/ruby_rake.png"
+    },
+    {
+      "index": 131,
+      "target": "Assets\\Monsters\\production_131.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "daf42ee631adb783babb6eb4ece50ff22bf5eebe53130e71f8b4379a801c2cef",
+      "bytes": 5180,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:19:28.568Z",
+      "named_target": "Assets/Monsters/ruby_rampart.png"
+    },
+    {
+      "index": 132,
+      "target": "Assets\\Monsters\\production_132.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "03b1edb552d3c57ea5438283831aa379ef564018085da4f016c329a4fdd4d063",
+      "bytes": 5180,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:19:43.383Z",
+      "named_target": "Assets/Monsters/corncrown_hexer.png"
+    },
+    {
+      "index": 133,
+      "target": "Assets\\Monsters\\production_133.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "791bef85c6571cec23c2781039906fa5dbe58837668082e4f578648b2e9b543f",
+      "bytes": 5188,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:20:15.490Z",
+      "named_target": "Assets/Monsters/blush_biter.png"
+    },
+    {
+      "index": 134,
+      "target": "Assets\\Monsters\\production_134.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "e680360aba3b5e17d06cb37be6e71963272476174ffa653881dc5ce24b990644",
+      "bytes": 4854,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:20:31.798Z",
+      "named_target": "Assets/Monsters/clay_colossus.png"
+    },
+    {
+      "index": 135,
+      "target": "Assets\\Monsters\\production_135.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "5ef109c1e2d76521a082dc5031d772bf289df12e1eb4c8b44e2962f71b90433f",
+      "bytes": 4957,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:20:57.901Z",
+      "named_target": "Assets/Monsters/pine_prophet.png"
+    },
+    {
+      "index": 136,
+      "target": "Assets\\Monsters\\production_136.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ac2df29da3d88281c5ce63d81e01aecbf0b505a24e15de900fbc8fb702346562",
+      "bytes": 4952,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:21:23.062Z",
+      "named_target": "Assets/Monsters/crimson_knave.png"
+    },
+    {
+      "index": 137,
+      "target": "Assets\\Monsters\\production_137.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "36ecbfe622215730c3f88676879f68980114b503ac3dce1188ab809d2292758b",
+      "bytes": 5248,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:22:10.218Z",
+      "named_target": "Assets/Monsters/jade_juggernaut.png"
+    },
+    {
+      "index": 138,
+      "target": "Assets\\Monsters\\production_138.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "3c9b14f120c8f40f931bab589591ebfb3bdb56a6b1523d96c48cfe8fd8bea600",
+      "bytes": 4932,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:11.082Z",
+      "named_target": "Assets/Monsters/white_redcap.png"
+    },
+    {
+      "index": 139,
+      "target": "Assets\\Monsters\\production_139.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ff91f45bb202c5e5a13bb43a88c4cedea61d692c59f900c8eb58f00c01cf0655",
+      "bytes": 5159,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:12.788Z",
+      "named_target": "Assets/Monsters/cinder_anvil.png"
+    },
+    {
+      "index": 140,
+      "target": "Assets\\Monsters\\production_140.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "08b74dfd6134caa28125b7754e53ee1176e0320b030a5bc3baa53173766bcaea",
+      "bytes": 4813,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:14.119Z",
+      "named_target": "Assets/Monsters/forked_fang.png"
+    },
+    {
+      "index": 141,
+      "target": "Assets\\Monsters\\production_141.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "d190589c14ac2174a172a304ae781dfac05f35845cf09c0ab54d394c182fe84b",
+      "bytes": 4780,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:15.257Z",
+      "named_target": "Assets/Monsters/slate_scythe.png"
+    },
+    {
+      "index": 142,
+      "target": "Assets\\Monsters\\production_142.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "d0b0ed68782112400d61163459717bdb527ede164659264581ef3bc0dc9c0a8b",
+      "bytes": 5149,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:16.409Z",
+      "named_target": "Assets/Monsters/barkwall.png"
+    },
+    {
+      "index": 143,
+      "target": "Assets\\Monsters\\production_143.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "f12392ea3a84cde94b5c64ef1f3204a77146f5a625613e8307ea969ad59d5ae8",
+      "bytes": 5218,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:17.535Z",
+      "named_target": "Assets/Monsters/biscuit_warlock.png"
+    },
+    {
+      "index": 144,
+      "target": "Assets\\Monsters\\production_144.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "f5a6f6e639389343d63ff3e719ed31b7458bb30883d852a5829bd6e32d81d01d",
+      "bytes": 5261,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:19.203Z",
+      "named_target": "Assets/Monsters/crimson_skulk.png"
+    },
+    {
+      "index": 145,
+      "target": "Assets\\Monsters\\production_145.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "8e8d98c9747eeeb5e3ca6edb6eb4fbfb39d758abb783aa58555ea9fdb5827762",
+      "bytes": 5240,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:20.376Z",
+      "named_target": "Assets/Monsters/orchid_colossus.png"
+    },
+    {
+      "index": 146,
+      "target": "Assets\\Monsters\\production_146.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "d6fe0a3bfa2655cb3aa2944d6d53d0c5ae26b390a9c556ce2283e614540db674",
+      "bytes": 5147,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:21.706Z",
+      "named_target": "Assets/Monsters/skycrown_prophet.png"
+    },
+    {
+      "index": 147,
+      "target": "Assets\\Monsters\\production_147.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "0ee0a14470cc3a549f6240aca65cde300c7b422d84ddf1598061ebeb298d3a85",
+      "bytes": 5057,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:22.821Z",
+      "named_target": "Assets/Monsters/ember_claw.png"
+    },
+    {
+      "index": 148,
+      "target": "Assets\\Monsters\\production_148.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "4d011dcbaf2d9810db5c3986963db606e6e52bc2a67bec0b327620329dad6e07",
+      "bytes": 5211,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:23.944Z",
+      "named_target": "Assets/Monsters/jade_barricade.png"
+    },
+    {
+      "index": 149,
+      "target": "Assets\\Monsters\\production_149.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "c42fba4dc5bbc375f5b2b0fee6ca3202794469ed9923e705ab9db9eb04eea905",
+      "bytes": 4888,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:25.024Z",
+      "named_target": "Assets/Monsters/gravejaw_chorus.png"
+    },
+    {
+      "index": 150,
+      "target": "Assets\\Monsters\\production_150.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "0f7acd4f3bd48ac80b8d1e6b6c276c5368aa9c46990afb98220ce414337817f3",
+      "bytes": 5069,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:26.202Z",
+      "named_target": "Assets/Monsters/crimson_velvet.png"
+    },
+    {
+      "index": 151,
+      "target": "Assets\\Monsters\\production_151.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ccc63897ce660209c67176a25bdab160864d0ab018c68647ce2e114f04db0a88",
+      "bytes": 4798,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:27.516Z",
+      "named_target": "Assets/Monsters/moonlit_marshal.png"
+    },
+    {
+      "index": 152,
+      "target": "Assets\\Monsters\\production_152.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "2841aaa4535490fa44d190225f78b606c69f60cbbdb35ffbe2712bf7c1f6003d",
+      "bytes": 5093,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:28.687Z",
+      "named_target": "Assets/Monsters/bramble_sleepwalker.png"
+    },
+    {
+      "index": 153,
+      "target": "Assets\\Monsters\\production_153.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "273c65d9b2dc96cbad20ad0e2b5a927a7b7d64d9938b9ee3e70017b1c38b3b32",
+      "bytes": 4754,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:29.784Z",
+      "named_target": "Assets/Monsters/hollow_candle.png"
+    },
+    {
+      "index": 154,
+      "target": "Assets\\Monsters\\production_154.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "9f8b9ce3691d700d74fe5634cb7b17adf7481b69beae95641136f75e9980fbf7",
+      "bytes": 4870,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:30.938Z",
+      "named_target": "Assets/Monsters/chapel_gargoyle.png"
+    },
+    {
+      "index": 155,
+      "target": "Assets\\Monsters\\production_155.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "eb78974cd3e72e7cc591c030b9e1d0905d773a467c9f708e156dadfa2798ad9b",
+      "bytes": 4971,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:32.012Z",
+      "named_target": "Assets/Monsters/cinder_sandman.png"
+    },
+    {
+      "index": 156,
+      "target": "Assets\\Monsters\\production_156.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "56c81a4dc93280a575398a7cc04304083cc2e962e8942a6c6fce9bc727c3e7d8",
+      "bytes": 5535,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:33.114Z",
+      "named_target": "Assets/Monsters/neon_nightmare.png"
+    },
+    {
+      "index": 157,
+      "target": "Assets\\Monsters\\production_157.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "1f2af7bf9323662d683ab596429a5ef75dabac2c72b9dc55e34146f38fe815ec",
+      "bytes": 4791,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:34.356Z",
+      "named_target": "Assets/Monsters/midnight_sailor.png"
+    },
+    {
+      "index": 158,
+      "target": "Assets\\Monsters\\production_158.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "afe101c72727caf346625b7f2cda786ee552f803e7d63208c0d0a20778b4d672",
+      "bytes": 5047,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:35.505Z",
+      "named_target": "Assets/Monsters/bone_moonbeast.png"
+    },
+    {
+      "index": 159,
+      "target": "Assets\\Monsters\\production_159.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "80b0921b9f3254809e5cb9a0fece64d8b69d77b62ddeed2ea1d1c1a02fd019b6",
+      "bytes": 5178,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:36.734Z",
+      "named_target": "Assets/Monsters/violet_graveguard.png"
+    },
+    {
+      "index": 160,
+      "target": "Assets\\Monsters\\production_160.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ae3c17fdf59a28325788635ce233e8bb29c1f255b7745eaf7943b2acc0fa4739",
+      "bytes": 5059,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:37.876Z",
+      "named_target": "Assets/Monsters/scarlet_sleepless.png"
+    },
+    {
+      "index": 161,
+      "target": "Assets\\Monsters\\production_161.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "7d79eca8833bf83ba25167997599b23a237d4065788ff696a8e414caf81f7139",
+      "bytes": 5081,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:39.126Z",
+      "named_target": "Assets/Monsters/dream_jester.png"
+    },
+    {
+      "index": 162,
+      "target": "Assets\\Monsters\\production_162.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "fbad93fe64ecc3d37e22143beebf6111b12a305b20347bf1b69b9b9a31aaea36",
+      "bytes": 5193,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:40.461Z",
+      "named_target": "Assets/Monsters/wraithwood_eye.png"
+    },
+    {
+      "index": 163,
+      "target": "Assets\\Monsters\\production_163.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "96184f037f16d49f72138ed56b777d13db60f6dc5cf0484712b361384920cea8",
+      "bytes": 5218,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:41.642Z",
+      "named_target": "Assets/Monsters/witching_bough.png"
+    },
+    {
+      "index": 164,
+      "target": "Assets\\Monsters\\production_164.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "09e79f3c619209997899bbb47bbb03f781d1bdc2e3d5d51d13d13571fff70099",
+      "bytes": 4773,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:42.739Z",
+      "named_target": "Assets/Monsters/hollow_bell.png"
+    },
+    {
+      "index": 165,
+      "target": "Assets\\Monsters\\production_165.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "45ac5b2cca3980317f5462698970d154e9ec613d8021f580ec4d1e80e766ae53",
+      "bytes": 5374,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:43.811Z",
+      "named_target": "Assets/Monsters/dusk_howler.png"
+    },
+    {
+      "index": 166,
+      "target": "Assets\\Monsters\\production_166.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "e96271721e5e109c5428e657fd090c5a0586a8d8727f87c6840becf185e3807c",
+      "bytes": 4982,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:45.007Z",
+      "named_target": "Assets/Monsters/lantern_ghast.png"
+    },
+    {
+      "index": 167,
+      "target": "Assets\\Monsters\\production_167.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "894c1ec6ff89237c1f43c33cc48a107c0dce1fd6d8dac26f3b89dc763505c232",
+      "bytes": 4930,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:46.169Z",
+      "named_target": "Assets/Monsters/copper_nocturne.png"
+    },
+    {
+      "index": 168,
+      "target": "Assets\\Monsters\\production_168.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "2e13b777df18f4df07d8848996f1314add2ce360142263ab9f5bbeef21b00d0b",
+      "bytes": 5021,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:47.361Z",
+      "named_target": "Assets/Monsters/ivory_nightcap.png"
+    },
+    {
+      "index": 169,
+      "target": "Assets\\Monsters\\production_169.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "5731137ef7252f096d6142ba2876034862fa0b875bf9a2761a39434bc79164cd",
+      "bytes": 5223,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:48.477Z",
+      "named_target": "Assets/Monsters/jade_moonbaron.png"
+    },
+    {
+      "index": 170,
+      "target": "Assets\\Monsters\\production_170.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "2f2922276abe3d285bc2a1c953ca3175a18a08d18a3873015d82f5a2764c0546",
+      "bytes": 4992,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:49.688Z",
+      "named_target": "Assets/Monsters/silver_sleepwalker.png"
+    },
+    {
+      "index": 171,
+      "target": "Assets\\Monsters\\production_171.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "d392619f56363011ba17e7ea4607bdbeaacdc4ff20b1a6dfd19cc3dc5b3c007b",
+      "bytes": 5436,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:50.772Z",
+      "named_target": "Assets/Monsters/sallow_moonmoth.png"
+    },
+    {
+      "index": 172,
+      "target": "Assets\\Monsters\\production_172.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "6e96634817729936f07c34a963a91607cde8280fa1e117aa7769f47fb4ebb8e7",
+      "bytes": 5001,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:51.923Z",
+      "named_target": "Assets/Monsters/ember_nightbloom.png"
+    },
+    {
+      "index": 173,
+      "target": "Assets\\Monsters\\production_173.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "5448846d1d566cca41ba92910a6a34d588c8036d9fa48fc6d9bada151be4396e",
+      "bytes": 5323,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:53.127Z",
+      "named_target": "Assets/Monsters/hooded_dreamer.png"
+    },
+    {
+      "index": 174,
+      "target": "Assets\\Monsters\\production_174.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "db68ffdd4c9f4d94b141cb09378b46804d07c666c409ecc263747a81a7c363d6",
+      "bytes": 4746,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:54.239Z",
+      "named_target": "Assets/Monsters/cinder_coven.png"
+    },
+    {
+      "index": 175,
+      "target": "Assets\\Monsters\\production_175.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "b0267f03483562f92170506f3e2fb406f2a852fc76d2c8baa9b68d52abd6b002",
+      "bytes": 5380,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:55.393Z",
+      "named_target": "Assets/Monsters/rust_moonfang.png"
+    },
+    {
+      "index": 176,
+      "target": "Assets\\Monsters\\production_176.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "2235f19e343998728e327a36f133c53b7e745195d755e4d26e096278e2e04811",
+      "bytes": 4975,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:56.765Z",
+      "named_target": "Assets/Monsters/ashen_howl.png"
+    },
+    {
+      "index": 177,
+      "target": "Assets\\Monsters\\production_177.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "d4da57b43b66ba1db8a5d457474ef2f619e08040eeed668015d1aeb47889816c",
+      "bytes": 5157,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:57.959Z",
+      "named_target": "Assets/Monsters/gravebone_hare.png"
+    },
+    {
+      "index": 178,
+      "target": "Assets\\Monsters\\production_178.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "c21e39c70a05e6ad182c607cf8bd31b599f0d3e52800046bafb69518ecf81a42",
+      "bytes": 5071,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:29:59.106Z",
+      "named_target": "Assets/Monsters/malachite_screech.png"
+    },
+    {
+      "index": 179,
+      "target": "Assets\\Monsters\\production_179.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ac217daf2b0ea4cd27192f11e349342d40fc0dd87a0ccb2303485edea4ff6ab9",
+      "bytes": 5234,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:00.428Z",
+      "named_target": "Assets/Monsters/copper_dreamhorn.png"
+    },
+    {
+      "index": 180,
+      "target": "Assets\\Monsters\\production_180.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "39a161e92a89b230d7adeb43673523705db3e5f41ade7735645f46a3c23f323f",
+      "bytes": 5053,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:01.680Z",
+      "named_target": "Assets/Monsters/tin_witchling.png"
+    },
+    {
+      "index": 181,
+      "target": "Assets\\Monsters\\production_181.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "106dcdad22df3d0241d98c80d96d8050f9c74def994bd03be64e92aa6d01a58e",
+      "bytes": 5094,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:02.902Z",
+      "named_target": "Assets/Monsters/bone_dreadroot.png"
+    },
+    {
+      "index": 182,
+      "target": "Assets\\Monsters\\production_182.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "c161505f29423533cfacf884de85675dce7f4e0344a6cf21fbce251993be8dc6",
+      "bytes": 5124,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:04.022Z",
+      "named_target": "Assets/Monsters/marigold_mourner.png"
+    },
+    {
+      "index": 183,
+      "target": "Assets\\Monsters\\production_183.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "c28b71a1f6737c19fbf3c510a85db969b3808ed5beb6d751446f05cd41f02ec8",
+      "bytes": 4839,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:05.129Z",
+      "named_target": "Assets/Monsters/blackthorn_conjurer.png"
+    },
+    {
+      "index": 184,
+      "target": "Assets\\Monsters\\production_184.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "82e0f92892caed5e48f03243fed1653de21537b88d310a990415ee47135fe2ba",
+      "bytes": 4900,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:06.218Z",
+      "named_target": "Assets/Monsters/ivory_haunter.png"
+    },
+    {
+      "index": 185,
+      "target": "Assets\\Monsters\\production_185.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "9533ded5eac331161e2170ee7f4bf3d4575b5668ea33fc5cf47966503a403724",
+      "bytes": 5266,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:07.322Z",
+      "named_target": "Assets/Monsters/dusk_bellringer.png"
+    },
+    {
+      "index": 186,
+      "target": "Assets\\Monsters\\production_186.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "70385d0dea4aa1968a37c8e84653e7320b8fb087b82336e5f96896ed4d9ed4d8",
+      "bytes": 5177,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:08.635Z",
+      "named_target": "Assets/Monsters/velvet_nightmare.png"
+    },
+    {
+      "index": 187,
+      "target": "Assets\\Monsters\\production_187.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "22ce8fda04f9365e32b134adac93205c091b271cf7d334ef30186c399cdfbdc7",
+      "bytes": 4952,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:09.771Z",
+      "named_target": "Assets/Monsters/copper_cairn.png"
+    },
+    {
+      "index": 188,
+      "target": "Assets\\Monsters\\production_188.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "cdc8926b3d96d8edb272382a7af0fcd70abff2f29a5dc7d82825b049ee2ad2bf",
+      "bytes": 5298,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:11.023Z",
+      "named_target": "Assets/Monsters/bramble_dreadhorn.png"
+    },
+    {
+      "index": 189,
+      "target": "Assets\\Monsters\\production_189.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "2862a7e2df2b326bd38d0641944b4530e5c96385c9cd0f981736a02ad89821a0",
+      "bytes": 4795,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:12.205Z",
+      "named_target": "Assets/Monsters/emerald_gravegrin.png"
+    },
+    {
+      "index": 190,
+      "target": "Assets\\Monsters\\production_190.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ae16b930a2aaef5df2f21c33beffc07fa9c399d65bd08f2f8a7bc22afd0b0854",
+      "bytes": 5493,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:13.478Z",
+      "named_target": "Assets/Monsters/cinder_nightcap.png"
+    },
+    {
+      "index": 191,
+      "target": "Assets\\Monsters\\production_191.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "73a071effd4f079bd29f4536cec934e996d7baa6abd8794e6823d362e25bfb4d",
+      "bytes": 5153,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:14.758Z",
+      "named_target": "Assets/Monsters/orchid_abyssal.png"
+    },
+    {
+      "index": 192,
+      "target": "Assets\\Monsters\\production_192.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "f3b6ae897ee0fd2bcecc5d28e51a152c68b32506633ecc7483c697b8fee7e11b",
+      "bytes": 5052,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:15.933Z",
+      "named_target": "Assets/Monsters/bloodmoon_sentinel.png"
+    },
+    {
+      "index": 193,
+      "target": "Assets\\Monsters\\production_193.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "db11407e9d7ea31718cd00da3585079a7ae9e263c3a7d3b2b138e36e4a145c9b",
+      "bytes": 5122,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:17.099Z",
+      "named_target": "Assets/Monsters/dreamroot_devourer.png"
+    },
+    {
+      "index": 194,
+      "target": "Assets\\Monsters\\production_194.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "5fbae88bb0dc295ce127a0036cc4433e1f646774e7f9743edb8745c8b8032431",
+      "bytes": 4912,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:18.401Z",
+      "named_target": "Assets/Monsters/ivory_cryptseer.png"
+    },
+    {
+      "index": 195,
+      "target": "Assets\\Monsters\\production_195.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "b8cb736c7bb29125196a4cf6981aee3d6a2f3252dee8a94d6e092a4a3294bdfb",
+      "bytes": 4714,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:19.576Z",
+      "named_target": "Assets/Monsters/plum_doomcaster.png"
+    },
+    {
+      "index": 196,
+      "target": "Assets\\Monsters\\production_196.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "4ae3038849968229e5e21e3cd46b84f62f7dc3a58e94fd945b061f0e93929899",
+      "bytes": 5230,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:20.752Z",
+      "named_target": "Assets/Monsters/violet_dirge.png"
+    },
+    {
+      "index": 197,
+      "target": "Assets\\Monsters\\production_197.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "8a7d151005441c3a78e0b26c6097d9d2d47396e086cbec682368b0636a0fd681",
+      "bytes": 5226,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:22.099Z",
+      "named_target": "Assets/Monsters/pale_crownfiend.png"
+    },
+    {
+      "index": 198,
+      "target": "Assets\\Monsters\\production_198.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "ac146f98c7906f9b968c1d89a6a3a1b6cce0b6e9f0cb30e925342ca14a355641",
+      "bytes": 5256,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:23.212Z",
+      "named_target": "Assets/Monsters/amber_eclipse.png"
+    },
+    {
+      "index": 199,
+      "target": "Assets\\Monsters\\production_199.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "b2ea22602707d7822dcc24e9ef1c8e5c1a814419e9229d24e5b0d7a178d3fafe",
+      "bytes": 5128,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:24.276Z",
+      "named_target": "Assets/Monsters/obsidian_maw.png"
+    },
+    {
+      "index": 200,
+      "target": "Assets\\Monsters\\production_200.png",
+      "suggestedFilename": "creature-sheet.png",
+      "sha256": "737deb624fd858cd426703f2f98c8d5c29f54cc8d18a4bc606ba1e19f21eb434",
+      "bytes": 5052,
+      "dimensions": [
+        768,
+        192
+      ],
+      "savedUtc": "2026-10-17T02:30:25.367Z",
+      "named_target": "Assets/Monsters/gilded_nightwarden.png"
+    }
+  ],
+  "completedUtc": "2026-10-17T02:30:25.706Z",
+  "pass": true,
+  "final_named_roster": "data/monsters.json",
+  "original_sources_unchanged": true
+}

@@ -1,5 +1,4 @@
 extends SceneTree
-## Focused tests for class-aware, deterministic, effective level-up offers.
 
 const Catalog = preload("res://scripts/upgrade_catalog.gd")
 const ClassProfiles = preload("res://scripts/class_profiles.gd")
@@ -15,137 +14,219 @@ func check(condition: bool, message: String) -> void:
 	checks += 1
 	if not condition:
 		failures.append(message)
-		push_error("UPGRADE TEST: " + message)
+		push_error(message)
 
 
-func baseline(style: String = "sword") -> Dictionary:
-	var profile: Dictionary = ClassProfiles.get_profile(style)
-	return {"style": style, "health": float(profile.health), "max_health": float(profile.health), "damage": float(profile.damage), "attack_interval": float(profile.attack_interval), "attack_range": float(profile.attack_range), "guard_capacity": float(profile.guard_capacity), "guard_reserve": float(profile.guard_capacity), "move_speed": float(profile.move_speed), "dash_recharge": Catalog.DASH_BASE, "score": 0}
-
-
-func capped(style: String = "sword") -> Dictionary:
-	var stats := baseline(style)
-	var profile: Dictionary = ClassProfiles.get_profile(style)
-	stats.health = float(profile.health_cap)
-	stats.max_health = float(profile.health_cap)
-	stats.damage = float(profile.damage_cap)
-	stats.attack_interval = float(profile.attack_floor)
-	stats.attack_range = float(profile.range_cap)
-	stats.guard_capacity = float(profile.guard_cap)
-	stats.guard_reserve = float(profile.guard_cap)
-	stats.move_speed = float(profile.move_speed) * Catalog.MOVE_CAP_MULTIPLIER
-	stats.dash_recharge = Catalog.DASH_FLOOR
-	return stats
+func baseline(style: String = "sword", level: int = 1) -> Dictionary:
+	return Catalog.normalize_stats({"style": style, "level": level, "score": 0})
 
 
 func ids(cards: Array) -> Array:
 	var result: Array = []
-	for card in cards:
+	for card: Dictionary in cards:
 		result.append(str(card.id))
 	return result
 
 
+func valid_stats(stats: Dictionary) -> bool:
+	var limits: Dictionary = Catalog.stat_limits(stats)
+	for key: String in limits:
+		if not is_finite(float(stats[key])) or float(stats[key]) < float(limits[key][0]) - 0.00001 or float(stats[key]) > float(limits[key][1]) + 0.00001:
+			return false
+	return float(stats.health) >= 0.0 and float(stats.health) <= float(stats.max_health) and float(stats.guard_reserve) >= 0.0 and float(stats.guard_reserve) <= float(stats.guard_capacity)
+
+
 func _run() -> void:
-	check(Catalog.eligible(2, baseline()).size() == 5, "first level-up draws from all five former automatic rewards")
-	check(Catalog.eligible(3, baseline()).size() == 6, "movement upgrade unlocks at level 3")
-	check(Catalog.eligible(5, baseline()).size() == 7, "dash recharge upgrade unlocks at level 5")
-	check(Catalog.eligible(9, baseline()).size() == 7, "combined damage and reach reward stays gated before level 10")
-	check(Catalog.eligible(10, baseline()).size() == 8, "Keen Edge joins offers at level 10")
-	check(not ids(Catalog.eligible(10, baseline(), {"keen_edge": 3})).has("keen_edge"), "Keen Edge stops after its three picks")
-	check(ids(Catalog.eligible(10, baseline(), {"keen_edge": 2})).has("keen_edge"), "Keen Edge can still be picked a third time")
-	check(Catalog.get_upgrade("unknown").is_empty(), "unknown saved upgrade ID cannot acquire a definition")
-	var copy := Catalog.get_upgrade("sharper_steel")
-	copy.name = "CHANGED"
-	check(Catalog.get_upgrade("sharper_steel").name == "SHARPER STEEL", "UI metadata is a defensive copy")
-	var random_a := RandomNumberGenerator.new()
-	var random_b := RandomNumberGenerator.new()
-	random_a.seed = 88231
-	random_b.seed = 88231
-	var reproducible := true
-	var valid_offers := true
-	var variety: Dictionary = {}
-	for index in range(100):
-		var level := 2 + index % 30
-		var offers: Array = Catalog.roll_offers(random_a, level, baseline())
-		var repeated: Array = Catalog.roll_offers(random_b, level, baseline())
-		reproducible = reproducible and JSON.stringify(offers) == JSON.stringify(repeated)
-		valid_offers = valid_offers and offers.size() == 2 and offers[0].id != offers[1].id
-		for card in offers:
-			valid_offers = valid_offers and card.has_all(["id", "name", "description", "min_level", "icon"]) and int(card.min_level) <= level
-			variety[str(card.id)] = true
-	check(reproducible, "same dedicated upgrade RNG state reproduces the offer sequence")
-	check(valid_offers, "all 100 rolls contain two different eligible, fully described choices")
-	check(variety.size() == 8, "random offers can expose every regular build option")
-	var deterministic_fallback := true
-	var bounded_luck := true
-	for _index in range(30):
-		var luck_a: Dictionary = Catalog.apply_upgrade("lucky_purse", capped(), random_a)
-		var luck_b: Dictionary = Catalog.apply_upgrade("lucky_purse", capped(), random_b)
-		deterministic_fallback = deterministic_fallback and luck_a.score == luck_b.score
-		bounded_luck = bounded_luck and int(luck_a.score) >= 100 and int(luck_a.score) <= 1000
-	check(deterministic_fallback, "Lucky Purse uses the supplied run RNG")
-	check(bounded_luck, "Lucky Purse never awards outside its advertised range")
-	for style in ["sword", "shield"]:
-		_test_class(style, random_a)
+	# This pure catalog suite deliberately occupies the main thread for seconds.
+	# Drain startup playback first so the dummy audio backend can release its WAV
+	# before the long deterministic sampling loop blocks main-thread updates.
+	var startup_audio := root.get_node_or_null("AudioManager")
+	if startup_audio != null and startup_audio.has_method("stop_for_shutdown"):
+		startup_audio.stop_for_shutdown()
+	await create_timer(0.15).timeout
+	await process_frame
+	await process_frame
+	var definitions := Catalog.all_definitions()
+	var unique: Dictionary = {}
+	var names: Dictionary = {}
+	var trades := 0
+	var legends := 0
+	for card: Dictionary in definitions:
+		check(card.has_all(["id", "name", "description", "min_level", "rarity", "kind", "icon"]), "card has complete UI/save metadata: " + str(card.id))
+		check(not unique.has(str(card.id)) and not names.has(str(card.name)), "card has unique stable ID and name: " + str(card.id))
+		unique[str(card.id)] = true
+		names[str(card.name)] = true
+		if bool(card.get("tradeoff", false)):
+			trades += 1
+		if str(card.rarity) == "legendary":
+			legends += 1
+			check(int(card.min_level) >= 25, "legendary card cannot leak before level 25")
+	check(trades == 72, "all 72 ordered tradeoffs across nine core stats exist")
+	check(legends == 6, "six distinct legendary build cards exist")
+	check(Catalog.get_upgrade("unknown").is_empty(), "unknown saved ID has no definition")
+	check(Catalog.get_upgrade("trade_damage_for_damage").is_empty(), "same-stat fake tradeoff is rejected")
+	check(Catalog.get_upgrade("trade_invalid_for_damage").is_empty(), "unknown-stat fake tradeoff is rejected")
+	var copied := Catalog.get_upgrade("sharper_steel")
+	copied.name = "CHANGED"
+	check(Catalog.get_upgrade("sharper_steel").name == "SHARPER STEEL", "metadata returned to UI is a defensive copy")
+	check(Catalog.eligible(2, baseline()).size() == 5, "first level-up retains the five foundational options")
+	for gate: int in [10, 20, 30, 50]:
+		var at_gate: Array = Catalog.eligible(gate, baseline("sword", gate))
+		var new_rare := 0
+		for card: Dictionary in at_gate:
+			if int(card.min_level) == gate and str(card.rarity) == "rare" and not bool(card.get("tradeoff", false)):
+				new_rare += 1
+		check(new_rare >= 3, "level %d unlocks at least three distinct pure rare options" % gate)
+	check(not ids(Catalog.eligible(39, baseline())).has("royal_purse"), "treasure is reserved for late build decisions")
+	check(ids(Catalog.eligible(40, baseline())).has("royal_purse"), "Royal Purse unlocks at level 40")
+	check(not ids(Catalog.eligible(10, baseline(), {"keen_edge": 3})).has("keen_edge"), "Keen Edge retains its three-pick limit")
+	check(ids(Catalog.eligible(10, baseline(), {"keen_edge": 2})).has("keen_edge"), "third Keen Edge pick remains available")
+	check(Catalog.rarity_chances(9).rare == 0.0 and Catalog.rarity_chances(24).legendary == 0.0, "rare and legendary chance are gated")
+	check(is_equal_approx(float(Catalog.rarity_chances(25).legendary), 0.012), "legendary chance is explicitly 1.2 percent per offer slot")
+	for style: String in ["sword", "shield"]:
+		_test_class(style)
+	_test_rarity()
+	var manifest := FileAccess.open("res://output/review/production_upgrade_manifest.json", FileAccess.WRITE)
+	if manifest != null:
+		manifest.store_string(JSON.stringify(definitions, "\t"))
+		manifest.close()
+	manifest = null
 	var audio := root.get_node_or_null("AudioManager")
 	if audio != null and audio.has_method("stop_for_shutdown"):
 		audio.stop_for_shutdown()
-	# The dummy audio backend drains its first mix on a real-time worker.
-	await create_timer(0.10).timeout
+	await create_timer(0.1).timeout
 	await process_frame
 	await process_frame
 	if failures.is_empty():
-		print("UPGRADE_CATALOG_TESTS_PASS checks=%d" % checks)
+		print("UPGRADE_CATALOG_TESTS_PASS checks=%d cards=%d trades=%d" % [checks, definitions.size(), trades])
 		quit(0)
 	else:
 		print("UPGRADE_CATALOG_TESTS_FAIL checks=%d failures=%d" % [checks, failures.size()])
 		quit(1)
 
 
-func _test_class(style: String, rng: RandomNumberGenerator) -> void:
-	var profile: Dictionary = ClassProfiles.get_profile(style)
+func _test_class(style: String) -> void:
 	var stats := baseline(style)
+	var profile: Dictionary = ClassProfiles.get_profile(style)
+	var original := JSON.stringify(stats)
+	var profile_original := JSON.stringify(profile)
+	var heart := Catalog.apply_upgrade("heart_of_a_knight", stats)
+	check(is_equal_approx(float(heart.max_health), float(profile.health) + 8.0), style + " foundational health reward remains useful")
+	var guard := Catalog.apply_upgrade("stronger_guard", stats)
+	check(is_equal_approx(float(guard.guard_capacity), float(profile.guard_capacity) + 8.0), style + " foundational guard capacity reward remains useful")
+	check(JSON.stringify(stats) == original and JSON.stringify(profile) == profile_original, style + " reward application cannot mutate source stats or profile")
+	check(Catalog.apply_upgrade("unknown", stats) == stats, style + " unknown upgrade is a harmless no-op")
+	check(float(stats.guard_delay) == (0.3 if style == "shield" else 0.5), style + " correct class guard recovery delay")
+	check(float(profile.guard_cost_multiplier) == (0.8 if style == "shield" else 1.2), style + " correct class guard damage cost")
+	var all_trades := 0
+	stats.level = 50
+	stats.health = float(stats.max_health) * 0.5
+	stats.guard_reserve = float(stats.guard_capacity) * 0.4
+	for card: Dictionary in Catalog.eligible(50, stats):
+		var changed := Catalog.apply_upgrade(str(card.id), stats)
+		check(valid_stats(changed), style + " card respects all stat bounds: " + str(card.id))
+		if bool(card.get("tradeoff", false)):
+			all_trades += 1
+			check(Catalog._is_improved(card.gain, stats, changed) and Catalog._is_improved(card.cost, changed, stats), style + " trade has a real benefit and real cost: " + str(card.id))
+			check(str(card.description).contains("→") and str(card.description).contains("\n"), style + " trade displays effective before/after values")
+			if str(card.gain) == "max_health" or str(card.cost) == "max_health":
+				check(is_equal_approx(float(changed.health) / float(changed.max_health), 0.5), style + " health trade preserves the current health ratio")
+			if str(card.gain) == "guard_capacity" or str(card.cost) == "guard_capacity":
+				check(is_equal_approx(float(changed.guard_reserve) / float(changed.guard_capacity), 0.4), style + " guard trade preserves the current reserve ratio")
+	check(all_trades == 72, style + " all ordered tradeoffs are usable at sensible level-50 stats")
+	var floored := stats.duplicate(true)
+	floored.guard_capacity = 6.0
+	floored.guard_reserve = 0.0
+	check(not ids(Catalog.eligible(50, floored)).has("trade_guard_capacity_for_damage"), style + " trade cannot become a free reward when the sacrificed stat is exhausted")
+	var maximum := Catalog.stat_limits(stats)
+	stats.move_speed = float(maximum.move_speed[1])
+	check(not ids(Catalog.eligible(50, stats)).has("trade_damage_for_move_speed"), style + " trade cannot sacrifice a stat for an already capped benefit")
+	var dash_cost := baseline(style, 50)
+	dash_cost.dash_recharge = Catalog.DASH_CEILING
+	check(not ids(Catalog.eligible(50, dash_cost)).has("trade_dash_recharge_for_damage"), style + " an exhausted dash downside cannot grant free damage")
+	var dash_gain := baseline(style, 50)
+	dash_gain.dash_recharge = Catalog.DASH_FLOOR
+	check(not ids(Catalog.eligible(50, dash_gain)).has("trade_damage_for_dash_recharge"), style + " a capped dash benefit cannot cost damage")
+	var slower_dash := Catalog.apply_upgrade("trade_dash_recharge_for_damage", baseline(style, 50))
+	check(float(slower_dash.dash_recharge) > Catalog.DASH_BASE and float(slower_dash.damage) > float(profile.damage), style + " dash trade can meaningfully sacrifice recharge beyond its starting duration")
+	var restored_dash := Catalog.apply_upgrade("quickstep", slower_dash)
+	check(is_equal_approx(float(restored_dash.dash_recharge), float(slower_dash.dash_recharge) - 0.10), style + " Quickstep repairs a traded dash at its unchanged ordinary rate")
+	# Reaching every old 0.2 class cap must no longer collapse the run to purses.
+	stats = baseline(style, 100)
+	stats.damage = float(profile.damage_cap)
+	stats.max_health = float(profile.health_cap)
+	stats.health = stats.max_health
+	stats.guard_capacity = float(profile.guard_cap)
+	stats.guard_reserve = stats.guard_capacity
+	check(ids(Catalog.eligible(100, stats)).has("sharper_steel") and ids(Catalog.eligible(100, stats)).has("heart_of_a_knight") and ids(Catalog.eligible(100, stats)).has("stronger_guard"), style + " damage, health and guard retain permanent growth beyond the old caps")
+	var random_a := RandomNumberGenerator.new()
+	var random_b := RandomNumberGenerator.new()
+	random_a.seed = 88231
+	random_b.seed = 88231
+	var repeatable := true
+	var valid_offers := true
+	var late_build := true
+	for index: int in range(130):
+		var level := 2 + index
+		stats.level = level
+		var offers := Catalog.roll_offers(random_a, level, stats)
+		var repeated := Catalog.roll_offers(random_b, level, stats)
+		repeatable = repeatable and JSON.stringify(offers) == JSON.stringify(repeated)
+		valid_offers = valid_offers and offers.size() == 2 and offers[0].id != offers[1].id
+		var build := false
+		for card: Dictionary in offers:
+			valid_offers = valid_offers and int(card.min_level) <= level
+			build = build or str(card.kind) == "permanent"
+		late_build = late_build and build
+	check(repeatable, style + " seeded offer RNG survives complete reproducible early-to-endgame sequences")
+	check(valid_offers, style + " every sequence roll has two different level-eligible offers")
+	check(late_build, style + " every level retains at least one permanent build choice")
+	stats = baseline(style, 40)
+	check(Catalog.apply_upgrade("royal_purse", stats).score == 10000, style + " Royal Purse pays ten thousand score at unlock")
+	stats.level = 50
+	check(Catalog.apply_upgrade("royal_purse", stats).score == 12500, style + " purse value keeps growing in late stages")
+	var bounded_luck := true
+	var same_luck := true
+	for _index: int in range(30):
+		var first := Catalog.apply_upgrade("lucky_purse", stats, random_a)
+		var second := Catalog.apply_upgrade("lucky_purse", stats, random_b)
+		bounded_luck = bounded_luck and int(first.score) >= 10000 and int(first.score) <= 35000
+		same_luck = same_luck and first.score == second.score
+	check(bounded_luck and same_luck, style + " Lucky Purse follows the advertised range and supplied RNG")
 	stats.health = 1.0
 	stats.guard_reserve = 0.0
-	var before := JSON.stringify(stats)
-	var heart: Dictionary = Catalog.apply_upgrade("heart_of_a_knight", stats)
-	check(is_equal_approx(float(heart.max_health), float(profile.health) + 8.0) and is_equal_approx(float(heart.health), 19.0), style + " heart raises capacity and heals immediately")
-	var guard: Dictionary = Catalog.apply_upgrade("stronger_guard", stats)
-	check(is_equal_approx(float(guard.guard_capacity), float(profile.guard_capacity) + 8.0) and is_equal_approx(float(guard.guard_reserve), 30.0), style + " guard upgrade raises capacity and replenishes reserve")
-	check(JSON.stringify(stats) == before, style + " applying upgrades never mutates input or the class profile")
-	check(Catalog.apply_upgrade("unknown", stats) == stats, style + " unknown upgrade is a harmless no-op")
-	var every_option_changes_stats := true
-	for card in Catalog.eligible(20, stats):
-		every_option_changes_stats = every_option_changes_stats and Catalog.apply_upgrade(str(card.id), stats) != stats
-	check(every_option_changes_stats, style + " every advertised permanent upgrade changes a stat")
-	for _index in range(120):
-		for id in Catalog.REGULAR_IDS:
-			stats = Catalog.apply_upgrade(id, stats)
-	check(is_equal_approx(float(stats.damage), float(profile.damage_cap)), style + " damage stops at its distinct class cap")
-	check(is_equal_approx(float(stats.attack_interval), float(profile.attack_floor)), style + " slash cadence stops at its distinct class floor")
-	check(is_equal_approx(float(stats.attack_range), float(profile.range_cap)), style + " reach stops at its distinct class cap")
-	check(is_equal_approx(float(stats.max_health), float(profile.health_cap)), style + " maximum health stops at its distinct class cap")
-	check(is_equal_approx(float(stats.guard_capacity), float(profile.guard_cap)), style + " guard capacity stops at its distinct class cap")
-	check(is_equal_approx(float(stats.move_speed), float(profile.move_speed) * Catalog.MOVE_CAP_MULTIPLIER), style + " movement remains bounded at +30% of class base")
-	check(is_equal_approx(float(stats.dash_recharge), Catalog.DASH_FLOOR), style + " dash recharge remains bounded at 0.90 seconds")
-	check(Catalog.eligible(100, stats).is_empty(), style + " capped stats are not offered as ineffective upgrades")
-	var all_caps := capped(style)
-	var fallback: Array = ids(Catalog.roll_offers(rng, 100, all_caps))
-	check(fallback.size() == 2 and fallback.has("royal_purse") and fallback.has("lucky_purse"), style + " full-health capped runs still offer two useful score choices")
-	check(Catalog.apply_upgrade("royal_purse", all_caps).score == 500, style + " guaranteed treasure remains useful after all stat caps")
-	all_caps.health = 1.0
-	all_caps.guard_reserve = 0.0
-	fallback = ids(Catalog.roll_offers(rng, 100, all_caps))
-	check(fallback.has("field_rations") and fallback.has("royal_purse"), style + " wounded capped runs can choose recovery or guaranteed points")
-	var restored: Dictionary = Catalog.apply_upgrade("field_rations", all_caps)
-	check(restored.health == restored.max_health and restored.guard_reserve == restored.guard_capacity, style + " recovery restores health and guard without raising caps")
-	all_caps.damage = float(profile.damage_cap) - 1.0
-	var last_stat_kept := true
-	for _index in range(20):
-		last_stat_kept = last_stat_kept and ids(Catalog.roll_offers(rng, 100, all_caps)).has("sharper_steel")
-	check(last_stat_kept, style + " last available stat improvement always appears beside a useful fallback")
-	var near_cap: Array = Catalog.eligible(20, all_caps)
-	check(near_cap.size() == 1 and not str(near_cap[0].description).contains("+14%"), style + " near-cap cards describe the effective percentage rather than promising a full 14%")
-	all_caps = baseline(style)
-	all_caps.attack_range = profile.range_cap
-	check(not ids(Catalog.eligible(20, all_caps)).has("keen_edge"), style + " combined power reward requires both advertised stats to benefit")
+	var restored := Catalog.apply_upgrade("field_rations", stats)
+	check(restored.health == restored.max_health and restored.guard_reserve == restored.guard_capacity, style + " recovery fully restores without changing capacities")
+	stats = baseline(style, 25)
+	var phoenix := Catalog.apply_upgrade("phoenix_oath", stats)
+	check(bool(phoenix.second_wind) and not bool(phoenix.second_wind_used), style + " Phoenix Oath grants a distinct unspent revival")
+	check(not ids(Catalog.eligible(25, phoenix)).has("phoenix_oath"), style + " an owned Phoenix Oath cannot stack")
+	phoenix.second_wind = false
+	phoenix.second_wind_used = true
+	check(not ids(Catalog.eligible(25, phoenix)).has("phoenix_oath"), style + " a consumed Phoenix Oath cannot be bought again")
+	var broken := baseline(style)
+	broken.damage = INF
+	broken.guard_delay = -900.0
+	broken.move_speed = NAN
+	broken.guard_reserve = INF
+	check(valid_stats(Catalog.normalize_stats(broken)), style + " malformed numeric values normalize into safe finite bounds")
+	# Hundreds of deliberate upgrades must stay finite without stale class caps.
+	stats = baseline(style)
+	for level: int in range(2, 301):
+		stats.level = level
+		stats = Catalog.apply_upgrade(["sharper_steel", "heart_of_a_knight", "stronger_guard"][(level - 2) % 3], stats)
+	check(valid_stats(stats) and float(stats.damage) > float(profile.damage_cap) and float(stats.max_health) > float(profile.health_cap) and float(stats.guard_capacity) > float(profile.guard_cap), style + " long-run permanent progression safely exceeds all legacy caps")
+
+
+func _test_rarity() -> void:
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 997001
+	var cards := Catalog.eligible(50, baseline("sword", 50))
+	var legendary := 0
+	var rare := 0
+	for _index: int in range(10000):
+		var selected := Catalog._pick_by_rarity(rng, 50, cards)
+		legendary += 1 if str(selected.rarity) == "legendary" else 0
+		rare += 1 if str(selected.rarity) == "rare" else 0
+	check(legendary >= 80 and legendary <= 160, "seeded 10000-slot sample keeps legendary offers extremely rare")
+	check(rare >= 2400 and rare <= 2800, "rare category chance is independent of its large card count")

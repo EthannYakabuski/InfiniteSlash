@@ -106,7 +106,7 @@ func _test_cloud_union() -> void:
 
 func _test_pending_configuration() -> void:
 	var configuration: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/play_services.json"))
-	_check(configuration.achievements.get("rare_boss", "missing") == "" \
-		and configuration.achievements.get("all_bosses", "missing") == "", "new online badges await owner-provided Google IDs")
+	_check(configuration.achievements.get("rare_boss", "missing") == "CgkI5NXU8p0YEAIQEA" \
+		and configuration.achievements.get("all_bosses", "missing") == "CgkI5NXU8p0YEAIQEQ", "both boss badges retain the owner-provided Google IDs")
 	_check(not configuration.incremental_achievements.has("rare_boss") \
 		and not configuration.incremental_achievements.has("all_bosses"), "new badges are Standard rather than Incremental")

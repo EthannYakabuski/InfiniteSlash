@@ -1,0 +1,353 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (12 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (101 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | monster_atlas.png[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | amber_eclipse.png[39m[0m
+[   1% ] [90m[1m_update_scan_actions[22m | ashen_howl.png[39m[0m
+[   2% ] [90m[1m_update_scan_actions[22m | ashplate_rusher.png[39m[0m
+[   3% ] [90m[1m_update_scan_actions[22m | azure_rampart.png[39m[0m
+[   4% ] [90m[1m_update_scan_actions[22m | barkbeard_oracle.png[39m[0m
+[   5% ] [90m[1m_update_scan_actions[22m | barkwall.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | biscuit_bastion.png[39m[0m
+[   7% ] [90m[1m_update_scan_actions[22m | biscuit_warlock.png[39m[0m
+[   8% ] [90m[1m_update_scan_actions[22m | blackthorn_conjurer.png[39m[0m
+[   9% ] [90m[1m_update_scan_actions[22m | bloodmoon_sentinel.png[39m[0m
+[  10% ] [90m[1m_update_scan_actions[22m | blush_biter.png[39m[0m
+[  11% ] [90m[1m_update_scan_actions[22m | boneblossom_hex.png[39m[0m
+[  12% ] [90m[1m_update_scan_actions[22m | bone_dreadroot.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | bone_moonbeast.png[39m[0m
+[  14% ] [90m[1m_update_scan_actions[22m | bramble_dreadhorn.png[39m[0m
+[  15% ] [90m[1m_update_scan_actions[22m | bramble_sleepwalker.png[39m[0m
+[  16% ] [90m[1m_update_scan_actions[22m | brass_breaker.png[39m[0m
+[  17% ] [90m[1m_update_scan_actions[22m | chapel_gargoyle.png[39m[0m
+[  18% ] [90m[1m_update_scan_actions[22m | cinder_anvil.png[39m[0m
+[  19% ] [90m[1m_update_scan_actions[22m | cinder_coven.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | cinder_nightcap.png[39m[0m
+[  21% ] [90m[1m_update_scan_actions[22m | cinder_sandman.png[39m[0m
+[  22% ] [90m[1m_update_scan_actions[22m | clay_colossus.png[39m[0m
+[  23% ] [90m[1m_update_scan_actions[22m | coal_marauder.png[39m[0m
+[  24% ] [90m[1m_update_scan_actions[22m | cobalt_cantor.png[39m[0m
+[  25% ] [90m[1m_update_scan_actions[22m | cobalt_conjurer.png[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | copper_cairn.png[39m[0m
+[  27% ] [90m[1m_update_scan_actions[22m | copper_dreamhorn.png[39m[0m
+[  28% ] [90m[1m_update_scan_actions[22m | copper_lancer.png[39m[0m
+[  29% ] [90m[1m_update_scan_actions[22m | copper_nocturne.png[39m[0m
+[  30% ] [90m[1m_update_scan_actions[22m | corncrown_hexer.png[39m[0m
+[  31% ] [90m[1m_update_scan_actions[22m | crimson_coronet.png[39m[0m
+[  32% ] [90m[1m_update_scan_actions[22m | crimson_knave.png[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | crimson_skulk.png[39m[0m
+[  34% ] [90m[1m_update_scan_actions[22m | crimson_velvet.png[39m[0m
+[  35% ] [90m[1m_update_scan_actions[22m | cyan_channeler.png[39m[0m
+[  36% ] [90m[1m_update_scan_actions[22m | dreamroot_devourer.png[39m[0m
+[  37% ] [90m[1m_update_scan_actions[22m | dream_jester.png[39m[0m
+[  38% ] [90m[1m_update_scan_actions[22m | dusk_bellringer.png[39m[0m
+[  39% ] [90m[1m_update_scan_actions[22m | dusk_howler.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | ember_claw.png[39m[0m
+[  41% ] [90m[1m_update_scan_actions[22m | ember_nightbloom.png[39m[0m
+[  42% ] [90m[1m_update_scan_actions[22m | emerald_cantor.png[39m[0m
+[  43% ] [90m[1m_update_scan_actions[22m | emerald_gravegrin.png[39m[0m
+[  44% ] [90m[1m_update_scan_actions[22m | forked_fang.png[39m[0m
+[  45% ] [90m[1m_update_scan_actions[22m | gilded_gremlin.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | gilded_nightwarden.png[39m[0m
+[  47% ] [90m[1m_update_scan_actions[22m | goldtongue_seer.png[39m[0m
+[  48% ] [90m[1m_update_scan_actions[22m | gravebone_hare.png[39m[0m
+[  49% ] [90m[1m_update_scan_actions[22m | gravejaw_chorus.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | hollow_bell.png[39m[0m
+[  50% ] [90m[1m_update_scan_actions[22m | hollow_candle.png[39m[0m
+[  51% ] [90m[1m_update_scan_actions[22m | honey_goliath.png[39m[0m
+[  52% ] [90m[1m_update_scan_actions[22m | hooded_dreamer.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | ivory_baron.png[39m[0m
+[  54% ] [90m[1m_update_scan_actions[22m | ivory_bulwark.png[39m[0m
+[  55% ] [90m[1m_update_scan_actions[22m | ivory_cryptseer.png[39m[0m
+[  56% ] [90m[1m_update_scan_actions[22m | ivory_haunter.png[39m[0m
+[  57% ] [90m[1m_update_scan_actions[22m | ivory_ironroot.png[39m[0m
+[  58% ] [90m[1m_update_scan_actions[22m | ivory_nightcap.png[39m[0m
+[  59% ] [90m[1m_update_scan_actions[22m | jade_barricade.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | jade_juggernaut.png[39m[0m
+[  61% ] [90m[1m_update_scan_actions[22m | jade_moonbaron.png[39m[0m
+[  62% ] [90m[1m_update_scan_actions[22m | lantern_ghast.png[39m[0m
+[  63% ] [90m[1m_update_scan_actions[22m | malachite_screech.png[39m[0m
+[  64% ] [90m[1m_update_scan_actions[22m | marigold_mourner.png[39m[0m
+[  65% ] [90m[1m_update_scan_actions[22m | mauve_mountain.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | midnight_sailor.png[39m[0m
+[  67% ] [90m[1m_update_scan_actions[22m | moonlit_marshal.png[39m[0m
+[  68% ] [90m[1m_update_scan_actions[22m | mustard_monolith.png[39m[0m
+[  69% ] [90m[1m_update_scan_actions[22m | neon_nightmare.png[39m[0m
+[  70% ] [90m[1m_update_scan_actions[22m | obsidian_fang.png[39m[0m
+[  71% ] [90m[1m_update_scan_actions[22m | obsidian_maw.png[39m[0m
+[  72% ] [90m[1m_update_scan_actions[22m | orchid_abyssal.png[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | orchid_colossus.png[39m[0m
+[  74% ] [90m[1m_update_scan_actions[22m | pale_crownfiend.png[39m[0m
+[  75% ] [90m[1m_update_scan_actions[22m | pine_prophet.png[39m[0m
+[  76% ] [90m[1m_update_scan_actions[22m | plum_doomcaster.png[39m[0m
+[  77% ] [90m[1m_update_scan_actions[22m | redcap_ravager.png[39m[0m
+[  78% ] [90m[1m_update_scan_actions[22m | ruby_rake.png[39m[0m
+[  79% ] [90m[1m_update_scan_actions[22m | ruby_rampart.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | russet_razor.png[39m[0m
+[  81% ] [90m[1m_update_scan_actions[22m | rust_moonfang.png[39m[0m
+[  82% ] [90m[1m_update_scan_actions[22m | rust_rampart.png[39m[0m
+[  83% ] [90m[1m_update_scan_actions[22m | sallow_moonmoth.png[39m[0m
+[  84% ] [90m[1m_update_scan_actions[22m | scarlet_sleepless.png[39m[0m
+[  85% ] [90m[1m_update_scan_actions[22m | silver_sleepwalker.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | skycrown_prophet.png[39m[0m
+[  87% ] [90m[1m_update_scan_actions[22m | slate_scythe.png[39m[0m
+[  88% ] [90m[1m_update_scan_actions[22m | slate_stalker.png[39m[0m
+[  89% ] [90m[1m_update_scan_actions[22m | sunlit_hexer.png[39m[0m
+[  90% ] [90m[1m_update_scan_actions[22m | tin_witchling.png[39m[0m
+[  91% ] [90m[1m_update_scan_actions[22m | velvet_nightmare.png[39m[0m
+[  92% ] [90m[1m_update_scan_actions[22m | violet_dirge.png[39m[0m
+[  93% ] [90m[1m_update_scan_actions[22m | violet_graveguard.png[39m[0m
+[  94% ] [90m[1m_update_scan_actions[22m | viridian_ripper.png[39m[0m
+[  95% ] [90m[1m_update_scan_actions[22m | white_redcap.png[39m[0m
+[  96% ] [90m[1m_update_scan_actions[22m | winter_warden.png[39m[0m
+[  97% ] [90m[1m_update_scan_actions[22m | witching_bough.png[39m[0m
+[  98% ] [90m[1m_update_scan_actions[22m | wraithwood_eye.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (101 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   1% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   3% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   5% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   7% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   9% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  11% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  12% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  14% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  16% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  18% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  22% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  24% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  27% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  29% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  31% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  35% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  37% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  38% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  42% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  43% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  44% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  48% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  49% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  51% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  55% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  56% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  57% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  59% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  61% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  62% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  64% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  68% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  70% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  72% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  74% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  75% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  77% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  79% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  81% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  83% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  85% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  87% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  88% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  90% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  92% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  93% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  94% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  96% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  98% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | orchid_colossus.png[39m[0m
+[   0% ] [90m[1mreimport[22m | orchid_abyssal.png[39m[0m
+[   1% ] [90m[1mreimport[22m | obsidian_maw.png[39m[0m
+[   2% ] [90m[1mreimport[22m | obsidian_fang.png[39m[0m
+[   3% ] [90m[1mreimport[22m | neon_nightmare.png[39m[0m
+[   4% ] [90m[1mreimport[22m | mustard_monolith.png[39m[0m
+[   5% ] [90m[1mreimport[22m | moonlit_marshal.png[39m[0m
+[   6% ] [90m[1mreimport[22m | midnight_sailor.png[39m[0m
+[   7% ] [90m[1mreimport[22m | mauve_mountain.png[39m[0m
+[   8% ] [90m[1mreimport[22m | marigold_mourner.png[39m[0m
+[   9% ] [90m[1mreimport[22m | malachite_screech.png[39m[0m
+[  10% ] [90m[1mreimport[22m | lantern_ghast.png[39m[0m
+[  11% ] [90m[1mreimport[22m | jade_moonbaron.png[39m[0m
+[  12% ] [90m[1mreimport[22m | jade_juggernaut.png[39m[0m
+[  13% ] [90m[1mreimport[22m | jade_barricade.png[39m[0m
+[  14% ] [90m[1mreimport[22m | ivory_nightcap.png[39m[0m
+[  15% ] [90m[1mreimport[22m | ivory_ironroot.png[39m[0m
+[  16% ] [90m[1mreimport[22m | ivory_haunter.png[39m[0m
+[  17% ] [90m[1mreimport[22m | ivory_cryptseer.png[39m[0m
+[  18% ] [90m[1mreimport[22m | ivory_bulwark.png[39m[0m
+[  19% ] [90m[1mreimport[22m | ivory_baron.png[39m[0m
+[  20% ] [90m[1mreimport[22m | hooded_dreamer.png[39m[0m
+[  21% ] [90m[1mreimport[22m | honey_goliath.png[39m[0m
+[  22% ] [90m[1mreimport[22m | hollow_candle.png[39m[0m
+[  23% ] [90m[1mreimport[22m | hollow_bell.png[39m[0m
+[  24% ] [90m[1mreimport[22m | wraithwood_eye.png[39m[0m
+[  25% ] [90m[1mreimport[22m | witching_bough.png[39m[0m
+[  26% ] [90m[1mreimport[22m | winter_warden.png[39m[0m
+[  27% ] [90m[1mreimport[22m | white_redcap.png[39m[0m
+[  28% ] [90m[1mreimport[22m | viridian_ripper.png[39m[0m
+[  29% ] [90m[1mreimport[22m | violet_graveguard.png[39m[0m
+[  30% ] [90m[1mreimport[22m | violet_dirge.png[39m[0m
+[  31% ] [90m[1mreimport[22m | velvet_nightmare.png[39m[0m
+[  32% ] [90m[1mreimport[22m | tin_witchling.png[39m[0m
+[  33% ] [90m[1mreimport[22m | sunlit_hexer.png[39m[0m
+[  34% ] [90m[1mreimport[22m | slate_stalker.png[39m[0m
+[  35% ] [90m[1mreimport[22m | slate_scythe.png[39m[0m
+[  36% ] [90m[1mreimport[22m | skycrown_prophet.png[39m[0m
+[  37% ] [90m[1mreimport[22m | silver_sleepwalker.png[39m[0m
+[  38% ] [90m[1mreimport[22m | scarlet_sleepless.png[39m[0m
+[  39% ] [90m[1mreimport[22m | sallow_moonmoth.png[39m[0m
+[  40% ] [90m[1mreimport[22m | rust_rampart.png[39m[0m
+[  41% ] [90m[1mreimport[22m | rust_moonfang.png[39m[0m
+[  42% ] [90m[1mreimport[22m | russet_razor.png[39m[0m
+[  43% ] [90m[1mreimport[22m | ruby_rampart.png[39m[0m
+[  44% ] [90m[1mreimport[22m | ruby_rake.png[39m[0m
+[  45% ] [90m[1mreimport[22m | redcap_ravager.png[39m[0m
+[  46% ] [90m[1mreimport[22m | plum_doomcaster.png[39m[0m
+[  47% ] [90m[1mreimport[22m | pine_prophet.png[39m[0m
+[  48% ] [90m[1mreimport[22m | pale_crownfiend.png[39m[0m
+[  49% ] [90m[1mreimport[22m | coal_marauder.png[39m[0m
+[  50% ] [90m[1mreimport[22m | clay_colossus.png[39m[0m
+[  50% ] [90m[1mreimport[22m | cinder_sandman.png[39m[0m
+[  51% ] [90m[1mreimport[22m | cinder_nightcap.png[39m[0m
+[  52% ] [90m[1mreimport[22m | cinder_coven.png[39m[0m
+[  53% ] [90m[1mreimport[22m | cinder_anvil.png[39m[0m
+[  54% ] [90m[1mreimport[22m | chapel_gargoyle.png[39m[0m
+[  55% ] [90m[1mreimport[22m | brass_breaker.png[39m[0m
+[  56% ] [90m[1mreimport[22m | bramble_sleepwalker.png[39m[0m
+[  57% ] [90m[1mreimport[22m | bramble_dreadhorn.png[39m[0m
+[  58% ] [90m[1mreimport[22m | bone_moonbeast.png[39m[0m
+[  59% ] [90m[1mreimport[22m | bone_dreadroot.png[39m[0m
+[  60% ] [90m[1mreimport[22m | boneblossom_hex.png[39m[0m
+[  61% ] [90m[1mreimport[22m | blush_biter.png[39m[0m
+[  62% ] [90m[1mreimport[22m | bloodmoon_sentinel.png[39m[0m
+[  63% ] [90m[1mreimport[22m | blackthorn_conjurer.png[39m[0m
+[  64% ] [90m[1mreimport[22m | biscuit_warlock.png[39m[0m
+[  65% ] [90m[1mreimport[22m | biscuit_bastion.png[39m[0m
+[  66% ] [90m[1mreimport[22m | barkwall.png[39m[0m
+[  67% ] [90m[1mreimport[22m | barkbeard_oracle.png[39m[0m
+[  68% ] [90m[1mreimport[22m | azure_rampart.png[39m[0m
+[  69% ] [90m[1mreimport[22m | ashplate_rusher.png[39m[0m
+[  70% ] [90m[1mreimport[22m | ashen_howl.png[39m[0m
+[  71% ] [90m[1mreimport[22m | amber_eclipse.png[39m[0m
+[  72% ] [90m[1mreimport[22m | monster_atlas.png[39m[0m
+[  73% ] [90m[1mreimport[22m | gravejaw_chorus.png[39m[0m
+[  74% ] [90m[1mreimport[22m | gravebone_hare.png[39m[0m
+[  75% ] [90m[1mreimport[22m | goldtongue_seer.png[39m[0m
+[  76% ] [90m[1mreimport[22m | gilded_nightwarden.png[39m[0m
+[  77% ] [90m[1mreimport[22m | gilded_gremlin.png[39m[0m
+[  78% ] [90m[1mreimport[22m | forked_fang.png[39m[0m
+[  79% ] [90m[1mreimport[22m | emerald_gravegrin.png[39m[0m
+[  80% ] [90m[1mreimport[22m | emerald_cantor.png[39m[0m
+[  81% ] [90m[1mreimport[22m | ember_nightbloom.png[39m[0m
+[  82% ] [90m[1mreimport[22m | ember_claw.png[39m[0m
+[  83% ] [90m[1mreimport[22m | dusk_howler.png[39m[0m
+[  84% ] [90m[1mreimport[22m | dusk_bellringer.png[39m[0m
+[  85% ] [90m[1mreimport[22m | dream_jester.png[39m[0m
+[  86% ] [90m[1mreimport[22m | dreamroot_devourer.png[39m[0m
+[  87% ] [90m[1mreimport[22m | cyan_channeler.png[39m[0m
+[  88% ] [90m[1mreimport[22m | crimson_velvet.png[39m[0m
+[  89% ] [90m[1mreimport[22m | crimson_skulk.png[39m[0m
+[  90% ] [90m[1mreimport[22m | crimson_knave.png[39m[0m
+[  91% ] [90m[1mreimport[22m | crimson_coronet.png[39m[0m
+[  92% ] [90m[1mreimport[22m | corncrown_hexer.png[39m[0m
+[  93% ] [90m[1mreimport[22m | copper_nocturne.png[39m[0m
+[  94% ] [90m[1mreimport[22m | copper_lancer.png[39m[0m
+[  95% ] [90m[1mreimport[22m | copper_dreamhorn.png[39m[0m
+[  96% ] [90m[1mreimport[22m | copper_cairn.png[39m[0m
+[  97% ] [90m[1mreimport[22m | cobalt_conjurer.png[39m[0m
+[  98% ] [90m[1mreimport[22m | cobalt_cantor.png[39m[0m
+[  99% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (101 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[  33% ] [90m[1mloading_editor_layout[22m | Reopening scenes...[39m[0m
+[  50% ] [90m[1mloading_editor_layout[22m | Loading central editor layout...[39m[0m
+[  66% ] [90m[1mloading_editor_layout[22m | Loading plugin window layout...[39m[0m
+[  83% ] [90m[1mloading_editor_layout[22m | Editor layout ready.[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

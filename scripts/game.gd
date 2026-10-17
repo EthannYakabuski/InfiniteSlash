@@ -6,8 +6,10 @@ const UIScript = preload("res://scripts/game_ui.gd")
 const ClassProfiles = preload("res://scripts/class_profiles.gd")
 const UpgradeCatalog = preload("res://scripts/upgrade_catalog.gd")
 const BossCatalog = preload("res://scripts/boss_catalog.gd")
-const MAX_ENEMIES = 100
-const MAX_BULLETS = 240
+const Progression = preload("res://scripts/progression.gd")
+const BossHazards = preload("res://scripts/boss_hazards.gd")
+const MAX_ENEMIES = 140
+const MAX_BULLETS = 480
 const MAX_DROPS = 60
 const MAX_EFFECTS = 90
 const PLAYER_RADIUS = 13.0
@@ -79,6 +81,22 @@ var dash_direction = Vector2.UP
 var guard_reserve = float(ClassProfiles.PROFILES.sword.guard_capacity)
 var guard_capacity = float(ClassProfiles.PROFILES.sword.guard_capacity)
 var guarding = false
+var guard_regen = 22.0
+var guard_delay = 0.5
+var guard_regen_wait = 0.0
+var guard_contact_cooldown = 0.0
+var lifesteal = 0.0
+var thorns = 0.0
+var second_wind = 0.0
+var second_wind_used = false
+var execute_threshold = 0.0
+var combo_grace = 0.0
+var overdrive_charge = 0.0
+var overdrive_time = 0.0
+var hazards: Array = []
+var previous_stage = 1
+var previous_night = false
+var _legacy_roster_save = false
 var parry_timer = 0.0
 var parry_rearm = 0.0
 var was_moving = false
@@ -209,6 +227,7 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	state = "running"
 	enemies.clear()
 	bullets.clear()
+	hazards.clear()
 	drops.clear()
 	effects.clear()
 	max_health = float(class_stats.health)
@@ -219,6 +238,20 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	move_speed = float(class_stats.move_speed)
 	guard_capacity = float(class_stats.guard_capacity)
 	guard_reserve = guard_capacity
+	guard_regen = float(class_stats.guard_regen)
+	guard_delay = float(class_stats.get("guard_delay", 0.5))
+	guard_regen_wait = 0.0
+	guard_contact_cooldown = 0.0
+	lifesteal = 0.0
+	thorns = 0.0
+	second_wind = 0.0
+	second_wind_used = false
+	execute_threshold = 0.0
+	combo_grace = 0.0
+	overdrive_charge = 0.0
+	overdrive_time = 0.0
+	previous_stage = 1
+	previous_night = false
 	player_pos = Vector2(arena.x * 0.5, arena.y * 0.72)
 	facing = Vector2.UP
 	move_direction = Vector2.ZERO
@@ -232,7 +265,7 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	combo_timer = 0.0
 	level = 1
 	xp = 0
-	xp_goal = 8
+	xp_goal = Progression.xp_goal(1)
 	ward_hits = 0
 	buffs.clear()
 	spawn_timer = 0.45
@@ -250,7 +283,7 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 	shake = 0.0
 	spark_timer = 0.0
 	save_timer = 0.0
-	guarding = false
+	guarding = true
 	was_moving = false
 	_release_input()
 	world.reset()
@@ -288,6 +321,8 @@ func tick(delta: float) -> void:
 	hurt_timer = maxf(0, hurt_timer - delta)
 	parry_timer = maxf(0, parry_timer - delta)
 	parry_rearm = maxf(0, parry_rearm - delta)
+	guard_contact_cooldown = maxf(0, guard_contact_cooldown - delta)
+	overdrive_time = maxf(0, overdrive_time - delta)
 	if hitstop > 0:
 		hitstop -= delta
 		return
@@ -295,6 +330,11 @@ func tick(delta: float) -> void:
 	_update_spawns(delta)
 	_update_enemies(delta)
 	_update_bullets(delta)
+	_update_hazards(delta)
+	var night_now: bool = WorldScript.is_night(elapsed)
+	if night_now != previous_night:
+		previous_night = night_now
+		hud.toast("NIGHTFALL · THE WILD WAKES" if night_now else "DAWN · HOLD THE ROAD", Color("bfc8ff") if night_now else Color("ffe4a4"))
 	if health <= 0:
 		end_run()
 		return
@@ -330,7 +370,7 @@ func _process(delta: float) -> void:
 		if effect.kind != "lightning": effect.pos += effect.vel * combat_delta
 		if effect.life <= 0: effects.remove_at(i)
 	if world != null:
-		world.advance(delta if state == "running" else delta * 0.18 if state == "launch" else 0.0, elapsed)
+		world.advance(delta if state == "running" else delta * 0.18 if state == "launch" else 0.0, elapsed, level)
 	hud_timer -= delta
 	if hud_timer <= 0 and ready_complete:
 		hud_timer = 0.08
@@ -351,16 +391,13 @@ func _update_player(delta: float) -> void:
 		var target = Vector2(arena.x * 0.5 + sin(elapsed * 0.8) * arena.x * 0.31, arena.y * 0.64 + cos(elapsed * 0.6) * 120)
 		move_direction = (target - player_pos).limit_length(60) / 60.0
 	var moving = move_direction.length_squared() > 0.01
-	if was_moving and not moving and parry_rearm <= 0 and guard_reserve > 4:
-		parry_timer = float(class_stats.parry_window)
-		parry_rearm = 0.65
 	was_moving = moving
-	guarding = not moving and dash_timer <= 0 and guard_reserve > 0
-	if guarding:
-		guard_reserve = maxf(0, guard_reserve - float(class_stats.guard_drain) * delta)
-		if guard_reserve <= 0: guarding = false
-	elif moving:
-		guard_reserve = minf(guard_capacity, guard_reserve + float(class_stats.guard_regen) * delta)
+	# Recharge only the part of this step after the attack-free delay elapses.
+	var recharge_delta: float = maxf(0.0, delta - guard_regen_wait)
+	guard_regen_wait = maxf(0, guard_regen_wait - delta)
+	if recharge_delta > 0:
+		guard_reserve = minf(guard_capacity, guard_reserve + guard_regen * recharge_delta)
+	guarding = dash_timer <= 0 and guard_reserve > 0
 	if moving:
 		facing = move_direction.normalized()
 	if dash_timer > 0:
@@ -393,7 +430,7 @@ func _update_spawns(delta: float) -> void:
 		if enemies.size() >= MAX_ENEMIES:
 			enemies.remove_at(0)
 		boss_number += 1
-		var definition: Dictionary = BossCatalog.choose(boss_rng, elapsed, last_boss_id)
+		var definition: Dictionary = BossCatalog.choose(boss_rng, elapsed, last_boss_id, level)
 		last_boss_id = str(definition.id)
 		var monster_index = roster.size() - 1
 		for index in range(roster.size()):
@@ -401,22 +438,36 @@ func _update_spawns(delta: float) -> void:
 				monster_index = index
 				break
 		spawn_enemy(monster_index, true, Vector2(arena.x * 0.5, 190), false, definition)
-		next_boss = elapsed + 45.0
+		next_boss = elapsed + maxf(26.0, 45.0 - level * 0.18)
 		has_boss = true
 		hud.toast(("RARE CROWN · " if bool(definition.rare) else "") + str(definition.name), Color("ffb679"))
 		AudioManager.play_sound("boss")
 		shake = 5.0
 	if spawn_timer <= 0:
-		spawn_timer = maxf(0.23, 0.88 - elapsed * 0.0018) * (1.8 if has_boss else 1.0) * (2.8 if elapsed < relief_until else 1.0)
-		var group = mini(4, 1 + int(elapsed / 75.0))
+		spawn_timer = maxf(0.18, (0.88 - minf(0.55, elapsed * 0.0018)) * pow(0.92, int(level / 10))) * (1.35 if has_boss else 1.0) * (2.8 if elapsed < relief_until else 1.0)
+		var group = mini(7, 1 + int(elapsed / 75.0) + int(level / 20))
+		var population_cap: int = mini(MAX_ENEMIES, 65 + int(level / 10) * 13)
 		for n in range(group):
+			if enemies.size() >= population_cap: break
 			spawn_enemy()
 
 func _choose_monster() -> int:
 	var eligible: Array[int] = []
+	var advanced: Array[int] = []
+	var nocturnal: Array[int] = []
+	var night: bool = WorldScript.is_night(elapsed)
 	for i in range(roster.size()):
-		if elapsed >= float(UNLOCK_TIMES.get(str(roster[i].behavior), 0.0)):
-			eligible.append(i)
+		var info: Dictionary = roster[i]
+		if level < int(info.get("stage_min", 1)) or level > int(info.get("stage_max", 10000)): continue
+		if bool(info.get("night_only", false)) and not night: continue
+		if elapsed < float(UNLOCK_TIMES.get(str(info.behavior), 0.0)): continue
+		eligible.append(i)
+		if bool(info.get("night_only", false)): nocturnal.append(i)
+		elif int(info.get("stage_min", 1)) >= 30: advanced.append(i)
+	if not nocturnal.is_empty() and rng.randf() < 0.60:
+		return nocturnal[rng.randi_range(0, nocturnal.size() - 1)]
+	if not advanced.is_empty() and rng.randf() < 0.78:
+		return advanced[rng.randi_range(0, advanced.size() - 1)]
 	return eligible[rng.randi_range(0, eligible.size() - 1)] if not eligible.is_empty() else 0
 
 func spawn_enemy(index: int = -1, is_boss: bool = false, spawn_pos: Vector2 = Vector2.INF, is_minion: bool = false, boss_definition: Dictionary = {}) -> Dictionary:
@@ -430,11 +481,23 @@ func spawn_enemy(index: int = -1, is_boss: bool = false, spawn_pos: Vector2 = Ve
 			spawn_pos = Vector2(rng.randf_range(30, arena.x - 30), 95)
 		else:
 			spawn_pos = Vector2(-35 if rng.randf() < 0.5 else arena.x + 35, rng.randf_range(190, arena.y * 0.6))
-	var scaling = 1.0 + minf(1.6, elapsed / 430.0)
-	var hp = float(info.health) * scaling
-	if is_boss: hp = 560.0 * pow(1.21, minf(12, boss_number - 1))
-	if is_minion: hp = 12.0 * scaling
-	var enemy = {"kind": index, "pos": spawn_pos, "hp": hp, "max_hp": hp, "radius": 35.0 if is_boss else float(info.get("radius", 16)) * (0.65 if is_minion else 1.0), "speed": 58.0 if is_boss else float(info.speed) * (1.0 + minf(0.4, elapsed / 900.0)), "damage": minf(26, float(info.damage) * (1.0 + elapsed / 1100.0)), "behavior": "boss" if is_boss else "chaser" if is_minion else str(info.behavior), "boss": is_boss, "minion": is_minion, "alive": true, "age": 0.0, "cooldown": rng.randf_range(1.4, 2.6), "windup": 0.0, "charge": 0.0, "aim": Vector2.DOWN, "knock": Vector2.ZERO, "flash": 0.0, "phase": 0, "anim": rng.randf() * 4.0, "last_slash": -1}
+	var scale_stats: Dictionary = Progression.enemy_scaling(level)
+	var scaling: float = float(scale_stats.health) * (1.0 + minf(0.55, elapsed / 1200.0))
+	var base_hp: float = float(info.health)
+	var base_damage: float = float(info.damage)
+	var base_speed: float = float(info.speed)
+	if level >= 50 and not is_boss and not is_minion:
+		# Stage-two veterans retire at 50. Ascended inhabitants must exceed
+		# their pressure rather than reverting to the early roster's base stats.
+		var tank: bool = str(info.behavior) == "tank"
+		var fast: bool = str(info.behavior) in ["skitter", "charger", "chaser", "splitter"]
+		base_hp = maxf(base_hp, 1000.0 if tank else 100.0 if fast else 250.0)
+		base_damage = maxf(base_damage, 50.0 if tank else 45.0 if fast else 36.0)
+		base_speed = maxf(base_speed, 65.0 if tank else 170.0 if fast else 110.0)
+	var hp = minf(1.0e12, base_hp * scaling)
+	if is_boss: hp = minf(1.0e12, 560.0 * float(Progression.boss_scaling(level).health) * pow(1.08, mini(60, maxi(0, boss_number - 1))))
+	if is_minion: hp = minf(1.0e12, 12.0 * scaling)
+	var enemy = {"kind": index, "monster_id": str(info.id), "pos": spawn_pos, "hp": hp, "max_hp": hp, "radius": 35.0 if is_boss else float(info.get("radius", 16)) * (0.65 if is_minion else 1.0), "speed": minf(620, base_speed * float(scale_stats.speed)), "damage": minf(1.0e9, base_damage * float(scale_stats.damage)), "behavior": "boss" if is_boss else "chaser" if is_minion else str(info.behavior), "boss": is_boss, "minion": is_minion, "alive": true, "age": 0.0, "cooldown": rng.randf_range(1.4, 2.6) * float(scale_stats.cooldown), "windup": 0.0, "charge": 0.0, "aim": Vector2.DOWN, "knock": Vector2.ZERO, "flash": 0.0, "phase": 0, "anim": rng.randf() * 4.0, "last_slash": -1}
 	if is_boss:
 		# Direct spawns use the first catalog identity; scheduled bosses receive
 		# a weighted identity independent of appearance order.
@@ -443,13 +506,12 @@ func spawn_enemy(index: int = -1, is_boss: bool = false, spawn_pos: Vector2 = Ve
 		enemy.boss_name = str(boss_definition.name)
 		enemy.boss_pattern = str(boss_definition.pattern)
 		enemy.boss_rare = bool(boss_definition.rare)
-		var phase_tier: int = BossCatalog.phase(elapsed)
-		# An early rare visitor is still an early encounter, with fair early HP.
-		var hp_multiplier = clampf(float(boss_definition.health_multiplier), 0.85, 1.15 + (phase_tier - 1) * 0.22)
-		enemy.hp = minf(10000, hp * hp_multiplier)
+		var boss_scale: Dictionary = Progression.boss_scaling(level)
+		var hp_multiplier = float(boss_definition.health_multiplier)
+		enemy.hp = minf(1.0e12, hp * hp_multiplier)
 		enemy.max_hp = enemy.hp
-		enemy.speed = clampf(58.0 * float(boss_definition.speed_multiplier), 42, 90)
-		enemy.damage = clampf((12.0 + minf(10, boss_number * 0.7)) * float(boss_definition.damage_multiplier), 10, 28)
+		enemy.speed = clampf(68.0 * float(boss_definition.speed_multiplier) * float(boss_scale.speed), 42, 520)
+		enemy.damage = minf(1.0e9, (12.0 + minf(30, boss_number * 0.7)) * float(boss_definition.damage_multiplier) * float(boss_scale.damage))
 		enemy.boss_cooldown_multiplier = float(boss_definition.cooldown_multiplier)
 	enemies.append(enemy)
 	return enemy
@@ -468,14 +530,18 @@ func _update_enemies(delta: float) -> void:
 		var behavior = str(enemy.behavior)
 		if enemy.charge > 0:
 			enemy.charge -= delta
-			velocity = enemy.aim * (340.0 if enemy.boss else 290.0)
+			velocity = enemy.aim * (minf(680, 340.0 + level * 3.0) if enemy.boss else minf(600, 290.0 + level * 2.0))
 		elif enemy.windup > 0:
 			enemy.windup = maxf(0, enemy.windup - delta)
 			velocity = Vector2.ZERO
 			if enemy.windup <= 0: _fire_enemy(enemy)
 		elif behavior == "boss":
-			var desired = Vector2(arena.x * 0.5 + sin(enemy.age * 0.8) * arena.x * 0.29, clampf(player_pos.y - 170, 190, arena.y * 0.58))
-			velocity = (desired - enemy.pos).limit_length(float(enemy.speed))
+			var enraged: bool = float(enemy.hp) < float(enemy.max_hp) * 0.35
+			var desired = player_pos + Vector2(sin(enemy.age * 1.4) * 145, -135 if level < 20 else -65)
+			desired = _clamp_player(desired)
+			velocity = (desired - enemy.pos).limit_length(float(enemy.speed) * (1.3 if enraged else 1.0))
+			if level >= 30 and fmod(float(enemy.age), 6.0) > 4.0:
+				velocity = direction * float(enemy.speed) * (1.45 if enraged else 1.1)
 			if enemy.cooldown <= 0: _prepare_attack(enemy)
 		elif behavior in ["spitter", "fan", "orbiter"]:
 			if behavior == "orbiter":
@@ -489,6 +555,8 @@ func _update_enemies(delta: float) -> void:
 			if enemy.cooldown <= 0 and distance < 340 and enemy.age > 1.0: _prepare_attack(enemy)
 		elif behavior == "skitter":
 			velocity = direction.rotated(sin(enemy.age * 5.0 + enemy.anim) * 0.6) * enemy.speed
+		elif behavior == "tank" and level >= 50 and distance < 240 and enemy.cooldown <= 0:
+			_prepare_attack(enemy)
 		if behavior == "tank": velocity *= 0.85
 		velocity += enemy.knock
 		enemy.knock = enemy.knock.move_toward(Vector2.ZERO, 540 * delta)
@@ -504,43 +572,60 @@ func _is_on_screen(pos: Vector2) -> bool:
 
 func _prepare_attack(enemy: Dictionary) -> void:
 	enemy.aim = (player_pos - enemy.pos).normalized()
-	enemy.windup = 0.85 if enemy.boss else 0.7 if enemy.behavior == "charger" else 0.6
+	enemy.windup = maxf(0.38, 0.85 - level * 0.006) if enemy.boss else 0.62 if enemy.behavior == "charger" else 0.5
 	if enemy.boss: enemy.phase += 1
 
 func _fire_enemy(enemy: Dictionary) -> void:
 	var info = roster[enemy.kind]
-	var bullet_speed = maxf(115, float(info.get("bullet_speed", 130))) + minf(65, elapsed * 0.13)
+	var scale_stats: Dictionary = Progression.enemy_scaling(level)
+	var bullet_speed = minf(560, (maxf(115, float(info.get("bullet_speed", 130))) + minf(65, elapsed * 0.13)) * float(scale_stats.projectile_speed))
 	if enemy.boss:
-		enemy.cooldown = clampf((2.9 - minf(12, boss_number) * 0.09) * float(enemy.get("boss_cooldown_multiplier", 1.0)), 1.45, 3.5)
+		var boss_scale: Dictionary = Progression.boss_scaling(level)
+		var enraged: bool = float(enemy.hp) < float(enemy.max_hp) * 0.35
+		enemy.cooldown = clampf(2.65 * float(enemy.get("boss_cooldown_multiplier", 1.0)) * float(boss_scale.cooldown) * (0.72 if enraged else 1.0), 0.38, 3.5)
 		var pattern = str(enemy.get("boss_pattern", "ring"))
 		var phase = int(enemy.phase)
-		var shot_damage = minf(26, float(enemy.damage))
+		var shot_damage = float(enemy.damage)
+		if level >= 20:
+			_cast_boss_element(enemy)
 		if pattern == "charge" and phase % 2 == 0:
 			enemy.charge = 0.48
 		elif pattern == "fan" or (pattern == "charge"):
-			var half = 3 if pattern == "fan" else 1
+			var half = (3 if pattern == "fan" else 1) + mini(5, int(level / 20))
 			for i in range(-half, half + 1):
-				_add_bullet(enemy.pos, enemy.aim.rotated(i * 0.24) * bullet_speed, shot_damage, true)
+				_add_bullet(enemy.pos, enemy.aim.rotated(i * (1.44 / maxf(3, half * 2))) * bullet_speed, shot_damage, true)
 		elif pattern == "spiral":
 			# Alternating spoke volleys keep a large telegraphed escape wedge.
 			for i in range(16):
 				if i in [0, 1, 2, 14, 15]: continue
 				var angle = enemy.aim.angle() + float(i) * TAU / 16.0 + (0.08 if phase % 2 == 0 else -0.08)
-				_add_bullet(enemy.pos, Vector2.from_angle(angle) * (130 + mini(45, boss_number * 4)), shot_damage, true)
+				_add_bullet(enemy.pos, Vector2.from_angle(angle) * bullet_speed, shot_damage, true)
 		elif phase % 3 == 1:
 			for i in range(-2, 3): _add_bullet(enemy.pos, enemy.aim.rotated(i * 0.25) * bullet_speed, shot_damage, true)
 		else:
 			for i in range(14):
 				if i in [0, 1, 13]: continue
 				var angle = enemy.aim.angle() + float(i) * TAU / 14.0
-				_add_bullet(enemy.pos, Vector2.from_angle(angle) * (125 + mini(50, boss_number * 6)), shot_damage, true)
+				_add_bullet(enemy.pos, Vector2.from_angle(angle) * bullet_speed, shot_damage, true)
+		if level >= 50:
+			for i in range(-2, 3):
+				_add_bullet(enemy.pos, enemy.aim.rotated(i * 0.17) * bullet_speed * 0.72, shot_damage, true)
+	elif enemy.behavior == "tank" and level >= 50:
+		enemy.cooldown = maxf(0.9, 2.8 * float(scale_stats.cooldown))
+		_add_hazard(BossHazards.make("quake", (Vector2(enemy.pos) + player_pos) * 0.5, float(enemy.damage) * 0.8, enemy.aim))
 	elif enemy.behavior == "charger":
 		enemy.charge = 0.48
-		enemy.cooldown = 2.7
+		enemy.cooldown = 2.7 * float(scale_stats.cooldown)
 	else:
-		enemy.cooldown = maxf(1.2, float(info.get("shoot_interval", 2.8)) - elapsed * 0.0015)
-		if enemy.behavior == "fan":
-			for i in range(-1, 2): _add_bullet(enemy.pos, enemy.aim.rotated(i * 0.32) * bullet_speed, enemy.damage, false)
+		enemy.cooldown = maxf(0.38, float(info.get("shoot_interval", 2.8)) * float(scale_stats.cooldown))
+		if str(info.get("role", "")) == "volley":
+			var count: int = mini(23, int(info.get("volley_count", 9)) + int(scale_stats.volley_bonus))
+			for i in range(count):
+				var angle: float = lerpf(-0.92, 0.92, float(i) / maxf(1, count - 1))
+				_add_bullet(enemy.pos, enemy.aim.rotated(angle) * bullet_speed, enemy.damage, false)
+		elif enemy.behavior == "fan":
+			var half: int = 1 + mini(4, int(scale_stats.volley_bonus))
+			for i in range(-half, half + 1): _add_bullet(enemy.pos, enemy.aim.rotated(i * 0.22) * bullet_speed, enemy.damage, false)
 		else:
 			_add_bullet(enemy.pos, enemy.aim * bullet_speed, enemy.damage, false)
 
@@ -551,6 +636,7 @@ func _add_bullet(pos: Vector2, velocity: Vector2, bullet_damage: float, boss_sho
 func _update_bullets(delta: float) -> void:
 	var slow = 0.62 if buffs.has("frost") else 1.0
 	for i in range(bullets.size() - 1, -1, -1):
+		if i >= bullets.size(): continue
 		var bullet = bullets[i]
 		bullet.pos += bullet.vel * delta * slow
 		bullet.life -= delta
@@ -558,17 +644,17 @@ func _update_bullets(delta: float) -> void:
 			bullets.remove_at(i)
 			continue
 		var distance = bullet.pos.distance_to(player_pos)
-		if guarding and guard_reserve > 0 and distance < 34 + bullet.radius:
-			var perfect = parry_timer > 0
-			guard_reserve = clampf(guard_reserve + (4.0 if perfect else -float(class_stats.block_cost)), 0, guard_capacity)
-			if guard_reserve <= 0: guarding = false
-			if perfect: score += 4
-			_burst(bullet.pos, Color("b0edf1") if perfect else Color("ffd382"), 3)
-			AudioManager.play_sound("block")
+		if dash_timer > 0 and distance < 36 + bullet.radius:
+			_gain_overdrive(12.0)
+			_burst(bullet.pos, Color("b0edf1"), 3)
 			bullets.remove_at(i)
+		elif guard_reserve > 0 and distance < 34 + bullet.radius:
+			var overflow: float = _absorb_attack(float(bullet.damage))
+			if overflow > 0: _receive_health_damage(overflow, bullet.vel.normalized())
+			if i < bullets.size(): bullets.remove_at(i)
 		elif distance < PLAYER_RADIUS + bullet.radius:
 			damage_player(bullet.damage, bullet.vel.normalized())
-			bullets.remove_at(i)
+			if i < bullets.size(): bullets.remove_at(i)
 
 func _update_weapon(delta: float) -> void:
 	swing_timer -= delta
@@ -583,7 +669,7 @@ func _update_weapon(delta: float) -> void:
 			best_distance = distance
 	var direction = (nearest.pos - player_pos).normalized() if nearest != null else facing
 	perform_slash(direction)
-	swing_timer = (maxf(attack_interval, float(class_stats.guard_attack_interval)) if guarding else attack_interval) * (0.67 if buffs.has("haste") else 1.0)
+	swing_timer = attack_interval * (0.67 if buffs.has("haste") else 1.0) * (0.85 if overdrive_time > 0 else 1.0)
 
 func perform_slash(direction: Vector2) -> void:
 	slash_serial += 1
@@ -597,16 +683,19 @@ func perform_slash(direction: Vector2) -> void:
 		var offset = enemy.pos - player_pos
 		if offset.length() <= reach + enemy.radius and (offset.length() < 25 or absf(wrapf(offset.angle() - slash_angle, -PI, PI)) <= half_arc):
 			enemy.last_slash = slash_serial
-			damage_enemy(enemy, damage * (1.3 if buffs.has("hurricane") else 1.0), offset.normalized() * 165)
+			damage_enemy(enemy, damage * (1.3 if buffs.has("hurricane") else 1.0) * (1.25 if overdrive_time > 0 else 1.0), offset.normalized() * 165)
 	for i in range(bullets.size() - 1, -1, -1):
 		var offset = bullets[i].pos - player_pos
 		if offset.length() < reach and absf(wrapf(offset.angle() - slash_angle, -PI, PI)) < half_arc:
 			_burst(bullets[i].pos, Color("ffe0a0"), 2)
 			bullets.remove_at(i)
 
-func damage_enemy(enemy: Dictionary, amount: float, knockback: Vector2 = Vector2.ZERO) -> void:
+func damage_enemy(enemy: Dictionary, amount: float, knockback: Vector2 = Vector2.ZERO, slash_hit: bool = true) -> void:
 	if not enemy.alive: return
+	var dealt: float = minf(float(enemy.hp), amount)
 	enemy.hp -= amount
+	if slash_hit and lifesteal > 0: health = minf(max_health, health + dealt * lifesteal)
+	if slash_hit and not enemy.boss and execute_threshold > 0 and float(enemy.hp) <= float(enemy.max_hp) * execute_threshold: enemy.hp = 0.0
 	enemy.flash = 0.12
 	enemy.knock = knockback * (0.2 if enemy.boss else 0.45 if enemy.behavior == "tank" else 1.0)
 	hitstop = maxf(hitstop, 0.025)
@@ -620,21 +709,22 @@ func _kill_enemy(enemy: Dictionary) -> void:
 	kills += 1
 	combo += 1
 	best_combo = maxi(best_combo, combo)
-	combo_timer = 2.8
+	combo_timer = 2.8 + combo_grace
 	score += int(float(info.score) * (0.35 if enemy.minion else 1.0)) * multiplier() * (15 if enemy.boss else 1)
 	_burst(enemy.pos, Color("ffcd75"), 9 if enemy.boss else 5)
-	_drop(enemy.pos, "xp", 18 if enemy.boss else 1 if enemy.minion else 2)
+	_drop(enemy.pos, "xp", (18 + int(level / 5)) if enemy.boss else 1 if enemy.minion else (2 + int(level / 20)))
 	if not testing and not demo:
-		if bool(info.get("generated", true)): SaveData.discover_monster(str(info.id))
+		if not enemy.minion: SaveData.record_monster_defeat(str(info.id))
 		if kills == 1: SaveData.unlock("first_blood")
 		if combo >= 25: SaveData.unlock("combo_25")
 		if score >= 10000: SaveData.unlock("score_10000")
 	if enemy.boss:
 		bosses += 1
 		bullets.clear()
+		hazards.clear()
 		health = minf(max_health, health + 30)
 		_drop(enemy.pos + Vector2(-28, 20), "heart", 25)
-		_drop(enemy.pos + Vector2(28, 20), "hurricane", 1)
+		if loot_rng.randf() < 0.5: _drop(enemy.pos + Vector2(28, 20), "hurricane", 1)
 		relief_until = elapsed + 5.0
 		next_boss = maxf(next_boss, elapsed + 12)
 		shake = 8.0
@@ -648,30 +738,59 @@ func _kill_enemy(enemy: Dictionary) -> void:
 		for side in [-1, 1]:
 			var child = spawn_enemy(int(enemy.kind), false, enemy.pos + Vector2(side * 20, 0), true)
 			if not child.is_empty(): child.last_slash = slash_serial
-	if not enemy.minion and loot_rng.randf() < (0.23 if health < max_health * 0.4 else 0.16):
+	if not enemy.minion and loot_rng.randf() < (0.115 if health < max_health * 0.4 else 0.08):
 		var options = ["heart", "haste", "hurricane", "ward", "magnet", "frost", "spark", "gold"]
 		var kind = "heart" if health < max_health * 0.35 and loot_rng.randf() < 0.6 else options[loot_rng.randi_range(0, options.size() - 1)]
 		_drop(enemy.pos + Vector2(12, 0), kind, 1)
-	if kills == 3: _drop(enemy.pos, "haste", 1)
 
 func multiplier() -> int:
 	return 4 if combo >= 35 else 3 if combo >= 20 else 2 if combo >= 5 else 1
 
 func damage_player(amount: float, direction: Vector2 = Vector2.ZERO) -> bool:
 	if state != "running" or hurt_timer > 0 or dash_timer > 0 or demo: return false
-	if guarding and parry_timer > 0:
-		guard_reserve = minf(guard_capacity, guard_reserve + 10)
-		_burst(player_pos, Color("fff4c3"), 8)
-		AudioManager.play_sound("block")
-		return false
+	if guard_contact_cooldown > 0: return false
+	guard_contact_cooldown = 0.35
+	var received: float = _absorb_attack(amount)
+	if thorns > 0:
+		for enemy in enemies.duplicate():
+			if enemy.alive and enemy.pos.distance_to(player_pos) < float(enemy.radius) + 50:
+				damage_enemy(enemy, amount * thorns, Vector2.ZERO, false)
+	if received <= 0: return false
+	return _receive_health_damage(received, direction)
+
+func _absorb_attack(amount: float) -> float:
+	guard_regen_wait = guard_delay
+	if guard_reserve <= 0:
+		guarding = false
+		return amount
+	var cost: float = maxf(float(class_stats.block_cost), amount * float(class_stats.get("guard_cost_multiplier", 1.2)))
+	var spent: float = minf(guard_reserve, cost)
+	guard_reserve = maxf(0, guard_reserve - spent)
+	guarding = guard_reserve > 0
+	_burst(player_pos, Color("b0edf1"), 3)
+	AudioManager.play_sound("block")
+	return maxf(0, amount * (1.0 - spent / cost))
+
+func _receive_health_damage(received: float, direction: Vector2) -> bool:
+	if hurt_timer > 0 or dash_timer > 0 or demo: return false
 	if ward_hits > 0:
 		ward_hits -= 1
 		hurt_timer = 0.7
 		_burst(player_pos, Color("89e6ff"), 7)
 		AudioManager.play_sound("block")
 		return false
-	var received = amount * float(class_stats.guard_damage_multiplier) if guarding else amount
 	health = maxf(0, health - received)
+	if health <= 0 and second_wind > 0 and not second_wind_used:
+		second_wind_used = true
+		health = maxf(1, max_health * 0.5)
+		guard_reserve = guard_capacity
+		guarding = true
+		bullets.clear()
+		hazards.clear()
+		hurt_timer = 1.5
+		hud.toast("SECOND WIND · ONE MORE CHANCE", Color("b6efa0"))
+		_burst(player_pos, Color("b6efa0"), 16)
+		return false
 	hurt_timer = 0.7
 	combo = 0
 	combo_timer = 0
@@ -682,6 +801,47 @@ func damage_player(amount: float, direction: Vector2 = Vector2.ZERO) -> bool:
 	if OS.get_name() == "Android" and bool(SaveData.profile.get("settings", {}).get("haptics", true)):
 		Input.vibrate_handheld(30, 0.4)
 	return true
+
+func _gain_overdrive(amount: float) -> void:
+	if overdrive_time > 0: return
+	overdrive_charge = minf(100, overdrive_charge + amount)
+	if overdrive_charge >= 100:
+		overdrive_charge = 0.0
+		overdrive_time = 6.0
+		hud.toast("OVERDRIVE · KEEP SLICING", Color("b5edff"))
+		AudioManager.play_sound("level")
+		_burst(player_pos, Color("b5edff"), 14)
+
+func _cast_boss_element(enemy: Dictionary) -> void:
+	var phase: int = int(enemy.phase)
+	var kind: String = ["fire", "quake", "pulse"][posmod(phase - 1, 3)]
+	if kind == "fire":
+		var count: int = 1 if level < 30 else 2 if level < 50 else 3
+		for i in range(count):
+			var offset := Vector2.ZERO if i == 0 else Vector2.from_angle(i * 2.4 + phase) * 125
+			_add_hazard(BossHazards.make("fire", _clamp_player(player_pos + offset), float(enemy.damage) * 0.9))
+	elif kind == "quake":
+		var hazard: Dictionary = BossHazards.make("quake", (Vector2(enemy.pos) + player_pos) * 0.5, float(enemy.damage) * 1.15, enemy.aim)
+		_add_hazard(hazard)
+	else:
+		# Every wave leaves a broad, visible safe gap in its concave front.
+		var hazard: Dictionary = BossHazards.make("pulse", enemy.pos, float(enemy.damage), enemy.aim)
+		hazard.gap_angle = Vector2(enemy.aim).angle() + PI * (0.6 if phase % 2 == 0 else -0.6)
+		_add_hazard(hazard)
+
+func _add_hazard(hazard: Dictionary) -> void:
+	if hazards.size() >= BossHazards.MAX_HAZARDS: return
+	hazards.append(hazard)
+
+func _update_hazards(delta: float) -> void:
+	for i in range(hazards.size() - 1, -1, -1):
+		if i >= hazards.size(): continue
+		var hazard: Dictionary = hazards[i]
+		hazard.age = float(hazard.age) + delta
+		if float(hazard.age) >= float(hazard.warning) + float(hazard.duration):
+			hazards.remove_at(i)
+			continue
+		if BossHazards.contains(hazard, player_pos): damage_player(float(hazard.damage))
 
 func _drop(pos: Vector2, kind: String, value: int) -> void:
 	if drops.size() >= MAX_DROPS:
@@ -734,7 +894,12 @@ func collect_drop(drop: Dictionary) -> void:
 func level_up() -> void:
 	if state != "running": return
 	level += 1
-	xp_goal = int(8 + pow(float(level), 1.28) * 3)
+	xp_goal = Progression.xp_goal(level)
+	if level >= 50 and not testing and not demo: SaveData.record_biome_entry()
+	var stage_now: int = Progression.stage(level)
+	if stage_now != previous_stage:
+		previous_stage = stage_now
+		hud.toast("CROWNFALL KEEP · LEVEL 50" if level == 50 else Progression.stage_name(level).to_upper(), Color("d4c4ff"))
 	upgrade_choices = UpgradeCatalog.roll_offers(upgrade_rng, level, _upgrade_stats(), upgrade_counts)
 	state = "upgrading"
 	_release_input()
@@ -744,15 +909,10 @@ func level_up() -> void:
 	if not testing and not demo: SaveData.save_active_run(serialize_run())
 
 func _upgrade_stats() -> Dictionary:
-	return {"style": style, "class_stats": class_stats, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "move_speed": move_speed, "dash_recharge": dash_recharge, "score": score}
+	return {"style": style, "class_stats": class_stats, "level": level, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "move_speed": move_speed, "dash_recharge": dash_recharge, "score": score,
+		"guard_regen": guard_regen, "guard_delay": guard_delay, "lifesteal": lifesteal, "thorns": thorns, "second_wind": second_wind, "second_wind_used": second_wind_used, "execute_threshold": execute_threshold, "combo_grace": combo_grace}
 
-func choose_upgrade(id: String) -> void:
-	if state != "upgrading": return
-	var selected: Dictionary = {}
-	for choice in upgrade_choices:
-		if str(choice.id) == id: selected = choice
-	if selected.is_empty(): return
-	var upgraded: Dictionary = UpgradeCatalog.apply_upgrade(id, _upgrade_stats(), upgrade_rng)
+func _apply_build_stats(upgraded: Dictionary) -> void:
 	health = float(upgraded.health)
 	max_health = float(upgraded.max_health)
 	damage = float(upgraded.damage)
@@ -762,8 +922,25 @@ func choose_upgrade(id: String) -> void:
 	guard_reserve = float(upgraded.guard_reserve)
 	move_speed = float(upgraded.move_speed)
 	dash_recharge = float(upgraded.dash_recharge)
-	dash_cooldown = minf(dash_cooldown, dash_recharge)
+	guard_regen = float(upgraded.get("guard_regen", class_stats.guard_regen))
+	guard_delay = float(upgraded.get("guard_delay", class_stats.get("guard_delay", 0.5)))
+	lifesteal = float(upgraded.get("lifesteal", 0))
+	thorns = float(upgraded.get("thorns", 0))
+	second_wind = float(upgraded.get("second_wind", 0))
+	second_wind_used = bool(upgraded.get("second_wind_used", false))
+	execute_threshold = float(upgraded.get("execute_threshold", 0))
+	combo_grace = float(upgraded.get("combo_grace", 0))
 	score = int(upgraded.score)
+
+func choose_upgrade(id: String) -> void:
+	if state != "upgrading": return
+	var selected: Dictionary = {}
+	for choice in upgrade_choices:
+		if str(choice.id) == id: selected = choice
+	if selected.is_empty(): return
+	var upgraded: Dictionary = UpgradeCatalog.apply_upgrade(id, _upgrade_stats(), upgrade_rng)
+	_apply_build_stats(upgraded)
+	dash_cooldown = minf(dash_cooldown, dash_recharge)
 	upgrade_counts[id] = int(upgrade_counts.get(id, 0)) + 1
 	upgrade_choices.clear()
 	state = "running"
@@ -786,7 +963,7 @@ func _chain_lightning() -> void:
 		if enemy.alive and player_pos.distance_to(enemy.pos) < 245:
 			_add_effect(last_pos, enemy.pos - last_pos, "lightning", Color("b3f5ff"), 0.14)
 			last_pos = enemy.pos
-			damage_enemy(enemy, damage * 0.55)
+			damage_enemy(enemy, damage * 0.55, Vector2.ZERO, false)
 			remaining -= 1
 			if remaining <= 0: break
 
@@ -805,7 +982,7 @@ func _boss():
 
 func _update_hud() -> void:
 	var boss = _boss()
-	hud.update_hud({"style": style, "health": health, "max_health": max_health, "score": score, "best": int(SaveData.profile.get("best_score", 0)), "level": level, "xp": xp, "xp_goal": xp_goal, "combo": combo, "multiplier": multiplier(), "dash_ready": dash_cooldown <= 0, "dash_cooldown": dash_cooldown, "dash_recharge": dash_recharge, "guard_active": guarding, "guard_ratio": guard_reserve / guard_capacity, "boss_name": (("RARE · " if bool(boss.get("boss_rare", false)) else "") + str(boss.get("boss_name", "ROAMING CROWN"))).to_upper() if boss != null else "", "boss_hp": float(boss.hp) if boss != null else 0.0, "boss_max": float(boss.max_hp) if boss != null else 1.0, "elapsed": elapsed, "buffs": buffs, "ward_hits": ward_hits, "combo_ratio": combo_timer / 2.8})
+	hud.update_hud({"style": style, "health": health, "max_health": max_health, "score": score, "best": int(SaveData.profile.get("best_score", 0)), "level": level, "xp": xp, "xp_goal": xp_goal, "combo": combo, "multiplier": multiplier(), "dash_ready": dash_cooldown <= 0, "dash_cooldown": dash_cooldown, "dash_recharge": dash_recharge, "guard_active": guarding, "guard_ratio": guard_reserve / guard_capacity, "guard_wait": guard_regen_wait, "overdrive_charge": overdrive_charge, "overdrive_time": overdrive_time, "stage": Progression.stage(level), "night": WorldScript.is_night(elapsed), "boss_name": (("ENRAGED · " if boss != null and float(boss.hp) < float(boss.max_hp) * 0.35 else "") + ("RARE · " if bool(boss.get("boss_rare", false)) else "") + str(boss.get("boss_name", "ROAMING CROWN"))).to_upper() if boss != null else "", "boss_hp": float(boss.hp) if boss != null else 0.0, "boss_max": float(boss.max_hp) if boss != null else 1.0, "elapsed": elapsed, "buffs": buffs, "ward_hits": ward_hits, "combo_ratio": combo_timer / (2.8 + combo_grace)})
 
 func pause_run() -> void:
 	if state != "running": return
@@ -816,6 +993,7 @@ func pause_run() -> void:
 
 func resume_run() -> void:
 	if state != "paused": return
+	if level >= 50 and not testing and not demo: SaveData.record_biome_entry()
 	if not upgrade_choices.is_empty():
 		state = "upgrading"
 		_release_input()
@@ -831,7 +1009,7 @@ func end_run() -> void:
 	state = "dead"
 	_release_input()
 	var new_best = score > int(SaveData.profile.get("best_score", 0))
-	var result = {"score": score, "kills": kills, "bosses": bosses, "duration": elapsed, "combo": best_combo, "mode": "daily" if daily else style, "style": style, "challenge_date": challenge_date, "collected_powerups": powerups}
+	var result = {"score": score, "kills": kills, "bosses": bosses, "duration": elapsed, "combo": best_combo, "level": level, "mode": "daily" if daily else style, "style": style, "challenge_date": challenge_date, "collected_powerups": powerups}
 	if not testing and not demo:
 		SaveData.add_run(result)
 		SaveData.clear_active_run()
@@ -866,7 +1044,7 @@ func _share_score() -> void:
 	hud.toast("SCORE COPIED · CHALLENGE A FRIEND", Color("ffe29c"))
 
 func _achievement_toast(key: String) -> void:
-	if hud != null: hud.toast("BADGE · " + str(ACHIEVEMENT_NAMES.get(key, key.replace("_", " ").to_upper())), Color("ffe29c"))
+	if hud != null: hud.toast("BADGE · " + str(SaveData.ACHIEVEMENTS.get(key, ACHIEVEMENT_NAMES.get(key, key.replace("_", " ").to_upper()))).to_upper(), Color("ffe29c"))
 
 func _notification(what: int) -> void:
 	if not ready_complete: return
@@ -936,7 +1114,7 @@ func _encode_entity(entity: Dictionary) -> Dictionary:
 	var result: Dictionary = {}
 	for key in entity:
 		result[str(key)] = entity[key]
-	for key in ["pos", "vel", "aim", "knock"]:
+	for key in ["pos", "vel", "aim", "knock", "size"]:
 		if result.has(key) and result[key] is Vector2:
 			result[key] = [result[key].x, result[key].y]
 	return result
@@ -956,7 +1134,7 @@ func _decode_entities(values, cap: int, category: String) -> Array:
 		if not raw is Dictionary or not raw.get("pos") is Array or raw.pos.size() != 2: continue
 		var entity = raw.duplicate(true)
 		var valid = true
-		for key in ["pos", "vel", "aim", "knock"]:
+		for key in ["pos", "vel", "aim", "knock", "size"]:
 			if entity.has(key):
 				if not entity[key] is Array or entity[key].size() != 2 or not _finite_number(entity[key][0]) or not _finite_number(entity[key][1]):
 					valid = false
@@ -971,10 +1149,20 @@ func _decode_entities(values, cap: int, category: String) -> Array:
 			if not entity.behavior is String or not entity.behavior in ["boss", "chaser", "skitter", "tank", "spitter", "charger", "fan", "orbiter", "splitter"]: continue
 			entity.kind = int(entity.kind)
 			if entity.kind < 0 or entity.kind >= roster.size(): continue
-			entity.hp = clampf(float(entity.hp), 1, 10000)
-			entity.max_hp = clampf(float(entity.max_hp), 1, 10000)
-			entity.speed = clampf(float(entity.speed), 1, 200)
-			entity.damage = clampf(float(entity.damage), 1, 30)
+			if entity.has("monster_id"):
+				entity.kind = -1
+				for index in range(roster.size()):
+					if str(roster[index].id) == str(entity.monster_id):
+						entity.kind = index
+						break
+			elif _legacy_roster_save and entity.kind == 100:
+				entity.kind = roster.size() - 1
+			if entity.kind < 0 or entity.kind >= roster.size(): continue
+			entity.monster_id = str(roster[entity.kind].id)
+			entity.hp = clampf(float(entity.hp), 1, 1.0e12)
+			entity.max_hp = clampf(float(entity.max_hp), entity.hp, 1.0e12)
+			entity.speed = clampf(float(entity.speed), 1, 680)
+			entity.damage = clampf(float(entity.damage), 1, 1.0e9)
 			entity.radius = clampf(float(entity.radius), 8, 40)
 			entity.age = clampf(float(entity.age), 0, 86400)
 			entity.cooldown = clampf(float(entity.cooldown), 0, 8)
@@ -996,15 +1184,27 @@ func _decode_entities(values, cap: int, category: String) -> Array:
 		elif category == "bullet":
 			if not entity.has_all(["vel", "damage", "life", "boss", "radius"]): continue
 			if not _numeric_fields(entity, ["damage", "life", "radius"]) or not entity.boss is bool: continue
-			entity.vel = entity.vel.limit_length(350)
-			entity.damage = clampf(float(entity.damage), 1, 30)
+			entity.vel = entity.vel.limit_length(700)
+			entity.damage = clampf(float(entity.damage), 1, 1.0e9)
 			entity.life = clampf(float(entity.life), 0, 7)
 			entity.radius = clampf(float(entity.radius), 3, 7)
+		elif category == "hazard":
+			if not entity.has_all(["kind", "aim", "size", "age", "warning", "duration", "damage", "radius", "gap_angle", "gap_half"]): continue
+			if str(entity.kind) not in ["fire", "quake", "pulse"]: continue
+			if not _numeric_fields(entity, ["age", "warning", "duration", "damage", "radius", "gap_angle", "gap_half"]): continue
+			entity.age = clampf(float(entity.age), 0, 8)
+			entity.warning = clampf(float(entity.warning), 0.3, 2)
+			entity.duration = clampf(float(entity.duration), 0.1, 5)
+			entity.damage = clampf(float(entity.damage), 1, 1.0e9)
+			entity.radius = clampf(float(entity.radius), 25, 160)
+			entity.size = Vector2(clampf(entity.size.x, 30, 200), clampf(entity.size.y, 80, 700))
+			entity.aim = entity.aim.normalized()
+			entity.gap_half = clampf(float(entity.gap_half), 0.5, 1.4)
 		elif category == "drop":
 			if not entity.has_all(["kind", "value", "life", "phase"]): continue
 			if not _numeric_fields(entity, ["value", "life", "phase"]): continue
 			if not str(entity.kind) in ["xp", "heart", "gold", "haste", "hurricane", "ward", "magnet", "frost", "spark"]: continue
-			entity.value = clampi(int(entity.value), 1, 100)
+			entity.value = clampi(int(entity.value), 1, 1000000)
 			entity.life = clampf(float(entity.life), 0, 14)
 			entity.phase = clampf(float(entity.phase), 0, TAU)
 		result.append(entity)
@@ -1014,11 +1214,14 @@ func serialize_run() -> Dictionary:
 	var saved_enemies: Array = []
 	var saved_bullets: Array = []
 	var saved_drops: Array = []
+	var saved_hazards: Array = []
 	for entity in enemies:
 		if entity.alive: saved_enemies.append(_encode_entity(entity))
 	for entity in bullets: saved_bullets.append(_encode_entity(entity))
 	for entity in drops: saved_drops.append(_encode_entity(entity))
+	for entity in hazards: saved_hazards.append(_encode_entity(entity))
 	return {"schema": 1, "balance_version": ClassProfiles.BALANCE_VERSION, "style": style, "daily": daily, "challenge_date": challenge_date, "seed": str(run_seed), "rng_state": str(rng.state), "loot_state": str(loot_rng.state), "player": [player_pos.x, player_pos.y], "elapsed": elapsed, "score": score, "kills": kills, "bosses": bosses, "powerups": powerups, "combo": combo, "best_combo": best_combo, "combo_timer": combo_timer, "level": level, "xp": xp, "xp_goal": xp_goal, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "ward_hits": ward_hits, "buffs": buffs.duplicate(true), "next_boss": next_boss, "boss_number": boss_number, "spawn_timer": spawn_timer, "relief_until": relief_until, "dash_cooldown": dash_cooldown, "enemies": saved_enemies, "bullets": saved_bullets, "drops": saved_drops,
+		"combat_version": 2, "guard_regen": guard_regen, "guard_delay": guard_delay, "guard_regen_wait": guard_regen_wait, "guard_contact_cooldown": guard_contact_cooldown, "lifesteal": lifesteal, "thorns": thorns, "second_wind": second_wind, "second_wind_used": second_wind_used, "execute_threshold": execute_threshold, "combo_grace": combo_grace, "overdrive_charge": overdrive_charge, "overdrive_time": overdrive_time, "hazards": saved_hazards,
 		"upgrade_version": 1, "upgrade_state": str(upgrade_rng.state), "boss_state": str(boss_rng.state), "last_boss_id": last_boss_id, "move_speed": move_speed, "dash_recharge": dash_recharge, "upgrade_counts": upgrade_counts.duplicate(), "upgrade_choices": upgrade_choices.map(func(card): return str(card.id))}
 
 func restore_run(data: Dictionary) -> bool:
@@ -1028,12 +1231,14 @@ func restore_run(data: Dictionary) -> bool:
 	if not data.style is String or (data.has("daily") and not data.daily is bool): return false
 	if not data.player is Array or data.player.size() != 2 or not _finite_number(data.player[0]) or not _finite_number(data.player[1]) or float(data.health) <= 0: return false
 	if data.has("upgrade_version") and (not _finite_number(data.upgrade_version) or int(data.upgrade_version) != 1): return false
-	if not _numeric_fields(data, ["move_speed", "dash_recharge"]): return false
+	if data.has("combat_version") and (not _finite_number(data.combat_version) or int(data.combat_version) != 2): return false
+	if data.has("second_wind_used") and not data.second_wind_used is bool: return false
+	if not _numeric_fields(data, ["move_speed", "dash_recharge", "guard_regen", "guard_delay", "guard_regen_wait", "guard_contact_cooldown", "lifesteal", "thorns", "second_wind", "execute_threshold", "combo_grace", "overdrive_charge", "overdrive_time"]): return false
 	var pending: Variant = data.get("upgrade_choices", [])
 	if not pending is Array or pending.size() not in [0, 2]: return false
 	for id in pending:
 		if not id is String or UpgradeCatalog.get_upgrade(id).is_empty(): return false
-		if int(UpgradeCatalog.get_upgrade(id).min_level) > int(data.get("level", 1)): return false
+		if int(UpgradeCatalog.get_upgrade(id).min_level) > int(data.get("level", 1)) and not (not data.has("combat_version") and id in ["royal_purse", "lucky_purse"]): return false
 	if pending.size() == 2 and pending[0] == pending[1]: return false
 	if data.has("upgrade_counts") and not data.upgrade_counts is Dictionary: return false
 	var pos = Vector2(float(data.player[0]), float(data.player[1]))
@@ -1065,16 +1270,20 @@ func restore_run(data: Dictionary) -> bool:
 	powerups = clampi(int(data.get("powerups", 0)), 0, 1000000)
 	combo = clampi(int(data.get("combo", 0)), 0, 10000)
 	best_combo = maxi(combo, clampi(int(data.get("best_combo", 0)), 0, 10000))
-	combo_timer = clampf(float(data.get("combo_timer", 0)), 0, 2.8)
+	combo_timer = clampf(float(data.get("combo_timer", 0)), 0, 5.8)
 	level = clampi(int(data.get("level", 1)), 1, 10000)
 	xp_goal = clampi(int(data.get("xp_goal", 8)), 1, 10000000)
 	xp = clampi(int(data.get("xp", 0)), 0, 10000000 if data.has("upgrade_version") else xp_goal - 1)
-	max_health = clampf(float(data.get("max_health", class_stats.health)), 1, float(class_stats.health_cap))
+	if not data.has("combat_version"):
+		var new_goal: int = Progression.xp_goal(level)
+		xp = int(float(xp) / xp_goal * new_goal)
+		xp_goal = new_goal
+	max_health = clampf(float(data.get("max_health", class_stats.health)), 1, 1.0e9)
 	health = clampf(float(data.health), 1, max_health)
-	damage = clampf(float(data.get("damage", class_stats.damage)), 1, float(class_stats.damage_cap))
-	attack_interval = clampf(float(data.get("attack_interval", class_stats.attack_interval)), float(class_stats.attack_floor), float(class_stats.attack_interval))
-	attack_range = clampf(float(data.get("attack_range", class_stats.attack_range)), 60, float(class_stats.range_cap))
-	guard_capacity = clampf(float(data.get("guard_capacity", class_stats.guard_capacity)), 1, float(class_stats.guard_cap))
+	damage = clampf(float(data.get("damage", class_stats.damage)), 1, 1.0e9)
+	attack_interval = clampf(float(data.get("attack_interval", class_stats.attack_interval)), 0.1, 3)
+	attack_range = clampf(float(data.get("attack_range", class_stats.attack_range)), 36, 240)
+	guard_capacity = clampf(float(data.get("guard_capacity", class_stats.guard_capacity)), 1, 1.0e9)
 	guard_reserve = clampf(float(data.get("guard_reserve", class_stats.guard_capacity)), 0, guard_capacity)
 	if int(data.get("balance_version", 1)) < 2:
 		var upgraded: Dictionary = ClassProfiles.at_level(style, level)
@@ -1090,13 +1299,28 @@ func restore_run(data: Dictionary) -> bool:
 	elif int(data.get("balance_version", 1)) == 2 and style == "shield":
 		# Carry the damage-only buff into existing runs, preserving every other stat.
 		damage = clampf(float(data.get("damage", 18.0)) * (24.0 / 18.0), 1, float(class_stats.damage_cap))
-	move_speed = clampf(float(data.get("move_speed", class_stats.move_speed)), float(class_stats.move_speed), float(class_stats.move_speed) * UpgradeCatalog.MOVE_CAP_MULTIPLIER)
-	dash_recharge = clampf(float(data.get("dash_recharge", 1.45)), UpgradeCatalog.DASH_FLOOR, 1.45)
+	move_speed = clampf(float(data.get("move_speed", class_stats.move_speed)), 120, float(class_stats.move_speed) * 1.75)
+	dash_recharge = clampf(float(data.get("dash_recharge", 1.45)), UpgradeCatalog.DASH_FLOOR, UpgradeCatalog.DASH_CEILING)
+	guard_regen = clampf(float(data.get("guard_regen", class_stats.guard_regen)), 3, 2000)
+	guard_delay = clampf(float(data.get("guard_delay", class_stats.get("guard_delay", 0.5))), 0.08, 2)
+	guard_regen_wait = clampf(float(data.get("guard_regen_wait", 0)), 0, guard_delay)
+	guard_contact_cooldown = clampf(float(data.get("guard_contact_cooldown", 0)), 0, 0.35)
+	lifesteal = clampf(float(data.get("lifesteal", 0)), 0, 0.1)
+	thorns = clampf(float(data.get("thorns", 0)), 0, 2)
+	second_wind = clampf(float(data.get("second_wind", 0)), 0, 1)
+	second_wind_used = bool(data.get("second_wind_used", false))
+	execute_threshold = clampf(float(data.get("execute_threshold", 0)), 0, 0.18)
+	combo_grace = clampf(float(data.get("combo_grace", 0)), 0, 3)
+	overdrive_charge = clampf(float(data.get("overdrive_charge", 0)), 0, 100)
+	overdrive_time = clampf(float(data.get("overdrive_time", 0)), 0, 6)
+	_apply_build_stats(UpgradeCatalog.normalize_stats(_upgrade_stats()))
+	previous_stage = Progression.stage(level)
+	previous_night = WorldScript.is_night(elapsed)
 	upgrade_choices.clear()
 	for id in pending:
 		var card: Dictionary = UpgradeCatalog.get_upgrade(id)
 		# Rebuild descriptions from the unchanged pre-choice stats, without RNG.
-		var allowed = id not in UpgradeCatalog.REGULAR_IDS
+		var allowed: bool = not data.has("combat_version") and id in ["royal_purse", "lucky_purse"]
 		for eligible_card in UpgradeCatalog.eligible(level, _upgrade_stats(), upgrade_counts):
 			if str(eligible_card.id) == id:
 				card = eligible_card
@@ -1113,12 +1337,17 @@ func restore_run(data: Dictionary) -> bool:
 	spawn_timer = clampf(float(data.get("spawn_timer", 0.5)), 0, 3)
 	relief_until = clampf(float(data.get("relief_until", 0)), 0, elapsed + 5)
 	dash_cooldown = clampf(float(data.get("dash_cooldown", 0)), 0, dash_recharge)
+	_legacy_roster_save = not data.has("combat_version")
 	enemies = _decode_entities(data.get("enemies", []), MAX_ENEMIES, "enemy")
 	bullets = _decode_entities(data.get("bullets", []), MAX_BULLETS, "bullet")
 	drops = _decode_entities(data.get("drops", []), MAX_DROPS, "drop")
+	hazards = _decode_entities(data.get("hazards", []), BossHazards.MAX_HAZARDS, "hazard")
 	effects.clear()
 	slash_time = 0
 	dash_timer = 0
+	guarding = guard_reserve > 0
+	parry_timer = 0.0
+	parry_rearm = 0.0
 	hurt_timer = 0.45
 	hitstop = 0
 	_release_input()
@@ -1129,6 +1358,7 @@ func _draw() -> void:
 	if not ready_complete: return
 	var shake_offset = Vector2(sin(visual_time * 81), cos(visual_time * 93)) * shake
 	draw_set_transform(shake_offset)
+	for hazard in hazards: BossHazards.draw(self, hazard)
 	if state == "launch":
 		for i in range(7):
 			var pos = Vector2(arena.x * (0.13 + float(i % 3) * 0.35) + sin(visual_time + i) * 12, arena.y * (0.22 + float(i) * 0.095))
@@ -1147,10 +1377,21 @@ func _draw() -> void:
 			else:
 				draw_arc(enemy.pos, enemy.radius + 10 + enemy.windup * 8, 0, TAU, 28, warning, 3)
 				draw_line(enemy.pos, enemy.pos + enemy.aim * 42, warning, 3)
+		if level >= 50 and not enemy.boss and not enemy.minion:
+			draw_arc(enemy.pos, enemy.radius + 4, 0, TAU, 20, Color(0.75, 0.43, 1.0, 0.48), 2)
+	# Keep texture-free warnings/halos together, then draw the shared monster
+	# atlas in one pass. Interleaving an arc and texture per enemy breaks batches.
+	for enemy in enemies:
+		if not enemy.alive: continue
 		var size = 103.0 if enemy.boss else 37.0 if enemy.minion else 68.0 if enemy.behavior == "tank" else 56.0
 		var tint = Color("a6dce9") if buffs.has("frost") else Color.WHITE
+		if level >= 50 and not enemy.boss and not enemy.minion:
+			tint = tint * Color(1.12, 0.90, 1.18)
 		if enemy.flash > 0: tint = Color(2, 1.5, 1.2)
 		_draw_monster(enemy.kind, enemy.pos, size, int(enemy.age * float(roster[enemy.kind].get("animation_fps", 8)) + enemy.anim) % 4, tint)
+	for enemy in enemies:
+		if not enemy.alive: continue
+		var size = 103.0 if enemy.boss else 37.0 if enemy.minion else 68.0 if enemy.behavior == "tank" else 56.0
 		if enemy.boss:
 			var crown = PackedVector2Array([enemy.pos + Vector2(-18, -size * 0.42), enemy.pos + Vector2(-21, -size * 0.59), enemy.pos + Vector2(-7, -size * 0.51), enemy.pos + Vector2(0, -size * 0.68), enemy.pos + Vector2(7, -size * 0.51), enemy.pos + Vector2(21, -size * 0.59), enemy.pos + Vector2(18, -size * 0.42)])
 			draw_colored_polygon(crown, Color("ffd276"))

@@ -9,24 +9,28 @@ signal storage_error(message: String)
 
 const SCHEMA_VERSION := 1
 const MAX_FILE_BYTES := 1048576
-const MAX_ACTIVE_BYTES := 131072
+const MAX_ACTIVE_BYTES := 524288
 const MAX_HISTORY := 30
 const MAX_DAILY_DATES := 14
 const MAX_VALUE := 1000000000000
 const ACHIEVEMENTS := {
 	"first_blood": "First Slice", "boss_slayer": "Crown Collector",
 	"century": "A Hundred Little Problems", "survivor": "Still Standing",
-	"legend": "Knight of Infinite Nonsense", "collector": "Bestiary Complete",
+	"legend": "Knight of Infinite Nonsense", "collector": "Bestiary Pioneer",
 	"hundred_club": "A Hundred in a Hurry", "survivor_60": "Minute Knight",
 	"survivor_180": "Three Minute Hero", "combo_25": "Slice Streak",
 	"score_10000": "Five Digits of Slop", "thousand_kills": "Slop Sweeper",
-	"ten_runs": "Back for More", "rare_boss": "Royal Upset", "all_bosses": "Crown Census"
+	"ten_runs": "Back for More", "rare_boss": "Royal Upset", "all_bosses": "Crown Census",
+	"bestiary_50": "Field Guide", "bestiary_100": "Monster Scholar",
+	"bestiary_150": "Midnight Archivist", "bestiary_200": "Living Bestiary",
+	"biome_50": "Beyond the Kingdom"
 }
 const BOSS_ACHIEVEMENT_DESCRIPTIONS := {
 	"rare_boss": "Defeat a rare boss: Moonmallow Majesty, Gilded Chancellor, or Lime Imperator.",
 	"all_bosses": "Defeat all 12 different bosses across your runs."
 }
 const COUNTERS := ["runs", "kills", "bosses", "played", "powerups"]
+const SCORE_KEYS := ["high_score", "longest_run", "bosses_in_run", "highest_combo", "highest_level"]
 
 var profile: Dictionary = {}
 var active_run: Dictionary = {}
@@ -53,11 +57,11 @@ func _defaults() -> Dictionary:
 	return {
 		"schema_version": SCHEMA_VERSION, "device_id": device_id,
 		"revision": 0, "updated_at": 0, "best_score": 0,
-		"best_duration": 0.0, "best_combo": 0, "best_bosses": 0,
+		"best_duration": 0.0, "best_combo": 0, "best_bosses": 0, "best_level": 0,
 		"total_runs": 0, "total_kills": 0, "total_bosses": 0,
 		"total_played_seconds": 0.0, "collected_powerups": 0,
 		"device_totals": {device_id: _empty_counter()},
-		"achievements": {}, "discovered": [], "defeated_bosses": [], "run_history": [], "daily_best": {},
+		"achievements": {}, "discovered": [], "defeated_monsters": [], "defeated_bosses": [], "run_history": [], "daily_best": {},
 		"settings": {"music": true, "sfx": true, "haptics": true},
 		"cloud": {"pending_scores": {}, "pending_achievements": [],
 			"last_verified_revision": 0, "player_id": ""}
@@ -115,6 +119,7 @@ func _normalize_run(raw: Dictionary) -> Dictionary:
 		"bosses": _integer(raw.get("bosses", 0)),
 		"duration": _number(raw.get("duration", 0), 86400.0),
 		"combo": _integer(raw.get("combo", 0)), "mode": mode,
+		"level": _integer(raw.get("level", 0), 100000),
 		"collected_powerups": _integer(raw.get("collected_powerups", raw.get("powerups", 0))),
 		"ended_at": _integer(raw.get("ended_at", Time.get_unix_time_from_system()))
 	}
@@ -131,6 +136,7 @@ func _normalize_profile(raw: Dictionary) -> Dictionary:
 		result.device_id = device_id
 	for key: String in ["revision", "updated_at", "best_score", "best_combo", "best_bosses"]:
 		result[key] = _integer(raw.get(key, 0))
+	result.best_level = _integer(raw.get("best_level", 0), 100000)
 	result.best_duration = _number(raw.get("best_duration", 0), 86400.0)
 	var settings: Variant = raw.get("settings", {})
 	if settings is Dictionary:
@@ -148,6 +154,14 @@ func _normalize_profile(raw: Dictionary) -> Dictionary:
 			if monster_id is String and _known_monsters.has(monster_id) and monster_id not in result.discovered:
 				result.discovered.append(monster_id)
 	result.discovered.sort()
+	# Earlier versions only recorded discovery on a confirmed kill. Preserve those
+	# victories once; later versions keep the defeated collection explicit.
+	var defeated_monsters: Variant = raw.get("defeated_monsters", result.discovered)
+	if defeated_monsters is Array:
+		for monster_id: Variant in defeated_monsters:
+			if monster_id is String and _known_monsters.has(monster_id) and monster_id not in result.defeated_monsters:
+				result.defeated_monsters.append(monster_id)
+	result.defeated_monsters.sort()
 	var defeated_bosses: Variant = raw.get("defeated_bosses", [])
 	if defeated_bosses is Array:
 		var known_bosses := BossCatalog.ids()
@@ -194,7 +208,7 @@ func _normalize_profile(raw: Dictionary) -> Dictionary:
 	if cloud is Dictionary:
 		var scores: Variant = cloud.get("pending_scores", {})
 		if scores is Dictionary:
-			for key: String in ["high_score", "longest_run", "bosses_in_run"]:
+			for key: String in SCORE_KEYS:
 				if scores.has(key):
 					result.cloud.pending_scores[key] = _integer(scores[key])
 		var pending: Variant = cloud.get("pending_achievements", [])
@@ -291,6 +305,12 @@ func reload_profile() -> bool:
 	profile = _normalize_profile(data.profile) if not data.is_empty() else _defaults()
 	active_run = _normalize_active(data.get("active_run", {}))
 	_evaluate_achievements(false)
+	# Existing combo records predate the remote combo board. Keep them replayable
+	# even when an owner supplies its ID after the player earned the record.
+	for key: String in ["highest_combo", "highest_level"]:
+		var best := int(profile.best_combo) if key == "highest_combo" else int(profile.best_level)
+		if best > 0:
+			profile.cloud.pending_scores[key] = maxi(int(profile.cloud.pending_scores.get(key, 0)), best)
 	return not data.is_empty()
 
 func _report_error(message: String) -> void:
@@ -358,6 +378,7 @@ func add_run(run: Dictionary) -> void:
 	profile.best_duration = maxf(float(profile.best_duration), result.duration)
 	profile.best_combo = maxi(int(profile.best_combo), result.combo)
 	profile.best_bosses = maxi(int(profile.best_bosses), result.bosses)
+	profile.best_level = maxi(int(profile.best_level), result.level)
 	var counter: Dictionary = profile.device_totals[profile.device_id]
 	counter.runs = _integer(counter.runs + 1)
 	counter.kills = _integer(counter.kills + result.kills)
@@ -382,6 +403,8 @@ func _queue_records() -> void:
 	pending.high_score = maxi(int(pending.get("high_score", 0)), int(profile.best_score))
 	pending.longest_run = maxi(int(pending.get("longest_run", 0)), int(profile.best_duration))
 	pending.bosses_in_run = maxi(int(pending.get("bosses_in_run", 0)), int(profile.best_bosses))
+	pending.highest_combo = maxi(int(pending.get("highest_combo", 0)), int(profile.best_combo))
+	pending.highest_level = maxi(int(pending.get("highest_level", 0)), int(profile.best_level))
 
 func _unlock(key: String, announce: bool) -> bool:
 	if not ACHIEVEMENTS.has(key) or profile.achievements.has(key):
@@ -415,7 +438,11 @@ func _evaluate_achievements(announce: bool) -> void:
 		"score_10000": profile.best_score >= 10000,
 		"thousand_kills": profile.total_kills >= 1000,
 		"ten_runs": profile.total_runs >= 10,
-		"collector": _known_monsters.size() >= 100 and profile.discovered.size() >= _known_monsters.size(),
+		"collector": profile.discovered.size() >= 100,
+		"bestiary_50": profile.defeated_monsters.size() >= 50,
+		"bestiary_100": profile.defeated_monsters.size() >= 100,
+		"bestiary_150": profile.defeated_monsters.size() >= 150,
+		"bestiary_200": profile.defeated_monsters.size() >= 200,
 		"rare_boss": false,
 		"all_bosses": profile.get("defeated_bosses", []).size() >= BossCatalog.BOSSES.size()
 	}
@@ -438,6 +465,30 @@ func discover_monster(monster_id: String) -> bool:
 	_evaluate_achievements(true)
 	save_profile()
 	return true
+
+## Stable species identities, not the number of kills, drive the bestiary goals.
+## Boss summons never call this; repeats do not write storage or inflate progress.
+func record_monster_defeat(monster_id: String) -> bool:
+	_load_monster_ids()
+	if not _known_monsters.has(monster_id):
+		return false
+	if profile.is_empty():
+		profile = _defaults()
+	if monster_id in profile.defeated_monsters:
+		return false
+	profile.defeated_monsters.append(monster_id)
+	profile.defeated_monsters.sort()
+	if monster_id not in profile.discovered:
+		profile.discovered.append(monster_id)
+		profile.discovered.sort()
+	_evaluate_achievements(true)
+	save_profile()
+	return true
+
+## Gameplay invokes this on the actual level-50 biome transition, including a
+## resumed run already beyond the boundary; repeating it is harmless.
+func record_biome_entry() -> bool:
+	return unlock("biome_50")
 
 ## Persist unique victories at the moment of defeat, including runs later abandoned.
 ## Repeats do not rewrite storage or inflate cumulative completed-run counters.
@@ -489,7 +540,7 @@ func merge_cloud_profile(remote: Dictionary) -> bool:
 		return false
 	var incoming := _normalize_profile(remote)
 	var before := JSON.stringify(cloud_profile())
-	for key: String in ["best_score", "best_combo", "best_bosses"]:
+	for key: String in ["best_score", "best_combo", "best_bosses", "best_level"]:
 		profile[key] = maxi(int(profile[key]), int(incoming[key]))
 	profile.best_duration = maxf(float(profile.best_duration), float(incoming.best_duration))
 	for id: String in incoming.device_totals:
@@ -510,6 +561,10 @@ func merge_cloud_profile(remote: Dictionary) -> bool:
 		if monster_id not in profile.discovered:
 			profile.discovered.append(monster_id)
 	profile.discovered.sort()
+	for monster_id: String in incoming.defeated_monsters:
+		if monster_id not in profile.defeated_monsters:
+			profile.defeated_monsters.append(monster_id)
+	profile.defeated_monsters.sort()
 	for boss_id: String in incoming.defeated_bosses:
 		if boss_id not in profile.defeated_bosses:
 			profile.defeated_bosses.append(boss_id)
