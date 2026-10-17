@@ -1,8 +1,8 @@
 # Production update — local progression and Google handoff
 
-The production update preserves all 14 configured achievement IDs, the original four Incremental targets, three configured boards, package `com.slash.game`, Play Games project `832658811620` and snapshot slot `infiniteslash_profile_v1`. Five Standard achievement slots and two leaderboard slots are intentionally blank pending owner-created IDs. The optional daily board and duplicate local survival badge also remain blank.
+The **0.3.1 / Android code 9** configuration patch wires the seven owner-supplied IDs: five Standard achievements and two leaderboards. There are now **19 configured achievement IDs and five configured boards**, with no pending IDs for the requested features. The original 14 achievement IDs, four Incremental targets, three board IDs, package `com.slash.game`, Play Games project `832658811620` and snapshot slot `infiniteslash_profile_v1` are preserved. The optional daily board and duplicate local survival badge remain intentionally blank.
 
-See the [registration table and icons](../store/production-update/README.md), [seven-icon download](../store/production-update/InfiniteSlash-production-feature-icons.zip) and [feature manifest](../store/production-update/feature_manifest.json).
+See the [configured ID table and icons](../store/production-update/README.md), [seven-icon download](../store/production-update/InfiniteSlash-production-feature-icons.zip), [feature manifest](../store/production-update/feature_manifest.json) and [0.3.1 configuration/build evidence](PLAY_SERVICES_0_3_1.md). Icon pixels and the 0.3.0 gameplay update remain unchanged.
 
 ## Collection rules
 
@@ -15,14 +15,14 @@ See the [registration table and icons](../store/production-update/README.md), [s
 
 ## Competitive record rules
 
-`add_run()` accepts a normalized `level` value alongside existing score, duration, kills, bosses and combo. The profile stores `best_level`, `best_combo` and `best_bosses`. Pending `highest_level` and `highest_combo` scores retain maxima while their IDs are blank. Existing legacy combo records are queued on load. Cloud merges queue higher remote records. Live runs, pause and resume do not complete another run.
+`add_run()` accepts a normalized `level` value alongside existing score, duration, kills, bosses and combo. The profile stores `best_level`, `best_combo` and `best_bosses`. The configured `highest_level` (**Highest Level**) and `highest_combo` boards submit retained maxima after eligible authentication. Existing legacy combo records are queued on load, and cloud merges queue higher remote records. Offline records remain queued until acknowledged. Live runs, pause and resume do not complete another run.
 
 The existing `bosses_in_run` leaderboard already provides bosses destroyed per run, so no extra board was created. New combo and level boards use Numeric integer values and larger-is-better ordering. Acknowledging an earlier submission cannot erase a newer high record.
 
 ## Verification scope
 
-The service regression suite covers threshold boundaries, unique identity tracking, invalid-input rejection, legacy migration, persistence, cloud union/idempotence, active-run preservation, blank-ID behavior and later replay through simulated native clients. Existing boss achievement IDs still dispatch Standard unlock calls, and existing cloud timeout/conflict/account safeguards remain covered. These tests do not authenticate with a real Google account or prove server-side unlocks, uploads or publication.
+The service regression suite covers threshold boundaries, unique identity tracking, invalid-input rejection, legacy migration, persistence, cloud union/idempotence, active-run preservation and replay through simulated native clients. The five new achievements use Standard unlock calls, both new boards use their exact configured IDs, and existing cloud timeout/conflict/account safeguards remain covered. Current checks are recorded in [the 0.3.1 patch report](PLAY_SERVICES_0_3_1.md); the 0.3.0 verification report remains historical. These tests do not authenticate with a real Google account or prove server-side unlocks, uploads or publication.
 
 The active-run payload budget is now 512 KiB, within the existing 1 MiB envelope. A saturated late-run regression with 140 enemies, 480 bullets, 60 drops, 24 hazards and all upgrade counters uses approximately 149 KiB with moving entity precision, beyond the previous 128 KiB limit. It saves, reloads and restores all entities; oversized/unsupported data remains rejected.
 
-Owner follow-up: create the five Standard achievements and two Numeric boards using the [provided definitions](../store/production-update/README.md); upload matching icons; update the existing collector display metadata; return the seven IDs; then verify on an eligible tester account using the appropriate signed distribution and publish the Console configuration when ready.
+Owner follow-up: upload matching icons to the [existing configured records](../store/production-update/README.md), update the existing collector display metadata if not already done, verify eligible-account unlocks/leaderboard scores/offline replay and two-device saves using the appropriate signed distribution, and publish the Console configuration when ready. No additional achievement or leaderboard IDs are needed for these features; do not create duplicate definitions.

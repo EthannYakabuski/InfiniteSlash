@@ -1,0 +1,45 @@
+{
+  "pass": true,
+  "store_pngs_unchanged": 59,
+  "new_feature_ids": {
+    "bestiary_50": "CgkI5NXU8p0YEAIQEg",
+    "bestiary_100": "CgkI5NXU8p0YEAIQEw",
+    "bestiary_150": "CgkI5NXU8p0YEAIQFA",
+    "bestiary_200": "CgkI5NXU8p0YEAIQFQ",
+    "biome_50": "CgkI5NXU8p0YEAIQFg",
+    "highest_combo": "CgkI5NXU8p0YEAIQFw",
+    "highest_level": "CgkI5NXU8p0YEAIQGA"
+  },
+  "configured_achievements": 19,
+  "configured_leaderboards": 5,
+  "pending_ids": 0,
+  "screenshots": 24,
+  "local_document_links_valid": true,
+  "archives": [
+    {
+      "file": "store/production-update/InfiniteSlash-production-feature-icons.zip",
+      "bytes": 97149,
+      "sha256": "9ebd2c79e7820cfcf53c4f53f784d0b7a1b56c0b715f1777ceb3f484a81ca60a",
+      "crc_pass": true
+    },
+    {
+      "file": "store/InfiniteSlash-PlayStore-assets.zip",
+      "bytes": 5287993,
+      "sha256": "8b6810571f46c48a630e43430232fda047dc98addd5003dcc107950b1831fd0a",
+      "crc_pass": true
+    },
+    {
+      "file": "store/achievement-icons.zip",
+      "bytes": 124094,
+      "sha256": "10a30742ee6a1e88f55c1c6415fb873365f98488ec5b28c57c9c0d6905eea1bc",
+      "crc_pass": true
+    },
+    {
+      "file": "store/leaderboard-icons.zip",
+      "bytes": 32417,
+      "sha256": "58c25b741d9b6fc15b78d1ab087d67cdfc401d0ffc3ce4eb71848d45a117c70e",
+      "crc_pass": true
+    }
+  ],
+  "live_google_account_verified": false
+}

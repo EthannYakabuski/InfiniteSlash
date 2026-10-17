@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "default_debug_sha256": "f0889504c2f46a394eb195e6a42937e4b08d6e13cd5f92adb3217124cffe43ae",
+  "preserved_debug_0_3_0_sha256": "c8e9bfd09202453f58b388547477a88019c3078318570f1635478fd2fc732667",
+  "new_emulator_smoke": false,
+  "live_google_test": false,
+  "native_report": "docs/PLAY_SERVICES_0_3_1_ANDROID.md"
+}

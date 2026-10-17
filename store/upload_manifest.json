@@ -276,7 +276,7 @@
     },
     {
       "file": "production-update/achievements/bestiary_50.png",
-      "role": "pending_achievements",
+      "role": "achievements",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -284,12 +284,12 @@
       "sha256": "d2d1b557b1685af9e69dd0729f4a621d27d318cb0cc78a14e7409e8d3d00c097",
       "pixel_sha256": "18e52000824818ab475d8b6240cf2d9601799d87164501f0741138f1a0d27b33",
       "key": "bestiary_50",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQEg",
       "title": "Field Guide"
     },
     {
       "file": "production-update/achievements/bestiary_100.png",
-      "role": "pending_achievements",
+      "role": "achievements",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -297,12 +297,12 @@
       "sha256": "50a3395d733f24eb6f685daf2b3cefdf058cbcfec69e18e91723826cd111ccbf",
       "pixel_sha256": "ec4f7838f63c1852dd7114366c0c43c911e1031a224f656c6bfe46a8eb8f17a6",
       "key": "bestiary_100",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQEw",
       "title": "Monster Scholar"
     },
     {
       "file": "production-update/achievements/bestiary_150.png",
-      "role": "pending_achievements",
+      "role": "achievements",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -310,12 +310,12 @@
       "sha256": "ee5b6cdffcb301d56433b826cc030f951e41e92a747bc1ce7d8604d237c794c0",
       "pixel_sha256": "1277529fc2ba70cc522ede1e1065bf0febf5312fc9af253fba181f1053e6cdb0",
       "key": "bestiary_150",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQFA",
       "title": "Midnight Archivist"
     },
     {
       "file": "production-update/achievements/bestiary_200.png",
-      "role": "pending_achievements",
+      "role": "achievements",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -323,12 +323,12 @@
       "sha256": "9354791aa97a10fe323730bf3d787b4623e51f5fb20b22d7cfbaec6c33ca6053",
       "pixel_sha256": "328fbdf2666aebaa9ddf87523399bafa19e2e9ea84ebbd05a656d493a0a44063",
       "key": "bestiary_200",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQFQ",
       "title": "Living Bestiary"
     },
     {
       "file": "production-update/achievements/biome_50.png",
-      "role": "pending_achievements",
+      "role": "achievements",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -336,12 +336,12 @@
       "sha256": "9c8821ac5f9e407417811aa5dc664e8316b3f0538ed13bc8c630d0a68e257651",
       "pixel_sha256": "f45e0f0103ff28b9b50a0de43b798e88ac6060d564ff41ead3fea65261046d18",
       "key": "biome_50",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQFg",
       "title": "Beyond the Kingdom"
     },
     {
       "file": "production-update/leaderboards/highest_combo.png",
-      "role": "pending_leaderboards",
+      "role": "leaderboards",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -349,12 +349,12 @@
       "sha256": "c5bacc3b71bed997372cba8db32bf9a926b9f0a55c9275e0945ec929f730e667",
       "pixel_sha256": "9a83d8cba06a7ec5ff3a69357b98b89923777373cd40087dbf2f17d490e87368",
       "key": "highest_combo",
-      "google_id": "",
+      "google_id": "CgkI5NXU8p0YEAIQFw",
       "title": "Unbroken Steel"
     },
     {
       "file": "production-update/leaderboards/highest_level.png",
-      "role": "pending_leaderboards",
+      "role": "leaderboards",
       "width": 512,
       "height": 512,
       "mode": "RGB",
@@ -362,8 +362,8 @@
       "sha256": "51b3d62bd3b3c49aeb143994a7644a4f532cf26dd2b92f0ad6aac8ae90542f4b",
       "pixel_sha256": "efe24e0bbd7490a9cb877e246fee20785a758694d59abcc8e2b53857ae3083e5",
       "key": "highest_level",
-      "google_id": "",
-      "title": "Beyond All Reason"
+      "google_id": "CgkI5NXU8p0YEAIQGA",
+      "title": "Highest Level"
     },
     {
       "file": "screenshots/phone/01_meadow_mayhem.png",
@@ -606,5 +606,5 @@
       "pixel_sha256": "969846698c2b481a2f8e155ad8a4f73aa943501a89da1fcf1fa0d34f8ea2fa1f"
     }
   ],
-  "upload_note": "Attach configured feature icons to existing Google IDs. Create only the seven pending production-update definitions, following their manifest. Do not re-import historical achievement definitions."
+  "upload_note": "All 19 achievement IDs and 5 leaderboard IDs are configured. Attach icons to their existing Google records using the manifests; do not create duplicate definitions or re-import historical achievement drafts. Live eligible-account testing and Console publication remain owner steps."
 }

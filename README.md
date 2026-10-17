@@ -28,9 +28,9 @@ Launch directly into a living arena, tap the sword or shield, and play. Drag any
 - Bounded enemies, projectiles, pickups, effects and sound voices. Native-sized monster atlas reduces texture changes and memory while preserving every original export.
 - Configurable Google Play Games sign-in, leaderboards, achievements and cloud-profile snapshots through the bundled plugin.
 
-Google Play Games retains the supplied 14 achievement IDs, three leaderboards and stable cloud-profile slot for `com.slash.game`. Five new Standard achievement IDs and two new leaderboard IDs are pending; their local tracking and replay queues are implemented. See the [seven-icon registration kit](store/production-update/README.md) and [setup guide](docs/PLAY_SERVICES_SETUP.md). Live Google-account validation requires an eligible tester and matching signed installation. The original duplicate local three-minute badge remains for compatibility.
+Google Play Games now has **19 configured achievement IDs and five configured leaderboards** for `com.slash.game`, including all seven newly supplied IDs. The original mappings and cloud-profile slot are preserved, and offline badges/best records replay after eligible authentication. See the [configured IDs and seven-icon kit](store/production-update/README.md) and [setup guide](docs/PLAY_SERVICES_SETUP.md). Live Google-account validation requires an eligible tester and matching signed installation. The optional daily board and original duplicate local three-minute badge remain intentionally unmapped.
 
-The current gameplay update is **0.3.0 / Android code 8**. [The full update and acceptance ledger](docs/PRODUCTION_UPDATE.md), [build catalog/balance](docs/PRODUCTION_BUILDS.md), [verification](docs/PRODUCTION_VERIFICATION.md) and [Android artifacts](docs/PRODUCTION_ANDROID.md) document its scope. Older versioned artifacts and their evidence remain historical. Package changes do not migrate another package's local saves automatically.
+The current configuration patch is **0.3.1 / Android code 9**; see [its configuration/build report](docs/PLAY_SERVICES_0_3_1.md). It preserves the **0.3.0 / code 8** gameplay update documented in [the acceptance ledger](docs/PRODUCTION_UPDATE.md), [build catalog/balance](docs/PRODUCTION_BUILDS.md), [verification](docs/PRODUCTION_VERIFICATION.md) and [historical Android report](docs/PRODUCTION_ANDROID.md). Older versioned artifacts and their evidence remain historical. Package changes do not migrate another package's local saves automatically.
 
 ## Verification
 
@@ -49,7 +49,7 @@ godot --path . --script tests/capture_game.gd -- --test
 godot --path . --script tests/benchmark_rendered.gd -- --test
 ```
 
-Tests use separate fixture paths under `output/test-data` or `output/review`; they do not overwrite normal progress. Current test counts and measured limits are in [the 0.3.0 verification report](docs/PRODUCTION_VERIFICATION.md). A desktop simulation or Android emulator does not establish real-phone GPU, battery or thermal performance.
+Tests use separate fixture paths under `output/test-data` or `output/review`; they do not overwrite normal progress. The current configured-ID services suite passes **458 checks**, with patch evidence in [the 0.3.1 report](docs/PLAY_SERVICES_0_3_1.md). Gameplay checks and measured limits remain documented in [the 0.3.0 verification report](docs/PRODUCTION_VERIFICATION.md). A desktop simulation or Android emulator does not establish real-phone GPU, battery or thermal performance.
 
 The optional `tools/build_monster_atlas.gd` rebuilds the native-pixel atlas from the original sheets. The generated atlas is already included; run a Godot import after rebuilding it. `tools/validate_assets.py` validates all source sheets, identities, stats, original pixels and the music loop.
 

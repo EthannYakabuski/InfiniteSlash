@@ -94,6 +94,7 @@ func _write(path: String, text: String) -> void:
 	file.close()
 
 func _run_tests() -> void:
+	_test_configured_feature_contract()
 	_test_defaults_and_records()
 	_test_storage_and_backup()
 	_test_normalization()
@@ -121,6 +122,45 @@ func _run_tests() -> void:
 		await create_timer(0.35).timeout
 	quit(0 if _failures == 0 else 1)
 
+func _test_configured_feature_contract() -> void:
+	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/play_services.json"))
+	var expected_achievements := {
+		"first_blood": "CgkI5NXU8p0YEAIQBA", "boss_slayer": "CgkI5NXU8p0YEAIQBQ",
+		"century": "CgkI5NXU8p0YEAIQBg", "hundred_club": "CgkI5NXU8p0YEAIQBw",
+		"survivor_60": "CgkI5NXU8p0YEAIQCA", "survivor": "CgkI5NXU8p0YEAIQCQ",
+		"legend": "CgkI5NXU8p0YEAIQCg", "combo_25": "CgkI5NXU8p0YEAIQCw",
+		"score_10000": "CgkI5NXU8p0YEAIQDA", "collector": "CgkI5NXU8p0YEAIQDQ",
+		"thousand_kills": "CgkI5NXU8p0YEAIQDg", "ten_runs": "CgkI5NXU8p0YEAIQDw",
+		"rare_boss": "CgkI5NXU8p0YEAIQEA", "all_bosses": "CgkI5NXU8p0YEAIQEQ",
+		"bestiary_50": "CgkI5NXU8p0YEAIQEg", "bestiary_100": "CgkI5NXU8p0YEAIQEw",
+		"bestiary_150": "CgkI5NXU8p0YEAIQFA", "bestiary_200": "CgkI5NXU8p0YEAIQFQ",
+		"biome_50": "CgkI5NXU8p0YEAIQFg"
+	}
+	var expected_boards := {"high_score": "CgkI5NXU8p0YEAIQAQ", "longest_run": "CgkI5NXU8p0YEAIQAg",
+		"bosses_in_run": "CgkI5NXU8p0YEAIQAw", "highest_combo": "CgkI5NXU8p0YEAIQFw", "highest_level": "CgkI5NXU8p0YEAIQGA"}
+	var unique_ids: Dictionary = {}
+	for key: String in expected_achievements:
+		_check(config.achievements.get(key) == expected_achievements[key], "exact configured achievement ID: " + key)
+		unique_ids[config.achievements.get(key, "")] = true
+	_check(unique_ids.size() == 19 and not unique_ids.has(""), "all19 achievement IDs are configured and unique")
+	var board_ids: Dictionary = {}
+	for key: String in expected_boards:
+		_check(config.leaderboards.get(key) == expected_boards[key], "exact configured leaderboard ID: " + key)
+		board_ids[config.leaderboards.get(key, "")] = true
+		unique_ids[config.leaderboards.get(key, "")] = true
+	_check(board_ids.size() == 5 and not board_ids.has(""), "all5 leaderboard IDs are configured and unique")
+	_check(unique_ids.size() == 24, "achievement and leaderboard IDs do not collide")
+	_check(config.achievements.get("survivor_180") == "" and config.leaderboards.get("daily_score") == "",
+		"optional daily board and duplicate local survival badge stay unmapped")
+	var expected_incremental := {"century": 100, "collector": 100, "thousand_kills": 1000, "ten_runs": 10}
+	_check(config.incremental_achievements.size() == 4, "the same four achievements retain Incremental configuration")
+	for key: String in expected_incremental:
+		var target: Variant = config.incremental_achievements.get(key)
+		_check((target is int or target is float) and float(target) == float(expected_incremental[key]),
+			"confirmed Incremental target is preserved: " + key)
+	_check(config.game_id == "832658811620" and config.save_name == "infiniteslash_profile_v1" and config.enabled == true,
+		"existing game identity and stable Saved Games slot remain enabled")
+
 func _test_configured_boss_achievements() -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/play_services.json"))
 	var expected := {"rare_boss": "CgkI5NXU8p0YEAIQEA", "all_bosses": "CgkI5NXU8p0YEAIQEQ"}
@@ -133,7 +173,7 @@ func _test_configured_boss_achievements() -> void:
 		if not id.is_empty():
 			configured_ids.append(id)
 			unique_ids[id] = true
-	_check(configured_ids.size() == 14 and configured_ids.size() == unique_ids.size(), "all fourteen configured achievement IDs are unique")
+	_check(configured_ids.size() == 19 and configured_ids.size() == unique_ids.size(), "all nineteen configured achievement IDs are unique")
 	var store := _store("configured_boss_achievements")
 	for boss_id: String in store.BossCatalog.ids():
 		store.record_boss_defeat(boss_id)
@@ -315,7 +355,7 @@ func _test_production_bestiary_and_records() -> void:
 	_check(store.profile.best_combo == 80 and store.profile.best_level == 63 and store.profile.best_bosses == 9,
 		"combo, level, and existing bosses-destroyed board use completed-run maxima")
 	_check(store.profile.cloud.pending_scores.highest_combo == 80 and store.profile.cloud.pending_scores.highest_level == 63,
-		"new records remain queued before their Google IDs exist")
+		"new records remain queued while playing offline")
 	_check(store.active_run.seed == 829 and store.profile.defeated_monsters.size() == 200,
 		"cloud union preserves active simulation and cannot reduce the collection")
 	_check(not store.merge_cloud_profile(remote.cloud_profile()), "replayed species/record cloud payload is idempotent")
@@ -340,15 +380,22 @@ func _test_production_bestiary_and_records() -> void:
 
 func _test_production_pending_replay(store: Node) -> void:
 	var config: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/play_services.json"))
-	var keys := ["bestiary_50", "bestiary_100", "bestiary_150", "bestiary_200", "biome_50"]
+	var expected_achievements := {"bestiary_50": "CgkI5NXU8p0YEAIQEg", "bestiary_100": "CgkI5NXU8p0YEAIQEw",
+		"bestiary_150": "CgkI5NXU8p0YEAIQFA", "bestiary_200": "CgkI5NXU8p0YEAIQFQ", "biome_50": "CgkI5NXU8p0YEAIQFg"}
+	var expected_boards := {"highest_combo": "CgkI5NXU8p0YEAIQFw", "highest_level": "CgkI5NXU8p0YEAIQGA"}
+	var keys: Array = expected_achievements.keys()
 	for key: String in keys:
-		_check(config.achievements.get(key, "missing") == "" and not config.incremental_achievements.has(key),
-			"new goal is intentionally pending a Standard Google ID: " + key)
-	for key: String in ["highest_combo", "highest_level"]:
-		_check(config.leaderboards.get(key, "missing") == "", "new board is intentionally pending a Google ID: " + key)
+		_check(config.achievements.get(key) == expected_achievements[key] and not config.incremental_achievements.has(key),
+			"owner-supplied new achievement is configured as Standard: " + key)
+	for key: String in expected_boards:
+		_check(config.leaderboards.get(key) == expected_boards[key], "owner-supplied new leaderboard ID is configured: " + key)
 	var adapter: Node = PLAY_SCRIPT.new()
 	adapter._store = store
+	# Explicitly blank fixture IDs exercise offline behavior independently of
+	# the now-configured production JSON. No native Google client is created.
 	adapter.configuration = {"enabled": false, "game_id": "", "leaderboards": {}, "achievements": {}}
+	for key: String in keys: adapter.configuration.achievements[key] = ""
+	for key: String in expected_boards: adapter.configuration.leaderboards[key] = ""
 	root.add_child(adapter)
 	adapter.set_process(false)
 	var awards := FakeAchievements.new()
@@ -363,25 +410,49 @@ func _test_production_pending_replay(store: Node) -> void:
 	adapter._flush_achievements()
 	_check(scores.submissions.is_empty() and awards.unlocks.is_empty(), "blank feature IDs skip native calls and preserve pending records")
 	for key: String in keys:
-		adapter.configuration.achievements[key] = "test_" + key
-	adapter.configuration.leaderboards = {"highest_combo": "test_combo", "highest_level": "test_level"}
+		_check(key in store.profile.cloud.pending_achievements, "blank-ID fixture preserves pending earned award: " + key)
+		adapter.configuration.achievements[key] = config.achievements[key]
+	adapter.configuration.leaderboards = {"highest_combo": config.leaderboards.highest_combo, "highest_level": config.leaderboards.highest_level}
+	adapter._authenticated = false
+	adapter._account_ready = false
 	adapter._flush_scores()
 	adapter._flush_achievements()
-	_check(scores.submissions.size() == 2 and scores.submissions[0].score == 80 and scores.submissions[1].score == 63,
-		"saved combo and level records replay when IDs are supplied")
+	_check(scores.submissions.is_empty() and awards.unlocks.is_empty(), "configured new IDs still wait for Google authentication")
+	adapter._authenticated = true
+	adapter._flush_scores()
+	adapter._flush_achievements()
+	_check(scores.submissions.is_empty() and awards.unlocks.is_empty(), "configured new IDs also wait for verified account readiness")
+	adapter._account_ready = true
+	adapter._flush_scores()
+	adapter._flush_achievements()
+	var submitted: Dictionary = {}
+	for request: Dictionary in scores.submissions:
+		submitted[request.board] = request.score
+		_check(request.score is int and request.score > 0, "new leaderboard sends a positive integer record")
+	_check(scores.submissions.size() == 2 and submitted == {expected_boards.highest_combo: 80, expected_boards.highest_level: 63},
+		"saved maximum combo and level replay through the two actual owner-supplied IDs")
 	_check(awards.unlocks.size() == 5 and awards.steps.is_empty(), "all five new local awards replay as Standard unlocks")
+	for key: String in keys:
+		_check(expected_achievements[key] in awards.unlocks, "actual supplied Standard ID receives its saved award: " + key)
 	adapter._flush_scores()
 	adapter._flush_achievements()
 	_check(scores.submissions.size() == 2 and awards.unlocks.size() == 5, "new inflight features do not submit duplicates")
 	for key: String in keys:
-		adapter._on_achievement_unlocked(true, "test_" + key)
+		adapter._on_achievement_unlocked(true, expected_achievements[key])
 		_check(key not in store.profile.cloud.pending_achievements and store.profile.achievements.has(key),
 			"acknowledged new award clears only its pending request")
 	store.add_run({"combo": 90, "level": 70})
-	adapter._on_score_submitted(true, "test_combo")
-	adapter._on_score_submitted(true, "test_level")
+	adapter._on_score_submitted(true, expected_boards.highest_combo)
+	adapter._on_score_submitted(true, expected_boards.highest_level)
 	_check(store.profile.cloud.pending_scores.highest_combo == 90 and store.profile.cloud.pending_scores.highest_level == 70,
 		"older acknowledgements preserve a higher newly earned combo and level")
+	adapter._flush_scores()
+	_check(scores.submissions.size() == 4 and scores.submissions[2].score == 90 and scores.submissions[3].score == 70,
+		"new higher records submit after the older requests are acknowledged")
+	adapter._on_score_submitted(true, expected_boards.highest_combo)
+	adapter._on_score_submitted(true, expected_boards.highest_level)
+	_check(not store.profile.cloud.pending_scores.has("highest_combo") and not store.profile.cloud.pending_scores.has("highest_level"),
+		"successful new board acknowledgements clear only the exact submitted maxima")
 	adapter.free()
 
 func _test_cloud_merge() -> void:

@@ -19,7 +19,7 @@ DEFINITIONS = [
     {"category": "achievements", "key": "bestiary_200", "name": "Living Bestiary", "description": "Defeat 200 different creature species across your runs.", "type": "Standard", "suggested_points": 25},
     {"category": "achievements", "key": "biome_50", "name": "Beyond the Kingdom", "description": "Reach level 50 and enter Crownfall Keep.", "type": "Standard", "suggested_points": 20},
     {"category": "leaderboards", "key": "highest_combo", "name": "Unbroken Steel", "description": "Highest kill combo in one completed run.", "type": "Numeric", "decimals": 0, "order": "Larger is better"},
-    {"category": "leaderboards", "key": "highest_level", "name": "Beyond All Reason", "description": "Highest level reached in one completed run.", "type": "Numeric", "decimals": 0, "order": "Larger is better"},
+    {"category": "leaderboards", "key": "highest_level", "name": "Highest Level", "description": "Highest level reached in one completed run.", "type": "Numeric", "decimals": 0, "order": "Larger is better"},
 ]
 
 DIGITS = {"0": ["111", "101", "101", "101", "111"], "1": ["010", "110", "010", "010", "111"],
@@ -124,12 +124,15 @@ def main():
                       "relative_path": target.relative_to(ROOT).as_posix(), "filename": target.name,
                       "dimensions": [512, 512], "format": "PNG", "mode": "RGB", "bytes": target.stat().st_size,
                       "sha256": hashlib.sha256(target.read_bytes()).hexdigest()})
+    pending_ids = sum(not item["google_id"] for item in items)
+    registration = ("Create the pending Standard achievements and Numeric integer larger-is-better leaderboards, upload matching icons, and return generated IDs by semantic key. Blank IDs track locally and replay after configuration/authentication."
+                    if pending_ids else "All five Standard achievements and two Numeric integer larger-is-better leaderboards are configured with owner-supplied Google IDs. Upload matching icons to these existing records; verify eligible-account unlocks, score submissions and offline replay, then publish the Play Games configuration when ready. Do not create duplicate definitions.")
     manifest = {"schema_version": 1, "package_name": "com.slash.game", "game_id": config["game_id"], "features": items,
                 "species_metric": "Unique confirmed creature species defeated across runs; repeat kills and boss summons do not count again.",
                 "legacy_migration": "Validated legacy discovered species were kill-only discoveries and migrate into unique defeated species.",
                 "existing_collector": "Keep the same Google ID, Incremental type and target100. Update its display name to Bestiary Pioneer and description to Defeat 100 different creature species across your runs.",
                 "existing_bosses_board": "Crown Hoarder/bosses_in_run already tracks most bosses in a completed run; no duplicate board is needed.",
-                "registration": "Create the five Standard achievements and two Numeric integer larger-is-better leaderboards, upload matching icons, and return the generated IDs by semantic key. Blank IDs still track locally and replay after configuration/authentication.",
+                "registration": registration,
                 "provenance": "Established code-native pixel medal system with existing knight/creature sprite crops; source images unchanged.",
                 "generator": "tools/build_production_service_icons.py"}
     (OUT / "feature_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", "utf-8")

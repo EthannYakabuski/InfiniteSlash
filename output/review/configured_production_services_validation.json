@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "service_checks": 458,
+  "failures": 0,
+  "configured_achievements": 19,
+  "configured_leaderboards": 5,
+  "unique_remote_ids": 24,
+  "config_sha256": "1a9acad67bfa75b146cb25947ee16d01b410dab2abc5968eea0c832dd5f16865",
+  "log": "output/review/configured_production_services.log",
+  "new_standard_achievements": {
+    "bestiary_50": "CgkI5NXU8p0YEAIQEg",
+    "bestiary_100": "CgkI5NXU8p0YEAIQEw",
+    "bestiary_150": "CgkI5NXU8p0YEAIQFA",
+    "bestiary_200": "CgkI5NXU8p0YEAIQFQ",
+    "biome_50": "CgkI5NXU8p0YEAIQFg"
+  },
+  "new_leaderboards": {
+    "highest_combo": "CgkI5NXU8p0YEAIQFw",
+    "highest_level": "CgkI5NXU8p0YEAIQGA"
+  },
+  "verification_scope": "Full local service regression suite with simulated native clients; no real Google account authentication, remote unlock, leaderboard submission, or cloud publication was performed."
+}

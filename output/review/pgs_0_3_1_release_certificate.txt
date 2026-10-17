@@ -1,0 +1,25 @@
+Signer #1:
+
+Certificate #1:
+Owner: CN=Ethann Yakabuski, OU=Unknown, O=Piledrivegames, L=Ottawa, ST=Ontario, C=CA
+Issuer: CN=Ethann Yakabuski, OU=Unknown, O=Piledrivegames, L=Ottawa, ST=Ontario, C=CA
+Serial number: 1b9598b7a006e5a9
+Valid from: Fri Mar 15 23:24:04 EDT 2024 until: Tue Aug 01 23:24:04 EDT 2051
+Certificate fingerprints:
+	 SHA1: D6:7C:5B:0B:81:C6:7F:EB:A1:FE:1A:F5:2F:33:62:E7:97:C8:5F:AB
+	 SHA256: FD:22:B6:5D:24:D5:EE:E8:70:38:00:EA:90:DD:21:4D:6D:22:1C:E8:27:1C:5F:F7:36:F9:57:DF:65:28:8D:57
+Signature algorithm name: SHA256withRSA
+Subject Public Key Algorithm: 2048-bit RSA key
+Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 10 B8 2A FC 4B A8 03 88   BD 49 27 29 11 6E 53 BF  ..*.K....I').nS.
+0010: BD EF 10 92                                        ....
+]
+]
+
+

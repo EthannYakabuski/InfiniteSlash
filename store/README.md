@@ -1,6 +1,6 @@
 # InfiniteSlash — Play Console upload kit
 
-The playable game uses **`com.slash.game`**, English (`en-US`), and Play Games project **832658811620**. This kit now shows the **0.3.0 Crownfall update / Android code 8**. It does not publish anything to Google.
+The playable game uses **`com.slash.game`**, English (`en-US`), and Play Games project **832658811620**. This kit accompanies the **0.3.1 configuration patch / Android code 9** and reuses the unchanged **0.3.0 Crownfall gameplay** artwork and screenshots. It does not publish anything to Google.
 
 ## Files to upload
 
@@ -8,9 +8,9 @@ The playable game uses **`com.slash.game`**, English (`en-US`), and Play Games p
 | --- | --- | --- |
 | Existing achievement icons | `icons/achievements/` | 12 PNGs, 512×512, each below 1 MB |
 | Boss achievement icons | `boss-achievements/` | 2 PNGs, 512×512, each below 1 MB; both Google IDs configured |
-| New production achievement icons | `production-update/achievements/` | 5 PNGs, 512×512, each below 1 MB; new IDs pending |
+| New production achievement icons | `production-update/achievements/` | 5 PNGs, 512×512, each below 1 MB; all Google IDs configured |
 | Leaderboard icons | `icons/leaderboards/` | 3 PNGs, 512×512, each below 1 MB |
-| New production leaderboard icons | `production-update/leaderboards/` | 2 PNGs, 512×512, each below 1 MB; new IDs pending |
+| New production leaderboard icons | `production-update/leaderboards/` | 2 PNGs, 512×512, each below 1 MB; both Google IDs configured |
 | Short description | `listing/short_description.txt` | 68 characters; limit 80 |
 | Full description | `listing/full_description.txt` | 2,654 characters; limit 4,000 |
 | Store app icon | `branding/app_icon.png` | 512×512, 32-bit PNG, below 1 MB |
@@ -23,9 +23,9 @@ Every screenshot is 9:16, opaque RGB and below 8 MB. Upload each screenshot fold
 
 ## New boss records and existing Play Games records
 
-**Royal Upset** (`CgkI5NXU8p0YEAIQEA`) and **Crown Census** (`CgkI5NXU8p0YEAIQEQ`) are configured as Standard achievements using the owner-supplied IDs. Upload [their unchanged icons](boss-achievements/README.md) to those existing records. Saved local unlocks replay after eligible Google authentication. The complete kit includes 50 upload images: nineteen achievement icons (fourteen configured and five pending), five leaderboard icons (three configured and two pending), branding and 24 screenshots. The separate `boss-achievements/InfiniteSlash-new-boss-achievements.zip` contains the two boss icons and their configured metadata.
+**Royal Upset** (`CgkI5NXU8p0YEAIQEA`) and **Crown Census** (`CgkI5NXU8p0YEAIQEQ`) remain configured as Standard achievements using the owner-supplied IDs. Upload [their unchanged icons](boss-achievements/README.md) to those existing records. Saved local unlocks replay after eligible Google authentication. The complete kit includes 50 upload images: **nineteen configured achievement icons, five configured leaderboard icons**, branding and 24 screenshots. No requested feature IDs remain pending. The separate `boss-achievements/InfiniteSlash-new-boss-achievements.zip` contains the two boss icons and their configured metadata.
 
-The original fourteen achievements and three leaderboards already have configured IDs. **Edit their existing records to upload these icons. Do not re-import the earlier achievement metadata draft** into this configured game. `icons/icon_manifest.json` maps the original twelve achievement icons and three board icons to their unchanged Google IDs, names, goals and types. `boss-achievements/achievement_manifest.json` maps the two boss badges. **Create only the five new Standard achievements and two new Numeric boards** in [the production-update handoff](production-update/README.md), then return their IDs. The existing collector keeps its ID/Incremental100 target, with display metadata updated to **Bestiary Pioneer**, any 100 species. Crown Census still means all twelve bosses. `achievement-icons.zip` contains all nineteen badge PNGs; `leaderboard-icons.zip` contains all five board PNGs. These are convenience downloads, not Console definition import files.
+All nineteen achievements and five leaderboards now have configured IDs. **Edit their existing records to upload these icons. Do not create duplicate definitions or re-import the earlier achievement metadata draft** into this configured game. `icons/icon_manifest.json` maps the original twelve achievement icons and three board icons to their unchanged Google IDs, names, goals and types. `boss-achievements/achievement_manifest.json` maps the two boss badges. The [production-update handoff](production-update/README.md) and its manifest map all five additional Standard achievements and both additional Numeric boards, including **Highest Level**. The existing collector keeps its ID/Incremental100 target, with display metadata updated to **Bestiary Pioneer**, any 100 species. Crown Census still means all twelve bosses. `achievement-icons.zip` contains all nineteen badge PNGs; `leaderboard-icons.zip` contains all five board PNGs. These are convenience downloads, not Console definition import files.
 
 The app icon is RGBA PNG because Google's Play icon specification requires PNG; JPEG is not the accepted store-icon format. Its foreground identity remains readable within a circular crop, and no rounded-corner mask or ranking/price badges are baked in. [Google Play icon specification](https://developer.android.com/distribute/google-play/resources/icon-design-specifications)
 
@@ -62,7 +62,7 @@ The copy describes current gameplay and local features. It avoids unverified clo
 ## Remaining owner/backend steps
 
 - Authorize tester accounts and choose a distribution route. The supplied **A1:CD:…:64:DB** certificate is Google's Play App Signing certificate and is appropriate for Play-installed builds. A sideloaded debug build needs its **own linked Android OAuth credential** for `com.slash.game` and its actual signer; the developer report records that fingerprint.
-- Local upload/release signing is configured. The current version is **0.3.0 / code 8**; use the signed AAB described in [the current Android report](../docs/PRODUCTION_ANDROID.md) and check that version code 8 is unused on your track. [The 0.2.0 Android report](../docs/ROUND2_ANDROID.md) and [0.2.1 configuration notes](../docs/BOSS_ACHIEVEMENTS_CONFIGURED.md) retain historical evidence. Older unsigned preparation bundles are not signed releases.
+- Local upload/release signing is configured. The current patch is **0.3.1 / code 9**; use the signed AAB described in [the current configuration/build report](../docs/PLAY_SERVICES_0_3_1.md) and check that version code 9 is unused on your track. [The 0.3.0 Android report](../docs/PRODUCTION_ANDROID.md), [0.2.0 Android report](../docs/ROUND2_ANDROID.md) and [0.2.1 configuration notes](../docs/BOSS_ACHIEVEMENTS_CONFIGURED.md) retain historical evidence. Older unsigned preparation bundles are not signed releases.
 - Add these icons, store descriptions, artwork and screenshot folders to the existing Console records. Publish the Play Games configuration when ready, separately from the app release.
 - Run real eligible-account sign-in, online unlock/score, offline replay and two-device save tests. Simulated native tests do not establish successful Google server operation.
 - Saved Games was reported enabled at 21:20 Eastern on Oct 12. Activation may take up to 24 hours. Toronto uses EDT (UTC−4) on that date; the handoff records that time-zone assumption explicitly. [Activation guidance](https://developer.android.com/games/pgs/console/enable-features), [Toronto 2026 time zones](https://www.timeanddate.com/time/zone/canada/toronto?year=2026)

@@ -146,6 +146,9 @@ def main() -> None:
     if metadata["package_name"] != "com.slash.game" or len(metadata["recommended_tags"]) != 5:
         failures.append("Listing package or tag count is incorrect")
     expected_feature_ids = {v for category in ["achievements", "leaderboards"] for v in config[category].values() if v}
+    configured_id_count = sum(bool(value) for category in ["achievements", "leaderboards"] for value in config[category].values())
+    if len(expected_feature_ids) != configured_id_count:
+        failures.append("Configured Google feature IDs must be unique")
     if {r["google_id"] for r in uploads if r.get("google_id")} != expected_feature_ids:
         failures.append("Upload icon IDs do not match the configured Google features")
     report = {"passed": not failures, "failures": failures, "image_count": len(uploads), "distinct_image_count": len(set(hashes)),
@@ -158,9 +161,12 @@ def main() -> None:
               "screenshots": len(shots), "description_lengths": descriptions,
               "all_image_bytes": sum(r["bytes"] for r in uploads)}
     (STORE / "validation.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    pending_definitions = report["pending_achievements"] + report["pending_leaderboards"]
+    upload_note = (f"Attach configured feature icons to existing Google IDs. Create only the {pending_definitions} pending feature definitions, following their manifests. Do not re-import historical achievement definitions."
+                   if pending_definitions else f"All {report['configured_achievements']} achievement IDs and {report['configured_leaderboards']} leaderboard IDs are configured. Attach icons to their existing Google records using the manifests; do not create duplicate definitions or re-import historical achievement drafts. Live eligible-account testing and Console publication remain owner steps.")
     manifest = {"package_name": "com.slash.game", "pgs_game_id": config["game_id"],
                 "listing": metadata, "descriptions": descriptions, "images": uploads,
-                "upload_note": "Attach configured feature icons to existing Google IDs. Create only the seven pending production-update definitions, following their manifest. Do not re-import historical achievement definitions."}
+                "upload_note": upload_note}
     (STORE / "upload_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     if failures:
         raise SystemExit("STORE_ASSET_FAIL\n" + "\n".join(failures))

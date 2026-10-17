@@ -4,11 +4,11 @@
   "image_count": 50,
   "distinct_image_count": 42,
   "achievements": 19,
-  "configured_achievements": 14,
-  "pending_achievements": 5,
+  "configured_achievements": 19,
+  "pending_achievements": 0,
   "leaderboards": 5,
-  "configured_leaderboards": 3,
-  "pending_leaderboards": 2,
+  "configured_leaderboards": 5,
+  "pending_leaderboards": 0,
   "screenshots": 24,
   "description_lengths": {
     "short_description": {
