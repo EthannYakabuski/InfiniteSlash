@@ -1,0 +1,96 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.11.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+WARNING: The option setting 'android.overridePathCheck=true' is experimental.
+The current default is 'false'.
+
+> Task :resolveAdmobArtifacts
+ADMOB_ARTIFACT com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.4.0 ads-mobile-sdk-1.4.0.aar
+ADMOB_ARTIFACT com.google.android.gms:play-services-games-v2:21.0.0 play-services-games-v2-21.0.0.aar
+ADMOB_ARTIFACT com.google.android.gms:play-services-ads-identifier:18.0.0 play-services-ads-identifier-18.0.0.aar
+ADMOB_ARTIFACT com.google.android.gms:play-services-appset:16.0.1 play-services-appset-16.0.1.aar
+ADMOB_ARTIFACT com.google.android.gms:play-services-cronet:18.0.1 play-services-cronet-18.0.1.aar
+ADMOB_ARTIFACT com.google.android.gms:play-services-base:18.5.0 play-services-base-18.5.0.aar
+ADMOB_ARTIFACT com.google.android.gms:play-services-tasks:18.2.0 play-services-tasks-18.2.0.aar
+ADMOB_ARTIFACT com.google.android.play:hsdp:2.0.1 hsdp-2.0.1.aar
+ADMOB_ARTIFACT com.google.android.ump:user-messaging-platform:4.0.0 user-messaging-platform-4.0.0.aar
+ADMOB_ARTIFACT com.google.android.gms:play-services-basement:18.9.0 play-services-basement-18.9.0.aar
+ADMOB_ARTIFACT androidx.constraintlayout:constraintlayout:2.2.0 constraintlayout-2.2.0.aar
+ADMOB_ARTIFACT androidx.appcompat:appcompat:1.2.0 appcompat-1.2.0.aar
+ADMOB_ARTIFACT androidx.fragment:fragment:1.8.6 fragment-1.8.6.aar
+ADMOB_ARTIFACT androidx.fragment:fragment:1.8.6 fragment-1.8.6.aar
+ADMOB_ARTIFACT androidx.core:core-splashscreen:1.0.1 core-splashscreen-1.0.1.aar
+ADMOB_ARTIFACT androidx.activity:activity:1.8.1 activity-1.8.1.aar
+ADMOB_ARTIFACT androidx.browser:browser:1.8.0 browser-1.8.0.aar
+ADMOB_ARTIFACT androidx.loader:loader:1.0.0 loader-1.0.0.aar
+ADMOB_ARTIFACT androidx.viewpager:viewpager:1.0.0 viewpager-1.0.0.aar
+ADMOB_ARTIFACT androidx.savedstate:savedstate:1.2.1 savedstate-1.2.1.aar
+ADMOB_ARTIFACT androidx.work:work-runtime:2.7.0 work-runtime-2.7.0.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-service:2.6.1 lifecycle-service-2.6.1.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-livedata:2.6.1 lifecycle-livedata-2.6.1.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-livedata:2.6.1 lifecycle-livedata-2.6.1.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-common:2.6.1 lifecycle-common-2.6.1.jar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-viewmodel:2.6.1 lifecycle-viewmodel-2.6.1.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-viewmodel:2.6.1 lifecycle-viewmodel-2.6.1.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-runtime:2.6.1 lifecycle-runtime-2.6.1.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-livedata-core:2.6.1 lifecycle-livedata-core-2.6.1.aar
+ADMOB_ARTIFACT androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1 lifecycle-viewmodel-savedstate-2.6.1.aar
+ADMOB_ARTIFACT androidx.core:core-ktx:1.12.0 core-ktx-1.12.0.aar
+ADMOB_ARTIFACT androidx.webkit:webkit:1.15.0 webkit-1.15.0.aar
+ADMOB_ARTIFACT androidx.drawerlayout:drawerlayout:1.0.0 drawerlayout-1.0.0.aar
+ADMOB_ARTIFACT androidx.customview:customview:1.0.0 customview-1.0.0.aar
+ADMOB_ARTIFACT androidx.appcompat:appcompat-resources:1.4.1 appcompat-resources-1.4.1.aar
+ADMOB_ARTIFACT androidx.appcompat:appcompat-resources:1.4.1 appcompat-resources-1.4.1.aar
+ADMOB_ARTIFACT androidx.vectordrawable:vectordrawable-animated:1.1.0 vectordrawable-animated-1.1.0.aar
+ADMOB_ARTIFACT androidx.vectordrawable:vectordrawable:1.1.0 vectordrawable-1.1.0.aar
+ADMOB_ARTIFACT androidx.core:core:1.12.0 core-1.12.0.aar
+ADMOB_ARTIFACT androidx.core:core:1.12.0 core-1.12.0.aar
+ADMOB_ARTIFACT androidx.annotation:annotation-experimental:1.4.0 annotation-experimental-1.4.0.aar
+ADMOB_ARTIFACT androidx.datastore:datastore:1.0.0 datastore-1.0.0.aar
+ADMOB_ARTIFACT com.squareup.okhttp3:okhttp:4.11.0 okhttp-4.11.0.jar
+ADMOB_ARTIFACT org.jetbrains.kotlinx:kotlinx-coroutines-guava:1.9.0 kotlinx-coroutines-guava-1.9.0.jar
+ADMOB_ARTIFACT androidx.datastore:datastore-core:1.0.0 datastore-core-1.0.0.jar
+ADMOB_ARTIFACT org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0 kotlinx-coroutines-core-jvm-1.9.0.jar
+ADMOB_ARTIFACT org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0 kotlinx-coroutines-android-1.9.0.jar
+ADMOB_ARTIFACT com.google.crypto.tink:tink-android:1.20.0 tink-android-1.20.0.jar
+ADMOB_ARTIFACT androidx.versionedparcelable:versionedparcelable:1.1.1 versionedparcelable-1.1.1.aar
+ADMOB_ARTIFACT androidx.collection:collection:1.1.0 collection-1.1.0.jar
+ADMOB_ARTIFACT androidx.profileinstaller:profileinstaller:1.4.0 profileinstaller-1.4.0.aar
+ADMOB_ARTIFACT androidx.constraintlayout:constraintlayout-core:1.1.0 constraintlayout-core-1.1.0.jar
+ADMOB_ARTIFACT androidx.startup:startup-runtime:1.1.1 startup-runtime-1.1.1.aar
+ADMOB_ARTIFACT androidx.tracing:tracing:1.0.0 tracing-1.0.0.aar
+ADMOB_ARTIFACT androidx.room:room-runtime:2.2.5 room-runtime-2.2.5.aar
+ADMOB_ARTIFACT androidx.arch.core:core-runtime:2.2.0 core-runtime-2.2.0.aar
+ADMOB_ARTIFACT androidx.arch.core:core-runtime:2.2.0 core-runtime-2.2.0.aar
+ADMOB_ARTIFACT androidx.arch.core:core-common:2.2.0 core-common-2.2.0.jar
+ADMOB_ARTIFACT androidx.interpolator:interpolator:1.0.0 interpolator-1.0.0.aar
+ADMOB_ARTIFACT androidx.sqlite:sqlite-framework:2.1.0 sqlite-framework-2.1.0.aar
+ADMOB_ARTIFACT androidx.sqlite:sqlite:2.1.0 sqlite-2.1.0.aar
+ADMOB_ARTIFACT androidx.concurrent:concurrent-futures:1.1.0 concurrent-futures-1.1.0.jar
+ADMOB_ARTIFACT androidx.cursoradapter:cursoradapter:1.0.0 cursoradapter-1.0.0.aar
+ADMOB_ARTIFACT androidx.room:room-common:2.2.5 room-common-2.2.5.jar
+ADMOB_ARTIFACT androidx.annotation:annotation-jvm:1.8.2 annotation-jvm-1.8.2.jar
+ADMOB_ARTIFACT com.squareup.okio:okio-jvm:3.2.0 okio-jvm-3.2.0.jar
+ADMOB_ARTIFACT org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0 kotlin-stdlib-jdk8-1.8.0.jar
+ADMOB_ARTIFACT org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0 kotlin-stdlib-jdk7-1.8.0.jar
+ADMOB_ARTIFACT org.jetbrains.kotlin:kotlin-stdlib:2.1.20 kotlin-stdlib-2.1.20.jar
+ADMOB_ARTIFACT org.jetbrains:annotations:23.0.0 annotations-23.0.0.jar
+ADMOB_ARTIFACT com.google.code.gson:gson:2.13.2 gson-2.13.2.jar
+ADMOB_ARTIFACT com.google.guava:guava:32.0.0-android guava-32.0.0-android.jar
+ADMOB_ARTIFACT org.chromium.net:cronet-fallback:143.7445.0 cronet-fallback-143.7445.0.aar
+ADMOB_ARTIFACT org.chromium.net:httpengine-native-provider:143.7445.0 httpengine-native-provider-143.7445.0.aar
+ADMOB_ARTIFACT org.chromium.net:cronet-common:143.7445.0 cronet-common-143.7445.0.aar
+ADMOB_ARTIFACT org.chromium.net:cronet-api:143.7445.0 cronet-api-143.7445.0.aar
+ADMOB_ARTIFACT com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+ADMOB_ARTIFACT org.jspecify:jspecify:1.0.0 jspecify-1.0.0.jar
+ADMOB_ARTIFACT com.google.code.findbugs:jsr305:3.0.2 jsr305-3.0.2.jar
+ADMOB_ARTIFACT com.google.errorprone:error_prone_annotations:2.41.0 error_prone_annotations-2.41.0.jar
+ADMOB_ARTIFACT com.google.guava:failureaccess:1.0.1 failureaccess-1.0.1.jar
+ADMOB_ARTIFACT org.checkerframework:checker-qual:3.33.0 checker-qual-3.33.0.jar
+ADMOB_ARTIFACT com.google.j2objc:j2objc-annotations:2.8 j2objc-annotations-2.8.jar
+ADMOB_ARTIFACT org.chromium.net:cronet-shared:143.7445.0 cronet-shared-143.7445.0.aar
+ADMOB_ARTIFACT com.google.protobuf:protobuf-javalite:3.22.3 protobuf-javalite-3.22.3.jar
+
+BUILD SUCCESSFUL in 44s
+1 actionable task: 1 executed

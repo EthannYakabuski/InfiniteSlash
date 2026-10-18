@@ -1,0 +1,462 @@
+{
+  "actual_native_ads_served": false,
+  "captures": [
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x960_home_top_banner.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "launch",
+      "top_logical": 100.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x960_pause_top_banner.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "pause",
+      "top_logical": 100.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 160.0,
+      "file": "res://output/review/ad-ui/540x960_upgrade_bottom_banner.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "upgrade",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x960_audio_privacy_no_banner.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "audio",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x960_continue_no_banner.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "continue",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x960_waiting_no_banner.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "ad_waiting",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x960_results_no_banner.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "end",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x960_home_no_inventory.png",
+      "image": [
+        540,
+        960
+      ],
+      "native_window_height": 960.0,
+      "overlay": "launch",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x1110_home_top_banner.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "launch",
+      "top_logical": 100.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x1110_pause_top_banner.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "pause",
+      "top_logical": 100.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 160.0,
+      "file": "res://output/review/ad-ui/540x1110_upgrade_bottom_banner.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "upgrade",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x1110_audio_privacy_no_banner.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "audio",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x1110_continue_no_banner.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "continue",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x1110_waiting_no_banner.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "ad_waiting",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x1110_results_no_banner.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "end",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/540x1110_home_no_inventory.png",
+      "image": [
+        540,
+        1110
+      ],
+      "native_window_height": 1110.0,
+      "overlay": "launch",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/1080x1920_home_top_banner.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "launch",
+      "top_logical": 50.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/1080x1920_pause_top_banner.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "pause",
+      "top_logical": 50.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "bottom_logical": 80.0,
+      "file": "res://output/review/ad-ui/1080x1920_upgrade_bottom_banner.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "upgrade",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/1080x1920_audio_privacy_no_banner.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "audio",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/1080x1920_continue_no_banner.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "continue",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/1080x1920_waiting_no_banner.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "ad_waiting",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/1080x1920_results_no_banner.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "end",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    },
+    {
+      "bottom_logical": 0.0,
+      "file": "res://output/review/ad-ui/1080x1920_home_no_inventory.png",
+      "image": [
+        1080,
+        1920
+      ],
+      "native_window_height": 1920.0,
+      "overlay": "launch",
+      "top_logical": 0.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    }
+  ],
+  "fixture_only": true
+}

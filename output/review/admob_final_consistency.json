@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "scope": "Final deliverable hashes, adjacent checksums, packaged configs/services, current frozen source consistency",
+  "artifacts": [
+    {
+      "file": "InfiniteSlash-debug-0.4.0.apk",
+      "bytes": 193056069,
+      "sha256": "549f924d65ebf018b43c7084442d61e3d645c8f654aad1bf2111a822d41e6486"
+    },
+    {
+      "file": "InfiniteSlash-play-0.4.0.aab",
+      "bytes": 44882567,
+      "sha256": "b741e02929f8837921861a0ae51977a1cf018fd9467ec866db6320dc51ba38c8"
+    },
+    {
+      "file": "InfiniteSlash-debug.apk",
+      "bytes": 193056069,
+      "sha256": "549f924d65ebf018b43c7084442d61e3d645c8f654aad1bf2111a822d41e6486"
+    }
+  ],
+  "frozen_source_files": 247
+}

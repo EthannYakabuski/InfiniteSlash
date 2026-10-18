@@ -27,10 +27,13 @@ Launch directly into a living arena, tap the sword or shield, and play. Drag any
 - Pause/background safety, recoverable active runs, versioned profile saves and backup recovery.
 - Bounded enemies, projectiles, pickups, effects and sound voices. Native-sized monster atlas reduces texture changes and memory while preserving every original export.
 - Configurable Google Play Games sign-in, leaderboards, achievements and cloud-profile snapshots through the bundled plugin.
+- Consent-gated AdMob test banners on home/pause/upgrade screens, an interstitial at every third completed game's results break, and one optional rewarded full-health/full-guard continue per run.
 
 Google Play Games now has **19 configured achievement IDs and five configured leaderboards** for `com.slash.game`, including all seven newly supplied IDs. The original mappings and cloud-profile slot are preserved, and offline badges/best records replay after eligible authentication. See the [configured IDs and seven-icon kit](store/production-update/README.md) and [setup guide](docs/PLAY_SERVICES_SETUP.md). Live Google-account validation requires an eligible tester and matching signed installation. The optional daily board and original duplicate local three-minute badge remain intentionally unmapped.
 
-The current configuration patch is **0.3.1 / Android code 9**; see [its configuration/build report](docs/PLAY_SERVICES_0_3_1.md). It preserves the **0.3.0 / code 8** gameplay update documented in [the acceptance ledger](docs/PRODUCTION_UPDATE.md), [build catalog/balance](docs/PRODUCTION_BUILDS.md), [verification](docs/PRODUCTION_VERIFICATION.md) and [historical Android report](docs/PRODUCTION_ANDROID.md). Older versioned artifacts and their evidence remain historical. Package changes do not migrate another package's local saves automatically.
+The current AdMob update is **0.4.0 / Android code 10**; see [the integration and owner setup guide](docs/ADMOB_INTEGRATION.md), [game/service verification](docs/ADMOB_VERIFICATION.md), [Android package/device verification](docs/ADMOB_ANDROID.md), and [banner/continue layouts](docs/ADMOB_UI.md). It uses the supplied AdMob App ID and Google's demo ad-unit IDs for internal testing. A completed rewarded continue preserves score, run counters, achievement progress and leaderboard eligibility. Consent and ad failures leave normal offline gameplay available.
+
+The previous [0.3.1 Google resource configuration patch](docs/PLAY_SERVICES_0_3_1.md) and **0.3.0 / code 8** gameplay evidence remain historical: [acceptance ledger](docs/PRODUCTION_UPDATE.md), [build catalog/balance](docs/PRODUCTION_BUILDS.md), [verification](docs/PRODUCTION_VERIFICATION.md) and [Android smoke](docs/PRODUCTION_ANDROID.md). Older versioned packages are preserved. Package changes do not migrate another package's local saves automatically.
 
 ## Verification
 
@@ -39,6 +42,9 @@ Run commands from this project directory with your Godot executable in place of 
 ```powershell
 godot --headless --editor --path . --import --quit
 godot --headless --path . --script tests/test_services.gd
+godot --headless --path . --script tests/test_ads_service.gd
+godot --headless --path . --script tests/test_ads_game.gd
+godot --headless --path . --script tests/test_ad_ui.gd
 godot --headless --path . --script tests/test_game.gd -- --test
 godot --headless --path . --script tests/test_production_combat.gd
 godot --headless --path . --script tests/test_production_progression.gd

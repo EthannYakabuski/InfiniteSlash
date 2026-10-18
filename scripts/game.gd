@@ -120,6 +120,17 @@ var keyboard_active = false
 var demo = false
 var testing = false
 var ready_complete = false
+var rewarded_continue_used := false
+var ad_death_pending := false
+var _ads: Node
+var _ad_fullscreen_kind := ""
+var _ad_previous_state := "launch"
+var _app_active := true
+var _resume_reward_on_focus := false
+var _run_finalized := false
+var _run_has_started := false
+var _run_generation := 0
+var _reward_generation := -1
 
 func _ready() -> void:
 	visual_rng.randomize()
@@ -140,6 +151,10 @@ func _ready() -> void:
 	hud.achievements_requested.connect(_show_achievements)
 	hud.audio_setting_changed.connect(_set_audio_setting)
 	hud.upgrade_selected.connect(choose_upgrade)
+	hud.rewarded_continue_requested.connect(_request_rewarded_continue)
+	hud.continue_declined.connect(_decline_rewarded_continue)
+	hud.overlay_changed.connect(_sync_ad_placement)
+	hud.privacy_options_requested.connect(_show_ad_privacy_options)
 	hud.set_audio_settings(SaveData.profile.get("settings", {}))
 	hud.daily_requested.connect(func(): start_run("sword", true))
 	if hud.has_signal("share_requested"):
@@ -155,7 +170,8 @@ func _ready() -> void:
 	demo = "--demo" in args or "--stress" in args
 	if not SaveData.active_run.is_empty() and not testing and not demo:
 		if restore_run(SaveData.active_run):
-			hud.show_launch(true, int(SaveData.profile.get("best_score", 0)))
+			if not ad_death_pending:
+				hud.show_launch(true, int(SaveData.profile.get("best_score", 0)))
 		else:
 			SaveData.clear_active_run()
 			_show_launch()
@@ -170,6 +186,11 @@ func _ready() -> void:
 			for i in range(MAX_BULLETS):
 				_add_bullet(Vector2(rng.randf_range(0, arena.x), rng.randf_range(150, arena.y)), Vector2.from_angle(rng.randf() * TAU) * 120, 10, true)
 	_update_hud()
+	bind_ads_service(get_node_or_null("/root/Ads"))
+	# An interrupted, unearned ad cannot turn the previous healthy autosave into
+	# a free life. Finalize the durable death exactly once after reopening.
+	if ad_death_pending:
+		_finalize_run()
 
 func _build_render_textures() -> void:
 	# Tiny code-native pixel shapes keep the same rim/core visuals in one quad.
@@ -206,11 +227,19 @@ func _load_roster() -> void:
 		textures.append(monster_atlas if monster_atlas != null else load(str(item.texture)))
 
 func _show_launch() -> void:
+	_run_has_started = false
 	state = "launch"
 	player_pos = Vector2(arena.x * 0.5, arena.y * 0.69)
 	hud.show_launch(false, int(SaveData.profile.get("best_score", 0)))
 
 func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
+	if not _ad_fullscreen_kind.is_empty() or state in ["continue_offer", "ad_pending"]: return
+	_run_generation += 1
+	_run_finalized = false
+	_run_has_started = true
+	rewarded_continue_used = false
+	ad_death_pending = false
+	_resume_reward_on_focus = false
 	style = "shield" if choice == "shield" else "sword"
 	class_stats = ClassProfiles.get_profile(style)
 	daily = daily_challenge
@@ -302,12 +331,12 @@ func start_run(choice: String = "sword", daily_challenge: bool = false) -> void:
 func _physics_process(delta: float) -> void:
 	if state == "upgrading" and demo and not upgrade_choices.is_empty():
 		choose_upgrade(str(upgrade_choices[0].id))
-	if state != "running":
+	if state != "running" or not _ad_fullscreen_kind.is_empty():
 		return
 	tick(minf(delta, 0.05))
 
 func tick(delta: float) -> void:
-	if state != "running": return
+	if state != "running" or not _ad_fullscreen_kind.is_empty(): return
 	elapsed += delta
 	combo_timer = maxf(0, combo_timer - delta)
 	if combo_timer <= 0:
@@ -357,7 +386,7 @@ func tick(delta: float) -> void:
 		end_run()
 
 func _process(delta: float) -> void:
-	var combat_delta = 0.0 if state == "upgrading" else delta
+	var combat_delta = 0.0 if state in ["upgrading", "continue_offer", "ad_pending", "ad_showing"] or not _ad_fullscreen_kind.is_empty() else delta
 	visual_time += minf(combat_delta, 0.05)
 	if get_viewport_rect().size != arena:
 		arena = get_viewport_rect().size
@@ -370,7 +399,7 @@ func _process(delta: float) -> void:
 		if effect.kind != "lightning": effect.pos += effect.vel * combat_delta
 		if effect.life <= 0: effects.remove_at(i)
 	if world != null:
-		world.advance(delta if state == "running" else delta * 0.18 if state == "launch" else 0.0, elapsed, level)
+		world.advance(delta if state == "running" and _ad_fullscreen_kind.is_empty() else delta * 0.18 if state == "launch" and _ad_fullscreen_kind.is_empty() else 0.0, elapsed, level)
 	hud_timer -= delta
 	if hud_timer <= 0 and ready_complete:
 		hud_timer = 0.08
@@ -933,6 +962,7 @@ func _apply_build_stats(upgraded: Dictionary) -> void:
 	score = int(upgraded.score)
 
 func choose_upgrade(id: String) -> void:
+	if not _ad_fullscreen_kind.is_empty(): return
 	if state != "upgrading": return
 	var selected: Dictionary = {}
 	for choice in upgrade_choices:
@@ -992,7 +1022,7 @@ func pause_run() -> void:
 	if not testing and not demo: SaveData.save_active_run(serialize_run())
 
 func resume_run() -> void:
-	if state != "paused": return
+	if state != "paused" or not _ad_fullscreen_kind.is_empty(): return
 	if level >= 50 and not testing and not demo: SaveData.record_biome_entry()
 	if not upgrade_choices.is_empty():
 		state = "upgrading"
@@ -1006,7 +1036,22 @@ func resume_run() -> void:
 
 func end_run() -> void:
 	if state != "running": return
+	if health <= 0 and not rewarded_continue_used and _ads != null and _ads.is_rewarded_ready():
+		state = "continue_offer"
+		ad_death_pending = true
+		_release_input()
+		_persist_ad_state()
+		hud.show_continue_offer()
+		return
+	_finalize_run()
+
+func _finalize_run() -> void:
+	if _run_finalized: return
+	_run_finalized = true
+	ad_death_pending = false
+	_resume_reward_on_focus = false
 	state = "dead"
+	if not _ad_fullscreen_kind.is_empty(): _ad_previous_state = "dead"
 	_release_input()
 	var new_best = score > int(SaveData.profile.get("best_score", 0))
 	var result = {"score": score, "kills": kills, "bosses": bosses, "duration": elapsed, "combo": best_combo, "level": level, "mode": "daily" if daily else style, "style": style, "challenge_date": challenge_date, "collected_powerups": powerups}
@@ -1019,6 +1064,111 @@ func end_run() -> void:
 	hud.show_end(result)
 	AudioManager.play_sound("death")
 	_burst(player_pos, Color("ffbe8a"), 18)
+	if not testing and not demo and _ads != null:
+		_ads.record_completed_game()
+		call_deferred("_try_end_interstitial", _run_generation)
+
+func _try_end_interstitial(generation: int) -> void:
+	if generation != _run_generation or state != "dead" or not _run_finalized or _ads == null: return
+	if str(hud.get("_overlay_kind")) == "end": _ads.show_interstitial_if_due()
+
+func _persist_ad_state() -> void:
+	# Consent may open before a run starts, and interstitials open after its
+	# result was committed. Neither should create a resumable combat snapshot.
+	if _run_has_started and not _run_finalized and not testing and not demo:
+		SaveData.save_active_run(serialize_run())
+
+func _decline_rewarded_continue() -> void:
+	if state != "continue_offer": return
+	_finalize_run()
+
+func _request_rewarded_continue() -> void:
+	if state != "continue_offer" or rewarded_continue_used or not _ad_fullscreen_kind.is_empty(): return
+	if _ads == null or not _ads.is_rewarded_ready():
+		_finalize_run()
+		return
+	rewarded_continue_used = true
+	_reward_generation = _run_generation
+	state = "ad_pending"
+	hud.show_ad_waiting()
+	_persist_ad_state()
+	if not _ads.show_rewarded_continue() and state in ["ad_pending", "ad_showing"]:
+		_finalize_run()
+
+## Rebindable for isolated tests; the live scene uses the Ads autoload.
+func bind_ads_service(service: Node) -> void:
+	var connections := {"banner_space_changed": _on_ad_banner_space, "fullscreen_started": _on_ad_fullscreen_started,
+		"fullscreen_finished": _on_ad_fullscreen_finished, "privacy_options_changed": _on_ad_privacy_options}
+	if is_instance_valid(_ads):
+		for event: String in connections:
+			if _ads.is_connected(event, connections[event]): _ads.disconnect(event, connections[event])
+	_ads = service
+	if _ads == null: return
+	for event: String in connections:
+		_ads.connect(event, connections[event])
+	_ads.set_app_active(_app_active)
+	hud.set_privacy_options_required(_ads.is_privacy_options_required())
+	_sync_ad_placement(str(hud.get("_overlay_kind")))
+	var current_kind: String = _ads.get_fullscreen_kind()
+	if not current_kind.is_empty(): _on_ad_fullscreen_started(current_kind)
+
+func _sync_ad_placement(kind: String) -> void:
+	if _ads == null: return
+	var placement := ""
+	if _ad_fullscreen_kind.is_empty() and _app_active:
+		placement = {"launch": "home", "pause": "pause", "upgrade": "upgrade"}.get(kind, "")
+	_ads.set_banner_placement(placement)
+
+func _on_ad_banner_space(top_px: float, bottom_px: float) -> void:
+	hud.set_ad_banner_space(top_px, bottom_px)
+
+func _on_ad_privacy_options(required: bool) -> void:
+	hud.set_privacy_options_required(required)
+
+func _show_ad_privacy_options() -> void:
+	if _ads != null and _ad_fullscreen_kind.is_empty(): _ads.show_privacy_options()
+
+func _on_ad_fullscreen_started(kind: String) -> void:
+	if not _ad_fullscreen_kind.is_empty(): return
+	_ad_fullscreen_kind = kind
+	_ad_previous_state = state
+	state = "ad_showing"
+	_release_input()
+	AudioManager.set_external_paused(true)
+	_sync_ad_placement("")
+	if not testing and not demo and _ad_previous_state in ["running", "paused", "upgrading", "ad_pending"]:
+		_persist_ad_state()
+
+func _on_ad_fullscreen_finished(kind: String, earned: bool) -> void:
+	if kind != _ad_fullscreen_kind: return
+	_ad_fullscreen_kind = ""
+	AudioManager.set_external_paused(not _app_active)
+	if kind == "rewarded":
+		if _reward_generation != _run_generation or _run_finalized: return
+		if not earned:
+			_finalize_run()
+			return
+		ad_death_pending = false
+		health = max_health
+		guard_reserve = guard_capacity
+		guarding = true
+		guard_regen_wait = 0.0
+		guard_contact_cooldown = 0.0
+		hurt_timer = maxf(hurt_timer, 1.5)
+		_release_input()
+		state = "running" if _app_active else "paused"
+		_resume_reward_on_focus = not _app_active
+		_persist_ad_state()
+		if _app_active: hud.hide_overlay()
+		else: hud.show_pause()
+		hud.toast("BACK TO THE BATTLE · FULL RESTORE", Color("b6efa0"))
+		_update_hud()
+		return
+	state = "dead" if _run_finalized else _ad_previous_state
+	if state == "running":
+		state = "paused"
+		hud.show_pause()
+	_sync_ad_placement(str(hud.get("_overlay_kind")))
 
 func _show_scores() -> void:
 	if state == "running": pause_run()
@@ -1049,21 +1199,41 @@ func _achievement_toast(key: String) -> void:
 func _notification(what: int) -> void:
 	if not ready_complete: return
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_set_ad_app_active(false)
 		if state == "running" and not demo and not testing: pause_run()
-		elif state == "upgrading" and not demo and not testing: SaveData.save_active_run(serialize_run())
+		elif state in ["upgrading", "continue_offer", "ad_pending", "ad_showing"]: _persist_ad_state()
+	elif what == NOTIFICATION_APPLICATION_RESUMED or what == NOTIFICATION_APPLICATION_FOCUS_IN:
+		_set_ad_app_active(true)
 	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		if not _ad_fullscreen_kind.is_empty() or state == "ad_pending": return
+		if state == "continue_offer":
+			_decline_rewarded_continue()
+			return
 		if hud.close_auxiliary_overlay(): return
 		if state == "upgrading": return
 		elif state == "running": pause_run()
 		elif state == "paused": resume_run()
 		else: get_tree().quit()
 	elif what == NOTIFICATION_WM_CLOSE_REQUEST:
-		if state in ["running", "upgrading"] and not testing and not demo: SaveData.save_active_run(serialize_run())
+		if state in ["running", "paused", "upgrading", "continue_offer", "ad_pending", "ad_showing"]: _persist_ad_state()
 		get_tree().quit()
+
+func _set_ad_app_active(active: bool) -> void:
+	_app_active = active
+	if _ads != null: _ads.set_app_active(active)
+	AudioManager.set_external_paused(not active or not _ad_fullscreen_kind.is_empty())
+	if active and _resume_reward_on_focus and state == "paused" and _ad_fullscreen_kind.is_empty():
+		_resume_reward_on_focus = false
+		resume_run()
+	_sync_ad_placement(str(hud.get("_overlay_kind")))
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_ESCAPE:
+			if not _ad_fullscreen_kind.is_empty() or state == "ad_pending": return
+			if state == "continue_offer":
+				_decline_rewarded_continue()
+				return
 			if hud.close_auxiliary_overlay(): return
 			if state == "upgrading": return
 			elif state == "running": pause_run()
@@ -1221,7 +1391,7 @@ func serialize_run() -> Dictionary:
 	for entity in drops: saved_drops.append(_encode_entity(entity))
 	for entity in hazards: saved_hazards.append(_encode_entity(entity))
 	return {"schema": 1, "balance_version": ClassProfiles.BALANCE_VERSION, "style": style, "daily": daily, "challenge_date": challenge_date, "seed": str(run_seed), "rng_state": str(rng.state), "loot_state": str(loot_rng.state), "player": [player_pos.x, player_pos.y], "elapsed": elapsed, "score": score, "kills": kills, "bosses": bosses, "powerups": powerups, "combo": combo, "best_combo": best_combo, "combo_timer": combo_timer, "level": level, "xp": xp, "xp_goal": xp_goal, "health": health, "max_health": max_health, "damage": damage, "attack_interval": attack_interval, "attack_range": attack_range, "guard_capacity": guard_capacity, "guard_reserve": guard_reserve, "ward_hits": ward_hits, "buffs": buffs.duplicate(true), "next_boss": next_boss, "boss_number": boss_number, "spawn_timer": spawn_timer, "relief_until": relief_until, "dash_cooldown": dash_cooldown, "enemies": saved_enemies, "bullets": saved_bullets, "drops": saved_drops,
-		"combat_version": 2, "guard_regen": guard_regen, "guard_delay": guard_delay, "guard_regen_wait": guard_regen_wait, "guard_contact_cooldown": guard_contact_cooldown, "lifesteal": lifesteal, "thorns": thorns, "second_wind": second_wind, "second_wind_used": second_wind_used, "execute_threshold": execute_threshold, "combo_grace": combo_grace, "overdrive_charge": overdrive_charge, "overdrive_time": overdrive_time, "hazards": saved_hazards,
+		"combat_version": 2, "guard_regen": guard_regen, "guard_delay": guard_delay, "guard_regen_wait": guard_regen_wait, "guard_contact_cooldown": guard_contact_cooldown, "lifesteal": lifesteal, "thorns": thorns, "second_wind": second_wind, "second_wind_used": second_wind_used, "execute_threshold": execute_threshold, "combo_grace": combo_grace, "overdrive_charge": overdrive_charge, "overdrive_time": overdrive_time, "hazards": saved_hazards, "rewarded_continue_used": rewarded_continue_used, "ad_death_pending": ad_death_pending,
 		"upgrade_version": 1, "upgrade_state": str(upgrade_rng.state), "boss_state": str(boss_rng.state), "last_boss_id": last_boss_id, "move_speed": move_speed, "dash_recharge": dash_recharge, "upgrade_counts": upgrade_counts.duplicate(), "upgrade_choices": upgrade_choices.map(func(card): return str(card.id))}
 
 func restore_run(data: Dictionary) -> bool:
@@ -1229,7 +1399,11 @@ func restore_run(data: Dictionary) -> bool:
 	if data.has("balance_version") and (not _finite_number(data.balance_version) or int(data.balance_version) < 1 or int(data.balance_version) > ClassProfiles.BALANCE_VERSION): return false
 	if not _numeric_fields(data, ["health", "elapsed", "score", "kills", "bosses", "powerups", "combo", "best_combo", "combo_timer", "level", "xp", "xp_goal", "max_health", "damage", "attack_interval", "attack_range", "guard_capacity", "guard_reserve", "ward_hits", "next_boss", "boss_number", "spawn_timer", "relief_until", "dash_cooldown"]): return false
 	if not data.style is String or (data.has("daily") and not data.daily is bool): return false
-	if not data.player is Array or data.player.size() != 2 or not _finite_number(data.player[0]) or not _finite_number(data.player[1]) or float(data.health) <= 0: return false
+	if data.has("rewarded_continue_used") and not data.rewarded_continue_used is bool: return false
+	if data.has("ad_death_pending") and not data.ad_death_pending is bool: return false
+	var pending_death: bool = data.get("ad_death_pending", false)
+	if not data.player is Array or data.player.size() != 2 or not _finite_number(data.player[0]) or not _finite_number(data.player[1]): return false
+	if float(data.health) < 0 or (float(data.health) == 0 and not pending_death) or (pending_death and float(data.health) != 0): return false
 	if data.has("upgrade_version") and (not _finite_number(data.upgrade_version) or int(data.upgrade_version) != 1): return false
 	if data.has("combat_version") and (not _finite_number(data.combat_version) or int(data.combat_version) != 2): return false
 	if data.has("second_wind_used") and not data.second_wind_used is bool: return false
@@ -1244,6 +1418,12 @@ func restore_run(data: Dictionary) -> bool:
 	var pos = Vector2(float(data.player[0]), float(data.player[1]))
 	if not pos.is_finite(): return false
 	style = "shield" if str(data.style) == "shield" else "sword"
+	_run_generation += 1
+	_run_finalized = false
+	_reward_generation = -1
+	_resume_reward_on_focus = false
+	rewarded_continue_used = bool(data.get("rewarded_continue_used", false))
+	ad_death_pending = pending_death
 	class_stats = ClassProfiles.get_profile(style)
 	daily = bool(data.get("daily", false))
 	challenge_date = str(data.get("challenge_date", ""))
@@ -1279,7 +1459,7 @@ func restore_run(data: Dictionary) -> bool:
 		xp = int(float(xp) / xp_goal * new_goal)
 		xp_goal = new_goal
 	max_health = clampf(float(data.get("max_health", class_stats.health)), 1, 1.0e9)
-	health = clampf(float(data.health), 1, max_health)
+	health = clampf(float(data.health), 0 if pending_death else 1, max_health)
 	damage = clampf(float(data.get("damage", class_stats.damage)), 1, 1.0e9)
 	attack_interval = clampf(float(data.get("attack_interval", class_stats.attack_interval)), 0.1, 3)
 	attack_range = clampf(float(data.get("attack_range", class_stats.attack_range)), 36, 240)
@@ -1351,7 +1531,8 @@ func restore_run(data: Dictionary) -> bool:
 	hurt_timer = 0.45
 	hitstop = 0
 	_release_input()
-	state = "paused"
+	state = "continue_offer" if pending_death else "paused"
+	_run_has_started = true
 	return true
 
 func _draw() -> void:

@@ -1,0 +1,8 @@
+{
+	"checks": 170,
+	"failures": 0,
+	"fixture_root": "res://output/test-data/ads-tests/1098467",
+	"generated_at_utc": "2026-10-17T18:29:40",
+	"mode": "headless deterministic injected fake backend; no live Google ads/consent",
+	"passed": true
+}

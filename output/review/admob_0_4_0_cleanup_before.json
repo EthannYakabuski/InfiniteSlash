@@ -1,0 +1,1 @@
+[{"Id":93200,"ProcessName":"adb","CPU":7.25,"WorkingSetMB":12.0},{"Id":72412,"ProcessName":"Godot_v4.5.1-stable_win64","CPU":319.375,"WorkingSetMB":257.0},{"Id":85160,"ProcessName":"java","CPU":582.328125,"WorkingSetMB":2077.0},{"Id":93540,"ProcessName":"qemu-system-x86_64-headless","CPU":3167.4375,"WorkingSetMB":2892.0}]

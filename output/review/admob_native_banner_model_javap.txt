@@ -1,0 +1,722 @@
+Compiled from "Banner.kt"
+public final class com.poingstudios.godot.admob.ads.adformats.Banner extends com.poingstudios.godot.admob.ads.adformats.AdFormatsBase {
+  private final java.lang.String pluginName;
+
+  private android.graphics.Rect safeArea;
+
+  private com.poingstudios.godot.admob.ads.adformats.Position mPosition;
+
+  private com.google.android.libraries.ads.mobile.sdk.banner.AdView mAdView;
+
+  private com.google.android.libraries.ads.mobile.sdk.banner.AdSize mAdSize;
+
+  private boolean isHidden;
+
+  private java.lang.String mAdUnitId;
+
+  private final android.view.View$OnLayoutChangeListener mLayoutChangeListener;
+
+  public com.poingstudios.godot.admob.ads.adformats.Banner(int, android.app.Activity, android.widget.FrameLayout, org.godotengine.godot.Godot, java.lang.String, org.godotengine.godot.Dictionary);
+    Code:
+       0: aload_2
+       1: ldc           #9                  // String activity
+       3: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_3
+       7: ldc           #17                 // String godotLayout
+       9: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+      12: aload         4
+      14: ldc           #19                 // String godot
+      16: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+      19: aload         5
+      21: ldc           #21                 // String pluginName
+      23: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+      26: aload         6
+      28: ldc           #23                 // String adViewDictionary
+      30: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+      33: aload_0
+      34: iload_1
+      35: aload_2
+      36: aload         4
+      38: invokespecial #26                 // Method com/poingstudios/godot/admob/ads/adformats/AdFormatsBase."<init>":(ILandroid/app/Activity;Lorg/godotengine/godot/Godot;)V
+      41: aload_0
+      42: aload         5
+      44: putfield      #29                 // Field pluginName:Ljava/lang/String;
+      47: aload_0
+      48: aload_0
+      49: invokevirtual #33                 // Method getSafeArea:()Landroid/graphics/Rect;
+      52: putfield      #37                 // Field safeArea:Landroid/graphics/Rect;
+      55: aload_0
+      56: aload_0
+      57: aload         6
+      59: invokespecial #41                 // Method extractPosition:(Lorg/godotengine/godot/Dictionary;)Lcom/poingstudios/godot/admob/ads/adformats/Position;
+      62: putfield      #45                 // Field mPosition:Lcom/poingstudios/godot/admob/ads/adformats/Position;
+      65: aload_0
+      66: aload         6
+      68: ldc           #47                 // String ad_size
+      70: invokevirtual #53                 // Method org/godotengine/godot/Dictionary.get:(Ljava/lang/Object;)Ljava/lang/Object;
+      73: dup
+      74: ldc           #55                 // String null cannot be cast to non-null type org.godotengine.godot.Dictionary
+      76: invokestatic  #58                 // Method kotlin/jvm/internal/Intrinsics.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      79: checkcast     #49                 // class org/godotengine/godot/Dictionary
+      82: aload_2
+      83: invokestatic  #64                 // Method com/poingstudios/godot/admob/ads/converters/GodotDictionaryToJavaObjectKt.convertToAdSize:(Lorg/godotengine/godot/Dictionary;Landroid/app/Activity;)Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;
+      86: putfield      #68                 // Field mAdSize:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;
+      89: aload_0
+      90: ldc           #70                 // String
+      92: putfield      #73                 // Field mAdUnitId:Ljava/lang/String;
+      95: aload_0
+      96: aload_0
+      97: aload_2
+      98: invokedynamic #91,  0             // InvokeDynamic #0:onLayoutChange:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;Landroid/app/Activity;)Landroid/view/View$OnLayoutChangeListener;
+     103: putfield      #95                 // Field mLayoutChangeListener:Landroid/view/View$OnLayoutChangeListener;
+     106: nop
+     107: aload_0
+     108: aload         6
+     110: ldc           #97                 // String ad_unit_id
+     112: invokevirtual #53                 // Method org/godotengine/godot/Dictionary.get:(Ljava/lang/Object;)Ljava/lang/Object;
+     115: dup
+     116: ldc           #99                 // String null cannot be cast to non-null type kotlin.String
+     118: invokestatic  #58                 // Method kotlin/jvm/internal/Intrinsics.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+     121: checkcast     #101                // class java/lang/String
+     124: putfield      #73                 // Field mAdUnitId:Ljava/lang/String;
+     127: aload_2
+     128: aload_0
+     129: aload_2
+     130: aload_3
+     131: invokedynamic #112,  0            // InvokeDynamic #1:run:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;Landroid/app/Activity;Landroid/widget/FrameLayout;)Ljava/lang/Runnable;
+     136: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+     139: nop
+     140: return
+
+  private final com.poingstudios.godot.admob.ads.adformats.Position extractPosition(org.godotengine.godot.Dictionary);
+    Code:
+       0: aload_1
+       1: ldc           #128                // String ad_position
+       3: iconst_0
+       4: iconst_2
+       5: aconst_null
+       6: invokestatic  #134                // Method com/poingstudios/godot/admob/core/utils/DictionaryExtensionsKt.getInt$default:(Lorg/godotengine/godot/Dictionary;Ljava/lang/String;IILjava/lang/Object;)I
+       9: getstatic     #140                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.CUSTOM:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+      12: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+      15: if_icmpne     22
+      18: aconst_null
+      19: goto          34
+      22: aload_1
+      23: ldc           #128                // String ad_position
+      25: iconst_0
+      26: iconst_2
+      27: aconst_null
+      28: invokestatic  #134                // Method com/poingstudios/godot/admob/core/utils/DictionaryExtensionsKt.getInt$default:(Lorg/godotengine/godot/Dictionary;Ljava/lang/String;IILjava/lang/Object;)I
+      31: invokestatic  #150                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+      34: astore_2
+      35: aload_1
+      36: ldc           #152                // String custom_position
+      38: invokevirtual #53                 // Method org/godotengine/godot/Dictionary.get:(Ljava/lang/Object;)Ljava/lang/Object;
+      41: dup
+      42: ldc           #55                 // String null cannot be cast to non-null type org.godotengine.godot.Dictionary
+      44: invokestatic  #58                 // Method kotlin/jvm/internal/Intrinsics.checkNotNull:(Ljava/lang/Object;Ljava/lang/String;)V
+      47: checkcast     #49                 // class org/godotengine/godot/Dictionary
+      50: astore_3
+      51: new           #154                // class com/poingstudios/godot/admob/ads/adformats/Position
+      54: dup
+      55: aload_2
+      56: aload_3
+      57: ldc           #156                // String x
+      59: iconst_0
+      60: iconst_2
+      61: aconst_null
+      62: invokestatic  #134                // Method com/poingstudios/godot/admob/core/utils/DictionaryExtensionsKt.getInt$default:(Lorg/godotengine/godot/Dictionary;Ljava/lang/String;IILjava/lang/Object;)I
+      65: aload_3
+      66: ldc           #158                // String y
+      68: iconst_0
+      69: iconst_2
+      70: aconst_null
+      71: invokestatic  #134                // Method com/poingstudios/godot/admob/core/utils/DictionaryExtensionsKt.getInt$default:(Lorg/godotengine/godot/Dictionary;Ljava/lang/String;IILjava/lang/Object;)I
+      74: invokespecial #161                // Method com/poingstudios/godot/admob/ads/adformats/Position."<init>":(Ljava/lang/Integer;II)V
+      77: areturn
+
+  private final int getGravity(java.lang.Integer);
+    Code:
+       0: aload_1
+       1: astore_3
+       2: aload_3
+       3: getstatic     #170                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.TOP:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+       6: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+       9: istore        4
+      11: dup
+      12: ifnonnull     19
+      15: pop
+      16: goto          32
+      19: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+      22: iload         4
+      24: if_icmpne     32
+      27: bipush        49
+      29: goto          274
+      32: aload_3
+      33: getstatic     #176                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.BOTTOM:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+      36: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+      39: istore        4
+      41: dup
+      42: ifnonnull     49
+      45: pop
+      46: goto          62
+      49: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+      52: iload         4
+      54: if_icmpne     62
+      57: bipush        81
+      59: goto          274
+      62: aload_3
+      63: getstatic     #179                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.LEFT:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+      66: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+      69: istore        4
+      71: dup
+      72: ifnonnull     79
+      75: pop
+      76: goto          92
+      79: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+      82: iload         4
+      84: if_icmpne     92
+      87: ldc           #180                // int 8388627
+      89: goto          274
+      92: aload_3
+      93: getstatic     #183                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.RIGHT:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+      96: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+      99: istore        4
+     101: dup
+     102: ifnonnull     109
+     105: pop
+     106: goto          122
+     109: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+     112: iload         4
+     114: if_icmpne     122
+     117: ldc           #184                // int 8388629
+     119: goto          274
+     122: aload_3
+     123: getstatic     #187                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.TOP_LEFT:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+     126: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+     129: istore        4
+     131: dup
+     132: ifnonnull     139
+     135: pop
+     136: goto          152
+     139: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+     142: iload         4
+     144: if_icmpne     152
+     147: ldc           #188                // int 8388659
+     149: goto          274
+     152: aload_3
+     153: getstatic     #191                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.TOP_RIGHT:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+     156: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+     159: istore        4
+     161: dup
+     162: ifnonnull     169
+     165: pop
+     166: goto          182
+     169: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+     172: iload         4
+     174: if_icmpne     182
+     177: ldc           #192                // int 8388661
+     179: goto          274
+     182: aload_3
+     183: getstatic     #195                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.BOTTOM_LEFT:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+     186: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+     189: istore        4
+     191: dup
+     192: ifnonnull     199
+     195: pop
+     196: goto          212
+     199: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+     202: iload         4
+     204: if_icmpne     212
+     207: ldc           #196                // int 8388691
+     209: goto          274
+     212: aload_3
+     213: getstatic     #199                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.BOTTOM_RIGHT:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+     216: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+     219: istore        4
+     221: dup
+     222: ifnonnull     229
+     225: pop
+     226: goto          242
+     229: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+     232: iload         4
+     234: if_icmpne     242
+     237: ldc           #200                // int 8388693
+     239: goto          274
+     242: aload_3
+     243: getstatic     #203                // Field com/poingstudios/godot/admob/ads/adformats/AdPosition.CENTER:Lcom/poingstudios/godot/admob/ads/adformats/AdPosition;
+     246: invokevirtual #144                // Method com/poingstudios/godot/admob/ads/adformats/AdPosition.getValue:()I
+     249: istore        4
+     251: dup
+     252: ifnonnull     259
+     255: pop
+     256: goto          272
+     259: invokevirtual #173                // Method java/lang/Integer.intValue:()I
+     262: iload         4
+     264: if_icmpne     272
+     267: bipush        17
+     269: goto          274
+     272: ldc           #188                // int 8388659
+     274: istore_2
+     275: iload_2
+     276: ireturn
+
+  private final android.widget.FrameLayout$LayoutParams getLayoutParams();
+    Code:
+       0: new           #209                // class android/widget/FrameLayout$LayoutParams
+       3: dup
+       4: bipush        -2
+       6: bipush        -2
+       8: invokespecial #212                // Method android/widget/FrameLayout$LayoutParams."<init>":(II)V
+      11: astore_1
+      12: aload_1
+      13: aload_0
+      14: aload_0
+      15: getfield      #45                 // Field mPosition:Lcom/poingstudios/godot/admob/ads/adformats/Position;
+      18: invokevirtual #215                // Method com/poingstudios/godot/admob/ads/adformats/Position.getValue:()Ljava/lang/Integer;
+      21: invokespecial #217                // Method getGravity:(Ljava/lang/Integer;)I
+      24: putfield      #219                // Field android/widget/FrameLayout$LayoutParams.gravity:I
+      27: aload_0
+      28: invokevirtual #33                 // Method getSafeArea:()Landroid/graphics/Rect;
+      31: astore_2
+      32: aload_2
+      33: getfield      #224                // Field android/graphics/Rect.left:I
+      36: istore_3
+      37: aload_2
+      38: getfield      #227                // Field android/graphics/Rect.top:I
+      41: istore        4
+      43: aload_0
+      44: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+      47: invokevirtual #235                // Method android/app/Activity.getWindow:()Landroid/view/Window;
+      50: invokevirtual #241                // Method android/view/Window.getDecorView:()Landroid/view/View;
+      53: invokevirtual #246                // Method android/view/View.getWidth:()I
+      56: aload_2
+      57: getfield      #249                // Field android/graphics/Rect.right:I
+      60: isub
+      61: istore        5
+      63: aload_0
+      64: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+      67: invokevirtual #235                // Method android/app/Activity.getWindow:()Landroid/view/Window;
+      70: invokevirtual #241                // Method android/view/Window.getDecorView:()Landroid/view/View;
+      73: invokevirtual #252                // Method android/view/View.getHeight:()I
+      76: aload_2
+      77: getfield      #255                // Field android/graphics/Rect.bottom:I
+      80: isub
+      81: istore        6
+      83: aload_0
+      84: getfield      #45                 // Field mPosition:Lcom/poingstudios/godot/admob/ads/adformats/Position;
+      87: invokevirtual #215                // Method com/poingstudios/godot/admob/ads/adformats/Position.getValue:()Ljava/lang/Integer;
+      90: ifnonnull     153
+      93: aload_0
+      94: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+      97: invokevirtual #259                // Method android/app/Activity.getResources:()Landroid/content/res/Resources;
+     100: invokevirtual #265                // Method android/content/res/Resources.getDisplayMetrics:()Landroid/util/DisplayMetrics;
+     103: getfield      #271                // Field android/util/DisplayMetrics.density:F
+     106: fstore        7
+     108: aload_1
+     109: aload_0
+     110: getfield      #45                 // Field mPosition:Lcom/poingstudios/godot/admob/ads/adformats/Position;
+     113: invokevirtual #274                // Method com/poingstudios/godot/admob/ads/adformats/Position.getCustomX:()I
+     116: i2f
+     117: fload         7
+     119: fmul
+     120: f2i
+     121: putfield      #277                // Field android/widget/FrameLayout$LayoutParams.leftMargin:I
+     124: aload_1
+     125: aload_0
+     126: getfield      #45                 // Field mPosition:Lcom/poingstudios/godot/admob/ads/adformats/Position;
+     129: invokevirtual #280                // Method com/poingstudios/godot/admob/ads/adformats/Position.getCustomY:()I
+     132: i2f
+     133: fload         7
+     135: fmul
+     136: f2i
+     137: putfield      #283                // Field android/widget/FrameLayout$LayoutParams.topMargin:I
+     140: aload_1
+     141: iconst_0
+     142: putfield      #286                // Field android/widget/FrameLayout$LayoutParams.rightMargin:I
+     145: aload_1
+     146: iconst_0
+     147: putfield      #289                // Field android/widget/FrameLayout$LayoutParams.bottomMargin:I
+     150: goto          176
+     153: aload_1
+     154: iload         6
+     156: putfield      #289                // Field android/widget/FrameLayout$LayoutParams.bottomMargin:I
+     159: aload_1
+     160: iload         5
+     162: putfield      #286                // Field android/widget/FrameLayout$LayoutParams.rightMargin:I
+     165: aload_1
+     166: iload_3
+     167: putfield      #277                // Field android/widget/FrameLayout$LayoutParams.leftMargin:I
+     170: aload_1
+     171: iload         4
+     173: putfield      #283                // Field android/widget/FrameLayout$LayoutParams.topMargin:I
+     176: aload_1
+     177: areturn
+
+  private final void updatePosition();
+    Code:
+       0: aload_0
+       1: invokespecial #298                // Method getLayoutParams:()Landroid/widget/FrameLayout$LayoutParams;
+       4: astore_1
+       5: aload_0
+       6: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+       9: dup
+      10: ifnonnull     21
+      13: pop
+      14: ldc_w         #303                // String mAdView
+      17: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      20: aconst_null
+      21: aload_1
+      22: checkcast     #309                // class android/view/ViewGroup$LayoutParams
+      25: invokevirtual #315                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.setLayoutParams:(Landroid/view/ViewGroup$LayoutParams;)V
+      28: return
+
+  public final void updatePosition(int);
+    Code:
+       0: aload_0
+       1: new           #154                // class com/poingstudios/godot/admob/ads/adformats/Position
+       4: dup
+       5: iload_1
+       6: invokestatic  #150                // Method java/lang/Integer.valueOf:(I)Ljava/lang/Integer;
+       9: iconst_0
+      10: iconst_0
+      11: invokespecial #161                // Method com/poingstudios/godot/admob/ads/adformats/Position."<init>":(Ljava/lang/Integer;II)V
+      14: putfield      #45                 // Field mPosition:Lcom/poingstudios/godot/admob/ads/adformats/Position;
+      17: aload_0
+      18: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+      21: aload_0
+      22: invokedynamic #324,  0            // InvokeDynamic #2:run:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;)Ljava/lang/Runnable;
+      27: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+      30: return
+
+  public final void updateCustomPosition(int, int);
+    Code:
+       0: aload_0
+       1: new           #154                // class com/poingstudios/godot/admob/ads/adformats/Position
+       4: dup
+       5: aconst_null
+       6: iload_1
+       7: iload_2
+       8: invokespecial #161                // Method com/poingstudios/godot/admob/ads/adformats/Position."<init>":(Ljava/lang/Integer;II)V
+      11: putfield      #45                 // Field mPosition:Lcom/poingstudios/godot/admob/ads/adformats/Position;
+      14: aload_0
+      15: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+      18: aload_0
+      19: invokedynamic #331,  0            // InvokeDynamic #3:run:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;)Ljava/lang/Runnable;
+      24: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+      27: return
+
+  public final void loadAd(org.godotengine.godot.Dictionary, java.lang.String[]);
+    Code:
+       0: aload_1
+       1: ldc_w         #335                // String adRequestDictionary
+       4: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+       7: aload_2
+       8: ldc_w         #337                // String keywords
+      11: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+      14: aload_0
+      15: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+      18: aload_1
+      19: aload_2
+      20: aload_0
+      21: invokedynamic #345,  0            // InvokeDynamic #4:run:(Lorg/godotengine/godot/Dictionary;[Ljava/lang/String;Lcom/poingstudios/godot/admob/ads/adformats/Banner;)Ljava/lang/Runnable;
+      26: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+      29: return
+
+  public final void destroy();
+    Code:
+       0: aload_0
+       1: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+       4: aload_0
+       5: invokedynamic #352,  0            // InvokeDynamic #5:run:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;)Ljava/lang/Runnable;
+      10: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+      13: return
+
+  public final void hide();
+    Code:
+       0: aload_0
+       1: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+       4: aload_0
+       5: invokedynamic #358,  0            // InvokeDynamic #6:run:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;)Ljava/lang/Runnable;
+      10: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+      13: return
+
+  public final void show();
+    Code:
+       0: aload_0
+       1: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+       4: aload_0
+       5: invokedynamic #364,  0            // InvokeDynamic #7:run:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;)Ljava/lang/Runnable;
+      10: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+      13: return
+
+  public final int getWidth();
+    Code:
+       0: aload_0
+       1: getfield      #68                 // Field mAdSize:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;
+       4: invokevirtual #367                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdSize.getWidth:()I
+       7: ireturn
+
+  public final int getHeight();
+    Code:
+       0: aload_0
+       1: getfield      #68                 // Field mAdSize:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;
+       4: invokevirtual #368                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdSize.getHeight:()I
+       7: ireturn
+
+  public final int getWidthInPixels();
+    Code:
+       0: aload_0
+       1: getfield      #68                 // Field mAdSize:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;
+       4: aload_0
+       5: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+       8: checkcast     #371                // class android/content/Context
+      11: invokevirtual #374                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdSize.getWidthInPixels:(Landroid/content/Context;)I
+      14: ireturn
+
+  public final int getHeightInPixels();
+    Code:
+       0: aload_0
+       1: getfield      #68                 // Field mAdSize:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;
+       4: aload_0
+       5: invokevirtual #231                // Method getActivity:()Landroid/app/Activity;
+       8: checkcast     #371                // class android/content/Context
+      11: invokevirtual #377                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdSize.getHeightInPixels:(Landroid/content/Context;)I
+      14: ireturn
+
+  public final org.godotengine.godot.Dictionary getBannerAdResponseInfo();
+    Code:
+       0: aload_0
+       1: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+       4: dup
+       5: ifnonnull     16
+       8: pop
+       9: ldc_w         #303                // String mAdView
+      12: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      15: aconst_null
+      16: invokevirtual #383                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.getBannerAd:()Lcom/google/android/libraries/ads/mobile/sdk/banner/BannerAd;
+      19: astore_1
+      20: aload_1
+      21: dup
+      22: ifnull        41
+      25: invokeinterface #389,  1          // InterfaceMethod com/google/android/libraries/ads/mobile/sdk/banner/BannerAd.getResponseInfo:()Lcom/google/android/libraries/ads/mobile/sdk/common/ResponseInfo;
+      30: dup
+      31: ifnull        41
+      34: invokestatic  #395                // Method com/poingstudios/godot/admob/ads/converters/JavaObjectToGodotDictionaryKt.convertToGodotDictionary:(Lcom/google/android/libraries/ads/mobile/sdk/common/ResponseInfo;)Lorg/godotengine/godot/Dictionary;
+      37: dup
+      38: ifnonnull     49
+      41: pop
+      42: new           #49                 // class org/godotengine/godot/Dictionary
+      45: dup
+      46: invokespecial #397                // Method org/godotengine/godot/Dictionary."<init>":()V
+      49: areturn
+
+  public final boolean isBannerAdCollapsible();
+    Code:
+       0: aload_0
+       1: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+       4: dup
+       5: ifnonnull     16
+       8: pop
+       9: ldc_w         #303                // String mAdView
+      12: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      15: aconst_null
+      16: invokevirtual #383                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.getBannerAd:()Lcom/google/android/libraries/ads/mobile/sdk/banner/BannerAd;
+      19: astore_1
+      20: aload_1
+      21: dup
+      22: ifnull        33
+      25: invokeinterface #406,  1          // InterfaceMethod com/google/android/libraries/ads/mobile/sdk/banner/BannerAd.isCollapsible:()Z
+      30: goto          35
+      33: pop
+      34: iconst_0
+      35: ireturn
+
+  private static final void mLayoutChangeListener$lambda$1$lambda$0(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: invokespecial #409                // Method updatePosition:()V
+       4: return
+
+  private static final void mLayoutChangeListener$lambda$1(com.poingstudios.godot.admob.ads.adformats.Banner, android.app.Activity, android.view.View, int, int, int, int, int, int, int, int);
+    Code:
+       0: aload_0
+       1: invokevirtual #33                 // Method getSafeArea:()Landroid/graphics/Rect;
+       4: astore        11
+       6: aload         11
+       8: aload_0
+       9: getfield      #37                 // Field safeArea:Landroid/graphics/Rect;
+      12: invokestatic  #414                // Method kotlin/jvm/internal/Intrinsics.areEqual:(Ljava/lang/Object;Ljava/lang/Object;)Z
+      15: ifeq          19
+      18: return
+      19: aload_0
+      20: aload         11
+      22: putfield      #37                 // Field safeArea:Landroid/graphics/Rect;
+      25: aload_0
+      26: getfield      #418                // Field isHidden:Z
+      29: ifne          42
+      32: aload_1
+      33: aload_0
+      34: invokedynamic #422,  0            // InvokeDynamic #8:run:(Lcom/poingstudios/godot/admob/ads/adformats/Banner;)Ljava/lang/Runnable;
+      39: invokevirtual #118                // Method android/app/Activity.runOnUiThread:(Ljava/lang/Runnable;)V
+      42: return
+
+  private static final void _init_$lambda$2(com.poingstudios.godot.admob.ads.adformats.Banner, android.app.Activity, android.widget.FrameLayout);
+    Code:
+       0: aload_0
+       1: new           #311                // class com/google/android/libraries/ads/mobile/sdk/banner/AdView
+       4: dup
+       5: aload_1
+       6: checkcast     #371                // class android/content/Context
+       9: invokespecial #427                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView."<init>":(Landroid/content/Context;)V
+      12: putfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+      15: aload_2
+      16: aload_0
+      17: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+      20: dup
+      21: ifnonnull     32
+      24: pop
+      25: ldc_w         #303                // String mAdView
+      28: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      31: aconst_null
+      32: checkcast     #243                // class android/view/View
+      35: invokevirtual #433                // Method android/widget/FrameLayout.addView:(Landroid/view/View;)V
+      38: aload_2
+      39: aload_0
+      40: getfield      #95                 // Field mLayoutChangeListener:Landroid/view/View$OnLayoutChangeListener;
+      43: invokevirtual #437                // Method android/widget/FrameLayout.addOnLayoutChangeListener:(Landroid/view/View$OnLayoutChangeListener;)V
+      46: aload_0
+      47: invokespecial #409                // Method updatePosition:()V
+      50: return
+
+  private static final void updatePosition$lambda$3(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: invokespecial #409                // Method updatePosition:()V
+       4: return
+
+  private static final void updateCustomPosition$lambda$4(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: invokespecial #409                // Method updatePosition:()V
+       4: return
+
+  private static final void loadAd$lambda$5(org.godotengine.godot.Dictionary, java.lang.String[], com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: aload_2
+       3: getfield      #73                 // Field mAdUnitId:Ljava/lang/String;
+       6: aload_2
+       7: getfield      #68                 // Field mAdSize:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;
+      10: invokestatic  #442                // Method com/poingstudios/godot/admob/ads/converters/GodotDictionaryToJavaObjectKt.convertToBannerAdRequest:(Lorg/godotengine/godot/Dictionary;[Ljava/lang/String;Ljava/lang/String;Lcom/google/android/libraries/ads/mobile/sdk/banner/AdSize;)Lcom/google/android/libraries/ads/mobile/sdk/banner/BannerAdRequest;
+      13: astore_3
+      14: aload_2
+      15: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+      18: dup
+      19: ifnonnull     30
+      22: pop
+      23: ldc_w         #303                // String mAdView
+      26: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      29: aconst_null
+      30: aload_3
+      31: new           #444                // class com/poingstudios/godot/admob/ads/adformats/Banner$loadAd$1$1
+      34: dup
+      35: aload_2
+      36: invokespecial #446                // Method com/poingstudios/godot/admob/ads/adformats/Banner$loadAd$1$1."<init>":(Lcom/poingstudios/godot/admob/ads/adformats/Banner;)V
+      39: checkcast     #448                // class com/google/android/libraries/ads/mobile/sdk/common/AdLoadCallback
+      42: invokevirtual #451                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.loadAd:(Lcom/google/android/libraries/ads/mobile/sdk/banner/BannerAdRequest;Lcom/google/android/libraries/ads/mobile/sdk/common/AdLoadCallback;)V
+      45: return
+
+  private static final void destroy$lambda$6(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+       4: dup
+       5: ifnonnull     16
+       8: pop
+       9: ldc_w         #303                // String mAdView
+      12: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      15: aconst_null
+      16: invokevirtual #462                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.getParent:()Landroid/view/ViewParent;
+      19: astore_1
+      20: aload_1
+      21: instanceof    #464                // class android/view/ViewGroup
+      24: ifeq          34
+      27: aload_1
+      28: checkcast     #464                // class android/view/ViewGroup
+      31: goto          35
+      34: aconst_null
+      35: dup
+      36: ifnull        64
+      39: aload_0
+      40: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+      43: dup
+      44: ifnonnull     55
+      47: pop
+      48: ldc_w         #303                // String mAdView
+      51: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      54: aconst_null
+      55: checkcast     #243                // class android/view/View
+      58: invokevirtual #467                // Method android/view/ViewGroup.removeView:(Landroid/view/View;)V
+      61: goto          65
+      64: pop
+      65: aload_0
+      66: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+      69: dup
+      70: ifnonnull     81
+      73: pop
+      74: ldc_w         #303                // String mAdView
+      77: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      80: aconst_null
+      81: invokevirtual #469                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.destroy:()V
+      84: return
+
+  private static final void hide$lambda$7(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+       4: dup
+       5: ifnonnull     16
+       8: pop
+       9: ldc_w         #303                // String mAdView
+      12: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      15: aconst_null
+      16: bipush        8
+      18: invokevirtual #474                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.setVisibility:(I)V
+      21: aload_0
+      22: iconst_1
+      23: putfield      #418                // Field isHidden:Z
+      26: return
+
+  private static final void show$lambda$8(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+       4: dup
+       5: ifnonnull     16
+       8: pop
+       9: ldc_w         #303                // String mAdView
+      12: invokestatic  #307                // Method kotlin/jvm/internal/Intrinsics.throwUninitializedPropertyAccessException:(Ljava/lang/String;)V
+      15: aconst_null
+      16: iconst_0
+      17: invokevirtual #474                // Method com/google/android/libraries/ads/mobile/sdk/banner/AdView.setVisibility:(I)V
+      20: aload_0
+      21: iconst_0
+      22: putfield      #418                // Field isHidden:Z
+      25: aload_0
+      26: invokespecial #409                // Method updatePosition:()V
+      29: return
+
+  public static final com.google.android.libraries.ads.mobile.sdk.banner.AdView access$getMAdView$p(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: getfield      #302                // Field mAdView:Lcom/google/android/libraries/ads/mobile/sdk/banner/AdView;
+       4: areturn
+
+  public static final java.lang.String access$getPluginName$p(com.poingstudios.godot.admob.ads.adformats.Banner);
+    Code:
+       0: aload_0
+       1: getfield      #29                 // Field pluginName:Ljava/lang/String;
+       4: areturn
+}

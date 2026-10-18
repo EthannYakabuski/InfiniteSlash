@@ -1,0 +1,47 @@
+{
+  "InfiniteSlash-debug-0.2.0.apk": {
+    "bytes": 182719414,
+    "sha256": "d4c515364931cc3dd6a0a72b51c8261b4da7ded77add412f39366cef9ba13ad7"
+  },
+  "InfiniteSlash-debug-0.2.1.apk": {
+    "bytes": 182719418,
+    "sha256": "786f838d8750cb5fabe5a1f10396ee862b498bda3be3192bd0c39de7bdb64a58"
+  },
+  "InfiniteSlash-debug-0.3.0.apk": {
+    "bytes": 182935394,
+    "sha256": "c8e9bfd09202453f58b388547477a88019c3078318570f1635478fd2fc732667"
+  },
+  "InfiniteSlash-debug-0.3.1.apk": {
+    "bytes": 182935422,
+    "sha256": "f0889504c2f46a394eb195e6a42937e4b08d6e13cd5f92adb3217124cffe43ae"
+  },
+  "InfiniteSlash-debug.apk": {
+    "bytes": 182935422,
+    "sha256": "f0889504c2f46a394eb195e6a42937e4b08d6e13cd5f92adb3217124cffe43ae",
+    "preserved_as": "InfiniteSlash-debug-0.3.1.apk"
+  },
+  "InfiniteSlash-play-0.2.0.aab": {
+    "bytes": 35920903,
+    "sha256": "51c03f8a91d89f4d576688070a0ad0848d250ba8cbafbe7428031f2e6b00c43b"
+  },
+  "InfiniteSlash-play-0.2.1.aab": {
+    "bytes": 35920892,
+    "sha256": "38a5cb0f46249d236f7d79757a127f557beb1a78b15ff922ab9f104818e5dac1"
+  },
+  "InfiniteSlash-play-0.3.0.aab": {
+    "bytes": 36167239,
+    "sha256": "4dd61060ad0150ddd5cec124289723a122e49f7a14966f45d87f7be1dc41c33f"
+  },
+  "InfiniteSlash-play-0.3.1.aab": {
+    "bytes": 36167240,
+    "sha256": "4caef169d7907e535a23685fee076dc4bfa5502e1ce54dd7bbfbcb5702aa7680"
+  },
+  "InfiniteSlash-play-unsigned.aab": {
+    "bytes": 35581852,
+    "sha256": "9c02290ec456b0ff7f101f7a69f4521b183f14d326eb434b14db96d6c2062900"
+  },
+  "InfiniteSlash-play.aab": {
+    "bytes": 35896715,
+    "sha256": "dca93d597174a557e1f15bb035d6d606c0575160565d6f7357627b95288e3112"
+  }
+}

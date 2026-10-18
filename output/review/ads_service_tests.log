@@ -1,0 +1,133 @@
+Godot Engine v4.5.1.stable.official.f62fdbde1 - https://godotengine.org
+TextServer: Added interface "Dummy"
+TextServer: Added interface "ICU / HarfBuzz / Graphite (Built-in)"
+Unrecognized output string "misc2" in mapping:
+030000000d0f00000202000000000000,Horipad O Nintendo Switch 2 Controller,a:b1,b:b0,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b4,leftstick:b10,lefttrigger:b6,leftx:a0,lefty:a1,misc1:b13,misc2:b14,rightshoulder:b5,rightstick:b11,righttrigger:b7,rightx:a2,righty:a3,start:b9,x:b3,y:b2,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000000d0f00009601000000000000,Horipad Steam,a:b0,b:b1,back:b10,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,guide:b12,leftshoulder:b6,leftstick:b13,lefttrigger:b8,leftx:a0,lefty:a1,misc2:b2,paddle1:b5,paddle2:b15,paddle3:b18,paddle4:b19,rightshoulder:b7,rightstick:b14,righttrigger:b9,rightx:a3,righty:a4,start:b11,x:b3,y:b4,platform:Windows,
+Unrecognized output string "misc2" in mapping:
+030000007e0500006920000000000000,Nintendo Switch 2 Pro Controller,a:b0,b:b1,back:b14,dpdown:b8,dpleft:b10,dpright:b9,dpup:b11,guide:b16,leftshoulder:b12,leftstick:b15,lefttrigger:b13,leftx:a0,lefty:a1~,misc1:b17,misc2:b20,paddle1:b18,paddle2:b19,rightshoulder:b4,rightstick:b7,righttrigger:b5,rightx:a2,righty:a3~,start:b6,x:b2,y:b3,platform:Windows,
+Using "default" pen tablet driver...
+
+TextServer: Primary interface set to: "ICU / HarfBuzz / Graphite (Built-in)".
+CORE API HASH: 937899573
+EDITOR API HASH: 1777164193
+Loading resource: res://tests/test_ads_service.gd
+SceneTreeFTI: traversal method DEFAULT
+Loading resource: res://addons/GodotPlayGameServices/scripts/autoloads/godot_play_game_services.gd
+Loading resource: res://scripts/services/save_data.gd
+Loading resource: res://scripts/services/play_services.gd
+Loading resource: res://scripts/audio_manager.gd
+Loading resource: res://Assets/Generated/music_loop.wav
+Loading resource: res://.godot/imported/music_loop.wav-655b920256314b1eafadc278d9beed58.sample
+Loading resource: res://Assets/Audio/RPG/Audio/knifeSlice.ogg
+Loading resource: res://.godot/imported/knifeSlice.ogg-2f872690022e561264de7e18e8b4542a.oggvorbisstr
+Loading resource: res://Assets/Audio/Impact/Audio/impactSoft_medium_000.ogg
+Loading resource: res://.godot/imported/impactSoft_medium_000.ogg-5694d8bc9a2431a71720cf7d1d3a8a5a.oggvorbisstr
+Loading resource: res://Assets/Audio/RPG/Audio/chop.ogg
+Loading resource: res://.godot/imported/chop.ogg-8c2909dbd1e57963ad45b4c37fb08efd.oggvorbisstr
+Loading resource: res://Assets/Audio/Impact/Audio/impactMetal_light_000.ogg
+Loading resource: res://.godot/imported/impactMetal_light_000.ogg-ff7378eebb816fae31f404dca84960cb.oggvorbisstr
+Loading resource: res://Assets/Audio/Impact/Audio/impactBell_heavy_000.ogg
+Loading resource: res://.godot/imported/impactBell_heavy_000.ogg-ebfef5cbf155f9c54cc1b40946a48264.oggvorbisstr
+Loading resource: res://Assets/Audio/RPG/Audio/handleCoins.ogg
+Loading resource: res://.godot/imported/handleCoins.ogg-4c642b3c0c05351810a8466fbdc0709e.oggvorbisstr
+Loading resource: res://Assets/Audio/UI/Audio/confirmation_001.ogg
+Loading resource: res://.godot/imported/confirmation_001.ogg-717482c5624e973d60bf284127908e72.oggvorbisstr
+Loading resource: res://Assets/Audio/UI/Audio/error_001.ogg
+Loading resource: res://.godot/imported/error_001.ogg-0e05a2d51fb9bf64bcc464f004761365.oggvorbisstr
+Loading resource: res://Assets/Audio/UI/Audio/pluck_001.ogg
+Loading resource: res://.godot/imported/pluck_001.ogg-a9a5c2b4433bef08a2a508d88962e54e.oggvorbisstr
+Loading resource: res://Assets/Audio/RPG/Audio/drawKnife1.ogg
+Loading resource: res://.godot/imported/drawKnife1.ogg-160bde48b607281c2ef390d7033f3248.oggvorbisstr
+ERROR: Failed to read the root certificate store.
+   at: get_system_ca_certificates (platform/windows/os_windows.cpp:2548)
+Loaded builtin CA certificates
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":false,"event":"consent_completed","privacy_required":true}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":false,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":false,"event":"consent_completed","privacy_required":true}
+INFINITESLASH_ADS {"allowed":false,"event":"privacy_completed","privacy_required":true}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"loaded","kind":"banner"}
+INFINITESLASH_ADS {"event":"loaded","kind":"banner"}
+INFINITESLASH_ADS {"event":"loaded","kind":"banner"}
+INFINITESLASH_ADS {"event":"loaded","kind":"banner"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"loaded","kind":"banner"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"shown","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"reward_earned"}
+INFINITESLASH_ADS {"earned":true,"event":"closed","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"shown","kind":"rewarded"}
+INFINITESLASH_ADS {"earned":false,"event":"closed","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"show_failed","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"event":"loaded","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"show_failed","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"loaded","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"shown","kind":"interstitial"}
+INFINITESLASH_ADS {"earned":false,"event":"closed","kind":"interstitial"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"event":"loaded","kind":"interstitial"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"event":"loaded","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"earned":false,"event":"closed","kind":"rewarded"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"event":"loaded","kind":"interstitial"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":true}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"allowed":false,"event":"privacy_completed","privacy_required":true}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":false}
+INFINITESLASH_ADS {"event":"loaded","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"rewarded"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"interstitial"}
+INFINITESLASH_ADS {"event":"load_failed","kind":"rewarded"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"allowed":true,"event":"consent_completed","privacy_required":true}
+INFINITESLASH_ADS {"event":"initialized"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+INFINITESLASH_ADS {"available":true,"event":"backend"}
+Ad service: 170 checks, 0 failures
+XR: Clearing primary interface
+XR: Removed interface "Native mobile"
+XR: Removed interface "OpenXR"

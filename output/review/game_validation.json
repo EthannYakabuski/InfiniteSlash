@@ -18,12 +18,12 @@
 	"pass": true,
 	"stress": {
 		"android_device_measured": false,
-		"average_step_ms": 2.14220194444444,
-		"bosses_seen": 4,
-		"kills": 3180,
-		"level": 27,
-		"max_step_ms": 104.072,
-		"p95_step_ms": 3.61,
+		"average_step_ms": 3.00074933333333,
+		"bosses_seen": 3,
+		"kills": 2726,
+		"level": 25,
+		"max_step_ms": 130.39,
+		"p95_step_ms": 7.029,
 		"peaks": {
 			"bullets": 480,
 			"drops": 60,
@@ -33,6 +33,6 @@
 		"rendering_measured": false,
 		"simulated_seconds": 300,
 		"steps": 18000,
-		"wall_time_ms": 39502.328
+		"wall_time_ms": 55257.251
 	}
 }

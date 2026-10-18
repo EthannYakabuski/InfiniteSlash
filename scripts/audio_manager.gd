@@ -32,6 +32,7 @@ var _last_sound_ms: Dictionary = {}
 var _music_player: AudioStreamPlayer
 var _sfx_enabled: bool = true
 var _music_enabled: bool = true
+var _external_paused: bool = false
 var _random: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
@@ -64,7 +65,7 @@ func _ready() -> void:
 
 
 func play_sound(kind: String, pitch: float = 1.0) -> void:
-	if not _sfx_enabled or not SOUNDS.has(kind) or _pool.is_empty():
+	if _external_paused or not _sfx_enabled or not SOUNDS.has(kind) or _pool.is_empty():
 		return
 	var now: int = Time.get_ticks_msec()
 	var min_interval: int = int(MIN_INTERVAL_MS.get(kind, 0))
@@ -117,6 +118,17 @@ func set_music_enabled(enabled: bool) -> void:
 		_music_player.play()
 	elif not enabled:
 		_music_player.stop()
+	_music_player.stream_paused = _external_paused
+
+
+## Native ads and backgrounding suspend playback without changing saved preferences.
+func set_external_paused(paused: bool) -> void:
+	_external_paused = paused
+	if _music_player != null:
+		_music_player.stream_paused = paused
+	if paused:
+		for player in _pool:
+			player.stop()
 
 
 func refresh_settings() -> void:

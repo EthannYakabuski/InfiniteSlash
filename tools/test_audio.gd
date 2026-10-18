@@ -42,6 +42,18 @@ func _run() -> void:
 	_check(not music.playing, "Disabling music did not stop the loop")
 	audio.set_music_enabled(true)
 	_check(music.playing, "Re-enabling music did not start the loop")
+	audio.set_sfx_enabled(true)
+	audio.play_sound("start")
+	audio.set_external_paused(true)
+	_check(music.stream_paused and audio.active_effect_count() == 0, "Native fullscreen must pause music and stop current game effects")
+	audio.play_sound("hurt")
+	_check(audio.active_effect_count() == 0, "Native fullscreen must suppress new game effects")
+	_check(audio.is_music_enabled() and audio.is_sfx_enabled(), "External suspension must preserve both audio preferences")
+	audio.set_music_enabled(false)
+	audio.set_music_enabled(true)
+	_check(music.stream_paused, "A settings refresh cannot unpause music under a native ad")
+	audio.set_external_paused(false)
+	_check(music.playing and not music.stream_paused, "Fullscreen dismissal must resume the enabled music loop")
 	audio.refresh_settings()
 	audio.stop_for_shutdown()
 	# Audio stop/replacement is released on the mixer thread. Two unlimited
@@ -52,5 +64,5 @@ func _run() -> void:
 	await process_frame
 	await process_frame
 	if _failures.is_empty():
-		print("PASS: AudioManager bounded polyphony, mute gates, unknown cues, settings refresh, and 32-second loop")
+		print("PASS: AudioManager bounded polyphony, mute gates, native fullscreen suspension, settings refresh, and 32-second loop")
 	quit(0 if _failures.is_empty() else 1)

@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "previous_default_sha256": "f0889504c2f46a394eb195e6a42937e4b08d6e13cd5f92adb3217124cffe43ae",
+  "new_default_sha256": "549f924d65ebf018b43c7084442d61e3d645c8f654aad1bf2111a822d41e6486",
+  "prior_version_preserved": "builds/InfiniteSlash-debug-0.3.1.apk"
+}

@@ -1,0 +1,41 @@
+{
+  "checks": 236,
+  "failures": [],
+  "layouts": [
+    {
+      "physical_to_logical": 1.0,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        540,
+        960
+      ]
+    },
+    {
+      "physical_to_logical": 1.0,
+      "viewport": [
+        540.0,
+        1110.0
+      ],
+      "window": [
+        540,
+        1110
+      ]
+    },
+    {
+      "physical_to_logical": 0.5,
+      "viewport": [
+        540.0,
+        960.0
+      ],
+      "window": [
+        1080,
+        1920
+      ]
+    }
+  ],
+  "native_ads_requested": false,
+  "pass": true
+}

@@ -1,0 +1,17 @@
+// Read-only dependency preparation: resolve the actual app runtime artifacts
+// without compiling, packaging or exporting the game.
+gradle.projectsEvaluated {
+    [
+        "com.google.android.libraries.ads.mobile.sdk:ads-mobile-sdk:1.4.0",
+        "androidx.constraintlayout:constraintlayout:2.2.0",
+        "com.google.android.gms:play-services-games-v2:21.0.0"
+    ].each { coordinate -> rootProject.dependencies.add("implementation", coordinate) }
+    rootProject.tasks.register("resolveAdmobArtifacts") {
+        doLast {
+            def runtime = rootProject.configurations.getByName("standardDebugRuntimeClasspath")
+            runtime.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+                println("ADMOB_ARTIFACT ${artifact.moduleVersion.id} ${artifact.file.name}")
+            }
+        }
+    }
+}

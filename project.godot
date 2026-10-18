@@ -8,6 +8,11 @@
 
 config_version=5
 
+[admob]
+
+general/android/app_id="ca-app-pub-7719473349082950~3864825368"
+general/ios/enabled=false
+
 [application]
 
 config/name="InfiniteSlash"
@@ -24,6 +29,7 @@ GodotPlayGameServices="*res://addons/GodotPlayGameServices/scripts/autoloads/god
 SaveData="*res://scripts/services/save_data.gd"
 PlayServices="*res://scripts/services/play_services.gd"
 AudioManager="*res://scripts/audio_manager.gd"
+Ads="*res://scripts/services/ads_service.gd"
 
 [debug]
 
@@ -41,7 +47,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GodotPlayGameServices/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotPlayGameServices/plugin.cfg", "res://addons/admob/plugin.cfg")
 
 [physics]
 

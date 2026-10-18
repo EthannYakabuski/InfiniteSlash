@@ -1,0 +1,5 @@
+WARNING | Please update the emulator to one that supports the feature(s): Vulkan
+INFO    | Ignore IPv6 address: 58f9:9ac9:3802:0:e0eb:9ac9:3802:0 (2x)
+WARNING | FeatureControl is requesting a non existing feature.
+[86784:82768:20261017,134650.455:ERROR filesystem_win.cc:130] GetFileAttributes C:\Users\swimr\AppData\Local\Temp\\AndroidEmulator\emu-crash-35.1.21.db\attachments\fa9f62f6-2594-4aa5-a9b8-207b0eb88cf7: The system cannot find the file specified. (2)
+[86784:82768:20261017,134650.505:ERROR filesystem_win.cc:130] GetFileAttributes C:\Users\swimr\AppData\Local\Temp\\AndroidEmulator\emu-crash-35.1.21.db\attachments\fa9f62f6-2594-4aa5-a9b8-207b0eb88cf7: The system cannot find the file specified. (2)

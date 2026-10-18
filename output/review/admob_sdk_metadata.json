@@ -1,0 +1,18 @@
+[
+  {
+    "artifact": "com.google.android.libraries.ads.mobile.sdk\\ads-mobile-sdk\\1.4.0\\c6b2129fd34fcc8b13a717335326dc61fb85b3d7\\ads-mobile-sdk-1.4.0.aar",
+    "sha256": "d3fed6c8208ee00ebdffc03ea7a577e1f786b0eb12817b387ef217611ae58780",
+    "native": [],
+    "metadata": "aarFormatVersion=1.0\naarMetadataVersion=1.0\nminCompileSdk=1\nminCompileSdkExtension=0\nminAndroidGradlePluginVersion=7.3.1\ncoreLibraryDesugaringEnabled=false\n"
+  },
+  {
+    "artifact": "com.google.android.ump\\user-messaging-platform\\4.0.0\\ec92119130cb90fbc9906f951e1e17334c9e065d\\user-messaging-platform-4.0.0.aar",
+    "sha256": "429889c7108caf88207d5d078e8fa7655a0ec6aca718399f27455bebe5978621",
+    "native": []
+  },
+  {
+    "artifact": "org.chromium.net\\httpengine-native-provider\\143.7445.0\\b9a4a673b63589564337268b8e3e358e29e21433\\httpengine-native-provider-143.7445.0.aar",
+    "sha256": "50d8e3f3c16b9a199b48f8df2aafa58ae115058a68a29696da888248c638ad6d",
+    "native": []
+  }
+]

@@ -1,0 +1,160 @@
+Compiled from "AdFormatsBase.kt"
+public abstract class com.poingstudios.godot.admob.ads.adformats.AdFormatsBase {
+  private final int uid;
+
+  private final android.app.Activity activity;
+
+  private final org.godotengine.godot.Godot godot;
+
+  public com.poingstudios.godot.admob.ads.adformats.AdFormatsBase(int, android.app.Activity, org.godotengine.godot.Godot);
+    Code:
+       0: aload_2
+       1: ldc           #9                  // String activity
+       3: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+       6: aload_3
+       7: ldc           #17                 // String godot
+       9: invokestatic  #15                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullParameter:(Ljava/lang/Object;Ljava/lang/String;)V
+      12: aload_0
+      13: invokespecial #20                 // Method java/lang/Object."<init>":()V
+      16: aload_0
+      17: iload_1
+      18: putfield      #24                 // Field uid:I
+      21: aload_0
+      22: aload_2
+      23: putfield      #27                 // Field activity:Landroid/app/Activity;
+      26: aload_0
+      27: aload_3
+      28: putfield      #30                 // Field godot:Lorg/godotengine/godot/Godot;
+      31: return
+
+  public final int getUid();
+    Code:
+       0: aload_0
+       1: getfield      #24                 // Field uid:I
+       4: ireturn
+
+  public final android.app.Activity getActivity();
+    Code:
+       0: aload_0
+       1: getfield      #27                 // Field activity:Landroid/app/Activity;
+       4: areturn
+
+  public final org.godotengine.godot.Godot getGodot();
+    Code:
+       0: aload_0
+       1: getfield      #30                 // Field godot:Lorg/godotengine/godot/Godot;
+       4: areturn
+
+  protected final android.graphics.Rect getSafeArea();
+    Code:
+       0: new           #42                 // class android/graphics/Rect
+       3: dup
+       4: invokespecial #43                 // Method android/graphics/Rect."<init>":()V
+       7: astore_1
+       8: aload_0
+       9: getfield      #27                 // Field activity:Landroid/app/Activity;
+      12: invokevirtual #49                 // Method android/app/Activity.getWindow:()Landroid/view/Window;
+      15: astore_2
+      16: aload_2
+      17: invokevirtual #55                 // Method android/view/Window.getDecorView:()Landroid/view/View;
+      20: dup
+      21: ldc           #57                 // String getDecorView(...)
+      23: invokestatic  #60                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullExpressionValue:(Ljava/lang/Object;Ljava/lang/String;)V
+      26: astore_3
+      27: aload_3
+      28: aload_1
+      29: invokevirtual #66                 // Method android/view/View.getWindowVisibleDisplayFrame:(Landroid/graphics/Rect;)V
+      32: getstatic     #71                 // Field android/os/Build$VERSION.SDK_INT:I
+      35: bipush        28
+      37: if_icmplt     235
+      40: aload_3
+      41: invokevirtual #75                 // Method android/view/View.getRootWindowInsets:()Landroid/view/WindowInsets;
+      44: astore        4
+      46: aload         4
+      48: ifnull        235
+      51: aload         4
+      53: invokevirtual #81                 // Method android/view/WindowInsets.getDisplayCutout:()Landroid/view/DisplayCutout;
+      56: astore        5
+      58: aload         5
+      60: ifnull        137
+      63: aload_1
+      64: aload_1
+      65: getfield      #84                 // Field android/graphics/Rect.left:I
+      68: aload         5
+      70: invokevirtual #89                 // Method android/view/DisplayCutout.getSafeInsetLeft:()I
+      73: invokestatic  #95                 // Method java/lang/Math.max:(II)I
+      76: putfield      #84                 // Field android/graphics/Rect.left:I
+      79: aload_1
+      80: aload_1
+      81: getfield      #98                 // Field android/graphics/Rect.top:I
+      84: aload         5
+      86: invokevirtual #101                // Method android/view/DisplayCutout.getSafeInsetTop:()I
+      89: invokestatic  #95                 // Method java/lang/Math.max:(II)I
+      92: putfield      #98                 // Field android/graphics/Rect.top:I
+      95: aload_1
+      96: aload_1
+      97: getfield      #104                // Field android/graphics/Rect.right:I
+     100: aload_3
+     101: invokevirtual #107                // Method android/view/View.getWidth:()I
+     104: aload         5
+     106: invokevirtual #110                // Method android/view/DisplayCutout.getSafeInsetRight:()I
+     109: isub
+     110: invokestatic  #113                // Method java/lang/Math.min:(II)I
+     113: putfield      #104                // Field android/graphics/Rect.right:I
+     116: aload_1
+     117: aload_1
+     118: getfield      #116                // Field android/graphics/Rect.bottom:I
+     121: aload_3
+     122: invokevirtual #119                // Method android/view/View.getHeight:()I
+     125: aload         5
+     127: invokevirtual #122                // Method android/view/DisplayCutout.getSafeInsetBottom:()I
+     130: isub
+     131: invokestatic  #113                // Method java/lang/Math.min:(II)I
+     134: putfield      #116                // Field android/graphics/Rect.bottom:I
+     137: getstatic     #71                 // Field android/os/Build$VERSION.SDK_INT:I
+     140: bipush        30
+     142: if_icmplt     235
+     145: aload         4
+     147: invokestatic  #127                // Method android/view/WindowInsets$Type.systemBars:()I
+     150: invokevirtual #131                // Method android/view/WindowInsets.getInsets:(I)Landroid/graphics/Insets;
+     153: dup
+     154: ldc           #133                // String getInsets(...)
+     156: invokestatic  #60                 // Method kotlin/jvm/internal/Intrinsics.checkNotNullExpressionValue:(Ljava/lang/Object;Ljava/lang/String;)V
+     159: astore        6
+     161: aload_1
+     162: aload_1
+     163: getfield      #98                 // Field android/graphics/Rect.top:I
+     166: aload         6
+     168: getfield      #136                // Field android/graphics/Insets.top:I
+     171: invokestatic  #95                 // Method java/lang/Math.max:(II)I
+     174: putfield      #98                 // Field android/graphics/Rect.top:I
+     177: aload_1
+     178: aload_1
+     179: getfield      #116                // Field android/graphics/Rect.bottom:I
+     182: aload_3
+     183: invokevirtual #119                // Method android/view/View.getHeight:()I
+     186: aload         6
+     188: getfield      #137                // Field android/graphics/Insets.bottom:I
+     191: isub
+     192: invokestatic  #113                // Method java/lang/Math.min:(II)I
+     195: putfield      #116                // Field android/graphics/Rect.bottom:I
+     198: aload_1
+     199: aload_1
+     200: getfield      #84                 // Field android/graphics/Rect.left:I
+     203: aload         6
+     205: getfield      #138                // Field android/graphics/Insets.left:I
+     208: invokestatic  #95                 // Method java/lang/Math.max:(II)I
+     211: putfield      #84                 // Field android/graphics/Rect.left:I
+     214: aload_1
+     215: aload_1
+     216: getfield      #104                // Field android/graphics/Rect.right:I
+     219: aload_3
+     220: invokevirtual #107                // Method android/view/View.getWidth:()I
+     223: aload         6
+     225: getfield      #139                // Field android/graphics/Insets.right:I
+     228: isub
+     229: invokestatic  #113                // Method java/lang/Math.min:(II)I
+     232: putfield      #104                // Field android/graphics/Rect.right:I
+     235: aload_1
+     236: areturn
+}

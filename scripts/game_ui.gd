@@ -10,6 +10,10 @@ signal audio_setting_changed(key: String, enabled: bool)
 signal upgrade_selected(id: String)
 signal daily_requested
 signal share_requested
+signal overlay_changed(kind: String)
+signal rewarded_continue_requested
+signal continue_declined
+signal privacy_options_requested
 
 const GOLD := Color("ffd77a")
 const CREAM := Color("fff2d3")
@@ -43,6 +47,8 @@ var _root: Control
 var _hud: Control
 var _overlay: Control
 var _card: VBoxContainer
+var _card_scroll: ScrollContainer
+var _card_center: CenterContainer
 var _toasts: VBoxContainer
 var _health: ProgressBar
 var _xp: ProgressBar
@@ -73,6 +79,12 @@ var _audio_settings: Dictionary = {"sfx": true, "music": true}
 var _audio_previous_kind := "launch"
 var _audio_previous_data: Dictionary = {}
 var _upgrade_selection_locked := false
+var _continue_selection_locked := false
+var _privacy_options_required := false
+var _ad_top_px := 0.0
+var _ad_bottom_px := 0.0
+var _ad_top_logical := 0.0
+var _ad_bottom_logical := 0.0
 var _size := Vector2(540, 960)
 var _top := 26.0
 var _bottom := 26.0
@@ -223,6 +235,9 @@ func _resize() -> void:
 			var factor := _size.y / float(screen.y)
 			_top = maxf(22.0, safe.position.y * factor + 10.0)
 			_bottom = maxf(22.0, (screen.y - safe.end.y) * factor + 10.0)
+	_update_ad_insets()
+	_top += _ad_top_logical + (8.0 if _ad_top_logical > 0.0 else 0.0)
+	_bottom += _ad_bottom_logical + (8.0 if _ad_bottom_logical > 0.0 else 0.0)
 	var hp_width := minf(205.0, _size.x * 0.39)
 	_place(_health, Vector2(24, _top + 5), Vector2(hp_width, 22))
 	_place(_health_text, Vector2(49, _top + 5), Vector2(hp_width - 29, 22))
@@ -264,10 +279,51 @@ func _place(control: Control, at: Vector2, dimensions: Vector2) -> void:
 
 
 func _position_card() -> void:
+	if _card == null or not is_instance_valid(_card) or _card_scroll == null or not is_instance_valid(_card_scroll):
+		return
 	var width := minf(468.0, _size.x - 54.0)
+	var available_height := maxf(64.0, _size.y - _top - _bottom - 32.0)
+	_card.custom_minimum_size.x = width
 	_card.size.x = width
-	var height := _card.get_combined_minimum_size().y
-	_card.position = Vector2((_size.x - width) * 0.5, maxf(_top + 20.0, (_size.y - height) * 0.5))
+	_place(_card_scroll, Vector2((_size.x - width) * 0.5, _top + 16.0), Vector2(width, available_height))
+	_card_center.custom_minimum_size = Vector2(width, available_height)
+
+
+func set_ad_banner_space(top_px: float, bottom_px: float) -> void:
+	# The Android SDK reports physical pixels. Canvas-items stretch uses logical
+	# viewport coordinates, so convert once here rather than in the game caller.
+	_ad_top_px = top_px if is_finite(top_px) and top_px > 0.0 else 0.0
+	_ad_bottom_px = bottom_px if is_finite(bottom_px) and bottom_px > 0.0 else 0.0
+	if _root != null:
+		_resize()
+
+
+func _update_ad_insets() -> void:
+	var native_height := float(DisplayServer.window_get_size().y)
+	if native_height <= 0.0:
+		native_height = float(DisplayServer.screen_get_size().y)
+	var factor := _size.y / native_height if native_height > 0.0 else 1.0
+	# The service owns visibility. Ignore stale native callbacks immediately when
+	# another overlay opens, keeping scores/settings/reward flows free of banners.
+	_ad_top_logical = _ad_top_px * factor if _overlay_kind in ["launch", "pause"] else 0.0
+	_ad_bottom_logical = _ad_bottom_px * factor if _overlay_kind == "upgrade" else 0.0
+
+
+func set_privacy_options_required(required: bool) -> void:
+	_privacy_options_required = required
+	if _root == null:
+		return
+	for node in _root.find_children("AudioSettingsButton", "Button", true, false):
+		node.text = "AUDIO & PRIVACY" if required else "AUDIO"
+	if _overlay_kind == "audio":
+		var privacy := _card.get_node_or_null("PrivacyOptionsButton") as Button
+		if privacy != null:
+			privacy.visible = required
+		var title := _card.get_node_or_null("AudioTitle") as Label
+		if title != null:
+			title.text = "SETTINGS" if required else "SOUND"
+		_position_card()
+		call_deferred("_position_card")
 
 
 func update_hud(data: Dictionary) -> void:
@@ -356,6 +412,51 @@ func show_pause() -> void:
 	resume.pressed.connect(func(): resume_requested.emit())
 	_spacer(16)
 	_footer(false, false)
+	_finish_overlay()
+
+
+func show_continue_offer(data: Dictionary = {}) -> void:
+	_overlay_data = data.duplicate(true)
+	_continue_selection_locked = false
+	_new_overlay("continue")
+	_add_text("ONE MORE CHANCE", 17, GOLD)
+	_add_text("NOT DONE YET?", 40, CREAM)
+	_add_text("Watch an ad to return with full health and guard.", 20, CREAM)
+	_add_text("One continue per run.", 15, MUTED)
+	_spacer(18)
+	var issued_card := _card
+	var watch := _action("Watch ad • Full restore", "RewardedContinueButton", GOLD)
+	watch.pressed.connect(func():
+		if not _claim_continue_choice(issued_card):
+			return
+		rewarded_continue_requested.emit()
+	)
+	var decline := _action("End run", "DeclineContinueButton", Color("3b555b"))
+	decline.custom_minimum_size.y = 52
+	decline.pressed.connect(func():
+		if not _claim_continue_choice(issued_card):
+			return
+		continue_declined.emit()
+	)
+	_finish_overlay()
+
+
+func _claim_continue_choice(issued_card: VBoxContainer) -> bool:
+	if _continue_selection_locked or _overlay_kind != "continue" or issued_card != _card:
+		return false
+	_continue_selection_locked = true
+	for child in _card.get_children():
+		if child is Button:
+			child.disabled = true
+	return true
+
+
+func show_ad_waiting(message: String = "Opening your reward…") -> void:
+	_overlay_data = {"message": message}
+	_new_overlay("ad_waiting")
+	_add_text("ONE MOMENT", 17, GOLD)
+	_add_text("YOUR RUN IS PAUSED", 32, CREAM)
+	_add_text(message, 19, MUTED)
 	_finish_overlay()
 
 
@@ -458,7 +559,8 @@ func show_audio_settings() -> void:
 	_audio_previous_data = _overlay_data.duplicate(true)
 	_new_overlay("audio")
 	_add_text("SET THE MOOD", 16, GOLD)
-	_add_text("SOUND", 52, CREAM)
+	var title := _add_text("SETTINGS" if _privacy_options_required else "SOUND", 48, CREAM)
+	title.name = "AudioTitle"
 	_add_text("Your music. Your mayhem.", 17, MUTED)
 	_spacer(20)
 	for spec in [["music", "BACKGROUND MUSIC", "MusicToggle", "music"], ["sfx", "SOUND EFFECTS", "SfxToggle", "sound"]]:
@@ -472,6 +574,11 @@ func show_audio_settings() -> void:
 			audio_setting_changed.emit(key, bool(_audio_settings[key]))
 			_update_audio_buttons()
 		)
+	var privacy := _action("PRIVACY CHOICES", "PrivacyOptionsButton", Color("30484a"))
+	privacy.custom_minimum_size.y = 44
+	privacy.add_theme_font_size_override("font_size", 14)
+	privacy.visible = _privacy_options_required
+	privacy.pressed.connect(func(): privacy_options_requested.emit())
 	_spacer(15)
 	var back := _action("BACK", "AudioBackButton", Color("548d94"))
 	back.pressed.connect(_return_from_audio)
@@ -526,6 +633,7 @@ func hide_overlay() -> void:
 	_overlay_kind = ""
 	_hud.show()
 	_resize()
+	overlay_changed.emit("")
 	if OS.is_debug_build():
 		print("INFINITESLASH_UI running")
 
@@ -650,11 +758,22 @@ func _new_overlay(kind: String) -> void:
 	veil.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	veil.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_overlay.add_child(veil)
+	_card_scroll = ScrollContainer.new()
+	_card_scroll.name = "OverlayScroll"
+	_card_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	_card_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	_overlay.add_child(_card_scroll)
+	_card_center = CenterContainer.new()
+	_card_center.name = "OverlayCenter"
+	_card_center.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_card_center.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	_card_center.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	_card_scroll.add_child(_card_center)
 	_card = VBoxContainer.new()
 	_card.name = "OverlayCard"
 	_card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_card.add_theme_constant_override("separation", 9)
-	_overlay.add_child(_card)
+	_card_center.add_child(_card)
 
 
 func _dispose_toast(child: Node) -> void:
@@ -669,6 +788,7 @@ func _dispose_toast(child: Node) -> void:
 func _finish_overlay() -> void:
 	_position_card()
 	call_deferred("_position_card")
+	overlay_changed.emit(_overlay_kind)
 	if OS.is_debug_build():
 		print("INFINITESLASH_UI ", _overlay_kind)
 
@@ -774,7 +894,7 @@ func _footer(include_daily: bool, include_share: bool) -> void:
 
 
 func _add_audio_button() -> void:
-	var button := _action("AUDIO", "AudioSettingsButton", Color("30484a"))
+	var button := _action("AUDIO & PRIVACY" if _privacy_options_required else "AUDIO", "AudioSettingsButton", Color("30484a"))
 	button.custom_minimum_size.y = 44
 	button.add_theme_font_size_override("font_size", 14)
 	button.icon = _icons.get("sound")
@@ -804,6 +924,10 @@ func _restore_overlay(kind: String, data: Dictionary) -> void:
 			show_scores(data.get("profile", {}), str(data.get("cloud_status", "")))
 		"achievements":
 			show_achievements(data.get("profile", {}))
+		"continue":
+			show_continue_offer(data)
+		"ad_waiting":
+			show_ad_waiting(str(data.get("message", "Opening your reward…")))
 		_:
 			show_pause()
 

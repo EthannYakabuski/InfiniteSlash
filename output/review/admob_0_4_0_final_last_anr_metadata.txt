@@ -1,0 +1,5 @@
+ACTIVITY MANAGER LAST ANR (dumpsys activity lastanr)
+  ANR time: Oct 17, 2026 2:38:35 PM
+  Reason: dd09d82 com.slash.game/com.google.android.libraries.ads.mobile.sdk.common.AdActivity (server) is not responding. Waited 5023ms for KeyEvent
+
+  mLastHomeActivityStartResult=0
