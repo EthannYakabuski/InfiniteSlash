@@ -1,0 +1,87 @@
+name: Test and deploy Web demo
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-and-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Godot 4.5.1 and matching Web templates
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 -o /tmp/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.5.1-stable/Godot_v4.5.1-stable_linux.x86_64.zip
+          echo '02ec53d1cc7dbb9cc6355393c61b9ab43d1244751a124f10248a4802830788cd  /tmp/godot.zip' | sha256sum --check
+          unzip -q /tmp/godot.zip -d /tmp/godot
+          sudo install -m 755 /tmp/godot/Godot_v4.5.1-stable_linux.x86_64 /usr/local/bin/godot
+          curl --fail --location --retry 3 -o /tmp/templates.tpz https://github.com/godotengine/godot-builds/releases/download/4.5.1-stable/Godot_v4.5.1-stable_export_templates.tpz
+          echo '1998af37f1387684e2c211cdb483daf492fc64dc6b12096bddcdca25b6910c86  /tmp/templates.tpz' | sha256sum --check
+          mkdir -p "$HOME/.local/share/godot/export_templates/4.5.1.stable"
+          unzip -q /tmp/templates.tpz 'templates/web*' -d /tmp/templates
+          cp -a /tmp/templates/templates/. "$HOME/.local/share/godot/export_templates/4.5.1.stable/"
+          godot --version
+      - name: Import and validate scripts
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 300s godot --headless --editor --path . --import --quit 2>&1 | tee /tmp/import.log
+          ! grep -Eq 'SCRIPT ERROR|Parse Error|ERROR:' /tmp/import.log
+      - name: Test gameplay, services, UI and audio
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t scripts < <(find tests -maxdepth 1 -type f \( -name 'test_*.gd' -o -name 'ui_layout_test.gd' \) | sort)
+          test "${#scripts[@]}" -gt 0
+          scripts+=(tools/test_audio.gd)
+          for script in "${scripts[@]}"; do
+            log="/tmp/$(basename "$script").log"
+            args=()
+            if [ "$script" = tests/test_game.gd ]; then args=(-- --test); fi
+            timeout 180s godot --headless --path . --script "$script" "${args[@]}" 2>&1 | tee "$log"
+            ! grep -Eq 'SCRIPT ERROR|Parse Error|ERROR:|Assertion failed' "$log"
+          done
+      - name: Export single-threaded Web game
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p builds/web
+          timeout 300s godot --headless --path . --export-release Web builds/web/index.html 2>&1 | tee /tmp/export.log
+          ! grep -Eq 'SCRIPT ERROR|Parse Error|ERROR:' /tmp/export.log
+          python3 tools/package_web.py builds/web
+      - uses: actions/upload-artifact@v4
+        with:
+          name: infiniteslash-web
+          path: builds/web
+          retention-days: 7
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: builds/web
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: validate-and-build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy playable demo
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -58,6 +58,8 @@ func _run() -> void:
 			stats = Catalog.apply_upgrade("sharper_steel", stats)
 		check(float(Progression.enemy_scaling(100).health) > float(stats.damage) / starting_damage, style + " even ninety-nine focused damage upgrades grow slower than enemy health")
 	check(Progression.xp_goal(-99) == Progression.xp_goal(1) and Progression.xp_goal(999999999) == Progression.xp_goal(1000), "malformed extreme levels use bounded progression values")
+	# Let the queued startup playback reach the mixer before teardown.
+	await create_timer(0.1).timeout
 	var audio := root.get_node_or_null("AudioManager")
 	if audio != null and audio.has_method("stop_for_shutdown"):
 		audio.stop_for_shutdown()
